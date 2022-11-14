@@ -1,0 +1,50 @@
+{
+  "name": "@wagmi/references",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "build": "pnpm --filter './packages/**' build",
+    "changeset:release": "pnpm build && changeset publish",
+    "changeset:version": "changeset version && pnpm install --lockfile-only",
+    "lint": "eslint . --cache",
+    "lint:fix": "pnpm lint --fix",
+    "lint:format": "prettier --write",
+    "prepare": "npx simple-git-hooks",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^0.4.7",
+    "@changesets/cli": "^2.25.2",
+    "@types/eslint": "^8.4.9",
+    "@types/node": "^18.11.9",
+    "@typescript-eslint/eslint-plugin": "^5.42.0",
+    "@typescript-eslint/parser": "^5.42.0",
+    "eslint": "8.17.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^2.7.1",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "simple-git-hooks": "^2.8.1",
+    "tsup": "^6.3.0",
+    "typescript": "^4.8.4",
+    "vitest": "^0.24.5"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "pnpm lint:fix"
+    ],
+    "*.{json,md,yml}": [
+      "pnpm lint:format"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wagmi-dev/references.git"
+  }
+}
