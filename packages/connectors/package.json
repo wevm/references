@@ -4,6 +4,8 @@
   "license": "MIT",
   "version": "0.0.0",
   "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsup"
   },
@@ -18,7 +20,7 @@
     "eventemitter3": "^4.0.7"
   },
   "devDependencies": {
-    "@wagmi/core": "0.7.3",
+    "@wagmi/core": "0.0.0-20221114062231",
     "ethers": "^5.7.2"
   },
   "exports": {
