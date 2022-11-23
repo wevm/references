@@ -1,0 +1,50 @@
+{
+  "name": "@wagmi/chains",
+  "description": "A collection of chains for wagmi",
+  "license": "MIT",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "/dist"
+  ],
+  "sideEffects": false,
+  "contributors": [
+    "jxom.eth <j@wagmi.sh>",
+    "awkweb.eth <t@wagmi.sh>"
+  ],
+  "homepage": "https://wagmi.sh",
+  "ethereum": "wagmi-dev.eth",
+  "funding": [
+    {
+      "type": "gitcoin",
+      "url": "https://gitcoin.co/grants/4493/wagmi-react-hooks-library-for-ethereum"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/wagmi-dev"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wagmi-dev/references.git",
+    "directory": "packages/connectors"
+  },
+  "keywords": [
+    "eth",
+    "ethereum",
+    "dapps",
+    "chains",
+    "web3"
+  ]
+}

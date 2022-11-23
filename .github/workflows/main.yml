@@ -39,7 +39,7 @@ jobs:
         with:
           path: |
             node_modules
-            templates/**/node_modules
+            packages/**/node_modules
           key: modules-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Install Dependencies
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
@@ -68,7 +68,7 @@ jobs:
         with:
           path: |
             node_modules
-            templates/**/node_modules
+            packages/**/node_modules
           key: modules-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Lint code
         run: pnpm lint
@@ -98,7 +98,7 @@ jobs:
         with:
           path: |
             node_modules
-            templates/**/node_modules
+            packages/**/node_modules
           key: modules-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Build
         run: pnpm build
