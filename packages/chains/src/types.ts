@@ -2,7 +2,7 @@ type Address = `0x${string}`
 
 type BlockExplorer = {
   name: string
-  url: `http://${string}` | `https://${string}`
+  url: string
 }
 
 export type Chain = {
@@ -46,6 +46,6 @@ type NativeCurrency = {
 }
 
 type RpcUrls = {
-  http: (`http://${string}` | `https://${string}`)[]
-  webSocket?: (`ws://${string}` | `wss://${string}`)[]
+  http: string[]
+  webSocket?: string[]
 }
