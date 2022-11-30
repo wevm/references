@@ -23,3 +23,19 @@ const { chains, provider } = configureChains(
 ```
 
 > If your bundler supports tree-shaking (most likely), only the used chains will be included in the bundle, so you don't have to worry about bundle size. 😊
+
+## Chains
+
+- `mainnet`
+- `goerli`
+- `arbitrum`
+- `arbitrumGoerli`
+- `avalanche`
+- `avalancheFuji`
+- `bsc`
+- `bscTestnet`
+- `optimism`
+- `optimismGoerli`
+- `polygon`
+- `polygonMumbai`
+- `sepolia`
