@@ -19,6 +19,10 @@ export const mainnet: Chain = {
     },
   },
   blockExplorers: {
+    etherscan: {
+      name: 'Etherscan',
+      url: 'https://etherscan.io',
+    },
     default: {
       name: 'Etherscan',
       url: 'https://etherscan.io',
