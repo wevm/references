@@ -3,7 +3,7 @@ import { Chain } from './types'
 export const bscTestnet: Chain = {
   id: 97,
   name: 'Binance Smart Chain Testnet',
-  network: 'bsc',
+  network: 'bsc-testnet',
   nativeCurrency: {
     decimals: 18,
     name: 'BNB',
