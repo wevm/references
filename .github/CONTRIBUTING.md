@@ -6,15 +6,29 @@ If you want to contribute, but aren't sure where to start, you can create a [new
 
 <br>
 
----
-
-<br>
-
 ## Chains
 
-The [`Chain` type](../packages/chains/src/types.ts) has a number of important attributes, and you may get stuck on what to add to these. Most of these attributes exist within the [`ethereum-lists/chains` repository](https://github.com/ethereum-lists/chains/tree/3fbd4eeac7ce116579634bd042b84e2b1d89886a/_data/chains).
+If you wish to contribute to add an additional chain to `@wagmi/chains`, there are a few requirements to note.
 
-Below is a reference on what these attributes mean, and how to find them:
+### Requirements
+
+- **Must haves**:
+  - a Chain ID (`id`),
+  - a human readable name (`name`),
+  - an internal network label (`network`),
+  - a native currency reference (`nativeCurrency`),
+  - a public, credible RPC URL.
+- **Nice to haves**
+  - a block explorer (`blockExplorers`)
+  - a multicall contract (`contracts.multicall`)
+- **Optional**
+  - other named RPC URLs (such as `rpcUrls.alchemy`, `rpcUrls.infura`, etc)
+  - ENS registry contract (`contracts.ensRegistry`)
+  - testnet flag (`testnet`)
+
+### Attribute reference
+
+The [`Chain` type](../packages/chains/src/types.ts) has a number of important attributes, and you may get stuck on what to add to these. Most of these attributes exist within the [`ethereum-lists/chains` repository](https://github.com/ethereum-lists/chains/tree/3fbd4eeac7ce116579634bd042b84e2b1d89886a/_data/chains).
 
 - `id`: The Chain ID for the network. This can be found by typing the network name into [ChainList](https://chainlist.org/). Example: "Ethereum Mainnet" has a Chain ID of `1`.
 - `name`: A human readable name for the network. Example: "Binance Smart Chain Mainnet"

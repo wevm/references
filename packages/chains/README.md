@@ -1,8 +1,10 @@
 # `@wagmi/chains`
 
+References to popular EVM-compatible chains.
+
 ## Installation
 
-Install the `@wagmi/chains` reference package.
+Install the `@wagmi/chains` package.
 
 ```
 npm i @wagmi/chains
@@ -34,8 +36,17 @@ const { chains, provider } = configureChains(
 - `avalancheFuji`
 - `bsc`
 - `bscTestnet`
+- `fantom`
+- `fantomTestnet`
+- `foundry`
+- `hardhat`
+- `localhost`
 - `optimism`
 - `optimismGoerli`
 - `polygon`
 - `polygonMumbai`
 - `sepolia`
+
+## Contributing
+
+Want to add another chain to the list? Make sure you read the [contributing guide](../../.github/CONTRIBUTING.md) first.
