@@ -13,7 +13,7 @@ export type Chain = {
   /** Internal network name */
   network: string
   /** Currency used by chain */
-  nativeCurrency?: NativeCurrency
+  nativeCurrency: NativeCurrency
   /** Collection of RPC endpoints */
   rpcUrls: {
     [key: string]: RpcUrls
