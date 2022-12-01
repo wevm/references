@@ -2,7 +2,7 @@
 
 This repository contains extensive references (ie. chains, connectors, providers, etc) for the wagmi repositories.
 
-The purpose of having these references inside a monorepo instead of `wagmi` itself is so that contributors can open discussions (and PRs) for additional chains, connectors & providers without it polluting the `wagmi` repository itself.
+The purpose of the references monorepo is so that contributors can open discussions (and PRs) for additional chains, connectors & providers without it polluting the `wagmi` repository itself.
 
 It consists of:
 
