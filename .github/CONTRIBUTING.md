@@ -8,7 +8,7 @@ If you want to contribute, but aren't sure where to start, you can create a [new
 
 ## Chains
 
-If you wish to contribute to add an additional chain to `@wagmi/chains`, there are a few requirements to note.
+If you wish to contribute to add an additional chain to `@wagmi/chains`, there are a few requirements to note before submitting a pull request.
 
 ### Requirements
 
@@ -25,6 +25,8 @@ If you wish to contribute to add an additional chain to `@wagmi/chains`, there a
   - other named RPC URLs (such as `rpcUrls.alchemy`, `rpcUrls.infura`, etc)
   - ENS registry contract (`contracts.ensRegistry`)
   - testnet flag (`testnet`)
+
+If your chain satisfies the necessary criteria, you may submit a pull request for consideration.
 
 ### Attribute reference
 
