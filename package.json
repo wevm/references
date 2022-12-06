@@ -10,6 +10,7 @@
     "lint:fix": "pnpm lint --fix",
     "lint:format": "prettier --write",
     "prepare": "npx simple-git-hooks",
+    "test": "vitest",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
