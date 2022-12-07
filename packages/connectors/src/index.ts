@@ -12,5 +12,8 @@ export type { InjectedConnectorOptions } from './injected'
 export { MetaMaskConnector } from './metaMask'
 export type { MetaMaskConnectorOptions } from './metaMask'
 
+export { MockConnector, MockProvider } from './mock'
+export type { MockProviderOptions } from './mock'
+
 export { WalletConnectConnector } from './walletConnect'
 export type { WalletConnectOptions } from './walletConnect'
