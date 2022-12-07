@@ -3,15 +3,17 @@
   "description": "A collection of connectors for wagmi",
   "license": "MIT",
   "version": "0.0.0",
-  "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsup"
   },
   "peerDependencies": {
     "@wagmi/core": "0.8.x",
     "ethers": "^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@wagmi/core": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@coinbase/wallet-sdk": "^3.5.4",
@@ -23,6 +25,9 @@
     "@wagmi/core": "0.0.0-20221206012724",
     "ethers": "^5.7.2"
   },
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
