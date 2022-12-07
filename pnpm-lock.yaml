@@ -48,7 +48,7 @@ importers:
   packages/connectors:
     specifiers:
       '@coinbase/wallet-sdk': ^3.5.4
-      '@wagmi/core': 0.0.0-20221206012724
+      '@wagmi/core': ^0.8.0
       '@walletconnect/ethereum-provider': ^1.8.0
       abitype: ^0.1.8
       ethers: ^5.7.2
@@ -59,7 +59,7 @@ importers:
       abitype: 0.1.8
       eventemitter3: 4.0.7
     devDependencies:
-      '@wagmi/core': 0.0.0-20221206012724_egrf7ew7xcibj7pkaydxy7nghq
+      '@wagmi/core': 0.8.0_egrf7ew7xcibj7pkaydxy7nghq
       ethers: 5.7.2
 
 packages:
@@ -1074,8 +1074,8 @@ packages:
     resolution: {integrity: sha512-seQVLZRHG2id8xqG+VnieFQ2gdavwa5Do+90lxbm/5EqiBo0S9LPFns6BKsSjW8o8T6UnmqzqhZwd4Q6cz8fFg==}
     dev: true
 
-  /@wagmi/core/0.0.0-20221206012724_egrf7ew7xcibj7pkaydxy7nghq:
-    resolution: {integrity: sha512-HWnV21HIl7kiZb4PFBNmqSl3WAyOaZgc3CHzlnvwVCh82rdbhvI/8dSYwaWn2VMahkz6UmBRyTtq72JRsuvMGg==}
+  /@wagmi/core/0.8.0_egrf7ew7xcibj7pkaydxy7nghq:
+    resolution: {integrity: sha512-249Iph7Z289ym2WQGtUHXSzUK4w/n33IYSAAIDpL4/csB7sOoAYAEAOH5bxH/x2KT7gPd1pNSgOWDzfoG3hI4w==}
     peerDependencies:
       '@coinbase/wallet-sdk': '>=3.6.0'
       '@walletconnect/ethereum-provider': '>=1.7.5'
