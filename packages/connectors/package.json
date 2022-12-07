@@ -4,7 +4,8 @@
   "license": "MIT",
   "version": "0.0.0",
   "scripts": {
-    "build": "tsup"
+    "build": "tsup",
+    "dev": "DEV=true tsup"
   },
   "peerDependencies": {
     "@wagmi/core": "0.8.x",
