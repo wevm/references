@@ -21,7 +21,7 @@ import { Connector } from './base'
  */
 const switchChainAllowedRegex = /(imtoken|metamask|rainbow|trust wallet)/i
 
-type WalletConnectOptions = ConstructorParameters<
+export type WalletConnectOptions = ConstructorParameters<
   typeof WalletConnectProvider
 >[0]
 

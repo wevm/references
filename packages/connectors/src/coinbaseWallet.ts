@@ -18,7 +18,7 @@ import { getAddress, hexValue } from 'ethers/lib/utils.js'
 
 import { Connector } from './base'
 
-type Options = CoinbaseWalletSDKOptions & {
+export type CoinbaseWalletOptions = CoinbaseWalletSDKOptions & {
   /**
    * Fallback Ethereum JSON RPC URL
    * @default ""
@@ -33,7 +33,7 @@ type Options = CoinbaseWalletSDKOptions & {
 
 export class CoinbaseWalletConnector extends Connector<
   CoinbaseWalletProvider,
-  Options,
+  CoinbaseWalletOptions,
   providers.JsonRpcSigner
 > {
   readonly id = 'coinbaseWallet'
@@ -43,7 +43,13 @@ export class CoinbaseWalletConnector extends Connector<
   #client?: CoinbaseWalletSDK
   #provider?: CoinbaseWalletProvider
 
-  constructor({ chains, options }: { chains?: Chain[]; options: Options }) {
+  constructor({
+    chains,
+    options,
+  }: {
+    chains?: Chain[]
+    options: CoinbaseWalletOptions
+  }) {
     super({
       chains,
       options: {

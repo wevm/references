@@ -27,26 +27,6 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
-    },
-    "./coinbaseWallet": {
-      "types": "./dist/coinbaseWallet.d.ts",
-      "default": "./dist/coinbaseWallet.js"
-    },
-    "./injected": {
-      "types": "./dist/injected.d.ts",
-      "default": "./dist/injected.js"
-    },
-    "./metaMask": {
-      "types": "./dist/metaMask.d.ts",
-      "default": "./dist/metaMask.js"
-    },
-    "./mock": {
-      "types": "./dist/mock/index.d.ts",
-      "default": "./dist/mock/index.js"
-    },
-    "./walletConnect": {
-      "types": "./dist/walletConnect.d.ts",
-      "default": "./dist/walletConnect.js"
     }
   },
   "files": [
