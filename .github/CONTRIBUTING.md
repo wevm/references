@@ -45,6 +45,48 @@ The [`Chain` type](../packages/chains/src/types.ts) has a number of important at
 
 <br>
 
+## Connectors
+
+> **Warning**
+>
+> **Please ask first before starting work on any significant new connectors.**
+>
+> To avoid having your pull request declined after investing time and effort in a new connector, we ask that contributors create a [connector request](https://github.com/wagmi-dev/references/discussions/new?category=ideas) before starting work on any significant new connectors. This helps ensure that there is general consensus that the connector is worth adding to `@wagmi/connectors`.
+
+There are a few requirements to note before submitting a pull request:
+
+### The connector must present a **novel use-case**
+
+A novel use-case must present as one that cannot be extended from another connector (such as the `InjectedConnector` or `WalletConnectConnector`).
+
+Examples of **novel** use-cases could be a connector that integrates with:
+
+- the injected `window.ethereum` (a la. `InjectedConnector`)
+- a series of wallets via QR Codes or Mobile Deep Links (a la. `WalletConnectConnector`)
+- a wallet with it's own SDK (a la. `CoinbaseWalletConnector`)
+- hardware wallet(s) via Web USB/Bluetooth
+- an Externally Owned Account (e.g. Ethers.js `Wallet`)
+
+Examples of **nonnovel** use-cases would be a connector that:
+
+- extends another connector (e.g. `WalletConnectConnector`) with no significant differences
+
+### Integrations need to be generally available
+
+Your connector integration (e.g. wallet) must be stable & generally available – meaning that they should not be in beta, or restricted to a limited group of users. This ensures that the connector can be used by consumers without limitations or restrictions.
+
+### The connector must be maintained
+
+As this connector will be added to an official wagmi repository, it is essential that it is maintained. The wagmi core team will provide as much assistance as possible to keep the connector up to date with breaking changes from wagmi, but it is your responsibility to ensure that it is kept up to date with downstream dependencies and to respond to issues/discussions related to the connector.
+
+### The connector should have minimal third-party dependencies
+
+The connector should rely on as few external libraries or dependencies as possible. This is important for several reasons. First, it helps to ensure the security of the connector by reducing the potential attack surface (ie. supply chain attacks). Second, it helps to keep the size of the connector's bundle small, which can improve initial page-load performance. Finally, having minimal dependencies can improve the reliability of the connector by reducing the likelihood of conflicts or other issues arising from the use of other external libraries.
+
+### The connector must use MIT dependencies if possible
+
+The connector should use dependencies with an MIT license whenever possible. The MIT license is a permissive open-source license that allows for the use, modification, and distribution of software without many of the restrictions that are common in other open-source licenses. Using dependencies with an MIT license can help to ensure that the connector can be freely used, modified, and distributed by others without any legal complications.
+
 ---
 
 <br>
