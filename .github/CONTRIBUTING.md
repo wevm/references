@@ -8,25 +8,25 @@ If you want to contribute, but aren't sure where to start, you can create a [new
 
 ## Chains
 
-If you wish to contribute to add an additional chain to `@wagmi/chains`, there are a few requirements to note before submitting a pull request.
+If you wish to contribute to add an additional Chain to `@wagmi/chains`, there are a few requirements to note before submitting a pull request.
 
 ### Requirements
 
 - **Must haves**:
-  - a Chain ID (`id`),
-  - a human readable name (`name`),
+  - a unique Chain ID (`id`),
+  - a human-readable name (`name`),
   - an internal network label (`network`),
   - a native currency reference (`nativeCurrency`),
-  - a public, credible RPC URL.
+  - a public, credible RPC URL
 - **Nice to haves**
   - a block explorer (`blockExplorers`)
   - a multicall contract (`contracts.multicall`)
 - **Optional**
-  - other named RPC URLs (such as `rpcUrls.alchemy`, `rpcUrls.infura`, etc)
+  - other named RPC URLs (such as `rpcUrls.alchemy`, `rpcUrls.infura`, etc.)
   - ENS registry contract (`contracts.ensRegistry`)
   - testnet flag (`testnet`)
 
-If your chain satisfies the necessary criteria, you may submit a pull request for consideration.
+If your Chain satisfies the necessary criteria, you may submit a pull request for consideration.
 
 ### Attribute reference
 
@@ -38,54 +38,52 @@ The [`Chain` type](../packages/chains/src/types.ts) has a number of important at
 - `nativeCurrency`: The native currently of the network. Found from [`ethereum-lists/chains`](https://github.com/ethereum-lists/chains/blob/3fbd4eeac7ce116579634bd042b84e2b1d89886a/_data/chains/eip155-56.json#L20-L24).
 - `rpcUrls`: A set of RPC URLs for the chain. Found from [`ethereum-lists/chains`](https://github.com/ethereum-lists/chains/blob/3fbd4eeac7ce116579634bd042b84e2b1d89886a/_data/chains/eip155-56.json#L4-L18).
 - `blockExplorers`: A set of block explorers for the chain. Found from [`ethereum-lists/chains`](https://github.com/ethereum-lists/chains/blob/3fbd4eeac7ce116579634bd042b84e2b1d89886a/_data/chains/eip155-56.json#L30-L36).
-- `contracts`: A set of deployed contracts for the chain.
-  - `multicall3` is optional, but it's address is most likely `0xca11bde05977b3631167028862be2a173976ca11` – you can find the deployed block number on the block explorer.
-  - `ensRegistry` is optional – not all chains have an ENS Registry.
-- `testnet`: Whether or not the chain is a testnet.
+- `contracts`: A set of deployed contracts for the Chain.
+  - `multicall3` is optional, but it's address is most likely `0xca11bde05977b3631167028862be2a173976ca11` – you can find the deployed block number on the block explorer. Found from [`mds1/multicall`](](https://github.com/mds1/multicall#multicall3-contract-addresses).
+  - `ensRegistry` is optional – not all Chains have an ENS Registry. See [ENS Deployments](https://docs.ens.domains/ens-deployments) for more info.
+- `testnet`: Whether or not the Chain is a testnet.
 
 <br>
 
 ## Connectors
 
-> **Warning**
+> **Warning** **Please ask first before starting work on a new Connector.**
 >
-> **Please ask first before starting work on any significant new connectors.**
->
-> To avoid having your pull request declined after investing time and effort in a new connector, we ask that contributors create a [connector request](https://github.com/wagmi-dev/references/discussions/new?category=ideas) before starting work on any significant new connectors. This helps ensure that there is general consensus that the connector is worth adding to `@wagmi/connectors`.
+> To avoid having your pull request declined after investing time and effort into a new Connector, we ask that contributors create a [Connector Request](https://github.com/wagmi-dev/references/discussions/new?category=ideas) before starting work on new Connectors. This helps ensure the Connector solves for an important or general use-case of interest to wagmi users.
 
 There are a few requirements to note before submitting a pull request:
 
-### The connector must present a **novel use-case**
+### 1. The Connector must present a **novel use-case**
 
-A novel use-case must present as one that cannot be extended from another connector (such as the `InjectedConnector` or `WalletConnectConnector`).
+A novel use-case is likely one that is not already covered by or not easily extended from another Connector (such as the `InjectedConnector` or `WalletConnectConnector`).
 
-Examples of **novel** use-cases could be a connector that integrates with:
+Examples of **novel** use-cases could be a Connector that integrates with:
 
-- the injected `window.ethereum` (a la. `InjectedConnector`)
-- a series of wallets via QR Codes or Mobile Deep Links (a la. `WalletConnectConnector`)
-- a wallet with it's own SDK (a la. `CoinbaseWalletConnector`)
+- the injected `window.ethereum` provider (a la `InjectedConnector`)
+- a series of wallets via QR Codes or Mobile Deep Links (a la `WalletConnectConnector`)
+- a wallet with it's own SDK (a la `CoinbaseWalletConnector`)
 - hardware wallet(s) via Web USB/Bluetooth
 - an Externally Owned Account (e.g. Ethers.js `Wallet`)
 
-Examples of **nonnovel** use-cases would be a connector that:
+Examples of **nonnovel** use-cases would be a Connector that:
 
-- extends another connector (e.g. `WalletConnectConnector`) with no significant differences
+- extends another Connector (e.g. `WalletConnectConnector`) with no significant differences
 
-### Integrations need to be generally available
+### 2. The Connector's integrations must be production-ready and generally available
 
-Your connector integration (e.g. wallet) must be stable & generally available – meaning that they should not be in beta, or restricted to a limited group of users. This ensures that the connector can be used by consumers without limitations or restrictions.
+Connectors are intended to be used by consumers in production as part of wagmi. As such, the Connector and all dependencies must be production-ready and generally available. This means your Connector should not rely on non-production software or be restricted to a limited group of users. For example, if your Connector requires a wallet that has a closed beta, it is not ready for inclusion in wagmi.
 
-### The connector must be maintained
+### 3. The Connector must be maintained
 
-As this connector will be added to an official wagmi repository, it is essential that it is maintained. The wagmi core team will provide as much assistance as possible to keep the connector up to date with breaking changes from wagmi, but it is your responsibility to ensure that it is kept up to date with downstream dependencies and to respond to issues/discussions related to the connector.
+It is critical Connectors are updated in a timely manner and actively maintained so that users of wagmi can rely on them in production settings. The wagmi core team will provide as much assistance as possible to keep Connector up-to-date with breaking changes from wagmi, but it is your responsibility to ensure that downstream dependencies and issues/discussions related to the Connector are handled in a timely manner.
 
-### The connector should have minimal third-party dependencies
+### 4. The Connector should have minimal third-party dependencies
 
-The connector should rely on as few external libraries or dependencies as possible. This is important for several reasons. First, it helps to ensure the security of the connector by reducing the potential attack surface (ie. supply chain attacks). Second, it helps to keep the size of the connector's bundle small, which can improve initial page-load performance. Finally, having minimal dependencies can improve the reliability of the connector by reducing the likelihood of conflicts or other issues arising from the use of other external libraries.
+The Connector should rely on as few external libraries or dependencies as possible. This is important for several reasons. First, it helps to ensure the security of the Connector by reducing the potential attack surface (e.g. supply chain attacks). Second, it helps keep the Connector's bundle size down, which can improve initial page-load performance. Finally, having minimal dependencies can improve the reliability of the Connector by reducing the likelihood of conflicts or other issues arising from the use of other external libraries.
 
-### The connector must use MIT dependencies if possible
+### 5. The Connector should use permissive-license dependencies
 
-The connector should use dependencies with an MIT license whenever possible. The MIT license is a permissive open-source license that allows for the use, modification, and distribution of software without many of the restrictions that are common in other open-source licenses. Using dependencies with an MIT license can help to ensure that the connector can be freely used, modified, and distributed by others without any legal complications.
+The Connector should use dependencies with the MIT license (or similar) whenever possible. The MIT license is a permissive open-source license that allows for the use, modification, and distribution of software without many of the restrictions that are common in other open-source licenses. Using dependencies with an MIT license can help to ensure that the Connector can be freely used, modified, and distributed by others without any legal complications.
 
 ---
 
