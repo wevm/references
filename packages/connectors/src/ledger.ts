@@ -20,12 +20,10 @@ import type { ConnectorData } from './base'
 import { Connector } from './base'
 
 type LedgerConnectorOptions = {
-  chainId?: number
   bridge?: string
-  infuraId?: string
-  rpc?: { [chainId: number]: string }
-
+  chainId?: number
   enableDebugLogs?: boolean
+  rpc?: { [chainId: number]: string }
 }
 
 type LedgerSigner = providers.JsonRpcSigner
@@ -39,8 +37,8 @@ export class LedgerConnector extends Connector<
   readonly name = 'Ledger'
   readonly ready = true
 
-  private connectKitPromise: Promise<LedgerConnectKit>
-  private provider?: EthereumProvider
+  #connectKit?: LedgerConnectKit
+  #provider?: EthereumProvider
 
   constructor({
     chains,
@@ -50,26 +48,38 @@ export class LedgerConnector extends Connector<
     options?: LedgerConnectorOptions
   } = {}) {
     super({ chains, options })
-
-    this.connectKitPromise = loadConnectKit()
   }
 
-  async connect(): Promise<Required<ConnectorData>> {
-    try {
-      const connectKit = await this.connectKitPromise
+  async #getConnectKit(chainId?: number) {
+    if (!this.#connectKit || chainId) {
+      const connectKit = await loadConnectKit()
 
       if (this.options.enableDebugLogs) {
         connectKit.enableDebugLogs()
       }
 
+      const rpc = this.chains.reduce(
+        (rpc, chain) => ({
+          ...rpc,
+          [chain.id]: chain.rpcUrls.default.http[0],
+        }),
+        {},
+      )
+
       connectKit.checkSupport({
         providerType: SupportedProviders.Ethereum,
-        chainId: this.options.chainId,
-        infuraId: this.options.infuraId,
-        rpc: this.options.rpc,
+        chainId: chainId || this.options.chainId,
+        rpc: { ...rpc, ...this.options?.rpc },
       })
 
-      const provider = await this.getProvider({ forceCreate: true })
+      this.#connectKit = connectKit
+    }
+    return this.#connectKit
+  }
+
+  async connect(): Promise<Required<ConnectorData>> {
+    try {
+      const provider = await this.getProvider({ create: true })
 
       if (provider.on) {
         provider.on('accountsChanged', this.onAccountsChanged)
@@ -79,7 +89,10 @@ export class LedgerConnector extends Connector<
 
       this.emit('message', { type: 'connecting' })
 
-      const account = await this.getAccount()
+      const accounts = (await provider.request({
+        method: 'eth_requestAccounts',
+      })) as string[]
+      const account = getAddress(accounts[0] as string)
       const id = await this.getChainId()
       const unsupported = this.isChainUnsupported(id)
 
@@ -119,7 +132,7 @@ export class LedgerConnector extends Connector<
   async getAccount() {
     const provider = await this.getProvider()
     const accounts = (await provider.request({
-      method: 'eth_requestAccounts',
+      method: 'eth_accounts',
     })) as string[]
     const account = getAddress(accounts[0] as string)
 
@@ -136,34 +149,32 @@ export class LedgerConnector extends Connector<
   }
 
   async getProvider(
-    { forceCreate }: { chainId?: number; forceCreate?: boolean } = {
-      forceCreate: false,
+    { chainId, create }: { chainId?: number; create?: boolean } = {
+      create: false,
     },
   ) {
-    if (!this.provider || forceCreate) {
-      const connectKit = await this.connectKitPromise
-      this.provider = (await connectKit.getProvider()) as EthereumProvider
+    if (!this.#provider || chainId || create) {
+      this.#connectKit = await this.#getConnectKit(chainId)
+      this.#provider =
+        (await this.#connectKit.getProvider()) as EthereumProvider
     }
-    return this.provider
+    return this.#provider
   }
 
-  async getSigner() {
+  async getSigner({ chainId }: { chainId?: number } = {}) {
     const [provider, account] = await Promise.all([
-      this.getProvider(),
+      this.getProvider({ chainId }),
       this.getAccount(),
     ])
     return new providers.Web3Provider(
       provider as providers.ExternalProvider,
+      chainId,
     ).getSigner(account)
   }
 
   async isAuthorized() {
     try {
-      const provider = await this.getProvider()
-      const accounts = (await provider.request({
-        method: 'eth_accounts',
-      })) as string[]
-      const account = accounts[0]
+      const account = await this.getAccount()
       return !!account
     } catch {
       return false

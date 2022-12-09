@@ -2,4 +2,4 @@
 '@wagmi/connectors': minor
 ---
 
-Added Ledger connector
+Added `LedgerConnector`
