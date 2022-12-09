@@ -47,12 +47,12 @@ const client = createClient({
 
 ## Connectors
 
-- [`InjectedConnector`](/packages/connectors/src/injected.ts)
 - [`CoinbaseWalletConnector`](/packages/connectors/src/coinbaseWallet.ts)
+- [`InjectedConnector`](/packages/connectors/src/injected.ts)
+- [`LedgerConnector`](/packages/connectors/src/ledger.ts)
 - [`MetaMaskConnector`](/packages/connectors/src/metaMask.ts)
 - [`MockConnector`](/packages/connectors/src/mock.ts)
 - [`WalletConnectConnector`](/packages/connectors/src/walletConnect.ts)
-- [`LedgerConnector`](/packages/connectors/src/ledger.ts)
 
 ## Contributing
 

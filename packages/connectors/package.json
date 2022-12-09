@@ -43,6 +43,10 @@
       "types": "./dist/injected.d.ts",
       "default": "./dist/injected.js"
     },
+    "./ledger": {
+      "types": "./dist/ledger.d.ts",
+      "default": "./dist/ledger.js"
+    },
     "./metaMask": {
       "types": "./dist/metaMask.d.ts",
       "default": "./dist/metaMask.js"
@@ -54,10 +58,6 @@
     "./walletConnect": {
       "types": "./dist/walletConnect.d.ts",
       "default": "./dist/walletConnect.js"
-    },
-    "./ledger": {
-      "types": "./dist/ledger.d.ts",
-      "default": "./dist/ledger.js"
     }
   },
   "files": [
