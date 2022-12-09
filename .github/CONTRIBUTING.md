@@ -73,9 +73,9 @@ Examples of **nonnovel** use-cases would be a Connector that:
 
 Connectors are intended to be used by consumers in production as part of wagmi. As such, the Connector and all dependencies must be production-ready and generally available. This means your Connector should not rely on non-production software or be restricted to a limited group of users. For example, if your Connector requires a wallet that has a closed beta, it is not ready for inclusion in wagmi.
 
-### 3. The Connector must be maintained
+### 3. The Connector must be actively maintained
 
-It is critical Connectors are updated in a timely manner and actively maintained so that users of wagmi can rely on them in production settings. The wagmi core team will provide as much assistance as possible to keep Connector up-to-date with breaking changes from wagmi, but it is your responsibility to ensure that downstream dependencies and issues/discussions related to the Connector are handled in a timely manner.
+It is critical Connectors are updated in a timely manner and actively maintained so that users of wagmi can rely on them in production settings. The wagmi core team will provide as much assistance as possible to keep Connectors up-to-date with breaking changes from wagmi, but it is your responsibility to ensure that downstream dependencies and issues/discussions related to the Connector are handled in a timely manner. If this is not done, the Connector could be removed from the future versions.
 
 ### 4. The Connector should have minimal third-party dependencies
 
