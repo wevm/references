@@ -6,13 +6,13 @@ export default defineConfig(
   getConfig({
     dev: process.env.DEV === 'true',
     entry: [
+      'src/coinbaseWallet.ts',
       'src/index.ts',
       'src/injected.ts',
-      'src/coinbaseWallet.ts',
+      'src/ledger.ts',
       'src/metaMask.ts',
       'src/mock/index.ts',
       'src/walletConnect.ts',
-      'src/ledger.ts',
     ],
     platform: 'browser',
   }),

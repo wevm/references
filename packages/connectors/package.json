@@ -64,10 +64,10 @@
     "/coinbaseWallet",
     "/dist",
     "/injected",
+    "/ledger",
     "/metaMask",
     "/mock",
-    "/walletConnect",
-    "/ledger"
+    "/walletConnect"
   ],
   "sideEffects": false,
   "contributors": [
@@ -89,7 +89,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/wagmi-dev/references.git",
-    "directory": "wagmi/connectors"
+    "directory": "packages/connectors"
   },
   "keywords": [
     "react",
