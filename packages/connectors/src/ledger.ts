@@ -2,10 +2,7 @@ import {
   SupportedProviders,
   loadConnectKit,
 } from '@ledgerhq/connect-kit-loader'
-import type {
-  EthereumProvider,
-  LedgerConnectKit,
-} from '@ledgerhq/connect-kit-loader'
+import type { EthereumProvider } from '@ledgerhq/connect-kit-loader'
 import {
   Chain,
   ProviderRpcError,
@@ -37,7 +34,6 @@ export class LedgerConnector extends Connector<
   readonly name = 'Ledger'
   readonly ready = true
 
-  #connectKit?: LedgerConnectKit
   #provider?: EthereumProvider
 
   constructor({
@@ -48,33 +44,6 @@ export class LedgerConnector extends Connector<
     options?: LedgerConnectorOptions
   } = {}) {
     super({ chains, options })
-  }
-
-  async #getConnectKit(chainId?: number) {
-    if (!this.#connectKit || chainId) {
-      const connectKit = await loadConnectKit()
-
-      if (this.options.enableDebugLogs) {
-        connectKit.enableDebugLogs()
-      }
-
-      const rpc = this.chains.reduce(
-        (rpc, chain) => ({
-          ...rpc,
-          [chain.id]: chain.rpcUrls.default.http[0],
-        }),
-        {},
-      )
-
-      connectKit.checkSupport({
-        providerType: SupportedProviders.Ethereum,
-        chainId: chainId || this.options.chainId,
-        rpc: { ...rpc, ...this.options?.rpc },
-      })
-
-      this.#connectKit = connectKit
-    }
-    return this.#connectKit
   }
 
   async connect(): Promise<Required<ConnectorData>> {
@@ -154,9 +123,28 @@ export class LedgerConnector extends Connector<
     },
   ) {
     if (!this.#provider || chainId || create) {
-      this.#connectKit = await this.#getConnectKit(chainId)
-      this.#provider =
-        (await this.#connectKit.getProvider()) as EthereumProvider
+      const connectKit = await loadConnectKit()
+
+      if (this.options.enableDebugLogs) {
+        connectKit.enableDebugLogs()
+      }
+
+      const rpc = this.chains.reduce(
+        (rpc, chain) => ({
+          ...rpc,
+          [chain.id]: chain.rpcUrls.default.http[0],
+        }),
+        {},
+      )
+
+      connectKit.checkSupport({
+        bridge: this.options.bridge,
+        providerType: SupportedProviders.Ethereum,
+        chainId: chainId || this.options.chainId,
+        rpc: { ...rpc, ...this.options?.rpc },
+      })
+
+      this.#provider = (await connectKit.getProvider()) as EthereumProvider
     }
     return this.#provider
   }
