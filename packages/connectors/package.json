@@ -1,0 +1,98 @@
+{
+  "name": "@wagmi/connectors",
+  "description": "A collection of connectors for wagmi",
+  "license": "MIT",
+  "version": "0.0.0",
+  "scripts": {
+    "build": "tsup",
+    "dev": "DEV=true tsup"
+  },
+  "peerDependencies": {
+    "@wagmi/core": "0.8.x",
+    "ethers": "^5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@wagmi/core": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@coinbase/wallet-sdk": "^3.5.4",
+    "@walletconnect/ethereum-provider": "^1.8.0",
+    "abitype": "^0.1.8",
+    "eventemitter3": "^4.0.7"
+  },
+  "devDependencies": {
+    "@wagmi/core": "^0.8.0",
+    "ethers": "^5.7.2"
+  },
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./coinbaseWallet": {
+      "types": "./dist/coinbaseWallet.d.ts",
+      "default": "./dist/coinbaseWallet.js"
+    },
+    "./injected": {
+      "types": "./dist/injected.d.ts",
+      "default": "./dist/injected.js"
+    },
+    "./metaMask": {
+      "types": "./dist/metaMask.d.ts",
+      "default": "./dist/metaMask.js"
+    },
+    "./mock": {
+      "types": "./dist/mock/index.d.ts",
+      "default": "./dist/mock/index.js"
+    },
+    "./walletConnect": {
+      "types": "./dist/walletConnect.d.ts",
+      "default": "./dist/walletConnect.js"
+    }
+  },
+  "files": [
+    "/coinbaseWallet",
+    "/dist",
+    "/injected",
+    "/metaMask",
+    "/mock",
+    "/walletConnect"
+  ],
+  "sideEffects": false,
+  "contributors": [
+    "awkweb.eth <t@wagmi.sh>",
+    "jxom.eth <j@wagmi.sh>"
+  ],
+  "homepage": "https://wagmi.sh",
+  "ethereum": "wagmi-dev.eth",
+  "funding": [
+    {
+      "type": "gitcoin",
+      "url": "https://gitcoin.co/grants/4493/wagmi-react-hooks-library-for-ethereum"
+    },
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/wagmi-dev"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wagmi-dev/references.git",
+    "directory": "packages/connectors"
+  },
+  "keywords": [
+    "react",
+    "hooks",
+    "eth",
+    "ethereum",
+    "dapps",
+    "wallet",
+    "web3",
+    "abi"
+  ]
+}
