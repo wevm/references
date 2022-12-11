@@ -5,7 +5,7 @@ import { getAddress } from 'ethers/lib/utils.js'
 import { default as EventEmitter } from 'eventemitter3'
 
 export type MockProviderOptions = {
-  chainId?: number
+  chainId: number
   flags?: {
     isAuthorized?: boolean
     failConnect?: boolean
@@ -29,7 +29,7 @@ export class MockProvider extends providers.BaseProvider {
   #signer?: Signer
 
   constructor(options: MockProviderOptions) {
-    super({ name: 'Network', chainId: options.chainId ?? 1 })
+    super({ name: 'Network', chainId: options.chainId })
     this.#options = options
   }
 
