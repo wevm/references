@@ -96,6 +96,9 @@ export class LedgerConnector extends Connector<
       provider.removeListener('chainChanged', this.onChainChanged)
       provider.removeListener('disconnect', this.onDisconnect)
     }
+
+    typeof localStorage !== 'undefined' &&
+      localStorage.removeItem('walletconnect')
   }
 
   async getAccount() {
