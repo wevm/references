@@ -12,6 +12,7 @@ export default defineConfig(
       'src/metaMask.ts',
       'src/mock/index.ts',
       'src/walletConnect.ts',
+      'src/ledger.ts',
     ],
     platform: 'browser',
   }),

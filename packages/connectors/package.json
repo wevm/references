@@ -19,6 +19,7 @@
   "dependencies": {
     "@coinbase/wallet-sdk": "^3.5.4",
     "@walletconnect/ethereum-provider": "^1.8.0",
+    "@ledgerhq/connect-kit-loader": "^1.0.0",
     "abitype": "^0.1.8",
     "eventemitter3": "^4.0.7"
   },
@@ -42,6 +43,10 @@
       "types": "./dist/injected.d.ts",
       "default": "./dist/injected.js"
     },
+    "./ledger": {
+      "types": "./dist/ledger.d.ts",
+      "default": "./dist/ledger.js"
+    },
     "./metaMask": {
       "types": "./dist/metaMask.d.ts",
       "default": "./dist/metaMask.js"
@@ -61,7 +66,8 @@
     "/injected",
     "/metaMask",
     "/mock",
-    "/walletConnect"
+    "/walletConnect",
+    "/ledger"
   ],
   "sideEffects": false,
   "contributors": [
