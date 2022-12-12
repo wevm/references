@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const arbitrum: Chain = {
+export const taraxaTestnet: Chain = {
   id: 842,
   name: 'Taraxa Testnet',
   network: 'taraxatest',
