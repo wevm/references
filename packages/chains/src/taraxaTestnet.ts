@@ -3,7 +3,7 @@ import { Chain } from './types'
 export const taraxaTestnet: Chain = {
   id: 842,
   name: 'Taraxa Testnet',
-  network: 'taraxatest',
+  network: 'taraxa-testnet',
   nativeCurrency: { name: 'Tara', symbol: 'TARA', decimals: 18 },
   rpcUrls: {
     default: {
@@ -11,7 +11,10 @@ export const taraxaTestnet: Chain = {
     },
   },
   blockExplorers: {
-    default: { name: 'Taraxa Explorer', url: 'https://explorer.testnet.taraxa.io/' },
+    default: {
+      name: 'Taraxa Explorer',
+      url: 'https://explorer.testnet.taraxa.io',
+    },
   },
-  testnet: true
+  testnet: true,
 }

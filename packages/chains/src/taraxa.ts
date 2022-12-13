@@ -11,6 +11,9 @@ export const taraxa: Chain = {
     },
   },
   blockExplorers: {
-    default: { name: 'Taraxa Explorer', url: 'https://explorer.mainnet.taraxa.io/' },
+    default: {
+      name: 'Taraxa Explorer',
+      url: 'https://explorer.mainnet.taraxa.io',
+    },
   },
 }
