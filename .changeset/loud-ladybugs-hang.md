@@ -2,4 +2,4 @@
 '@wagmi/chains': patch
 ---
 
-adds taraxa chains
+Added Taraxa Chains.
