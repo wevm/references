@@ -74,12 +74,19 @@ export class WalletConnectConnector extends Connector<
       provider.on('chainChanged', this.onChainChanged)
       provider.on('disconnect', this.onDisconnect)
 
-      if (this.version === '2') {
+      if (this.version === '2' && provider instanceof UniversalProvider) {
         provider.on('session_delete', this.onDisconnect)
         provider.on('display_uri', this.onDisplayUri)
 
-        // skip `provider.connect` if there is an active session
-        if (!(provider as UniversalProvider).session) {
+        const isChainsAuthorized = await this.#isChainsAuthorized()
+
+        // If there is an active session, and the chains are not authorized,
+        // disconnect the session.
+        if (provider.session && !isChainsAuthorized) await provider.disconnect()
+
+        // If there is not an active session, or the chains are not authorized,
+        // attempt to connect.
+        if (!provider.session || (provider.session && !isChainsAuthorized)) {
           await Promise.race([
             provider.connect({
               namespaces: {
@@ -98,7 +105,7 @@ export class WalletConnectConnector extends Connector<
                   rpcMap: this.chains.reduce(
                     (rpc, chain) => ({
                       ...rpc,
-                      [chain.id]: chain.rpcUrls.default,
+                      [chain.id]: chain.rpcUrls.default.http[0],
                     }),
                     {},
                   ),
@@ -304,11 +311,34 @@ export class WalletConnectConnector extends Connector<
 
   async isAuthorized() {
     try {
-      const account = await this.getAccount()
-      return !!account
+      const [account, isChainsAuthorized] = await Promise.all([
+        this.getAccount(),
+        this.#isChainsAuthorized(),
+      ])
+      return !!account && isChainsAuthorized
     } catch {
       return false
     }
+  }
+
+  /**
+   * @description Checks if the connector is authorized to access the requested chains.
+   *
+   * There could be a case where requested chains are out of sync with
+   * the users' approved chains (e.g. the dapp could have added support
+   * for an additional chain), hence the user will be unauthorized.
+   */
+  async #isChainsAuthorized() {
+    const provider = await this.getProvider()
+
+    if (!(provider instanceof UniversalProvider)) return true
+
+    const providerChains =
+      provider.namespaces[sharedConfig.namespace]?.chains || []
+    const authorizedChainIds = providerChains.map(
+      (chain) => parseInt(chain.split(':')[1] || '') as Chain['id'],
+    )
+    return !this.chains.some(({ id }) => !authorizedChainIds.includes(id))
   }
 
   async #switchChain(chainId: number) {
@@ -316,23 +346,21 @@ export class WalletConnectConnector extends Connector<
     const id = hexValue(chainId)
 
     try {
-      if (this.version === '1') {
-        // Set up a race between `wallet_switchEthereumChain` & the `chainChanged` event
-        // to ensure the chain has been switched. This is because there could be a case
-        // where a wallet may not resolve the `wallet_switchEthereumChain` method, or
-        // resolves slower than `chainChanged`.
-        await Promise.race([
-          provider.request({
-            method: 'wallet_switchEthereumChain',
-            params: [{ chainId: id }],
+      // Set up a race between `wallet_switchEthereumChain` & the `chainChanged` event
+      // to ensure the chain has been switched. This is because there could be a case
+      // where a wallet may not resolve the `wallet_switchEthereumChain` method, or
+      // resolves slower than `chainChanged`.
+      await Promise.race([
+        provider.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: id }],
+        }),
+        new Promise((res) =>
+          this.on('change', ({ chain }) => {
+            if (chain?.id === chainId) res(chainId)
           }),
-          new Promise((res) =>
-            this.on('change', ({ chain }) => {
-              if (chain?.id === chainId) res(chainId)
-            }),
-          ),
-        ])
-      }
+        ),
+      ])
       if (this.version === '2' && provider instanceof UniversalProvider) {
         provider.setDefaultChain(`${sharedConfig.namespace}:${chainId}`)
         this.onChainChanged(chainId)
