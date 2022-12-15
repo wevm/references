@@ -3,10 +3,10 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "pnpm --filter './packages/**' build",
+    "build": "pnpm -r build",
     "changeset:release": "pnpm build && changeset publish",
     "changeset:version": "changeset version && pnpm install --lockfile-only",
-    "dev": "pnpm --filter './packages/**' dev",
+    "dev": "pnpm -r dev",
     "lint": "eslint .",
     "lint:fix": "pnpm lint --fix",
     "lint:format": "prettier --write",
