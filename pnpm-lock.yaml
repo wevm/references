@@ -6,11 +6,13 @@ importers:
     specifiers:
       '@changesets/changelog-github': ^0.4.7
       '@changesets/cli': ^2.25.2
+      '@types/dedent': ^0.7.0
       '@types/eslint': ^8.4.9
       '@types/fs-extra': ^9.0.13
       '@types/node': ^18.11.9
       '@typescript-eslint/eslint-plugin': ^5.42.0
       '@typescript-eslint/parser': ^5.42.0
+      dedent: ^0.7.0
       eslint: 8.17.0
       eslint-config-prettier: ^8.5.0
       eslint-import-resolver-typescript: ^2.7.1
@@ -28,11 +30,13 @@ importers:
     devDependencies:
       '@changesets/changelog-github': 0.4.7
       '@changesets/cli': 2.25.2
+      '@types/dedent': 0.7.0
       '@types/eslint': 8.4.9
       '@types/fs-extra': 9.0.13
       '@types/node': 18.11.9
       '@typescript-eslint/eslint-plugin': 5.42.0_vbmthgpmzvipd6e4frnw2jsh6y
       '@typescript-eslint/parser': 5.42.0_vhsckgnokn2tf7m5xkrurmvfv4
+      dedent: 0.7.0
       eslint: 8.17.0
       eslint-config-prettier: 8.5.0_eslint@8.17.0
       eslint-import-resolver-typescript: 2.7.1_3yxiwxzsqipdmy4jwrlv6vgfmy
@@ -890,6 +894,10 @@ packages:
     resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
     dependencies:
       '@types/node': 18.11.9
+
+  /@types/dedent/0.7.0:
+    resolution: {integrity: sha512-EGlKlgMhnLt/cM4DbUSafFdrkeJoC9Mvnj0PUCU7tFmTjMjNRT957kXCx0wYm3JuEq4o4ZsS5vG+NlkM2DMd2A==}
+    dev: true
 
   /@types/eslint/8.4.9:
     resolution: {integrity: sha512-jFCSo4wJzlHQLCpceUhUnXdrPuCNOjGFMQ8Eg6JXxlz3QaCKOb7eGi2cephQdM4XTYsNej69P9JDJ1zqNIbncQ==}
@@ -2003,6 +2011,10 @@ packages:
   /decode-uri-component/0.2.2:
     resolution: {integrity: sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==}
     engines: {node: '>=0.10'}
+
+  /dedent/0.7.0:
+    resolution: {integrity: sha512-Q6fKUPqnAHAyhiUgFU7BUzLiv0kd8saH9al7tnu5Q/okj6dnupxyTgFIBjVzJATdfIAm9NAsvXNzjaKa+bxVyA==}
+    dev: true
 
   /deep-eql/3.0.1:
     resolution: {integrity: sha512-+QeIQyN5ZuO+3Uk5DYh6/1eKO0m0YmJFGNmFHGACpf1ClL1nmlV/p4gNgbl2pJGxgXb4faqo6UE+M5ACEMyVcw==}

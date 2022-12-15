@@ -1,4 +1,0 @@
-{
-  "type": "module",
-  "main": "../dist/mock/index.js"
-}
