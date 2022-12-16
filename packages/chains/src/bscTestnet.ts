@@ -10,7 +10,7 @@ export const bscTestnet: Chain = {
     symbol: 'tBNB',
   },
   rpcUrls: {
-    default: { http: ['https://bsctestapi.terminet.io/rpc'] },
+    default: { http: ['https://bsc-testnet.public.blastapi.io'] },
   },
   blockExplorers: {
     etherscan: { name: 'BscScan', url: 'https://testnet.bscscan.com' },
