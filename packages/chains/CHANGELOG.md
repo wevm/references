@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 0.1.3
+
+### Patch Changes
+
+- 3bf7f27: Updated `bscTestnet` RPC URL
+
 ## 0.1.2
 
 ### Patch Changes
