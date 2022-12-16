@@ -334,7 +334,7 @@ export class WalletConnectConnector extends Connector<
     if (!(provider instanceof UniversalProvider)) return true
 
     const providerChains =
-      provider.namespaces[sharedConfig.namespace]?.chains || []
+      provider.namespaces?.[sharedConfig.namespace]?.chains || []
     const authorizedChainIds = providerChains.map(
       (chain) => parseInt(chain.split(':')[1] || '') as Chain['id'],
     )
