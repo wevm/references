@@ -19,17 +19,17 @@ export const arbitrumGoerli: Chain = {
       webSocket: ['wss://arbitrum-goerli.infura.io/ws/v3'],
     },
     default: {
-      http: ['https://arb1.arbitrum.io/rpc'],
+      http: ['https://goerli-rollup.arbitrum.io/rpc'],
     },
   },
   blockExplorers: {
-    etherscan: { name: 'Arbiscan', url: 'https://arbiscan.io' },
-    default: { name: 'Arbiscan', url: 'https://arbiscan.io' },
+    etherscan: { name: 'Arbiscan', url: 'https://goerli.arbiscan.io/' },
+    default: { name: 'Arbiscan', url: 'https://goerli.arbiscan.io/' },
   },
   contracts: {
     multicall3: {
       address: '0xca11bde05977b3631167028862be2a173976ca11',
-      blockCreated: 7654707,
+      blockCreated: 88114,
     },
   },
   testnet: true,
