@@ -86,7 +86,7 @@ export class WalletConnectConnector extends Connector<
       provider.on('chainChanged', this.onChainChanged)
       provider.on('disconnect', this.onDisconnect)
 
-      if (this.version === '2' && provider instanceof UniversalProvider) {
+      if (this.version === '2') {
         provider.on('session_delete', this.onDisconnect)
         provider.on('display_uri', this.onDisplayUri)
 
@@ -94,11 +94,15 @@ export class WalletConnectConnector extends Connector<
 
         // If there is an active session, and the chains are not authorized,
         // disconnect the session.
-        if (provider.session && !isChainsAuthorized) await provider.disconnect()
+        if ((provider as UniversalProvider).session && !isChainsAuthorized)
+          await provider.disconnect()
 
         // If there is not an active session, or the chains are not authorized,
         // attempt to connect.
-        if (!provider.session || (provider.session && !isChainsAuthorized)) {
+        if (
+          !(provider as UniversalProvider).session ||
+          ((provider as UniversalProvider).session && !isChainsAuthorized)
+        ) {
           await Promise.race([
             provider.connect({
               namespaces: {
@@ -339,10 +343,11 @@ export class WalletConnectConnector extends Connector<
   async #isChainsAuthorized() {
     const provider = await this.getProvider()
 
-    if (!(provider instanceof UniversalProvider)) return true
+    if (this.version === '1') return true
 
     const providerChains =
-      provider.namespaces?.[sharedConfig.namespace]?.chains || []
+      (provider as UniversalProvider).namespaces?.[defaultV2Config.namespace]
+        ?.chains || []
     const authorizedChainIds = providerChains.map(
       (chain) => parseInt(chain.split(':')[1] || '') as Chain['id'],
     )
