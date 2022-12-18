@@ -7,17 +7,29 @@ import {
   normalizeChainId,
 } from '@wagmi/core'
 import type WalletConnectProvider from '@walletconnect/ethereum-provider'
-import type { UniversalProviderOpts } from '@walletconnect/universal-provider'
-import { default as UniversalProvider } from '@walletconnect/universal-provider'
+import type {
+  UniversalProviderOpts,
+  UniversalProvider as UniversalProvider_,
+} from '@walletconnect/universal-provider'
 import { providers } from 'ethers'
 import { getAddress, hexValue } from 'ethers/lib/utils.js'
 
 import { Connector } from './base'
 
 // Shared config for WalletConnect v2
-const sharedConfig = {
+const defaultV2Config = {
   namespace: 'eip155',
+  methods: [
+    'eth_sendTransaction',
+    'eth_sign',
+    'eth_signTransaction',
+    'eth_signTypedData',
+    'personal_sign',
+  ],
+  events: ['accountsChanged', 'chainChanged'],
 }
+
+type UniversalProvider = InstanceType<typeof UniversalProvider_>
 
 type WalletConnectOptions = {
   /** When `true`, uses default WalletConnect QR Code modal */
@@ -90,17 +102,11 @@ export class WalletConnectConnector extends Connector<
           await Promise.race([
             provider.connect({
               namespaces: {
-                [sharedConfig.namespace]: {
-                  methods: [
-                    'eth_sendTransaction',
-                    'eth_sign',
-                    'eth_signTransaction',
-                    'eth_signTypedData',
-                    'personal_sign',
-                  ],
-                  events: ['accountsChanged', 'chainChanged'],
+                [defaultV2Config.namespace]: {
+                  methods: defaultV2Config.methods,
+                  events: defaultV2Config.events,
                   chains: this.chains.map(
-                    (chain) => `${sharedConfig.namespace}:${chain.id}`,
+                    (chain) => `${defaultV2Config.namespace}:${chain.id}`,
                   ),
                   rpcMap: this.chains.reduce(
                     (rpc, chain) => ({
@@ -255,7 +261,19 @@ export class WalletConnectConnector extends Connector<
   }: { chainId?: number; create?: boolean } = {}) {
     // Force create new provider
     if (!this.#provider || chainId || create) {
-      if (!('version' in this.options) || this.options.version === '1') {
+      if (this.options.version === '2') {
+        const WalletConnectProvider = (
+          await import('@walletconnect/universal-provider')
+        ).default
+        this.#provider = await WalletConnectProvider.init(
+          this.options as UniversalProviderOpts,
+        )
+        if (chainId)
+          this.#provider.setDefaultChain(
+            `${defaultV2Config.namespace}:${chainId}`,
+          )
+        return this.#provider
+      } else {
         const rpc = !this.options?.infuraId
           ? this.chains.reduce(
               (rpc, chain) => ({
@@ -275,16 +293,6 @@ export class WalletConnectConnector extends Connector<
           rpc: { ...rpc, ...this.options?.rpc },
         })
         return this.#provider
-      } else {
-        const WalletConnectProvider = (
-          await import('@walletconnect/universal-provider')
-        ).default
-        this.#provider = await WalletConnectProvider.init(
-          this.options as UniversalProviderOpts,
-        )
-        if (chainId)
-          this.#provider.setDefaultChain(`${sharedConfig.namespace}:${chainId}`)
-        return this.#provider
       }
     }
 
@@ -302,7 +310,7 @@ export class WalletConnectConnector extends Connector<
       async request(args) {
         return await provider.request(
           args,
-          `${sharedConfig.namespace}:${chainId ?? chainId_}`,
+          `${defaultV2Config.namespace}:${chainId ?? chainId_}`,
         )
       },
     }
@@ -361,8 +369,10 @@ export class WalletConnectConnector extends Connector<
           }),
         ),
       ])
-      if (this.version === '2' && provider instanceof UniversalProvider) {
-        provider.setDefaultChain(`${sharedConfig.namespace}:${chainId}`)
+      if (this.version === '2') {
+        ;(provider as UniversalProvider).setDefaultChain(
+          `${defaultV2Config.namespace}:${chainId}`,
+        )
         this.onChainChanged(chainId)
       }
       return (

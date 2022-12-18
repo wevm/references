@@ -22,6 +22,7 @@ importers:
       execa: ^6.1.0
       fs-extra: ^11.1.0
       lint-staged: ^13.0.3
+      lokijs: ^1.5.12
       prettier: ^2.7.1
       simple-git-hooks: ^2.8.1
       tsup: ^6.3.0
@@ -46,6 +47,7 @@ importers:
       execa: 6.1.0
       fs-extra: 11.1.0
       lint-staged: 13.0.3
+      lokijs: 1.5.12
       prettier: 2.7.1
       simple-git-hooks: 2.8.1
       tsup: 6.3.0_typescript@4.8.4
@@ -4083,6 +4085,10 @@ packages:
       cli-cursor: 3.1.0
       slice-ansi: 4.0.0
       wrap-ansi: 6.2.0
+    dev: true
+
+  /lokijs/1.5.12:
+    resolution: {integrity: sha512-Q5ALD6JiS6xAUWCwX3taQmgwxyveCtIIuL08+ml0nHwT3k0S/GIFJN+Hd38b1qYIMaE5X++iqsqWVksz7SYW+Q==}
     dev: true
 
   /loupe/2.3.4:

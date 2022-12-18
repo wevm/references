@@ -50,7 +50,7 @@ describe('WalletConnectConnector', () => {
     const connector = new WalletConnectConnector({
       chains: defaultChains,
       options: {
-        projectId: 'test',
+        projectId: process.env.VITE_WC_PROJECT_ID!,
         version: '2',
       },
     })
