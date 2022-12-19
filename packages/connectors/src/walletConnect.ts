@@ -218,8 +218,7 @@ export class WalletConnectConnector extends Connector<
       await provider.disconnect()
     } catch (error) {
       // If the session does not exist, we don't want to throw.
-      if (/No matching key/i.test((error as Error).message)) return
-      throw error
+      if (!/No matching key/i.test((error as Error).message)) throw error
     }
 
     provider.removeListener('accountsChanged', this.onAccountsChanged)
@@ -253,6 +252,10 @@ export class WalletConnectConnector extends Connector<
     const provider = await this.getProvider()
     if (this.version === '1')
       return normalizeChainId((provider as WalletConnectProvider).chainId)
+
+    // WalletConnect v2 does not internally manage chainIds anymore, so
+    // we need to retrieve it from the client, or request it from the provider
+    // if none exists.
     return (
       getClient().data?.chain?.id ??
       normalizeChainId(await provider.request({ method: 'eth_chainId' }))
