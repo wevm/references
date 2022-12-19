@@ -4,7 +4,7 @@ export const goerli: Chain = {
   id: 5,
   network: 'goerli',
   name: 'Goerli',
-  nativeCurrency: { name: 'Goerli Ether', symbol: 'GOR', decimals: 18 },
+  nativeCurrency: { name: 'Goerli Ether', symbol: 'ETH', decimals: 18 },
   rpcUrls: {
     alchemy: {
       http: ['https://eth-goerli.g.alchemy.com/v2'],
