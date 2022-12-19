@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.1.2
+
+### Patch Changes
+
+- 5e5f37f: Fixed issue where connecting to MetaMask may return with a stale address
+
 ## 0.1.1
 
 ### Patch Changes
