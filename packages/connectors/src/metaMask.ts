@@ -97,6 +97,7 @@ export class MetaMaskConnector extends InjectedConnector {
               method: 'wallet_requestPermissions',
               params: [{ eth_accounts: {} }],
             })
+            // User may have selected a different account so we will need to revalidate here.
             account = await this.getAccount()
           } catch (error) {
             // Not all MetaMask injected providers support `wallet_requestPermissions` (e.g. MetaMask iOS).
