@@ -2,4 +2,4 @@
 '@wagmi/chains': patch
 ---
 
-fix: use consistent symbol for Ethereum testnet Goerli
+Use `"ETH"` as symbol for Goerli
