@@ -35,17 +35,13 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     },
-    "./coinbaseWallet": {
-      "types": "./dist/coinbaseWallet.d.ts",
-      "default": "./dist/coinbaseWallet.js"
-    },
     "./injected": {
       "types": "./dist/injected.d.ts",
       "default": "./dist/injected.js"
     },
-    "./ledger": {
-      "types": "./dist/ledger.d.ts",
-      "default": "./dist/ledger.js"
+    "./coinbaseWallet": {
+      "types": "./dist/coinbaseWallet.d.ts",
+      "default": "./dist/coinbaseWallet.js"
     },
     "./metaMask": {
       "types": "./dist/metaMask.d.ts",
@@ -58,7 +54,12 @@
     "./walletConnect": {
       "types": "./dist/walletConnect.d.ts",
       "default": "./dist/walletConnect.js"
-    }
+    },
+    "./ledger": {
+      "types": "./dist/ledger.d.ts",
+      "default": "./dist/ledger.js"
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "/coinbaseWallet",
