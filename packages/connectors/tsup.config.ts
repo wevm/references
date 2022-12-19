@@ -1,7 +1,7 @@
 import { defineConfig } from 'tsup'
 
 import { getConfig } from '../../scripts/tsup'
-import { dependencies, exports, peerDependencies } from './package.json'
+import { dependencies, peerDependencies } from './package.json'
 
 export default defineConfig(
   getConfig({
@@ -15,7 +15,6 @@ export default defineConfig(
       'src/walletConnect.ts',
       'src/ledger.ts',
     ],
-    exports,
     external: [...Object.keys(dependencies), ...Object.keys(peerDependencies)],
     platform: 'browser',
   }),
