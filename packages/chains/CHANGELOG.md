@@ -1,5 +1,12 @@
 # @wagmi/chains
 
+## 0.1.4
+
+### Patch Changes
+
+- 13f5f38: update arbitrum goerli default rpc and block explorer
+- 149d861: Use `"ETH"` as symbol for Goerli
+
 ## 0.1.3
 
 ### Patch Changes
