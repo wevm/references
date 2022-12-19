@@ -97,6 +97,7 @@ export class MetaMaskConnector extends InjectedConnector {
               method: 'wallet_requestPermissions',
               params: [{ eth_accounts: {} }],
             })
+            account = await this.getAccount()
           } catch (error) {
             // Not all MetaMask injected providers support `wallet_requestPermissions` (e.g. MetaMask iOS).
             // Only bubble up error if user rejects request
