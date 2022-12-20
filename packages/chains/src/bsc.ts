@@ -2,7 +2,7 @@ import { Chain } from './types'
 
 export const bsc: Chain = {
   id: 56,
-  name: 'Binance Smart Chain',
+  name: 'BNB Smart Chain',
   network: 'bsc',
   nativeCurrency: {
     decimals: 18,
