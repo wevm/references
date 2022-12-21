@@ -1,5 +1,13 @@
 # @wagmi/chains
 
+## 0.1.5
+
+### Patch Changes
+
+- 1e1c663: Added Evmos & Evmos Testnet.
+- 1e1c663: Added Gnosis.
+- 5e5c32a: Removed ENS registry for Sepolia.
+
 ## 0.1.4
 
 ### Patch Changes
