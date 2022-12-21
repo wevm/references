@@ -2,11 +2,11 @@ import { Chain } from './types'
 
 export const evmos: Chain = {
   id: 9001,
-  name: 'EVMOS',
+  name: 'Evmos',
   network: 'evmos',
   nativeCurrency: {
     decimals: 18,
-    name: 'EVMOS',
+    name: 'Evmos',
     symbol: 'EVMOS',
   },
   rpcUrls: {
