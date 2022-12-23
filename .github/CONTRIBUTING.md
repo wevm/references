@@ -49,7 +49,7 @@ The [`Chain` type](../packages/chains/src/types.ts) has a number of important at
 
 > **Warning** **Please ask first before starting work on a new Connector.**
 >
-> To avoid having your pull request declined after investing time and effort into a new Connector, we ask that contributors create a [Connector Request](https://github.com/wagmi-dev/references/discussions/new?category=ideas) before starting work on new Connectors. This helps ensure the Connector solves for an important or general use-case of interest to wagmi users.
+> To avoid having your pull request declined after investing time and effort into a new Connector, we ask that contributors create a [Connector Request](https://github.com/wagmi-dev/references/discussions/new?category=connector-request) before starting work on new Connectors. This helps ensure the Connector solves for an important or general use-case of interest to wagmi users.
 
 There are a few requirements to note before submitting a pull request:
 
