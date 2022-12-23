@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 0.1.6
+
+### Patch Changes
+
+- a510b19: Added IoTeX Chains.
+
 ## 0.1.5
 
 ### Patch Changes
