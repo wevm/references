@@ -10,13 +10,12 @@ export const iotex: Chain = {
     symbol: 'IOTX',
   },
   rpcUrls: {
-    default: { 
-      http: ['https://babel-api.mainnet.iotex.io'] ,
-      webSocket: ['wss://babel-api.mainnet.iotex.io']
+    default: {
+      http: ['https://babel-api.mainnet.iotex.io'],
+      webSocket: ['wss://babel-api.mainnet.iotex.io'],
     },
   },
   blockExplorers: {
-    etherscan: { name: 'IoTeXScan', url: 'https://iotexscan.io' },
     default: { name: 'IoTeXScan', url: 'https://iotexscan.io' },
-  }
+  },
 }
