@@ -16,13 +16,9 @@ export const zkSync: Chain = {
     },
   },
   blockExplorers: {
-    etherscan: {
-      name: 'zkExplorer',
-      url: 'https://explorer.zksync.io/',
-    },
     default: {
       name: 'zkExplorer',
-      url: 'https://explorer.zksync.io/',
+      url: 'https://explorer.zksync.io',
     },
   },
 }

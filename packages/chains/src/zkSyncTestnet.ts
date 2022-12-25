@@ -3,7 +3,7 @@ import { Chain } from './types'
 export const zkSyncTestnet: Chain = {
   id: 280,
   name: 'zkSync Testnet',
-  network: 'zksync',
+  network: 'zksync-testnet',
   nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
   rpcUrls: {
     default: {
@@ -12,13 +12,9 @@ export const zkSyncTestnet: Chain = {
     },
   },
   blockExplorers: {
-    etherscan: {
-      name: 'zkScan',
-      url: 'https://zksync2-testnet.zkscan.io/',
-    },
     default: {
       name: 'zkScan',
-      url: 'https://zksync2-testnet.zkscan.io/',
+      url: 'https://zksync2-testnet.zkscan.io',
     },
   },
   testnet: true,
