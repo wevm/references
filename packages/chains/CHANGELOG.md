@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 0.1.7
+
+### Patch Changes
+
+- f01bb99: Added zkSync chains.
+
 ## 0.1.6
 
 ### Patch Changes
