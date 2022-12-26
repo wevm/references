@@ -311,16 +311,21 @@ export class WalletConnectConnector extends Connector<
       this.getProvider({ chainId }),
       this.getAccount(),
     ])
-    const chainId_ = await this.getChainId()
-    const provider_: providers.ExternalProvider = {
-      ...provider,
-      async request(args) {
-        return await provider.request(
-          args,
-          `${defaultV2Config.namespace}:${chainId ?? chainId_}`,
-        )
-      },
+
+    let provider_ = provider as providers.ExternalProvider
+    if (this.version === '2') {
+      const chainId_ = await this.getChainId()
+      provider_ = {
+        ...provider,
+        async request(args) {
+          return await provider.request(
+            args,
+            `${defaultV2Config.namespace}:${chainId ?? chainId_}`,
+          )
+        },
+      } as providers.ExternalProvider
     }
+
     return new providers.Web3Provider(provider_, chainId).getSigner(account)
   }
 
