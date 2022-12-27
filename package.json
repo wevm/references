@@ -33,6 +33,7 @@
     "execa": "^6.1.0",
     "fs-extra": "^11.1.0",
     "lint-staged": "^13.0.3",
+    "lokijs": "^1.5.12",
     "prettier": "^2.7.1",
     "simple-git-hooks": "^2.8.1",
     "tsup": "^6.3.0",

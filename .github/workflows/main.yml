@@ -130,3 +130,5 @@ jobs:
           key: modules-${{ hashFiles('pnpm-lock.yaml') }}
       - name: Run tests
         run: pnpm test
+        env:
+          VITE_WC_PROJECT_ID: ${{ secrets.VITE_WC_PROJECT_ID }}
