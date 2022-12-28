@@ -1,5 +1,13 @@
 # @wagmi/connectors
 
+## 0.1.3
+
+### Patch Changes
+
+- 822bc88: The `WalletConnectConnector` now supports WalletConnect v2.
+
+  It can be enabled by setting `version` to `'2'` and supplying a [WalletConnect Cloud `projectId`](https://cloud.walletconnect.com/sign-in).
+
 ## 0.1.2
 
 ### Patch Changes
