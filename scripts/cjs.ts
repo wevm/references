@@ -10,18 +10,14 @@ type PreparedPackage = Package & {
   oldPackageJson: PackageJson
 }
 
-const include = [path.join(__dirname, '..', 'packages')]
+const packagesDir = [path.join(__dirname, '..', 'packages')]
 
 /** @deprecated Script to generate & release a CJS escape hatch bundle. */
 export async function main() {
   const { packages } = getPackagesSync(path.join(__dirname, '..'))
 
-  const packageDirs = packages
-    .filter(({ dir }) => include.some((i) => dir.startsWith(i)))
-    .map(({ dir }) => dir)
-
   // 1. Prepare package package.jsons into CJS format.
-  const preparedPackages = prepare({ packageDirs })
+  const preparedPackages = prepare({ packages })
 
   // 2. Bundle into CJS.
   await build()
@@ -52,8 +48,12 @@ main()
 //////////////////////////////////////////////////////////////////////////
 // Prepare
 
-function prepare({ packageDirs }: { packageDirs: string[] }) {
-  const packages: PreparedPackage[] = []
+function prepare({ packages }: { packages: Package[] }) {
+  const packageDirs = packages
+    .filter(({ dir }) => packagesDir.some((i) => dir.startsWith(i)))
+    .map(({ dir }) => dir)
+
+  const preparedPackages: PreparedPackage[] = []
   for (const packageDir of packageDirs) {
     const packageJsonPath = path.join(packageDir, 'package.json')
     const packageJson = readJsonSync(packageJsonPath)
@@ -62,9 +62,9 @@ function prepare({ packageDirs }: { packageDirs: string[] }) {
     delete packageJson.type
     writeJsonSync(packageJsonPath, packageJson, { spaces: 2 })
 
-    packages.push({ dir: packageDir, oldPackageJson, packageJson })
+    preparedPackages.push({ dir: packageDir, oldPackageJson, packageJson })
   }
-  return packages
+  return preparedPackages
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -86,10 +86,8 @@ async function build() {
 
 function version({ changedPackages }: { changedPackages: Package[] }) {
   for (const { dir, packageJson } of changedPackages) {
-    const newPackageJson = {
-      ...packageJson,
-      version: `${packageJson.version}-cjs`,
-    }
+    const newPackageJson = { ...packageJson }
+    newPackageJson.version = packageJson.version + '-cjs'
     writeJsonSync(path.join(dir, 'package.json'), newPackageJson, { spaces: 2 })
   }
 }
