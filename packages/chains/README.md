@@ -40,18 +40,18 @@ const { chains, provider } = configureChains(
 - `fantomTestnet`
 - `foundry`
 - `hardhat`
+- `iotex`
+- `iotexTestnet`
 - `localhost`
 - `optimism`
 - `optimismGoerli`
 - `polygon`
 - `polygonMumbai`
 - `sepolia`
-- `zkSync`
-- `zkSyncTestnet`
 - `taraxa`
 - `taraxaTestnet`
-- `iotex`
-- `iotexTestnet`
+- `zkSync`
+- `zkSyncTestnet`
 
 ## Contributing
 
