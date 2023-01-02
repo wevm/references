@@ -46,6 +46,12 @@ const { chains, provider } = configureChains(
 - `polygon`
 - `polygonMumbai`
 - `sepolia`
+- `zkSync`
+- `zkSyncTestnet`
+- `taraxa`
+- `taraxaTestnet`
+- `iotex`
+- `iotexTestnet`
 
 ## Contributing
 
