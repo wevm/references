@@ -21,6 +21,14 @@
     "/dist"
   ],
   "sideEffects": false,
+  "peerDependencies": {
+    "typescript": ">=4.9.4"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  },
   "contributors": [
     "jxom.eth <j@wagmi.sh>",
     "awkweb.eth <t@wagmi.sh>"
