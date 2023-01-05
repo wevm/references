@@ -1,6 +1,6 @@
-import type { Ethereum } from '@wagmi/core'
 import { describe, expect, it } from 'vitest'
 
+import type { Ethereum } from '../types'
 import { getInjectedName } from './getInjectedName'
 
 describe.each([

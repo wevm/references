@@ -187,7 +187,6 @@ async function generateProxyPackages(exports: Exports) {
     JSON.stringify(packageJson, null, 2) + '\n',
   )
 
-  console.log(ignorePaths)
   if (ignorePaths.length === 0) return
   await fs.outputFile(
     '.gitignore',

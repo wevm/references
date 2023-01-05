@@ -15,6 +15,7 @@ import { providers } from 'ethers'
 import { getAddress, hexValue } from 'ethers/lib/utils.js'
 
 import { Connector } from './base'
+import { Ethereum } from './types'
 import { getInjectedName } from './utils/getInjectedName'
 
 export type InjectedConnectorOptions = {
@@ -26,7 +27,7 @@ export type InjectedConnectorOptions = {
    * @default
    * () => typeof window !== 'undefined' ? window.ethereum : undefined
    */
-  getProvider?: () => Window['ethereum'] | undefined
+  getProvider?: () => Ethereum | undefined
   /**
    * MetaMask 10.9.3 emits disconnect event when chain is changed.
    * This flag prevents the `"disconnect"` event from being emitted upon switching chains. See [GitHub issue](https://github.com/MetaMask/metamask-extension/issues/13375#issuecomment-1027663334) for more info.
@@ -44,7 +45,7 @@ type ConnectorOptions = InjectedConnectorOptions &
   Required<Pick<InjectedConnectorOptions, 'getProvider'>>
 
 export class InjectedConnector extends Connector<
-  Window['ethereum'],
+  Ethereum | undefined,
   ConnectorOptions,
   providers.JsonRpcSigner
 > {
@@ -52,7 +53,7 @@ export class InjectedConnector extends Connector<
   readonly name: string
   readonly ready: boolean
 
-  #provider?: Window['ethereum']
+  #provider?: Ethereum
   #switchingChains?: boolean
 
   protected shimDisconnectKey = 'injected.shimDisconnect'
@@ -68,7 +69,9 @@ export class InjectedConnector extends Connector<
       shimDisconnect: true,
       shimChainChangedDisconnect: true,
       getProvider: () =>
-        typeof window !== 'undefined' ? window.ethereum : undefined,
+        typeof window !== 'undefined'
+          ? (window.ethereum as Ethereum)
+          : undefined,
       ...options_,
     }
     super({ chains, options })

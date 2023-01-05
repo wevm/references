@@ -4,13 +4,14 @@ import {
   UserRejectedRequestError,
   getClient,
 } from '@wagmi/core'
-import type { Ethereum, RpcError } from '@wagmi/core'
+import type { RpcError } from '@wagmi/core'
 import type { Chain } from '@wagmi/core/chains'
 import type { Address } from 'abitype'
 import { getAddress } from 'ethers/lib/utils.js'
 
 import type { InjectedConnectorOptions } from './injected'
 import { InjectedConnector } from './injected'
+import { Ethereum } from './types'
 
 export type MetaMaskConnectorOptions = Pick<
   InjectedConnectorOptions,
@@ -55,9 +56,9 @@ export class MetaMaskConnector extends InjectedConnector {
         }
 
         if (typeof window === 'undefined') return
-        if (window.ethereum?.providers)
-          return window.ethereum.providers.find(getReady)
-        return getReady(window.ethereum)
+        const ethereum = window.ethereum as Ethereum | undefined
+        if (ethereum?.providers) return ethereum.providers.find(getReady)
+        return getReady(ethereum)
       },
       ...options_,
     }
