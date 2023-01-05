@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.1.5
+
+### Patch Changes
+
+- 7dce4b5: Bumped WalletConnect Universal Provider version.
+
 ## 0.1.4
 
 ### Patch Changes
