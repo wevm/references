@@ -1,5 +1,17 @@
 # @wagmi/chains
 
+## 0.1.8
+
+### Patch Changes
+
+- 4cec598: Added CJS escape hatch bundle under the "cjs" tag.
+
+## 0.1.7
+
+### Patch Changes
+
+- f01bb99: Added zkSync chains.
+
 ## 0.1.6
 
 ### Patch Changes
