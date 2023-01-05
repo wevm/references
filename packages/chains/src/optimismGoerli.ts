@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const optimismGoerli: Chain = {
+export const optimismGoerli = {
   id: 420,
   name: 'Optimism Goerli',
   network: 'optimism-goerli',
@@ -35,4 +35,4 @@ export const optimismGoerli: Chain = {
     },
   },
   testnet: true,
-}
+} as const satisfies Chain

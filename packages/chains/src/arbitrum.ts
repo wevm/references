@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const arbitrum: Chain = {
+export const arbitrum = {
   id: 42_161,
   name: 'Arbitrum One',
   network: 'arbitrum',
@@ -28,4 +28,4 @@ export const arbitrum: Chain = {
       blockCreated: 7654707,
     },
   },
-}
+} as const satisfies Chain

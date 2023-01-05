@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const polygon: Chain = {
+export const polygon = {
   id: 137,
   name: 'Polygon',
   network: 'matic',
@@ -34,4 +34,4 @@ export const polygon: Chain = {
       blockCreated: 25770160,
     },
   },
-}
+} as const satisfies Chain

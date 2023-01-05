@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const fantom: Chain = {
+export const fantom = {
   id: 250,
   name: 'Fantom',
   network: 'fantom',
@@ -22,4 +22,4 @@ export const fantom: Chain = {
       blockCreated: 33001987,
     },
   },
-}
+} as const satisfies Chain

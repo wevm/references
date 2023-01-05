@@ -1,7 +1,7 @@
 import { Chain } from './types'
 
-export const fantomTestnet: Chain = {
-  id: 4002,
+export const fantomTestnet = {
+  id: 4_002,
   name: 'Fantom Testnet',
   network: 'fantom-testnet',
   nativeCurrency: {
@@ -22,4 +22,4 @@ export const fantomTestnet: Chain = {
       blockCreated: 8328688,
     },
   },
-}
+} as const satisfies Chain

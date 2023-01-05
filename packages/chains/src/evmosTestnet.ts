@@ -1,7 +1,7 @@
 import { Chain } from './types'
 
-export const evmosTestnet: Chain = {
-  id: 9000,
+export const evmosTestnet = {
+  id: 9_000,
   name: 'Evmos Testnet',
   network: 'evmos-testnet',
   nativeCurrency: {
@@ -18,4 +18,4 @@ export const evmosTestnet: Chain = {
       url: 'https://evm.evmos.dev/',
     },
   },
-}
+} as const satisfies Chain

@@ -1,7 +1,7 @@
 import { Chain } from './types'
 
-export const iotexTestnet: Chain = {
-  id: 4690,
+export const iotexTestnet = {
+  id: 4_690,
   name: 'IoTeX Testnet',
   network: 'iotex-testnet',
   nativeCurrency: {
@@ -18,4 +18,4 @@ export const iotexTestnet: Chain = {
   blockExplorers: {
     default: { name: 'IoTeXScan', url: 'https://testnet.iotexscan.io' },
   },
-}
+} as const satisfies Chain

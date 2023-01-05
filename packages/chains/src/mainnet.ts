@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const mainnet: Chain = {
+export const mainnet = {
   id: 1,
   network: 'homestead',
   name: 'Ethereum',
@@ -37,4 +37,4 @@ export const mainnet: Chain = {
       blockCreated: 14353601,
     },
   },
-}
+} as const satisfies Chain

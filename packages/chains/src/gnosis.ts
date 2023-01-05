@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const gnosis: Chain = {
+export const gnosis = {
   id: 100,
   name: 'Gnosis',
   network: 'gnosis',
@@ -22,4 +22,4 @@ export const gnosis: Chain = {
       url: 'https://blockscout.com/xdai/mainnet/',
     },
   },
-}
+} as const satisfies Chain

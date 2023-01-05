@@ -1,7 +1,7 @@
 import { Chain } from './types'
 
-export const evmos: Chain = {
-  id: 9001,
+export const evmos = {
+  id: 9_001,
   name: 'Evmos',
   network: 'evmos',
   nativeCurrency: {
@@ -15,4 +15,4 @@ export const evmos: Chain = {
   blockExplorers: {
     default: { name: 'Evmos Block Explorer', url: 'https://escan.live/' },
   },
-}
+} as const satisfies Chain

@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const taraxaTestnet: Chain = {
+export const taraxaTestnet = {
   id: 842,
   name: 'Taraxa Testnet',
   network: 'taraxa-testnet',
@@ -17,4 +17,4 @@ export const taraxaTestnet: Chain = {
     },
   },
   testnet: true,
-}
+} as const satisfies Chain

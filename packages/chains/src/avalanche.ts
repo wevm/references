@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const avalanche: Chain = {
+export const avalanche = {
   id: 43_114,
   name: 'Avalanche',
   network: 'avalanche',
@@ -22,4 +22,4 @@ export const avalanche: Chain = {
       blockCreated: 11907934,
     },
   },
-}
+} as const satisfies Chain
