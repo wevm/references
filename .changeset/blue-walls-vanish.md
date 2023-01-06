@@ -2,4 +2,4 @@
 '@wagmi/chains': patch
 ---
 
-added metis and metis goerli chains
+Added Metis and Metis Goerli chains.
