@@ -81,7 +81,7 @@ export function getConfig({ dev, ...options }: GetConfig): Options {
             setTimeout(async () => {
               await validateExports(exports)
               resolve(true)
-            }, 5_000),
+            }, 7_500),
           )
         } else throw error
       }
