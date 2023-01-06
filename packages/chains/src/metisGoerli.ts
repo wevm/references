@@ -13,6 +13,6 @@ export const metisGoerli: Chain = {
         default: { http: ['https://goerli.gateway.metisdevops.link'] },
     },
     blockExplorers: {
-        default: { name: 'Metis Goerli', url: 'https://goerli.explorer.metisdevops.link' },
+        default: { name: 'Metis Goerli Explorer', url: 'https://goerli.explorer.metisdevops.link' },
     },
 }

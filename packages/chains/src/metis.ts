@@ -13,6 +13,6 @@ export const metis: Chain = {
         default: { http: ['https://andromeda.metis.io/?owner=1088'] },
     },
     blockExplorers: {
-        default: { name: 'Andromeda Explorer', url: 'https://andromeda-explorer.metis.io/' },
+        default: { name: 'Andromeda Explorer', url: 'https://andromeda-explorer.metis.io' },
     },
 }
