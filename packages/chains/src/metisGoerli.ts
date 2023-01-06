@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const metisGoerli: Chain = {
+export const metisGoerli = {
   id: 599,
   name: 'Metis Goerli',
   network: 'metis-goerli',
@@ -18,4 +18,4 @@ export const metisGoerli: Chain = {
       url: 'https://goerli.explorer.metisdevops.link',
     },
   },
-}
+} as const satisfies Chain

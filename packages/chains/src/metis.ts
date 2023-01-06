@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const metis: Chain = {
+export const metis = {
   id: 1_088,
   name: 'Metis',
   network: 'andromeda',
@@ -18,4 +18,4 @@ export const metis: Chain = {
       url: 'https://andromeda-explorer.metis.io',
     },
   },
-}
+} as const satisfies Chain
