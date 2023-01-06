@@ -28,8 +28,6 @@ const { chains, provider } = configureChains(
 
 ## Chains
 
-- `mainnet`
-- `goerli`
 - `arbitrum`
 - `arbitrumGoerli`
 - `avalanche`
@@ -39,10 +37,14 @@ const { chains, provider } = configureChains(
 - `fantom`
 - `fantomTestnet`
 - `foundry`
+- `goerli`
 - `hardhat`
 - `iotex`
 - `iotexTestnet`
 - `localhost`
+- `mainnet`
+- `metis`
+- `metisGoerli`
 - `optimism`
 - `optimismGoerli`
 - `polygon`
