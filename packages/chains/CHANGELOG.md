@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 0.1.9
+
+### Patch Changes
+
+- daadc01: Added Metis and Metis Goerli chains.
+
 ## 0.1.8
 
 ### Patch Changes
