@@ -67,6 +67,12 @@ export class MockProvider extends providers.BaseProvider {
     this.events.emit('chainChanged', chainId)
   }
 
+  async switchSigner(signer: Signer) {
+    const address = await signer.getAddress()
+    this.#signer = signer
+    this.events.emit('accountsChanged', [address])
+  }
+
   async watchAsset(_asset: {
     address: string
     decimals?: number
