@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.1.6
+
+### Patch Changes
+
+- 3dfc558: Add `switchSigner` method to `MockProvider`.
+
 ## 0.1.5
 
 ### Patch Changes
