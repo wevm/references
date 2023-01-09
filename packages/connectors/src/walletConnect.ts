@@ -58,9 +58,9 @@ export class WalletConnectConnector extends Connector<
   readonly id = 'walletConnect'
   readonly name = 'WalletConnect'
   readonly ready = true
-  #web3Modal?: Web3Modal
 
   #provider?: WalletConnectProvider | UniversalProvider
+  #web3Modal?: Web3Modal
 
   constructor(config: { chains?: Chain[]; options: WalletConnectOptions }) {
     super(config)
@@ -79,9 +79,9 @@ export class WalletConnectConnector extends Connector<
 
   async #createWeb3Modal() {
     const { Web3Modal } = await import('@web3modal/standalone')
-    const { projectId } = this.options
-    this.web3Modal = new Web3Modal({
-      projectId: this.version === '2' ? projectId : undefined,
+    const { version } = this.options
+    this.#web3Modal = new Web3Modal({
+      projectId: version === '2' ? this.options.projectId : undefined,
       standaloneChains: this.namespacedChains,
     })
   }
@@ -146,9 +146,9 @@ export class WalletConnectConnector extends Connector<
                 [
                   new Promise<void>((_resolve, reject) =>
                     provider.on('display_uri', async (uri: string) => {
-                      if (!this.web3Modal) await this.createWeb3Modal()
-                      await this.web3Modal?.openModal({ uri })
-                      this.web3Modal?.subscribeModal(({ open }) => {
+                      if (!this.#web3Modal) await this.#createWeb3Modal()
+                      await this.#web3Modal?.openModal({ uri })
+                      this.#web3Modal?.subscribeModal(({ open }) => {
                         if (!open) reject(new Error('user rejected'))
                       })
                     }),
@@ -158,7 +158,7 @@ export class WalletConnectConnector extends Connector<
           ])
 
           // If execution reaches here, connection was successful and we can close modal.
-          if (this.options.qrcode) this.web3Modal?.closeModal()
+          if (this.options.qrcode) this.#web3Modal?.closeModal()
         }
       }
 
@@ -214,7 +214,7 @@ export class WalletConnectConnector extends Connector<
         ),
       }
     } catch (error) {
-      if (isV2 && this.options.qrcode) this.web3Modal?.closeModal()
+      if (isV2 && this.options.qrcode) this.#web3Modal?.closeModal()
       // WalletConnect v1: "user closed modal"
       // WalletConnect v2: "user rejected"
       if (
@@ -284,19 +284,25 @@ export class WalletConnectConnector extends Connector<
   }: { chainId?: number; create?: boolean } = {}) {
     // Force create new provider
     if (!this.#provider || chainId || create) {
+      // WalletConnect v2
       if (this.options.version === '2') {
-        const WalletConnectProvider = (
-          await import('@walletconnect/universal-provider')
-        ).default
-        this.#provider = await WalletConnectProvider.init(
-          this.options as UniversalProviderOpts,
-        )
+        if (!this.#provider || create) {
+          const WalletConnectProvider = (
+            await import('@walletconnect/universal-provider')
+          ).default
+          this.#provider = await WalletConnectProvider.init(
+            this.options as UniversalProviderOpts,
+          )
+        }
+
         if (chainId)
-          this.#provider.setDefaultChain(
+          (this.#provider as UniversalProvider).setDefaultChain(
             `${defaultV2Config.namespace}:${chainId}`,
           )
-        return this.#provider
-      } else {
+        return this.#provider as UniversalProvider
+      }
+      // WalletConnect v1
+      else {
         const rpc = !this.options?.infuraId
           ? this.chains.reduce(
               (rpc, chain) => ({
