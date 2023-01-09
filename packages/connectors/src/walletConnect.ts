@@ -77,7 +77,7 @@ export class WalletConnectConnector extends Connector<
     )
   }
 
-  private async createWeb3Modal() {
+  async #createWeb3Modal() {
     const { Web3Modal } = await import('@web3modal/standalone')
     const { version } = this.options
     const projectId = version === '2' ? this.options.projectId : undefined
