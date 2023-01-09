@@ -1,5 +1,5 @@
 ---
-'@wagmi/connectors': minor
+'@wagmi/connectors': patch
 ---
 
-feat: added support for Rainbow injected provider
+Added `isRainbow` flag to `InjectedConnector`.
