@@ -15,7 +15,7 @@ export const optimism: Chain = {
       webSocket: ['wss://optimism-mainnet.infura.io/ws/v3'],
     },
     default: {
-      http: ['https://mainnet.optimism.io'],
+      http: ['https://explorer.optimism.io'],
     },
   },
   blockExplorers: {
