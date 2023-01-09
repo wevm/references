@@ -15,7 +15,7 @@ export const optimism: Chain = {
       webSocket: ['wss://optimism-mainnet.infura.io/ws/v3'],
     },
     default: {
-      http: ['https://explorer.optimism.io'],
+      http: ['https://mainnet.optimism.io'],
     },
   },
   blockExplorers: {
@@ -24,8 +24,8 @@ export const optimism: Chain = {
       url: 'https://optimistic.etherscan.io',
     },
     default: {
-      name: 'Etherscan',
-      url: 'https://optimistic.etherscan.io',
+      name: 'Optimism Explorer',
+      url: 'https://explorer.optimism.io',
     },
   },
   contracts: {
