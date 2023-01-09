@@ -11,6 +11,7 @@ import type {
   UniversalProviderOpts,
   UniversalProvider as UniversalProvider_,
 } from '@walletconnect/universal-provider'
+import type { Web3Modal } from '@web3modal/standalone'
 import { providers } from 'ethers'
 import { getAddress, hexValue } from 'ethers/lib/utils.js'
 
@@ -57,6 +58,8 @@ export class WalletConnectConnector extends Connector<
   readonly id = 'walletConnect'
   readonly name = 'WalletConnect'
   readonly ready = true
+  private providerInitialized = false
+  private web3Modal?: Web3Modal = undefined
 
   #provider?: WalletConnectProvider | UniversalProvider
 
@@ -69,7 +72,26 @@ export class WalletConnectConnector extends Connector<
     return '1'
   }
 
+  get namespacedChains() {
+    return this.chains.map(
+      (chain) => `${defaultV2Config.namespace}:${chain.id}`,
+    )
+  }
+
+  private async createWeb3Modal() {
+    const { Web3Modal } = await import('@web3modal/standalone')
+    const { version } = this.options
+    const projectId = version === '2' ? this.options.projectId : undefined
+    this.web3Modal = new Web3Modal({
+      projectId,
+      standaloneChains: this.namespacedChains,
+    })
+  }
+
   async connect({ chainId }: { chainId?: number } = {}) {
+    const isV2 = this.version === '2'
+    const isV1 = this.version === '1'
+
     try {
       let targetChainId = chainId
       if (!targetChainId) {
@@ -80,13 +102,13 @@ export class WalletConnectConnector extends Connector<
 
       const provider = await this.getProvider({
         chainId: targetChainId,
-        create: true,
+        create: isV2 && this.providerInitialized ? false : true,
       })
       provider.on('accountsChanged', this.onAccountsChanged)
       provider.on('chainChanged', this.onChainChanged)
       provider.on('disconnect', this.onDisconnect)
 
-      if (this.version === '2') {
+      if (isV2) {
         provider.on('session_delete', this.onDisconnect)
         provider.on('display_uri', this.onDisplayUri)
 
@@ -109,9 +131,7 @@ export class WalletConnectConnector extends Connector<
                 [defaultV2Config.namespace]: {
                   methods: defaultV2Config.methods,
                   events: defaultV2Config.events,
-                  chains: this.chains.map(
-                    (chain) => `${defaultV2Config.namespace}:${chain.id}`,
-                  ),
+                  chains: this.namespacedChains,
                   rpcMap: this.chains.reduce(
                     (rpc, chain) => ({
                       ...rpc,
@@ -126,22 +146,21 @@ export class WalletConnectConnector extends Connector<
               ? // When using WalletConnect QR Code Modal, open modal and listen for close callback.
                 // If modal is closed, reject promise so `catch` block for `connect` is called.
                 [
-                  new Promise((_res, reject) =>
-                    provider.on('display_uri', async (uri: string) =>
-                      (
-                        await import('@walletconnect/qrcode-modal')
-                      ).default.open(uri, () =>
-                        reject(new Error('user rejected')),
-                      ),
-                    ),
+                  new Promise<void>((_resolve, reject) =>
+                    provider.on('display_uri', async (uri: string) => {
+                      if (!this.web3Modal) await this.createWeb3Modal()
+                      await this.web3Modal?.openModal({ uri })
+                      this.web3Modal?.subscribeModal(({ open }) => {
+                        if (!open) reject(new Error('user rejected'))
+                      })
+                    }),
                   ),
                 ]
               : []),
           ])
 
           // If execution reaches here, connection was successful and we can close modal.
-          if (this.options.qrcode)
-            (await import('@walletconnect/qrcode-modal')).default.close()
+          if (this.options.qrcode) this.web3Modal?.closeModal()
         }
       }
 
@@ -151,7 +170,7 @@ export class WalletConnectConnector extends Connector<
       const accounts = (await Promise.race([
         provider.enable(),
         // When using WalletConnect v1 QR Code Modal, handle user rejection request from wallet
-        ...(this.version === '1' && this.options.qrcode
+        ...(isV1 && this.options.qrcode
           ? [
               new Promise((_res, reject) =>
                 (provider as WalletConnectProvider).connector.on(
@@ -168,7 +187,7 @@ export class WalletConnectConnector extends Connector<
 
       // Not all WalletConnect v1 options support programmatic chain switching.
       // Only enable for wallet options that do.
-      if (this.version === '1') {
+      if (isV1) {
         const walletName =
           (provider as WalletConnectProvider).connector?.peerMeta?.name ?? ''
 
@@ -197,8 +216,7 @@ export class WalletConnectConnector extends Connector<
         ),
       }
     } catch (error) {
-      if (this.version === '2' && this.options.qrcode)
-        (await import('@walletconnect/qrcode-modal')).default.close()
+      if (isV2 && this.options.qrcode) this.web3Modal?.closeModal()
       // WalletConnect v1: "user closed modal"
       // WalletConnect v2: "user rejected"
       if (
@@ -275,6 +293,7 @@ export class WalletConnectConnector extends Connector<
         this.#provider = await WalletConnectProvider.init(
           this.options as UniversalProviderOpts,
         )
+        this.providerInitialized = true
         if (chainId)
           this.#provider.setDefaultChain(
             `${defaultV2Config.namespace}:${chainId}`,
