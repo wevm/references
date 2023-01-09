@@ -101,7 +101,7 @@ export class WalletConnectConnector extends Connector<
 
       const provider = await this.getProvider({
         chainId: targetChainId,
-        create: isV2 && !this.#provider ? false : true,
+        create: isV2 && this.#provider ? false : true,
       })
       provider.on('accountsChanged', this.onAccountsChanged)
       provider.on('chainChanged', this.onChainChanged)
