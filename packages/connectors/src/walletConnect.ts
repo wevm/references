@@ -58,7 +58,7 @@ export class WalletConnectConnector extends Connector<
   readonly id = 'walletConnect'
   readonly name = 'WalletConnect'
   readonly ready = true
-  private web3Modal?: Web3Modal = undefined
+  #web3Modal?: Web3Modal
 
   #provider?: WalletConnectProvider | UniversalProvider
 
