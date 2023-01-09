@@ -58,7 +58,6 @@ export class WalletConnectConnector extends Connector<
   readonly id = 'walletConnect'
   readonly name = 'WalletConnect'
   readonly ready = true
-  private providerInitialized = false
   private web3Modal?: Web3Modal = undefined
 
   #provider?: WalletConnectProvider | UniversalProvider
@@ -102,7 +101,7 @@ export class WalletConnectConnector extends Connector<
 
       const provider = await this.getProvider({
         chainId: targetChainId,
-        create: isV2 && this.providerInitialized ? false : true,
+        create: isV2 && !this.#provider ? false : true,
       })
       provider.on('accountsChanged', this.onAccountsChanged)
       provider.on('chainChanged', this.onChainChanged)
@@ -293,7 +292,6 @@ export class WalletConnectConnector extends Connector<
         this.#provider = await WalletConnectProvider.init(
           this.options as UniversalProviderOpts,
         )
-        this.providerInitialized = true
         if (chainId)
           this.#provider.setDefaultChain(
             `${defaultV2Config.namespace}:${chainId}`,
