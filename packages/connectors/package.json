@@ -26,7 +26,7 @@
     "eventemitter3": "^4.0.7"
   },
   "devDependencies": {
-    "@wagmi/core": "^0.8.0",
+    "@wagmi/core": "^0.8.12",
     "ethers": "^5.7.2"
   },
   "type": "module",
