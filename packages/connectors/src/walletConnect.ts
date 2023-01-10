@@ -141,13 +141,12 @@ export class WalletConnectConnector extends Connector<
               },
             }),
             ...(this.options.qrcode
-              ? // When using WalletConnect QR Code Modal, open modal and listen for close callback.
-                // If modal is closed, reject promise so `catch` block for `connect` is called.
-                [
+              ? [
                   new Promise<void>((_resolve, reject) =>
                     provider.on('display_uri', async (uri: string) => {
                       if (!this.#web3Modal) await this.#createWeb3Modal()
                       await this.#web3Modal?.openModal({ uri })
+                      // Modal is closed, reject promise so `catch` block for `connect` is called.
                       this.#web3Modal?.subscribeModal(({ open }) => {
                         if (!open) reject(new Error('user rejected'))
                       })
