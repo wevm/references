@@ -1,15 +1,15 @@
 import {
   Chain,
+  getClient,
+  normalizeChainId,
   ProviderRpcError,
   SwitchChainError,
   UserRejectedRequestError,
-  getClient,
-  normalizeChainId,
 } from '@wagmi/core'
 import type WalletConnectProvider from '@walletconnect/ethereum-provider'
 import type {
-  UniversalProviderOpts,
   UniversalProvider as UniversalProvider_,
+  UniversalProviderOpts,
 } from '@walletconnect/universal-provider'
 import type { Web3Modal } from '@web3modal/standalone'
 import { providers } from 'ethers'
@@ -282,47 +282,44 @@ export class WalletConnectConnector extends Connector<
     chainId,
     create,
   }: { chainId?: number; create?: boolean } = {}) {
-    // Force create new provider
-    if (!this.#provider || chainId || create) {
-      // WalletConnect v2
-      if (this.options.version === '2') {
-        if (!this.#provider || create) {
-          const WalletConnectProvider = (
-            await import('@walletconnect/universal-provider')
-          ).default
-          this.#provider = await WalletConnectProvider.init(
-            this.options as UniversalProviderOpts,
-          )
-        }
-
-        if (chainId)
-          (this.#provider as UniversalProvider).setDefaultChain(
-            `${defaultV2Config.namespace}:${chainId}`,
-          )
-        return this.#provider as UniversalProvider
-      }
-      // WalletConnect v1
-      else {
-        const rpc = !this.options?.infuraId
-          ? this.chains.reduce(
-              (rpc, chain) => ({
-                ...rpc,
-                [chain.id]: chain.rpcUrls.default.http[0],
-              }),
-              {},
-            )
-          : {}
-
+    // WalletConnect v2
+    if (this.options.version === '2') {
+      if (!this.#provider && create) {
         const WalletConnectProvider = (
-          await import('@walletconnect/ethereum-provider')
+          await import('@walletconnect/universal-provider')
         ).default
-        this.#provider = new WalletConnectProvider({
-          ...this.options,
-          chainId,
-          rpc: { ...rpc, ...this.options?.rpc },
-        })
-        return this.#provider
+        this.#provider = await WalletConnectProvider.init(
+          this.options as UniversalProviderOpts,
+        )
       }
+      if (chainId)
+        (this.#provider as UniversalProvider).setDefaultChain(
+          `${defaultV2Config.namespace}:${chainId}`,
+        )
+      return this.#provider as UniversalProvider
+    }
+
+    // WalletConnect v1 (Force create new provider)
+    else if (!this.#provider || chainId || create) {
+      const rpc = !this.options?.infuraId
+        ? this.chains.reduce(
+            (rpc, chain) => ({
+              ...rpc,
+              [chain.id]: chain.rpcUrls.default.http[0],
+            }),
+            {},
+          )
+        : {}
+      const WalletConnectProvider = (
+        await import('@walletconnect/ethereum-provider')
+      ).default
+      this.#provider = new WalletConnectProvider({
+        ...this.options,
+        qrcode: false,
+        chainId,
+        rpc: { ...rpc, ...this.options?.rpc },
+      })
+      return this.#provider
     }
 
     return this.#provider
