@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.1.7
+
+### Patch Changes
+
+- be4add2: Added `isRainbow` flag to `InjectedConnector`.
+
 ## 0.1.6
 
 ### Patch Changes
