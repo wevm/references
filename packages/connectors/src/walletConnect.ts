@@ -314,7 +314,6 @@ export class WalletConnectConnector extends Connector<
       ).default
       this.#provider = new WalletConnectProvider({
         ...this.options,
-        qrcode: false,
         chainId,
         rpc: { ...rpc, ...this.options?.rpc },
       })
