@@ -14,6 +14,7 @@ export default defineConfig(
       'src/mock/index.ts',
       'src/walletConnect.ts',
       'src/ledger.ts',
+      'src/trustWallet.ts',
     ],
     external: [...Object.keys(dependencies), ...Object.keys(peerDependencies)],
     platform: 'browser',

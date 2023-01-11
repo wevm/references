@@ -61,6 +61,10 @@
       "types": "./dist/ledger.d.ts",
       "default": "./dist/ledger.js"
     },
+    "./trustWallet": {
+      "types": "./dist/trustWallet.d.ts",
+      "default": "./dist/trustWallet.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -70,7 +74,8 @@
     "/metaMask",
     "/mock",
     "/walletConnect",
-    "/ledger"
+    "/ledger",
+    "/trustWallet"
   ],
   "sideEffects": false,
   "contributors": [
