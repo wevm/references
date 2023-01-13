@@ -60,10 +60,18 @@ export class WalletConnectConnector extends Connector<
   readonly ready = true
 
   #provider?: WalletConnectProvider | UniversalProvider
+  #universalProviderReady = false
   #web3Modal?: Web3Modal
+  #web3ModalReady = false
 
   constructor(config: { chains?: Chain[]; options: WalletConnectOptions }) {
     super(config)
+    if (this.version === '2') {
+      this.#createUniversalProvider()
+      if (this.isQrCode) {
+        this.#createWeb3Modal()
+      }
+    }
   }
 
   get version() {
@@ -77,6 +85,10 @@ export class WalletConnectConnector extends Connector<
     )
   }
 
+  get isQrCode() {
+    return this.options.qrcode !== false
+  }
+
   async #createWeb3Modal() {
     const { Web3Modal } = await import('@web3modal/standalone')
     const { version } = this.options
@@ -84,6 +96,37 @@ export class WalletConnectConnector extends Connector<
       projectId: version === '2' ? this.options.projectId : undefined,
       standaloneChains: this.namespacedChains,
     })
+    this.#web3ModalReady = true
+  }
+
+  async #createUniversalProvider() {
+    const WalletConnectProvider = (
+      await import('@walletconnect/universal-provider')
+    ).default
+    this.#provider = await WalletConnectProvider.init(
+      this.options as UniversalProviderOpts,
+    )
+    this.#universalProviderReady = true
+  }
+
+  async #waitForReady(condition: () => boolean) {
+    if (condition()) return true
+    await new Promise((resolve) => {
+      const interval = setInterval(() => {
+        if (condition()) {
+          clearInterval(interval)
+          resolve(true)
+        }
+      }, 100)
+    })
+  }
+
+  async #isWeb3ModalReady() {
+    await this.#waitForReady(() => this.#web3ModalReady)
+  }
+
+  async #isUniversalProviderReady() {
+    await this.#waitForReady(() => this.#universalProviderReady)
   }
 
   async connect({ chainId }: { chainId?: number } = {}) {
@@ -100,7 +143,7 @@ export class WalletConnectConnector extends Connector<
 
       const provider = await this.getProvider({
         chainId: targetChainId,
-        create: isV2 && this.#provider ? false : true,
+        create: isV2 ? false : true,
       })
       provider.on('accountsChanged', this.onAccountsChanged)
       provider.on('chainChanged', this.onChainChanged)
@@ -140,11 +183,11 @@ export class WalletConnectConnector extends Connector<
                 },
               },
             }),
-            ...(this.options.qrcode
+            ...(this.isQrCode
               ? [
                   new Promise<void>((_resolve, reject) =>
                     provider.on('display_uri', async (uri: string) => {
-                      if (!this.#web3Modal) await this.#createWeb3Modal()
+                      await this.#isWeb3ModalReady()
                       await this.#web3Modal?.openModal({ uri })
                       // Modal is closed, reject promise so `catch` block for `connect` is called.
                       this.#web3Modal?.subscribeModal(({ open }) => {
@@ -157,7 +200,7 @@ export class WalletConnectConnector extends Connector<
           ])
 
           // If execution reaches here, connection was successful and we can close modal.
-          if (this.options.qrcode) this.#web3Modal?.closeModal()
+          if (this.isQrCode) this.#web3Modal?.closeModal()
         }
       }
 
@@ -167,7 +210,7 @@ export class WalletConnectConnector extends Connector<
       const accounts = (await Promise.race([
         provider.enable(),
         // When using WalletConnect v1 QR Code Modal, handle user rejection request from wallet
-        ...(isV1 && this.options.qrcode
+        ...(isV1 && this.isQrCode
           ? [
               new Promise((_res, reject) =>
                 (provider as WalletConnectProvider).connector.on(
@@ -213,7 +256,7 @@ export class WalletConnectConnector extends Connector<
         ),
       }
     } catch (error) {
-      if (isV2 && this.options.qrcode) this.#web3Modal?.closeModal()
+      if (isV2 && this.isQrCode) this.#web3Modal?.closeModal()
       // WalletConnect v1: "user closed modal"
       // WalletConnect v2: "user rejected"
       if (
@@ -283,14 +326,8 @@ export class WalletConnectConnector extends Connector<
   }: { chainId?: number; create?: boolean } = {}) {
     // WalletConnect v2
     if (this.options.version === '2') {
-      if (!this.#provider && create) {
-        const WalletConnectProvider = (
-          await import('@walletconnect/universal-provider')
-        ).default
-        this.#provider = await WalletConnectProvider.init(
-          this.options as UniversalProviderOpts,
-        )
-      }
+      await this.#isUniversalProviderReady()
+
       if (chainId)
         (this.#provider as UniversalProvider).setDefaultChain(
           `${defaultV2Config.namespace}:${chainId}`,
