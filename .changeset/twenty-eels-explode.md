@@ -1,5 +1,5 @@
 ---
-'@wagmi/connectors': minor
+'@wagmi/connectors': patch
 ---
 
-Improved handling for universal-provider, replace legacy qrcodemodal with new web3modal
+Replaced legacy qrcodemodal with web3modal for WalletConnect v2.
