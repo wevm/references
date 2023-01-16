@@ -1,15 +1,15 @@
 import {
   Chain,
-  getClient,
-  normalizeChainId,
   ProviderRpcError,
   SwitchChainError,
   UserRejectedRequestError,
+  getClient,
+  normalizeChainId,
 } from '@wagmi/core'
 import type WalletConnectProvider from '@walletconnect/ethereum-provider'
 import type {
-  UniversalProvider as UniversalProvider_,
   UniversalProviderOpts,
+  UniversalProvider as UniversalProvider_,
 } from '@walletconnect/universal-provider'
 import type { Web3Modal } from '@web3modal/standalone'
 import { providers } from 'ethers'
@@ -60,23 +60,19 @@ export class WalletConnectConnector extends Connector<
   readonly ready = true
 
   #provider?: WalletConnectProvider | UniversalProvider
-  #universalProviderReady = false
+  #universalProviderPromise?: Promise<UniversalProvider>
   #web3Modal?: Web3Modal
-  #web3ModalReady = false
 
   constructor(config: { chains?: Chain[]; options: WalletConnectOptions }) {
     super(config)
     if (this.version === '2') {
-      this.#createUniversalProvider()
-      if (this.isQrCode) {
-        this.#createWeb3Modal()
-      }
+      this.#getUniversalProvider()
+      if (this.isQrCode) this.#createWeb3Modal()
     }
   }
 
-  get version() {
-    if ('version' in this.options) return this.options.version
-    return '1'
+  get isQrCode() {
+    return this.options.qrcode !== false
   }
 
   get namespacedChains() {
@@ -85,53 +81,14 @@ export class WalletConnectConnector extends Connector<
     )
   }
 
-  get isQrCode() {
-    return this.options.qrcode !== false
-  }
-
-  async #createWeb3Modal() {
-    const { Web3Modal } = await import('@web3modal/standalone')
-    const { version } = this.options
-    this.#web3Modal = new Web3Modal({
-      projectId: version === '2' ? this.options.projectId : undefined,
-      standaloneChains: this.namespacedChains,
-    })
-    this.#web3ModalReady = true
-  }
-
-  async #createUniversalProvider() {
-    const WalletConnectProvider = (
-      await import('@walletconnect/universal-provider')
-    ).default
-    this.#provider = await WalletConnectProvider.init(
-      this.options as UniversalProviderOpts,
-    )
-    this.#universalProviderReady = true
-  }
-
-  async #waitForReady(condition: () => boolean) {
-    if (condition()) return true
-    await new Promise((resolve) => {
-      const interval = setInterval(() => {
-        if (condition()) {
-          clearInterval(interval)
-          resolve(true)
-        }
-      }, 100)
-    })
-  }
-
-  async #isWeb3ModalReady() {
-    await this.#waitForReady(() => this.#web3ModalReady)
-  }
-
-  async #isUniversalProviderReady() {
-    await this.#waitForReady(() => this.#universalProviderReady)
+  get version() {
+    if ('version' in this.options) return this.options.version
+    return '1'
   }
 
   async connect({ chainId }: { chainId?: number } = {}) {
-    const isV2 = this.version === '2'
     const isV1 = this.version === '1'
+    const isV2 = this.version === '2'
 
     try {
       let targetChainId = chainId
@@ -143,7 +100,7 @@ export class WalletConnectConnector extends Connector<
 
       const provider = await this.getProvider({
         chainId: targetChainId,
-        create: isV2 ? false : true,
+        create: isV1,
       })
       provider.on('accountsChanged', this.onAccountsChanged)
       provider.on('chainChanged', this.onChainChanged)
@@ -187,7 +144,6 @@ export class WalletConnectConnector extends Connector<
               ? [
                   new Promise<void>((_resolve, reject) =>
                     provider.on('display_uri', async (uri: string) => {
-                      await this.#isWeb3ModalReady()
                       await this.#web3Modal?.openModal({ uri })
                       // Modal is closed, reject promise so `catch` block for `connect` is called.
                       this.#web3Modal?.subscribeModal(({ open }) => {
@@ -326,12 +282,14 @@ export class WalletConnectConnector extends Connector<
   }: { chainId?: number; create?: boolean } = {}) {
     // WalletConnect v2
     if (this.options.version === '2') {
-      await this.#isUniversalProviderReady()
+      if (!this.#provider || create)
+        this.#provider = await this.#getUniversalProvider()
 
       if (chainId)
         (this.#provider as UniversalProvider).setDefaultChain(
           `${defaultV2Config.namespace}:${chainId}`,
         )
+
       return this.#provider as UniversalProvider
     }
 
@@ -393,6 +351,27 @@ export class WalletConnectConnector extends Connector<
     } catch {
       return false
     }
+  }
+
+  async #createWeb3Modal() {
+    const { Web3Modal } = await import('@web3modal/standalone')
+    const { version } = this.options
+    this.#web3Modal = new Web3Modal({
+      projectId: version === '2' ? this.options.projectId : undefined,
+      standaloneChains: this.namespacedChains,
+    })
+  }
+
+  async #getUniversalProvider() {
+    if (!this.#universalProviderPromise) {
+      const WalletConnectProvider = (
+        await import('@walletconnect/universal-provider')
+      ).default
+      this.#universalProviderPromise = WalletConnectProvider.init(
+        this.options as UniversalProviderOpts,
+      )
+    }
+    return this.#universalProviderPromise
   }
 
   /**
