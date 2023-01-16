@@ -1,12 +1,22 @@
-import { Chain, Ethereum, UserRejectedRequestError } from '@wagmi/core'
-import { providers } from 'ethers'
+import {
+  Chain,
+  ConnectorNotFoundError,
+  Ethereum,
+  UserRejectedRequestError,
+} from '@wagmi/core'
+import { Address } from 'abitype'
 import { getAddress } from 'ethers/lib/utils.js'
 
-import { ConnectorData } from './base'
 import { InjectedConnector, InjectedConnectorOptions } from './injected'
+
+type Window = typeof window & {
+  trustwallet: Ethereum
+  ethereum: Ethereum
+}
 
 export class TrustWalletConnector extends InjectedConnector {
   readonly id = 'trustWallet'
+  readonly ready = true
 
   constructor({
     chains,
@@ -26,33 +36,34 @@ export class TrustWalletConnector extends InjectedConnector {
 
         if (typeof window === 'undefined') return
 
-        const provider =
+        return (
           isTrust(window.ethereum) ||
-          window.trustwallet ||
+          (window as Window).trustwallet ||
           window.ethereum?.providers?.find(isTrust)
-
-        if (provider) {
-          return provider
-        }
-
-        window.open('https://trustwallet.com/browser-extension/', '_blank')
+        )
       },
       ...options_,
     }
     super({ chains, options })
   }
 
-  async connect(
-    config?: { chainId?: number | undefined } | undefined,
-  ): Promise<Required<ConnectorData<any>>> {
+  async connect(config?: { chainId?: number | undefined } | undefined) {
     try {
       const provider = await this.getProvider()
-      let account: string
 
-      provider.on('connect', this.connect)
-      provider.on('accountsChanged', this.onAccountsChanged)
-      provider.on('chainChanged', this.onChainChanged)
-      provider.on('disconnect', this.onDisconnect)
+      if (!provider) {
+        window.open('https://trustwallet.com/browser-extension/', '_blank')
+        throw new ConnectorNotFoundError()
+      }
+
+      let account: Address | null = null
+
+      if (provider.on) {
+        provider.on('connect', this.connect)
+        provider.on('accountsChanged', this.onAccountsChanged)
+        provider.on('chainChanged', this.onChainChanged)
+        provider.on('disconnect', this.onDisconnect)
+      }
 
       const id = await this.getChainId()
       const unsupported = this.isChainUnsupported(id)
@@ -83,9 +94,7 @@ export class TrustWalletConnector extends InjectedConnector {
       return {
         account,
         chain: { id, unsupported },
-        provider: new providers.Web3Provider(
-          provider as unknown as providers.ExternalProvider,
-        ),
+        provider,
       }
     } catch (error) {
       if (this.isUserRejectedRequestError(error)) {
