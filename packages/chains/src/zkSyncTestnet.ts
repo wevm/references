@@ -13,8 +13,8 @@ export const zkSyncTestnet: Chain = {
   },
   blockExplorers: {
     default: {
-      name: 'zkScan',
-      url: 'https://zksync2-testnet.zkscan.io',
+      name: 'zkExplorer',
+      url: 'https://goerli.explorer.zksync.io',
     },
   },
   testnet: true,
