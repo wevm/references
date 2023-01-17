@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 0.1.10
+
+### Patch Changes
+
+- ccfadfb: Updating zkSync testnet explorer link
+
 ## 0.1.9
 
 ### Patch Changes

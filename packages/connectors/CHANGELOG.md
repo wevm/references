@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.1.8
+
+### Patch Changes
+
+- 5e6dc30: Replaced legacy qrcodemodal with web3modal for WalletConnect v2.
+
 ## 0.1.7
 
 ### Patch Changes
