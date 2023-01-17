@@ -27,6 +27,7 @@ export class TrustWalletConnector extends InjectedConnector {
   } = {}) {
     const options = {
       name: 'Trust Wallet',
+      shimDisconnect: true,
       getProvider() {
         function isTrust(ethereum?: Ethereum) {
           const isTrustWallet = !!ethereum?.isTrust || !!ethereum?.isTrustWallet
