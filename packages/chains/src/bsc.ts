@@ -11,6 +11,7 @@ export const bsc: Chain = {
   },
   rpcUrls: {
     default: { http: ['https://rpc.ankr.com/bsc'] },
+    public: { http: ['https://rpc.ankr.com/bsc'] },
   },
   blockExplorers: {
     etherscan: { name: 'BscScan', url: 'https://bscscan.com' },

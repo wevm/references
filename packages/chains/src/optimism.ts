@@ -17,6 +17,9 @@ export const optimism: Chain = {
     default: {
       http: ['https://mainnet.optimism.io'],
     },
+    public: {
+      http: ['https://mainnet.optimism.io'],
+    },
   },
   blockExplorers: {
     etherscan: {

@@ -10,6 +10,10 @@ export const zkSyncTestnet: Chain = {
       http: ['https://zksync2-testnet.zksync.dev'],
       webSocket: ['wss://zksync2-testnet.zksync.dev/ws'],
     },
+    public: {
+      http: ['https://zksync2-testnet.zksync.dev'],
+      webSocket: ['wss://zksync2-testnet.zksync.dev/ws'],
+    },
   },
   blockExplorers: {
     default: {

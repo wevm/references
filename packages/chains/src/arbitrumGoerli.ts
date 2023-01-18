@@ -21,6 +21,9 @@ export const arbitrumGoerli: Chain = {
     default: {
       http: ['https://goerli-rollup.arbitrum.io/rpc'],
     },
+    public: {
+      http: ['https://goerli-rollup.arbitrum.io/rpc'],
+    },
   },
   blockExplorers: {
     etherscan: { name: 'Arbiscan', url: 'https://goerli.arbiscan.io/' },
