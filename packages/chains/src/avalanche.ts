@@ -11,6 +11,7 @@ export const avalanche: Chain = {
   },
   rpcUrls: {
     default: { http: ['https://api.avax.network/ext/bc/C/rpc'] },
+    public: { http: ['https://api.avax.network/ext/bc/C/rpc'] },
   },
   blockExplorers: {
     etherscan: { name: 'SnowTrace', url: 'https://snowtrace.io' },

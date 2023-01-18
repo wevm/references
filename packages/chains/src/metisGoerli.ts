@@ -11,6 +11,7 @@ export const metisGoerli: Chain = {
   },
   rpcUrls: {
     default: { http: ['https://goerli.gateway.metisdevops.link'] },
+    public: { http: ['https://goerli.gateway.metisdevops.link'] },
   },
   blockExplorers: {
     default: {

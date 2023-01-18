@@ -11,6 +11,7 @@ export const bscTestnet: Chain = {
   },
   rpcUrls: {
     default: { http: ['https://bsc-testnet.public.blastapi.io'] },
+    public: { http: ['https://bsc-testnet.public.blastapi.io'] },
   },
   blockExplorers: {
     etherscan: { name: 'BscScan', url: 'https://testnet.bscscan.com' },
