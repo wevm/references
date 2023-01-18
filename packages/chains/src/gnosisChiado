@@ -1,0 +1,26 @@
+import { Chain } from './types'
+
+export const gnosisChiado: Chain = {
+  id: 10200,
+  name: 'Gnosis Chiado',
+  network: 'chiado',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'Gnosis',
+    symbol: 'xDAI',
+  },
+  rpcUrls: {
+    default: { http: ['https://rpc.chiadochain.net'] },
+    public: { http: ['https://rpc.chiadochain.net'] },
+  },
+  blockExplorers: {
+    etherscan: {
+      name: 'Blockscout',
+      url: 'https://blockscout.chiadochain.net/',
+    },
+    default: {
+      name: 'Blockscout',
+      url: 'https://blockscout.chiadochain.net',
+    },
+  },
+}
