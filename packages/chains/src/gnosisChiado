@@ -14,10 +14,6 @@ export const gnosisChiado: Chain = {
     public: { http: ['https://rpc.chiadochain.net'] },
   },
   blockExplorers: {
-    etherscan: {
-      name: 'Blockscout',
-      url: 'https://blockscout.chiadochain.net/',
-    },
     default: {
       name: 'Blockscout',
       url: 'https://blockscout.chiadochain.net',
