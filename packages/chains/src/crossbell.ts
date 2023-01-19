@@ -1,7 +1,7 @@
 import { Chain } from './types'
 
 export const crossbell: Chain = {
-  id: 3737,
+  id: 3_737,
   network: 'crossbell',
   name: 'Crossbell',
   nativeCurrency: {
