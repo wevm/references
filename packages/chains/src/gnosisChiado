@@ -1,7 +1,7 @@
 import { Chain } from './types'
 
 export const gnosisChiado: Chain = {
-  id: 10200,
+  id: 10_200,
   name: 'Gnosis Chiado',
   network: 'chiado',
   nativeCurrency: {
