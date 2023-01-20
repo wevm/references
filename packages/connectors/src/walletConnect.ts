@@ -427,7 +427,7 @@ export class WalletConnectConnector extends Connector<
           name: `Chain ${id}`,
           network: `${id}`,
           nativeCurrency: { decimals: 18, name: 'Ether', symbol: 'ETH' },
-          rpcUrls: { default: { http: [''] } },
+          rpcUrls: { default: { http: [''] }, public: { http: [''] } },
         }
       )
     } catch (error) {
