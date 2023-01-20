@@ -213,7 +213,7 @@ export class InjectedConnector extends Connector<
           name: `Chain ${id}`,
           network: `${id}`,
           nativeCurrency: { name: 'Ether', decimals: 18, symbol: 'ETH' },
-          rpcUrls: { default: { http: [''] } },
+          rpcUrls: { default: { http: [''] }, public: { http: [''] } },
         }
       )
     } catch (error) {

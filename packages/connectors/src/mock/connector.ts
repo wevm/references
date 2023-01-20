@@ -114,7 +114,7 @@ export class MockConnector extends Connector<
         name: `Chain ${chainId}`,
         network: `${chainId}`,
         nativeCurrency: { name: 'Ether', decimals: 18, symbol: 'ETH' },
-        rpcUrls: { default: { http: [''] } },
+        rpcUrls: { default: { http: [''] }, public: { http: [''] } },
       }
     )
   }
