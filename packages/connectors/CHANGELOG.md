@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.1.9
+
+### Patch Changes
+
+- 8c3fc00: Added public RPC URL to Connector fallback chains
+
 ## 0.1.8
 
 ### Patch Changes
