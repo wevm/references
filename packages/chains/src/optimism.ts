@@ -27,8 +27,8 @@ export const optimism: Chain = {
       url: 'https://optimistic.etherscan.io',
     },
     default: {
-      name: 'Etherscan',
-      url: 'https://optimistic.etherscan.io',
+      name: 'Optimism Explorer',
+      url: 'https://explorer.optimism.io',
     },
   },
   contracts: {
