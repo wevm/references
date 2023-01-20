@@ -13,6 +13,9 @@ export const crossbell: Chain = {
     default: {
       http: ['https://rpc.crossbell.io'],
     },
+    public: {
+      http: ['https://rpc.crossbell.io'],
+    },
   },
   blockExplorers: {
     default: { name: 'CrossScan', url: 'https://scan.crossbell.io' },
