@@ -1,5 +1,14 @@
 # @wagmi/chains
 
+## 0.1.11
+
+### Patch Changes
+
+- d3cbc6b: Added Gnosis Chiado Chain
+- dba0258: Added `public` RPC URLs to Chains for public RPC endpoints.
+- 10c25a5: Updated optimism block explorer uri to the official proxy managed by op labs
+- 7a87ec4: Added Crossbell Chain
+
 ## 0.1.10
 
 ### Patch Changes
