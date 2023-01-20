@@ -17,6 +17,9 @@ export const polygonMumbai = {
     default: {
       http: ['https://matic-mumbai.chainstacklabs.com'],
     },
+    public: {
+      http: ['https://matic-mumbai.chainstacklabs.com'],
+    },
   },
   blockExplorers: {
     etherscan: {

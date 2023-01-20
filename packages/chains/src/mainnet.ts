@@ -17,6 +17,9 @@ export const mainnet = {
     default: {
       http: ['https://cloudflare-eth.com'],
     },
+    public: {
+      http: ['https://cloudflare-eth.com'],
+    },
   },
   blockExplorers: {
     etherscan: {

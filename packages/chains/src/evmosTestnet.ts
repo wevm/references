@@ -11,6 +11,7 @@ export const evmosTestnet = {
   },
   rpcUrls: {
     default: { http: ['https://eth.bd.evmos.dev:8545'] },
+    public: { http: ['https://eth.bd.evmos.dev:8545'] },
   },
   blockExplorers: {
     default: {

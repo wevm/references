@@ -17,6 +17,9 @@ export const polygon = {
     default: {
       http: ['https://polygon-rpc.com'],
     },
+    public: {
+      http: ['https://polygon-rpc.com'],
+    },
   },
   blockExplorers: {
     etherscan: {

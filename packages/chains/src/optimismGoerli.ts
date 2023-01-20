@@ -17,6 +17,9 @@ export const optimismGoerli = {
     default: {
       http: ['https://goerli.optimism.io'],
     },
+    public: {
+      http: ['https://goerli.optimism.io'],
+    },
   },
   blockExplorers: {
     etherscan: {

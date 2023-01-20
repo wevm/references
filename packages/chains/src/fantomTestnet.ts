@@ -11,6 +11,7 @@ export const fantomTestnet = {
   },
   rpcUrls: {
     default: { http: ['https://rpc.testnet.fantom.network'] },
+    public: { http: ['https://rpc.testnet.fantom.network'] },
   },
   blockExplorers: {
     etherscan: { name: 'FTMScan', url: 'https://testnet.ftmscan.com' },

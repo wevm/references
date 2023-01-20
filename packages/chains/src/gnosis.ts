@@ -11,6 +11,7 @@ export const gnosis = {
   },
   rpcUrls: {
     default: { http: ['https://rpc.gnosischain.com'] },
+    public: { http: ['https://rpc.gnosischain.com'] },
   },
   blockExplorers: {
     etherscan: {

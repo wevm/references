@@ -18,6 +18,7 @@ export type Chain = {
   rpcUrls: {
     [key: string]: RpcUrls
     default: RpcUrls
+    public: RpcUrls
   }
   /** Collection of block explorers */
   blockExplorers?: {

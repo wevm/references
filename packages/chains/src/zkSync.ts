@@ -14,6 +14,10 @@ export const zkSync = {
       http: ['https://zksync2-mainnet.zksync.io'],
       webSocket: ['wss://zksync2-mainnet.zksync.io/ws'],
     },
+    public: {
+      http: ['https://zksync2-mainnet.zksync.io'],
+      webSocket: ['wss://zksync2-mainnet.zksync.io/ws'],
+    },
   },
   blockExplorers: {
     default: {

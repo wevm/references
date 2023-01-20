@@ -11,6 +11,7 @@ export const evmos = {
   },
   rpcUrls: {
     default: { http: ['https://eth.bd.evmos.org:8545'] },
+    public: { http: ['https://eth.bd.evmos.org:8545'] },
   },
   blockExplorers: {
     default: { name: 'Evmos Block Explorer', url: 'https://escan.live/' },

@@ -17,6 +17,9 @@ export const goerli = {
     default: {
       http: ['https://rpc.ankr.com/eth_goerli'],
     },
+    public: {
+      http: ['https://rpc.ankr.com/eth_goerli'],
+    },
   },
   blockExplorers: {
     etherscan: {

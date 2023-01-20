@@ -9,6 +9,9 @@ export const taraxaTestnet = {
     default: {
       http: ['https://rpc.testnet.taraxa.io'],
     },
+    public: {
+      http: ['https://rpc.testnet.taraxa.io'],
+    },
   },
   blockExplorers: {
     default: {

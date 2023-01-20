@@ -18,7 +18,7 @@ import { getAddress, hexValue } from 'ethers/lib/utils.js'
 
 import { Connector } from './base'
 
-type Options = CoinbaseWalletSDKOptions & {
+type Options = Omit<CoinbaseWalletSDKOptions, 'reloadOnDisconnect'> & {
   /**
    * Fallback Ethereum JSON RPC URL
    * @default ""
@@ -29,6 +29,10 @@ type Options = CoinbaseWalletSDKOptions & {
    * @default 1
    */
   chainId?: number
+  /**
+   * Whether or not to reload dapp automatically after disconnect.
+   */
+  reloadOnDisconnect?: boolean
 }
 
 export class CoinbaseWalletConnector extends Connector<
@@ -216,10 +220,7 @@ export class CoinbaseWalletConnector extends Connector<
                 chainId: id,
                 chainName: chain.name,
                 nativeCurrency: chain.nativeCurrency,
-                rpcUrls: [
-                  chain.rpcUrls.public?.http[0] ??
-                    chain.rpcUrls.default.http[0],
-                ],
+                rpcUrls: [chain.rpcUrls.public?.http[0] ?? ''],
                 blockExplorerUrls: this.getBlockExplorerUrls(chain),
               },
             ],

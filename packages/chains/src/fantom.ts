@@ -11,6 +11,7 @@ export const fantom = {
   },
   rpcUrls: {
     default: { http: ['https://rpc.ankr.com/fantom'] },
+    public: { http: ['https://rpc.ankr.com/fantom'] },
   },
   blockExplorers: {
     etherscan: { name: 'FTMScan', url: 'https://ftmscan.com' },
