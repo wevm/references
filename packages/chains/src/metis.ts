@@ -11,6 +11,7 @@ export const metis: Chain = {
   },
   rpcUrls: {
     default: { http: ['https://andromeda.metis.io/?owner=1088'] },
+    public: { http: ['https://andromeda.metis.io/?owner=1088'] },
   },
   blockExplorers: {
     default: {

@@ -13,6 +13,9 @@ export const sepolia: Chain = {
     default: {
       http: ['https://rpc.sepolia.org'],
     },
+    public: {
+      http: ['https://rpc.sepolia.org'],
+    },
   },
   blockExplorers: {
     etherscan: {

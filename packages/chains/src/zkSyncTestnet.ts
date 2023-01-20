@@ -10,11 +10,15 @@ export const zkSyncTestnet: Chain = {
       http: ['https://zksync2-testnet.zksync.dev'],
       webSocket: ['wss://zksync2-testnet.zksync.dev/ws'],
     },
+    public: {
+      http: ['https://zksync2-testnet.zksync.dev'],
+      webSocket: ['wss://zksync2-testnet.zksync.dev/ws'],
+    },
   },
   blockExplorers: {
     default: {
-      name: 'zkScan',
-      url: 'https://zksync2-testnet.zkscan.io',
+      name: 'zkExplorer',
+      url: 'https://goerli.explorer.zksync.io',
     },
   },
   testnet: true,

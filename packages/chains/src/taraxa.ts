@@ -9,6 +9,9 @@ export const taraxa: Chain = {
     default: {
       http: ['https://rpc.mainnet.taraxa.io'],
     },
+    public: {
+      http: ['https://rpc.mainnet.taraxa.io'],
+    },
   },
   blockExplorers: {
     default: {
