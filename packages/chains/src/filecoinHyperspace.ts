@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const filecoin: Chain = {
+export const filecoinHyperspace: Chain = {
   id: 3141,
   name: 'Filecoin Hyperspace',
   network: 'filecoin-hyperspace',
