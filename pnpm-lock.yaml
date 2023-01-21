@@ -78,11 +78,11 @@ importers:
     specifiers:
       '@coinbase/wallet-sdk': ^3.5.4
       '@ledgerhq/connect-kit-loader': ^1.0.1
-      '@wagmi/core': ^0.8.12
+      '@wagmi/core': ^0.8.16
       '@walletconnect/ethereum-provider': ^1.8.0
       '@walletconnect/universal-provider': ^2.2.1
       '@web3modal/standalone': ^2.0.0-rc.2
-      abitype: ^0.1.8
+      abitype: ^0.3.0
       ethers: ^5.7.2
       eventemitter3: ^4.0.7
     dependencies:
@@ -91,10 +91,10 @@ importers:
       '@walletconnect/ethereum-provider': 1.8.0
       '@walletconnect/universal-provider': 2.2.1
       '@web3modal/standalone': 2.0.0-rc.2
-      abitype: 0.1.8
+      abitype: 0.3.0
       eventemitter3: 4.0.7
     devDependencies:
-      '@wagmi/core': 0.8.12_egrf7ew7xcibj7pkaydxy7nghq
+      '@wagmi/core': 0.8.16_egrf7ew7xcibj7pkaydxy7nghq
       ethers: 5.7.2
 
 packages:
@@ -845,7 +845,6 @@ packages:
 
   /@lit/reactive-element/1.5.0:
     resolution: {integrity: sha512-fQh9FDK0LPTwDk+0HhSZEtb8K0LTN1wXerwpGrWA+a8tWulYRDLI4vQDWp4GOIsewn0572KYV/oZ3+492D7osA==}
-    dev: false
 
   /@manypkg/find-root/1.1.0:
     resolution: {integrity: sha512-mki5uBvhHzO8kYYix/WRy2WX8S3B5wdVSc9D6KcU5lQNglP2yt58/VfLuAK49glRXChosY8ap2oJ1qgma3GUVA==}
@@ -877,7 +876,6 @@ packages:
       '@motionone/types': 10.15.1
       '@motionone/utils': 10.15.1
       tslib: 2.4.1
-    dev: false
 
   /@motionone/dom/10.15.3:
     resolution: {integrity: sha512-FQ7a2zMBXc1UeU8CG9G3yDpst55fbb0+C9A0VGfwOITitBCzigKZnXRgsRSWWR+FW57GSc13eGQxtYB0lKG0Ng==}
@@ -888,14 +886,12 @@ packages:
       '@motionone/utils': 10.15.1
       hey-listen: 1.0.8
       tslib: 2.4.1
-    dev: false
 
   /@motionone/easing/10.15.1:
     resolution: {integrity: sha512-6hIHBSV+ZVehf9dcKZLT7p5PEKHGhDwky2k8RKkmOvUoYP3S+dXsKupyZpqx5apjd9f+php4vXk4LuS+ADsrWw==}
     dependencies:
       '@motionone/utils': 10.15.1
       tslib: 2.4.1
-    dev: false
 
   /@motionone/generators/10.15.1:
     resolution: {integrity: sha512-67HLsvHJbw6cIbLA/o+gsm7h+6D4Sn7AUrB/GPxvujse1cGZ38F5H7DzoH7PhX+sjvtDnt2IhFYF2Zp1QTMKWQ==}
@@ -903,18 +899,15 @@ packages:
       '@motionone/types': 10.15.1
       '@motionone/utils': 10.15.1
       tslib: 2.4.1
-    dev: false
 
   /@motionone/svelte/10.15.3:
     resolution: {integrity: sha512-+wf2D/I6x7+d8byWPuSAGqYWCMWBc1Qq5uxGrw4WIZMc27qVtPirzbqMriILkJ4ry/FTftxBG8aQENsAYw10NA==}
     dependencies:
       '@motionone/dom': 10.15.3
       tslib: 2.4.1
-    dev: false
 
   /@motionone/types/10.15.1:
     resolution: {integrity: sha512-iIUd/EgUsRZGrvW0jqdst8st7zKTzS9EsKkP+6c6n4MPZoQHwiHuVtTQLD6Kp0bsBLhNzKIBlHXponn/SDT4hA==}
-    dev: false
 
   /@motionone/utils/10.15.1:
     resolution: {integrity: sha512-p0YncgU+iklvYr/Dq4NobTRdAPv9PveRDUXabPEeOjBLSO/1FNB2phNTZxOxpi1/GZwYpAoECEa0Wam+nsmhSw==}
@@ -922,14 +915,12 @@ packages:
       '@motionone/types': 10.15.1
       hey-listen: 1.0.8
       tslib: 2.4.1
-    dev: false
 
   /@motionone/vue/10.15.3:
     resolution: {integrity: sha512-+66Jy7Tx+phHnv2oYwX/TR4fiJRJ+PZnp8DstGyJYKEVeS2CIojnF8bJVnBS+6LuCZpzXjP3AG8lJ22rGVAovw==}
     dependencies:
       '@motionone/dom': 10.15.3
       tslib: 2.4.1
-    dev: false
 
   /@mswjs/cookies/0.2.2:
     resolution: {integrity: sha512-mlN83YSrcFgk7Dm1Mys40DLssI1KdJji2CMKN8eOlBqsTADYzj2+jWzsANsUTFbxDMWPD5e9bfA1RGqBpS3O1g==}
@@ -1240,7 +1231,6 @@ packages:
 
   /@types/trusted-types/2.0.2:
     resolution: {integrity: sha512-F5DIZ36YVLE+PN+Zwws4kJogq47hNgX3Nx6WyDJ3kcplxyke3XIzB8uK5n/Lpm1HBsbGzd6nmGehL8cPekP+Tg==}
-    dev: false
 
   /@types/ws/7.4.7:
     resolution: {integrity: sha512-JQbbmxZTZehdc2iszGKs5oC3NFnjeay7mtAWrdt7qNtAVK0g19muApzAy4bm9byz79xa2ZnO/BOBC2R8RC5Lww==}
@@ -1401,12 +1391,12 @@ packages:
       sirv: 2.0.2
     dev: true
 
-  /@wagmi/chains/0.1.9:
-    resolution: {integrity: sha512-q3qAq1MIksHut95gCHefA037FPXJGNlkGc6POYlwhVd42bLq+WaVZTxKYMsdfRrJ00UfTYjMisxrXVHDl7tGKA==}
+  /@wagmi/chains/0.1.11:
+    resolution: {integrity: sha512-0Pik1ndnMGMpKuIsOpGsONXshDw5Ju8QTflLehYM2+q7M3jjAwx/9yVq42O0OqNagovEQStGlQsilr1ImG1Reg==}
     dev: true
 
-  /@wagmi/connectors/0.1.6_noydngslnxveyssclgadsxp5wu:
-    resolution: {integrity: sha512-eMcbmPzubToffknYPnF7Eldu3kYUrIiyv1wVUSMcprU7eb3kOAqTG7J1N0dsB06oVI1PaphNIG2CWIysTeLZYg==}
+  /@wagmi/connectors/0.1.9_7h6fximldgywthkr3re3opx3fq:
+    resolution: {integrity: sha512-b8rrYlnw1ikz2JU7PiW3kQeZY9Du0ba8+WCOvo1rZDK7bnZeVCcGec9qLixgrbBaqlqv4lX3TBwsFmNiIt6sZg==}
     peerDependencies:
       '@wagmi/core': 0.8.x
       ethers: ^5.0.0
@@ -1416,10 +1406,10 @@ packages:
     dependencies:
       '@coinbase/wallet-sdk': 3.6.2
       '@ledgerhq/connect-kit-loader': 1.0.1
-      '@wagmi/core': 0.8.12_egrf7ew7xcibj7pkaydxy7nghq
+      '@wagmi/core': 0.8.16_egrf7ew7xcibj7pkaydxy7nghq
       '@walletconnect/ethereum-provider': 1.8.0
-      '@walletconnect/qrcode-modal': 1.8.0
       '@walletconnect/universal-provider': 2.2.1
+      '@web3modal/standalone': 2.0.0-rc.2
       abitype: 0.1.8
       ethers: 5.7.2
       eventemitter3: 4.0.7
@@ -1430,14 +1420,15 @@ packages:
       - debug
       - encoding
       - lokijs
+      - react
       - react-native
       - supports-color
       - typescript
       - utf-8-validate
     dev: true
 
-  /@wagmi/core/0.8.12_egrf7ew7xcibj7pkaydxy7nghq:
-    resolution: {integrity: sha512-S7lDajwW2wdgPBq7JX1tVC3C0oOg72EWsATMz4GjOcAPqlggVCT/yUcJh/obsRGgQQhQR9hFrodJFlkn7t0Jkg==}
+  /@wagmi/core/0.8.16_egrf7ew7xcibj7pkaydxy7nghq:
+    resolution: {integrity: sha512-r97HR7RONQisfqlUWl7umO/TN1MchFLdH+rPP1I0xX6vmQ8BzxwPgbLynFp0cDEucLtsNlcuD3NvsLwGV65rKA==}
     peerDependencies:
       '@coinbase/wallet-sdk': '>=3.6.0'
       '@walletconnect/ethereum-provider': '>=1.7.5'
@@ -1449,13 +1440,13 @@ packages:
         optional: true
     dependencies:
       '@coinbase/wallet-sdk': 3.6.2
-      '@wagmi/chains': 0.1.9
-      '@wagmi/connectors': 0.1.6_noydngslnxveyssclgadsxp5wu
+      '@wagmi/chains': 0.1.11
+      '@wagmi/connectors': 0.1.9_7h6fximldgywthkr3re3opx3fq
       '@walletconnect/ethereum-provider': 1.8.0
       abitype: 0.2.5
       ethers: 5.7.2
       eventemitter3: 4.0.7
-      zustand: 4.1.5
+      zustand: 4.3.2
     transitivePeerDependencies:
       - '@babel/core'
       - '@react-native-async-storage/async-storage'
@@ -1839,7 +1830,6 @@ packages:
       valtio: 1.8.2
     transitivePeerDependencies:
       - react
-    dev: false
 
   /@web3modal/standalone/2.0.0-rc.2:
     resolution: {integrity: sha512-wiUugFqyLu2DIZMKT+A7164pVCQKSEYv/4p2PhegrN5fXV6aRjd6uogdF4VRw89u3i/7CJ295vzaOBCpJA4nIw==}
@@ -1848,7 +1838,6 @@ packages:
       '@web3modal/ui': 2.0.0-rc.2
     transitivePeerDependencies:
       - react
-    dev: false
 
   /@web3modal/ui/2.0.0-rc.2:
     resolution: {integrity: sha512-TrYcnZDyxhjflv9v1Q0yKjs0+TTZOrfIa66SIe2b+i1WoC+a9Gpk0r9tyIznxVi3bMLJDJifqLSSiLUWC4KOFQ==}
@@ -1859,7 +1848,6 @@ packages:
       qrcode: 1.5.1
     transitivePeerDependencies:
       - react
-    dev: false
 
   /@xmldom/xmldom/0.8.6:
     resolution: {integrity: sha512-uRjjusqpoqfmRkTaNuLJ2VohVr67Q5YwDATW3VU7PfzTj6IRaihGrYI7zckGZjxQPBIp63nfvJbM+Yu5ICh0Bg==}
@@ -1888,6 +1876,7 @@ packages:
     engines: {pnpm: '>=7'}
     peerDependencies:
       typescript: '>=4.7.4'
+    dev: true
 
   /abitype/0.2.5:
     resolution: {integrity: sha512-t1iiokWYpkrziu4WL2Gb6YdGvaP9ZKs7WnA39TI8TsW2E99GVRgDPW/xOKhzoCdyxOYt550CNYEFluCwGaFHaA==}
@@ -1899,6 +1888,17 @@ packages:
       zod:
         optional: true
     dev: true
+
+  /abitype/0.3.0:
+    resolution: {integrity: sha512-0YokyAV4hKMcy97Pl+6QgZBlBdZJN2llslOs7kiFY+cu7kMlVXDBpxMExfv0krzBCQt2t7hNovpQ3y/zvEm18A==}
+    engines: {pnpm: '>=7'}
+    peerDependencies:
+      typescript: '>=4.9.4'
+      zod: '>=3.19.1'
+    peerDependenciesMeta:
+      zod:
+        optional: true
+    dev: false
 
   /acorn-globals/7.0.1:
     resolution: {integrity: sha512-umOSDSDrfHbTNPuNpC2NSnnA3LUrqpevPb4T9jRx4MagXNS0rs+gwiTcAvqCRmsD6utzsrzNt+ebm00SNWiC3Q==}
@@ -2846,7 +2846,6 @@ packages:
 
   /encode-utf8/1.0.3:
     resolution: {integrity: sha512-ucAnuBEhUK4boH2HjVYG5Q2mQyPorvv0u/ocS+zhdw0S8AlHYY+GOFhP1Gio5z4icpP2ivFSvhtFjQi8+T9ppw==}
-    dev: false
 
   /end-of-stream/1.4.4:
     resolution: {integrity: sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==}
@@ -4027,7 +4026,6 @@ packages:
 
   /hey-listen/1.0.8:
     resolution: {integrity: sha512-COpmrF2NOg4TBWUJ5UVyaCU2A88wEMkUPK4hNqyCkqHbxT92BbvfjoSozkAIIm6XhicGlJHhFdullInrdhwU8Q==}
-    dev: false
 
   /hmac-drbg/1.0.1:
     resolution: {integrity: sha512-Tti3gMqLdZfhOQY1Mzf/AanLiqh1WTiJgEj26ZuYQ9fbkLomzGchCws4FyrSd4VkpBfiNhaE1On+lOz894jvXg==}
@@ -4667,13 +4665,11 @@ packages:
     dependencies:
       '@lit/reactive-element': 1.5.0
       lit-html: 2.5.0
-    dev: false
 
   /lit-html/2.5.0:
     resolution: {integrity: sha512-bLHosg1XL3JRUcKdSVI0sLCs0y1wWrj2sqqAN3cZ7bDDPNgmDHH29RV48x6Wz3ZmkxIupaE+z7uXSZ/pXWAO1g==}
     dependencies:
       '@types/trusted-types': 2.0.2
-    dev: false
 
   /lit/2.5.0:
     resolution: {integrity: sha512-DtnUP6vR3l4Q8nRPPNBD+UxbAhwJPeky+OVbi3pdgMqm0g57xFSl1Sj64D1rIB+nVNdiVVg8YxB0hqKjvdadZA==}
@@ -4681,7 +4677,6 @@ packages:
       '@lit/reactive-element': 1.5.0
       lit-element: 3.2.2
       lit-html: 2.5.0
-    dev: false
 
   /load-tsconfig/0.2.3:
     resolution: {integrity: sha512-iyT2MXws+dc2Wi6o3grCFtGXpeMvHmJqS27sMPGtV2eUu4PeFnG+33I8BlFK1t1NWMjOpcx9bridn5yxLDX2gQ==}
@@ -4910,7 +4905,6 @@ packages:
       '@motionone/types': 10.15.1
       '@motionone/utils': 10.15.1
       '@motionone/vue': 10.15.3
-    dev: false
 
   /mrmime/1.0.1:
     resolution: {integrity: sha512-hzzEagAgDyoU1Q6yg5uI+AorQgdvMCur3FcKf7NhMKWsaYg+RnbTyHRa/9IlLF9rf455MOCtcqqrQQ83pPP7Uw==}
@@ -5354,7 +5348,6 @@ packages:
   /pngjs/5.0.0:
     resolution: {integrity: sha512-40QW5YalBNfQo5yRYmiw7Yz6TKKVr3h6970B2YE+3fQpsWcrbj1PzJgxeJ19DRQjhMbKPIuMY8rFaXc8moolVw==}
     engines: {node: '>=10.13.0'}
-    dev: false
 
   /postcss-load-config/3.1.4:
     resolution: {integrity: sha512-6DiM4E7v4coTE4uzA8U//WhtPwyhiim3eyjEMFCnUpzbrkK9wJHgKDT2mR+HbtSrd/NubVaYTOpSpjUl8NQeRg==}
@@ -5425,7 +5418,6 @@ packages:
 
   /proxy-compare/2.4.0:
     resolution: {integrity: sha512-FD8KmQUQD6Mfpd0hywCOzcon/dbkFP8XBd9F1ycbKtvVsfv6TsFUKJ2eC0Iz2y+KzlkdT1Z8SY6ZSgm07zOyqg==}
-    dev: false
 
   /pseudomap/1.0.2:
     resolution: {integrity: sha512-b/YwNhb8lk1Zz2+bXXpS/LK9OisiZZ1SNsSLxN1x2OXVEhW2Ckr/7mWE5vrC1ZTiJlD9g19jWszTmJsB+oEpFQ==}
@@ -5461,7 +5453,6 @@ packages:
       encode-utf8: 1.0.3
       pngjs: 5.0.0
       yargs: 15.4.1
-    dev: false
 
   /qs/6.11.0:
     resolution: {integrity: sha512-MvjoMCJwEarSbUYk5O+nmoSzSutSsTwF85zcHPQ9OrlFoZOYIjaqBAJIqIXjptyD5vThxGq52Xu/MaJzRkIk4Q==}
@@ -6495,7 +6486,6 @@ packages:
     dependencies:
       proxy-compare: 2.4.0
       use-sync-external-store: 1.2.0
-    dev: false
 
   /vite/3.2.5_@types+node@18.11.18:
     resolution: {integrity: sha512-4mVEpXpSOgrssFZAOmGIr85wPHKvaDAcXqxVxVRZhljkJOMZi1ibLibzjLHzJvcok8BMguLc7g1W6W/GqZbLdQ==}
@@ -6925,8 +6915,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /zustand/4.1.5:
-    resolution: {integrity: sha512-PsdRT8Bvq22Yyh1tvpgdHNE7OAeFKqJXUxtJvj1Ixw2B9O2YZ1M34ImQ+xyZah4wZrR4lENMoDUutKPpyXCQ/Q==}
+  /zustand/4.3.2:
+    resolution: {integrity: sha512-rd4haDmlwMTVWVqwvgy00ny8rtti/klRoZjFbL/MAcDnmD5qSw/RZc+Vddstdv90M5Lv6RPgWvm1Hivyn0QgJw==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
       immer: '>=9.0'
