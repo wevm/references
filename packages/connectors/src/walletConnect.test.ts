@@ -4,7 +4,15 @@ import WalletConnectProvider from '@walletconnect/ethereum-provider'
 import { UniversalProvider } from '@walletconnect/universal-provider'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
-import { afterAll, afterEach, beforeAll, describe, expect, it } from 'vitest'
+import {
+  afterAll,
+  afterEach,
+  beforeAll,
+  describe,
+  expect,
+  it,
+  vi,
+} from 'vitest'
 
 import { WalletConnectConnector } from './walletConnect'
 
@@ -27,11 +35,25 @@ const handlers = [
 const server = setupServer(...handlers)
 
 describe('WalletConnectConnector', () => {
-  beforeAll(() =>
+  beforeAll(() => {
     server.listen({
       onUnhandledRequest: 'warn',
-    }),
-  )
+    })
+
+    const matchMedia = vi.fn().mockImplementation((query) => {
+      return {
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: vi.fn(), // deprecated
+        removeListener: vi.fn(), // deprecated
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      }
+    })
+    vi.stubGlobal('matchMedia', matchMedia)
+  })
 
   afterEach(() => server.resetHandlers())
 
