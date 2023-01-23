@@ -10,12 +10,12 @@ export const filecoin: Chain = {
     symbol: 'FIL',
   },
   rpcUrls: {
-    default: { http: ['https://api.node.glif.io/'],},
-    public: { http: ['https://api.node.glif.io/'],},
+    default: { http: ['https://api.node.glif.io/'] },
+    public: { http: ['https://api.node.glif.io/'] },
   },
   blockExplorers: {
     default: { name: 'Filfox', url: 'https://filfox.info/en' },
-    filscan: { name: 'Filscan', url: 'https://filscan.io',}, 
-    filscout:{ name: 'Filscout', url: 'https://filscout.io/en',}
+    filscan: { name: 'Filscan', url: 'https://filscan.io' },
+    filscout: { name: 'Filscout', url: 'https://filscout.io/en' },
   },
 }

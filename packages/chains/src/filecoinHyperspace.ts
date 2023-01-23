@@ -14,7 +14,7 @@ export const filecoinHyperspace: Chain = {
     public: { http: ['https://api.hyperspace.node.glif.io/rpc/v1'] },
   },
   blockExplorers: {
-    default: { name: 'FilFox', url: 'https://hyperspace.filfox.info/en',},
-    gilf: { name: 'Gilf', url: 'https://explorer.glif.io/?network=hyperspace',},
+    default: { name: 'FilFox', url: 'https://hyperspace.filfox.info/en' },
+    gilf: { name: 'Gilf', url: 'https://explorer.glif.io/?network=hyperspace' },
   },
-};
+}
