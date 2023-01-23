@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const bsc: Chain = {
+export const canto: Chain = {
   id: 7700,
   name: 'Canto',
   network: 'canto',
@@ -14,6 +14,9 @@ export const bsc: Chain = {
     public: { http: ['https://canto.slingshot.finance'] },
   },
   blockExplorers: {
-    default: { name: 'Canto EVM Explorer (Blockscout)', url: 'https://evm.explorer.canto.io' },
+    default: {
+      name: 'Canto EVM Explorer (Blockscout)',
+      url: 'https://evm.explorer.canto.io',
+    },
   },
 }
