@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 0.1.12
+
+### Patch Changes
+
+- 72a9539: Added Filecoin & Filecoin Hyperspace chains.
+
 ## 0.1.11
 
 ### Patch Changes
