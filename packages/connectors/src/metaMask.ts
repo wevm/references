@@ -4,7 +4,7 @@ import {
   UserRejectedRequestError,
   getClient,
 } from '@wagmi/core'
-import type { Address, Ethereum, RpcError } from '@wagmi/core'
+import type { Address, RpcError } from '@wagmi/core'
 import type { Chain } from '@wagmi/core/chains'
 import { getAddress } from 'ethers/lib/utils.js'
 
