@@ -1,4 +1,3 @@
-import type { ProviderRpcError, RpcError } from '@wagmi/core'
 import {
   AddChainError,
   ChainNotConfiguredError,
@@ -9,8 +8,8 @@ import {
   getClient,
   normalizeChainId,
 } from '@wagmi/core'
+import type { Address, ProviderRpcError, RpcError } from '@wagmi/core'
 import type { Chain } from '@wagmi/core/chains'
-import type { Address } from 'abitype'
 import { providers } from 'ethers'
 import { getAddress, hexValue } from 'ethers/lib/utils.js'
 

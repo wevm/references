@@ -4,9 +4,8 @@ import {
   UserRejectedRequestError,
   getClient,
 } from '@wagmi/core'
-import type { RpcError } from '@wagmi/core'
+import type { Address, Ethereum, RpcError } from '@wagmi/core'
 import type { Chain } from '@wagmi/core/chains'
-import type { Address } from 'abitype'
 import { getAddress } from 'ethers/lib/utils.js'
 
 import type { InjectedConnectorOptions } from './injected'

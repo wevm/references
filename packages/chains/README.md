@@ -34,6 +34,7 @@ const { chains, provider } = configureChains(
 - `avalancheFuji`
 - `bsc`
 - `bscTestnet`
+- `canto`
 - `fantom`
 - `fantomTestnet`
 - `foundry`

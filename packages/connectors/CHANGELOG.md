@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.1.10
+
+### Patch Changes
+
+- d75e8d2: Fixed ABIType version mismatch between packages.
+
 ## 0.1.9
 
 ### Patch Changes
