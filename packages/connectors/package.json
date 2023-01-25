@@ -2,7 +2,7 @@
   "name": "@wagmi/connectors",
   "description": "A collection of connectors for wagmi",
   "license": "MIT",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "scripts": {
     "build": "tsup",
     "dev": "DEV=true tsup"
@@ -22,7 +22,6 @@
     "@walletconnect/ethereum-provider": "^1.8.0",
     "@web3modal/standalone": "^2.0.0",
     "@walletconnect/universal-provider": "2.3.0-7a336602",
-    "abitype": "^0.1.8",
     "eventemitter3": "^4.0.7"
   },
   "devDependencies": {

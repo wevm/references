@@ -3,7 +3,6 @@ import type {
   CoinbaseWalletSDK,
 } from '@coinbase/wallet-sdk'
 import type { CoinbaseWalletSDKOptions } from '@coinbase/wallet-sdk/dist/CoinbaseWalletSDK'
-import type { ProviderRpcError } from '@wagmi/core'
 import {
   AddChainError,
   ChainNotConfiguredError,
@@ -11,8 +10,8 @@ import {
   UserRejectedRequestError,
   normalizeChainId,
 } from '@wagmi/core'
+import type { Address, ProviderRpcError } from '@wagmi/core'
 import type { Chain } from '@wagmi/core/chains'
-import type { Address } from 'abitype'
 import { providers } from 'ethers'
 import { getAddress, hexValue } from 'ethers/lib/utils.js'
 
