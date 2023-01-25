@@ -1,15 +1,15 @@
 import {
   Chain,
+  getClient,
+  normalizeChainId,
   ProviderRpcError,
   SwitchChainError,
   UserRejectedRequestError,
-  getClient,
-  normalizeChainId,
 } from '@wagmi/core'
 import type WalletConnectProvider from '@walletconnect/ethereum-provider'
 import type {
-  UniversalProviderOpts,
   UniversalProvider as UniversalProvider_,
+  UniversalProviderOpts,
 } from '@walletconnect/universal-provider'
 import type { Web3Modal } from '@web3modal/standalone'
 import { providers } from 'ethers'
@@ -60,13 +60,13 @@ export class WalletConnectConnector extends Connector<
   readonly ready = true
 
   #provider?: WalletConnectProvider | UniversalProvider
-  #universalProviderPromise?: Promise<UniversalProvider>
+  #initUniversalProviderPromise?: Promise<void>
   #web3Modal?: Web3Modal
 
   constructor(config: { chains?: Chain[]; options: WalletConnectOptions }) {
     super(config)
-    if (this.version === '2') {
-      this.#getUniversalProvider()
+    if (this.version === '2' && typeof window !== 'undefined') {
+      this.#initUniversalProvider()
       if (this.isQrCode) this.#createWeb3Modal()
     }
   }
@@ -282,8 +282,7 @@ export class WalletConnectConnector extends Connector<
   }: { chainId?: number; create?: boolean } = {}) {
     // WalletConnect v2
     if (this.options.version === '2') {
-      if (!this.#provider || create)
-        this.#provider = await this.#getUniversalProvider()
+      if (!this.#provider) await this.#initUniversalProvider()
 
       if (chainId)
         (this.#provider as UniversalProvider).setDefaultChain(
@@ -362,16 +361,19 @@ export class WalletConnectConnector extends Connector<
     })
   }
 
-  async #getUniversalProvider() {
-    if (!this.#universalProviderPromise) {
-      const WalletConnectProvider = (
-        await import('@walletconnect/universal-provider')
-      ).default
-      this.#universalProviderPromise = WalletConnectProvider.init(
-        this.options as UniversalProviderOpts,
-      )
+  async #initUniversalProvider() {
+    if (!this.#initUniversalProviderPromise) {
+      this.#initUniversalProviderPromise = (async () => {
+        const WalletConnectProvider = (
+          await import('@walletconnect/universal-provider')
+        ).default
+        this.#provider = await WalletConnectProvider.init(
+          this.options as UniversalProviderOpts,
+        )
+      })()
     }
-    return this.#universalProviderPromise
+
+    return this.#initUniversalProviderPromise
   }
 
   /**
