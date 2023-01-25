@@ -372,7 +372,6 @@ export class WalletConnectConnector extends Connector<
         )
       })()
     }
-
     return this.#initUniversalProviderPromise
   }
 
