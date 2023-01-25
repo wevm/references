@@ -66,7 +66,7 @@ export class WalletConnectConnector extends Connector<
   constructor(config: { chains?: Chain[]; options: WalletConnectOptions }) {
     super(config)
     if (this.version === '2') {
-      this.#initUniversalProvider()
+      this.#createUniversalProvider()
       if (this.isQrCode) this.#createWeb3Modal()
     }
   }
@@ -282,7 +282,7 @@ export class WalletConnectConnector extends Connector<
   }: { chainId?: number; create?: boolean } = {}) {
     // WalletConnect v2
     if (this.options.version === '2') {
-      if (!this.#provider) await this.#initUniversalProvider()
+      if (!this.#provider) await this.#createUniversalProvider()
 
       if (chainId)
         (this.#provider as UniversalProvider).setDefaultChain(
@@ -362,17 +362,19 @@ export class WalletConnectConnector extends Connector<
   }
 
   async #initUniversalProvider() {
+    const WalletConnectProvider = (
+      await import('@walletconnect/universal-provider')
+    ).default
+    if (WalletConnectProvider) {
+      this.#provider = await WalletConnectProvider.init(
+        this.options as UniversalProviderOpts,
+      )
+    }
+  }
+
+  async #createUniversalProvider() {
     if (!this.#initUniversalProviderPromise) {
-      this.#initUniversalProviderPromise = (async () => {
-        const WalletConnectProvider = (
-          await import('@walletconnect/universal-provider')
-        ).default
-        if (WalletConnectProvider) {
-          this.#provider = await WalletConnectProvider.init(
-            this.options as UniversalProviderOpts,
-          )
-        }
-      })()
+      this.#initUniversalProviderPromise = this.#initUniversalProvider()
     }
     return this.#initUniversalProviderPromise
   }
