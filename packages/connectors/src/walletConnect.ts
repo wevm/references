@@ -1,15 +1,15 @@
 import {
   Chain,
-  getClient,
-  normalizeChainId,
   ProviderRpcError,
   SwitchChainError,
   UserRejectedRequestError,
+  getClient,
+  normalizeChainId,
 } from '@wagmi/core'
 import type WalletConnectProvider from '@walletconnect/ethereum-provider'
 import type {
-  UniversalProvider as UniversalProvider_,
   UniversalProviderOpts,
+  UniversalProvider as UniversalProvider_,
 } from '@walletconnect/universal-provider'
 import type { Web3Modal } from '@web3modal/standalone'
 import { providers } from 'ethers'
