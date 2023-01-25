@@ -65,7 +65,7 @@ export class WalletConnectConnector extends Connector<
 
   constructor(config: { chains?: Chain[]; options: WalletConnectOptions }) {
     super(config)
-    if (this.version === '2' && typeof window !== 'undefined') {
+    if (this.version === '2') {
       this.#initUniversalProvider()
       if (this.isQrCode) this.#createWeb3Modal()
     }
@@ -367,9 +367,11 @@ export class WalletConnectConnector extends Connector<
         const WalletConnectProvider = (
           await import('@walletconnect/universal-provider')
         ).default
-        this.#provider = await WalletConnectProvider.init(
-          this.options as UniversalProviderOpts,
-        )
+        if (WalletConnectProvider) {
+          this.#provider = await WalletConnectProvider.init(
+            this.options as UniversalProviderOpts,
+          )
+        }
       })()
     }
     return this.#initUniversalProviderPromise
