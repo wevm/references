@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 0.2.0
+
+### Minor Changes
+
+- be33c7d: Chains are now narrowed to their most specific type using the TypeScript [`satisfies`](https://devblogs.microsoft.com/typescript/announcing-typescript-4-9/#the-satisfies-operator) operator.
+
 ## 0.1.14
 
 ### Patch Changes
