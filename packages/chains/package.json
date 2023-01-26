@@ -21,6 +21,14 @@
     "/dist"
   ],
   "sideEffects": false,
+  "peerDependencies": {
+    "typescript": ">=4.9.4"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  },
   "contributors": [
     "jxom.eth <j@wagmi.sh>",
     "awkweb.eth <t@wagmi.sh>"
@@ -30,7 +38,7 @@
   "funding": [
     {
       "type": "gitcoin",
-      "url": "https://gitcoin.co/grants/4493/wagmi-react-hooks-library-for-ethereum"
+      "url": "https://wagmi.sh/gitcoin"
     },
     {
       "type": "github",

@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const filecoinHyperspace: Chain = {
+export const filecoinHyperspace = {
   id: 3141,
   name: 'Filecoin Hyperspace',
   network: 'filecoin-hyperspace',
@@ -17,4 +17,4 @@ export const filecoinHyperspace: Chain = {
     default: { name: 'Filfox', url: 'https://hyperspace.filfox.info/en' },
     gilf: { name: 'Glif', url: 'https://explorer.glif.io/?network=hyperspace' },
   },
-}
+} as const satisfies Chain

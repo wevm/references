@@ -47,6 +47,6 @@ type NativeCurrency = {
 }
 
 type RpcUrls = {
-  http: string[]
-  webSocket?: string[]
+  http: readonly string[]
+  webSocket?: readonly string[]
 }

@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const filecoin: Chain = {
+export const filecoin = {
   id: 314,
   name: 'Filecoin Mainnet',
   network: 'filecoin-mainnet',
@@ -18,4 +18,4 @@ export const filecoin: Chain = {
     filscan: { name: 'Filscan', url: 'https://filscan.io' },
     filscout: { name: 'Filscout', url: 'https://filscout.io/en' },
   },
-}
+} as const satisfies Chain

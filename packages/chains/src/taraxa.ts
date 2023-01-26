@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const taraxa: Chain = {
+export const taraxa = {
   id: 841,
   name: 'Taraxa Mainnet',
   network: 'taraxa',
@@ -19,4 +19,4 @@ export const taraxa: Chain = {
       url: 'https://explorer.mainnet.taraxa.io',
     },
   },
-}
+} as const satisfies Chain
