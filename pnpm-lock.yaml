@@ -78,10 +78,11 @@ importers:
     specifiers:
       '@coinbase/wallet-sdk': ^3.5.4
       '@ledgerhq/connect-kit-loader': ^1.0.1
-      '@wagmi/core': ^0.8.16
+      '@wagmi/core': ^0.8.19
       '@walletconnect/ethereum-provider': ^1.8.0
       '@walletconnect/universal-provider': ^2.2.1
       '@web3modal/standalone': ^2.0.0-rc.2
+      abitype: ^0.3.0
       ethers: ^5.7.2
       eventemitter3: ^4.0.7
     dependencies:
@@ -90,9 +91,10 @@ importers:
       '@walletconnect/ethereum-provider': 1.8.0
       '@walletconnect/universal-provider': 2.2.1
       '@web3modal/standalone': 2.0.0-rc.2
+      abitype: 0.3.0
       eventemitter3: 4.0.7
     devDependencies:
-      '@wagmi/core': 0.8.16_egrf7ew7xcibj7pkaydxy7nghq
+      '@wagmi/core': 0.8.19_egrf7ew7xcibj7pkaydxy7nghq
       ethers: 5.7.2
 
 packages:
@@ -1389,12 +1391,12 @@ packages:
       sirv: 2.0.2
     dev: true
 
-  /@wagmi/chains/0.1.11:
-    resolution: {integrity: sha512-0Pik1ndnMGMpKuIsOpGsONXshDw5Ju8QTflLehYM2+q7M3jjAwx/9yVq42O0OqNagovEQStGlQsilr1ImG1Reg==}
+  /@wagmi/chains/0.1.14:
+    resolution: {integrity: sha512-hSzb6Ni/PejVzliKkc5T3ehzRJxr5k4fZMGYuouqwArWQ8z7R4jrIlm2j2nNOD7Epz6ZucdiVluU1YH0d/EEyw==}
     dev: true
 
-  /@wagmi/connectors/0.1.9_7h6fximldgywthkr3re3opx3fq:
-    resolution: {integrity: sha512-b8rrYlnw1ikz2JU7PiW3kQeZY9Du0ba8+WCOvo1rZDK7bnZeVCcGec9qLixgrbBaqlqv4lX3TBwsFmNiIt6sZg==}
+  /@wagmi/connectors/0.1.10_mooqdejtc64te7v32kpdxu5uri:
+    resolution: {integrity: sha512-kEFzqNlB+EEl4gcvTMYZOSGlWXn53YGIiAsvXnqo3MEim4ZfTqcNZ71NV+DVmQu+N+F09wvq2FkbLO4lLVB78g==}
     peerDependencies:
       '@wagmi/core': 0.8.x
       ethers: ^5.0.0
@@ -1404,11 +1406,10 @@ packages:
     dependencies:
       '@coinbase/wallet-sdk': 3.6.2
       '@ledgerhq/connect-kit-loader': 1.0.1
-      '@wagmi/core': 0.8.16_egrf7ew7xcibj7pkaydxy7nghq
+      '@wagmi/core': 0.8.19_egrf7ew7xcibj7pkaydxy7nghq
       '@walletconnect/ethereum-provider': 1.8.0
       '@walletconnect/universal-provider': 2.2.1
       '@web3modal/standalone': 2.0.0-rc.2
-      abitype: 0.1.8
       ethers: 5.7.2
       eventemitter3: 4.0.7
     transitivePeerDependencies:
@@ -1421,12 +1422,11 @@ packages:
       - react
       - react-native
       - supports-color
-      - typescript
       - utf-8-validate
     dev: true
 
-  /@wagmi/core/0.8.16_egrf7ew7xcibj7pkaydxy7nghq:
-    resolution: {integrity: sha512-r97HR7RONQisfqlUWl7umO/TN1MchFLdH+rPP1I0xX6vmQ8BzxwPgbLynFp0cDEucLtsNlcuD3NvsLwGV65rKA==}
+  /@wagmi/core/0.8.19_egrf7ew7xcibj7pkaydxy7nghq:
+    resolution: {integrity: sha512-B1iXB4MRjxgoybZATRmBI7YEfUhpIl3aZGUjo5GXPU1SNtlXIA4/3wePlmLD64XzICXVBp99kynrrdlvJxc4gw==}
     peerDependencies:
       '@coinbase/wallet-sdk': '>=3.6.0'
       '@walletconnect/ethereum-provider': '>=1.7.5'
@@ -1438,8 +1438,8 @@ packages:
         optional: true
     dependencies:
       '@coinbase/wallet-sdk': 3.6.2
-      '@wagmi/chains': 0.1.11
-      '@wagmi/connectors': 0.1.9_7h6fximldgywthkr3re3opx3fq
+      '@wagmi/chains': 0.1.14
+      '@wagmi/connectors': 0.1.10_mooqdejtc64te7v32kpdxu5uri
       '@walletconnect/ethereum-provider': 1.8.0
       abitype: 0.2.5
       ethers: 5.7.2
@@ -1869,13 +1869,6 @@ packages:
     resolution: {integrity: sha512-j2afSsaIENvHZN2B8GOpF566vZ5WVk5opAiMTvWgaQT8DkbOqsTfvNAvHoRGU2zzP8cPoqys+xHTRDWW8L+/BA==}
     dev: true
 
-  /abitype/0.1.8:
-    resolution: {integrity: sha512-2pde0KepTzdfu19ZrzYTYVIWo69+6UbBCY4B1RDiwWgo2XZtFSJhF6C+XThuRXbbZ823J0Rw1Y5cP0NXYVcCdQ==}
-    engines: {pnpm: '>=7'}
-    peerDependencies:
-      typescript: '>=4.7.4'
-    dev: true
-
   /abitype/0.2.5:
     resolution: {integrity: sha512-t1iiokWYpkrziu4WL2Gb6YdGvaP9ZKs7WnA39TI8TsW2E99GVRgDPW/xOKhzoCdyxOYt550CNYEFluCwGaFHaA==}
     engines: {pnpm: '>=7'}
@@ -1886,6 +1879,17 @@ packages:
       zod:
         optional: true
     dev: true
+
+  /abitype/0.3.0:
+    resolution: {integrity: sha512-0YokyAV4hKMcy97Pl+6QgZBlBdZJN2llslOs7kiFY+cu7kMlVXDBpxMExfv0krzBCQt2t7hNovpQ3y/zvEm18A==}
+    engines: {pnpm: '>=7'}
+    peerDependencies:
+      typescript: '>=4.9.4'
+      zod: '>=3.19.1'
+    peerDependenciesMeta:
+      zod:
+        optional: true
+    dev: false
 
   /acorn-globals/7.0.1:
     resolution: {integrity: sha512-umOSDSDrfHbTNPuNpC2NSnnA3LUrqpevPb4T9jRx4MagXNS0rs+gwiTcAvqCRmsD6utzsrzNt+ebm00SNWiC3Q==}
