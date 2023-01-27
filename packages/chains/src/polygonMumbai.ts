@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const polygonMumbai: Chain = {
+export const polygonMumbai = {
   id: 80_001,
   name: 'Polygon Mumbai',
   network: 'maticmum',
@@ -38,4 +38,4 @@ export const polygonMumbai: Chain = {
     },
   },
   testnet: true,
-}
+} as const satisfies Chain

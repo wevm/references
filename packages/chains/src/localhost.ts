@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const localhost: Chain = {
+export const localhost = {
   id: 1_337,
   name: 'Localhost',
   network: 'localhost',
@@ -13,4 +13,4 @@ export const localhost: Chain = {
     default: { http: ['http://127.0.0.1:8545'] },
     public: { http: ['http://127.0.0.1:8545'] },
   },
-}
+} as const satisfies Chain

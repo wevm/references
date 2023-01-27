@@ -1,7 +1,7 @@
 # Generated file. Do not edit directly.
-injected/**
 coinbaseWallet/**
+injected/**
+ledger/**
 metaMask/**
 mock/**
 walletConnect/**
-ledger/**

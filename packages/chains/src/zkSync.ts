@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const zkSync: Chain = {
+export const zkSync = {
   id: 324,
   name: 'zkSync',
   network: 'zksync',
@@ -25,4 +25,4 @@ export const zkSync: Chain = {
       url: 'https://explorer.zksync.io',
     },
   },
-}
+} as const satisfies Chain

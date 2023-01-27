@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const sepolia: Chain = {
+export const sepolia = {
   id: 11_155_111,
   network: 'sepolia',
   name: 'Sepolia',
@@ -34,4 +34,4 @@ export const sepolia: Chain = {
     },
   },
   testnet: true,
-}
+} as const satisfies Chain

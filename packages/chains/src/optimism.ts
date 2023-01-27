@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const optimism: Chain = {
+export const optimism = {
   id: 10,
   name: 'Optimism',
   network: 'optimism',
@@ -37,4 +37,4 @@ export const optimism: Chain = {
       blockCreated: 4286263,
     },
   },
-}
+} as const satisfies Chain

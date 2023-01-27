@@ -1,7 +1,7 @@
 import { Chain } from './types'
 
-export const canto: Chain = {
-  id: 7700,
+export const canto = {
+  id: 7_700,
   name: 'Canto',
   network: 'canto',
   nativeCurrency: {
@@ -19,4 +19,4 @@ export const canto: Chain = {
       url: 'https://evm.explorer.canto.io',
     },
   },
-}
+} as const satisfies Chain

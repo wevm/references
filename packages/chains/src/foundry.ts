@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const foundry: Chain = {
+export const foundry = {
   id: 31_337,
   name: 'Foundry',
   network: 'foundry',
@@ -13,4 +13,4 @@ export const foundry: Chain = {
     default: { http: ['http://127.0.0.1:8545'] },
     public: { http: ['http://127.0.0.1:8545'] },
   },
-}
+} as const satisfies Chain

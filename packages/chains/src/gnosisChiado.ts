@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const gnosisChiado: Chain = {
+export const gnosisChiado = {
   id: 10_200,
   name: 'Gnosis Chiado',
   network: 'chiado',
@@ -19,4 +19,4 @@ export const gnosisChiado: Chain = {
       url: 'https://blockscout.chiadochain.net',
     },
   },
-}
+} as const satisfies Chain
