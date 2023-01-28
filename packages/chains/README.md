@@ -35,6 +35,8 @@ const { chains, provider } = configureChains(
 - `bsc`
 - `bscTestnet`
 - `canto`
+- `celo`
+- `celoAlfajores`
 - `fantom`
 - `fantomTestnet`
 - `foundry`
