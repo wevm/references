@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 0.2.1
+
+### Patch Changes
+
+- 5d32a72: Added Celo and Celo Alfajores (Testnet) support
+
 ## 0.2.0
 
 ### Minor Changes
