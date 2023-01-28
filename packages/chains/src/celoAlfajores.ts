@@ -14,7 +14,7 @@ export const celoAlfajores = {
       http: ['https://alfajores-forno.celo-testnet.org'],
     },
     infura: {
-      http: ['https://celo-alfajores.infura.io/v3/'],
+      http: ['https://celo-alfajores.infura.io/v3'],
     },
     public: {
       http: ['https://alfajores-forno.celo-testnet.org'],
