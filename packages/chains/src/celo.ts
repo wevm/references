@@ -12,7 +12,7 @@ export const celo = {
   rpcUrls: {
     default: { http: ['https://forno.celo.org'] },
     infura: {
-      http: ['https://celo-mainnet.infura.io/v3/'],
+      http: ['https://celo-mainnet.infura.io/v3'],
     },
     public: {
       http: ['https://forno.celo.org'],
