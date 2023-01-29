@@ -2,4 +2,4 @@
 '@wagmi/chains': patch
 ---
 
-Add bronos testnet & mainnet chains
+Added Bronos mainnet & testnet chains.
