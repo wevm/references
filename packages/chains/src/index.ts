@@ -2,6 +2,8 @@ export type { Chain } from './types'
 
 export { arbitrum } from './arbitrum'
 export { arbitrumGoerli } from './arbitrumGoerli'
+export { aurora } from './aurora'
+export { auroraTestnet } from './auroraTestnet'
 export { avalanche } from './avalanche'
 export { avalancheFuji } from './avalancheFuji'
 export { bronos } from './bronos'
