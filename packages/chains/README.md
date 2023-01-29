@@ -32,6 +32,8 @@ const { chains, provider } = configureChains(
 - `arbitrumGoerli`
 - `avalanche`
 - `avalancheFuji`
+- `bronos`
+- `bronosTestnet`
 - `bsc`
 - `bscTestnet`
 - `canto`
