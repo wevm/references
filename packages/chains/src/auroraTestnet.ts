@@ -15,8 +15,8 @@ export const auroraTestnet = {
     public: { http: ['https://testnet.aurora.dev'] },
   },
   blockExplorers: {
-    etherscan: { name: 'Aurorascan', url: 'https://testnet.aurorascan.dev//' },
-    default: { name: 'Aurorascan', url: 'https://testnet.aurorascan.dev/' },
+    etherscan: { name: 'Aurorascan', url: 'https://testnet.aurorascan.dev' },
+    default: { name: 'Aurorascan', url: 'https://testnet.aurorascan.dev' },
   },
   testnet: true,
 } as const satisfies Chain
