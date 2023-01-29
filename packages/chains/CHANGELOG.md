@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 0.2.2
+
+### Patch Changes
+
+- f589d1b: Added Bronos mainnet & testnet chains.
+
 ## 0.2.1
 
 ### Patch Changes
