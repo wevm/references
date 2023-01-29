@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 0.2.3
+
+### Patch Changes
+
+- cb9f55a: Added aurora and aurora testnet
+
 ## 0.2.2
 
 ### Patch Changes
