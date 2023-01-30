@@ -1,5 +1,13 @@
 # @wagmi/connectors
 
+## 0.2.1
+
+### Patch Changes
+
+- 942fcde: Updated `@walletconnect/universal-provider` and `@web3modal/standalone` packages for WalletConnectConnector (v2).
+
+  Improved initialization flow for `@walletconnect/universal-provider` for WalletConnectConnector (v2).
+
 ## 0.2.0
 
 ### Minor Changes
