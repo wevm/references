@@ -61,6 +61,7 @@ const { chains, provider } = configureChains(
 - `taraxaTestnet`
 - `zkSync`
 - `zkSyncTestnet`
+- `okc`
 
 ## Contributing
 
