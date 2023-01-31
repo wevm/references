@@ -52,6 +52,7 @@ const { chains, provider } = configureChains(
 - `mainnet`
 - `metis`
 - `metisGoerli`
+- `okc`
 - `optimism`
 - `optimismGoerli`
 - `polygon`
