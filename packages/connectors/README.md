@@ -20,6 +20,7 @@ import { configureChains, createClient } from 'wagmi'
 import { InjectedConnector } from '@wagmi/connectors/injected'
 import { CoinbaseWalletConnector } from '@wagmi/connectors/coinbaseWallet'
 import { WalletConnectConnector } from '@wagmi/connectors/walletConnect'
+import { SafeConnector } from '@wagmi/connectors/safe'
 
 const { chains, provider } = configureChains(...)
 
@@ -38,6 +39,13 @@ const client = createClient({
       },
     }),
     new InjectedConnector({ chains }),
+    new SafeConnector({
+      chains,
+      options: {
+        allowedDomains: [/gnosis-safe.io$/, /app.safe.global$/],
+        debug: false
+      }
+    })
   ],
   provider,
 })
@@ -53,6 +61,7 @@ const client = createClient({
 - [`MetaMaskConnector`](/packages/connectors/src/metaMask.ts)
 - [`MockConnector`](/packages/connectors/src/mock.ts)
 - [`WalletConnectConnector`](/packages/connectors/src/walletConnect.ts)
+- [`SafeConnector`](/packages/connectors/src/safe.ts)
 
 ## Contributing
 
