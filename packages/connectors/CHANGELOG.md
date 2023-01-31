@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.2.2
+
+### Patch Changes
+
+- 6b0725b: Fixed race condition between `switchNetwork` and mutation Hooks that use `chainId` (e.g. `sendTransaction`).
+
 ## 0.2.1
 
 ### Patch Changes
