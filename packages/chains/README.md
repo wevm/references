@@ -52,6 +52,7 @@ const { chains, provider } = configureChains(
 - `mainnet`
 - `metis`
 - `metisGoerli`
+- `okc`
 - `optimism`
 - `optimismGoerli`
 - `polygon`
@@ -61,7 +62,6 @@ const { chains, provider } = configureChains(
 - `taraxaTestnet`
 - `zkSync`
 - `zkSyncTestnet`
-- `okc`
 
 ## Contributing
 
