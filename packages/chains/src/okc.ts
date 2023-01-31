@@ -2,7 +2,7 @@ import { Chain } from './types'
 
 export const okc = {
   id: 66,
-  name: 'OKC Mainnet',
+  name: 'OKC',
   network: 'okc',
   nativeCurrency: {
     decimals: 18,
@@ -14,7 +14,6 @@ export const okc = {
     public: { http: ['https://exchainrpc.okex.org'] },
   },
   blockExplorers: {
-    etherscan: { name: 'oklink', url: 'https://www.oklink.com/okc' },
     default: { name: 'oklink', url: 'https://www.oklink.com/okc' },
   },
   contracts: {
