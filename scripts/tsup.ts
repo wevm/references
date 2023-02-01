@@ -17,6 +17,12 @@ export function getConfig({ dev, ...options }: GetConfig): Options {
   if (!options.entry?.length) throw new Error('entry is required')
   const entry: string[] = options.entry ?? []
 
+  const packageJson = fs.readJsonSync('package.json')
+  let format: Format[] = ['cjs']
+  if (packageJson.type === 'module') format = ['esm']
+  if (packageJson.module) format.push('esm')
+  if (process.env.FORMAT as Format) format.push(process.env.FORMAT as Format)
+
   // Hacks tsup to create Preconstruct-like linked packages for development
   // https://github.com/preconstruct/preconstruct
   if (dev)
@@ -24,7 +30,7 @@ export function getConfig({ dev, ...options }: GetConfig): Options {
       clean: true,
       // Only need to generate one file with tsup for development since we will create links in `onSuccess`
       entry: [entry[0] as string],
-      format: [(process.env.FORMAT as Format) ?? 'esm'],
+      format,
       silent: true,
       async onSuccess() {
         // remove all files in dist
@@ -47,10 +53,15 @@ export function getConfig({ dev, ...options }: GetConfig): Options {
             distSourceFile.replace(/\.js$/, '.d.ts'),
             `export * from '${srcTypesFile}'`,
           )
+          if (format.includes('esm') && format.includes('cjs'))
+            fs.copyFileSync(
+              distSourceFile,
+              distSourceFile.replace('.js', '.mjs'),
+            )
         }
-        const exports = await generateExports(entry)
-        await generateProxyPackages(exports)
-        await validateExports(exports)
+        const exports = await generateExports(entry, { format })
+        await generateProxyPackages(exports, { format })
+        if (format.includes('esm')) await validateExports(exports)
       },
     }
 
@@ -58,15 +69,17 @@ export function getConfig({ dev, ...options }: GetConfig): Options {
     bundle: true,
     clean: true,
     dts: true,
-    format: [(process.env.FORMAT as Format) ?? 'esm'],
+    format,
     splitting: true,
     target: 'es2021',
     async onSuccess() {
       if (typeof options.onSuccess === 'function') await options.onSuccess()
       else if (typeof options.onSuccess === 'string') execa(options.onSuccess)
 
-      const exports = await generateExports(entry)
-      await generateProxyPackages(exports)
+      const exports = await generateExports(entry, { format })
+      await generateProxyPackages(exports, { format })
+
+      if (!format.includes('esm')) return
       try {
         await validateExports(exports)
       } catch (error) {
@@ -91,13 +104,16 @@ export function getConfig({ dev, ...options }: GetConfig): Options {
 }
 
 type Exports = {
-  [key: string]: string | { types?: string; default: string }
+  [key: string]: string | { types?: string; module?: string; default: string }
 }
 
 /**
  * Generate exports from entry files
  */
-async function generateExports(entry: string[]) {
+async function generateExports(
+  entry: string[],
+  { format }: { format?: Format[] },
+) {
   const exports: Exports = {}
   for (const file of entry) {
     const extension = path.extname(file)
@@ -113,9 +129,17 @@ async function generateExports(entry: string[]) {
       /^src\//g,
       './dist/',
     )}.d.ts`
-    exports[name] = {
-      types: distTypesFile,
-      default: distSourceFile,
+    if (format?.includes('cjs')) {
+      exports[name] = {
+        types: distTypesFile,
+        module: distSourceFile.replace('.js', '.mjs'),
+        default: distSourceFile,
+      }
+    } else {
+      exports[name] = {
+        types: distTypesFile,
+        default: distSourceFile,
+      }
     }
   }
 
@@ -150,7 +174,10 @@ async function validateExports(exports: Exports) {
 /**
  * Generate proxy packages files for each export
  */
-async function generateProxyPackages(exports: Exports) {
+async function generateProxyPackages(
+  exports: Exports,
+  { format }: { format?: Format[] },
+) {
   const ignorePaths = []
   const files = new Set<string>()
   for (const [key, value] of Object.entries(exports)) {
@@ -165,13 +192,23 @@ async function generateProxyPackages(exports: Exports) {
         `Proxy package "${key}" entrypoint "${entrypoint}" does not exist.`,
       )
 
-    await fs.outputFile(
-      `${key}/package.json`,
-      dedent`{
-        "type": "module",
-        "main": "${entrypoint}"
-      }`,
-    )
+    if (format?.includes('cjs')) {
+      await fs.outputFile(
+        `${key}/package.json`,
+        dedent`{
+            "module": "${entrypoint.replace('.js', '.mjs')}",
+            "main": "${entrypoint}"
+          }`,
+      )
+    } else {
+      await fs.outputFile(
+        `${key}/package.json`,
+        dedent`{
+            "type": "module",
+            "main": "${entrypoint}"
+          }`,
+      )
+    }
     ignorePaths.push(key.replace(/^\.\//g, ''))
 
     const file = key.replace(/^\.\//g, '').split('/')[0]
