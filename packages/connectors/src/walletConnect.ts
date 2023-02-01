@@ -26,6 +26,8 @@ const defaultV2Config = {
     'eth_signTransaction',
     'eth_signTypedData',
     'personal_sign',
+    'wallet_switchEthereumChain',
+    'wallet_addEthereumChain',
   ],
   events: ['accountsChanged', 'chainChanged'],
 }
@@ -365,7 +367,7 @@ export class WalletConnectConnector extends Connector<
     const WalletConnectProvider = (
       await import('@walletconnect/universal-provider')
     ).default
-    if (WalletConnectProvider) {
+    if (typeof WalletConnectProvider?.init === 'function') {
       this.#provider = await WalletConnectProvider.init(
         this.options as UniversalProviderOpts,
       )
