@@ -2,4 +2,5 @@
 '@wagmi/connectors': patch
 ---
 
-Update @walletconnect/universal-provider package, add wallet\_ rpc methods
+Updated `@walletconnect/universal-provider`
+Added more signable methods to WC v2.
