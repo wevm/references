@@ -1,6 +1,5 @@
 ---
-'@wagmi/chains': minor
-'@wagmi/connectors': patch
+'@wagmi/chains': patch
 ---
 
 Added Telos mainnet and testnet
