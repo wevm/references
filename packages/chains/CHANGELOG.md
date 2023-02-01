@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 0.2.5
+
+### Patch Changes
+
+- 6b26dff: Added Telos mainnet and testnet
+
 ## 0.2.4
 
 ### Patch Changes

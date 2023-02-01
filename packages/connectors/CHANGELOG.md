@@ -1,5 +1,12 @@
 # @wagmi/connectors
 
+## 0.2.3
+
+### Patch Changes
+
+- 6fa74dd: Updated `@walletconnect/universal-provider`
+  Added more signable methods to WC v2.
+
 ## 0.2.2
 
 ### Patch Changes
