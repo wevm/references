@@ -21,7 +21,7 @@ export function getConfig({ dev, ...options }: GetConfig): Options {
   let format: Format[] = ['cjs']
   if (packageJson.type === 'module') format = ['esm']
   if (packageJson.module) format.push('esm')
-  if (process.env.FORMAT as Format) format.push(process.env.FORMAT as Format)
+  if (process.env.FORMAT as Format) format = [process.env.FORMAT as Format]
 
   // Hacks tsup to create Preconstruct-like linked packages for development
   // https://github.com/preconstruct/preconstruct
