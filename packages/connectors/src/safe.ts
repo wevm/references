@@ -13,6 +13,14 @@ import { Connector } from './base'
 
 export type SafeConnectorProvider = SafeAppProvider
 export type SafeConnectorOptions = Opts & {
+  /**
+   * Connector automatically connects when used as Safe App.
+   *
+   * This flag simulates the disconnect behavior by keeping track of connection status in storage
+   * and only autoconnecting when previously connected by user action (e.g. explicitly choosing to connect).
+   *
+   * @default true
+   */
   shimDisconnect?: boolean
 }
 
