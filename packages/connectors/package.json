@@ -63,6 +63,10 @@
       "types": "./dist/mock/index.d.ts",
       "default": "./dist/mock/index.js"
     },
+    "./safe": {
+      "types": "./dist/safe.d.ts",
+      "default": "./dist/safe.js"
+    },
     "./walletConnect": {
       "types": "./dist/walletConnect.d.ts",
       "default": "./dist/walletConnect.js"
@@ -75,6 +79,7 @@
     "/ledger",
     "/metaMask",
     "/mock",
+    "/safe",
     "/walletConnect",
     "/dist"
   ],

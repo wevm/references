@@ -1,61 +1,72 @@
 import { SafeAppProvider } from '@safe-global/safe-apps-provider'
-import SafeAppsSDK, {
-  SafeInfo,
-  Opts as SafeOpts,
-} from '@safe-global/safe-apps-sdk'
-import { Chain, ConnectorNotFoundError } from '@wagmi/core'
+import { Opts, default as SafeAppsSDK } from '@safe-global/safe-apps-sdk'
+import {
+  Chain,
+  ConnectorNotFoundError,
+  getClient,
+  normalizeChainId,
+} from '@wagmi/core'
 import { providers } from 'ethers'
-import { getAddress } from 'ethers/lib/utils'
+import { getAddress } from 'ethers/lib/utils.js'
 
 import { Connector } from './base'
 
-function normalizeChainId(chainId: string | number) {
-  if (typeof chainId === 'string') {
-    const isHex = chainId.trim().substring(0, 2)
-
-    return Number.parseInt(chainId, isHex === '0x' ? 16 : 10)
-  }
-  return chainId
+export type SafeConnectorProvider = SafeAppProvider
+export type SafeConnectorOptions = Opts & {
+  shimDisconnect?: boolean
 }
 
-const __IS_SERVER__ = typeof window === 'undefined'
-const __IS_IFRAME__ = !__IS_SERVER__ && window?.parent !== window
-
 /**
- * A Connector for the Safe wallet
- * Connector documentation is available here: https://github.com/safe-global/safe-apps-sdk/blob/main/packages/safe-apps-wagmi/README.md
- * Learn more about the Safe wallet here: https://docs.gnosis.io/safe/
+ * Connector for [Safe Wallet](https://safe.global)
  */
-class SafeConnector extends Connector<SafeAppProvider, SafeOpts | undefined> {
+export class SafeConnector extends Connector<
+  SafeConnectorProvider,
+  SafeConnectorOptions
+> {
   readonly id = 'safe'
   readonly name = 'Safe'
-  ready = !__IS_SERVER__ && __IS_IFRAME__
+  // Only allowed in iframe context
+  ready = !(typeof window === 'undefined') && window?.parent !== window
 
-  #provider?: SafeAppProvider
+  #provider?: SafeConnectorProvider
   #sdk: SafeAppsSDK
-  #safe?: SafeInfo
 
-  constructor(config: { chains?: Chain[]; options?: SafeOpts }) {
-    super({ ...config, options: config?.options })
+  protected shimDisconnectKey = `${this.id}.shimDisconnect`
 
-    this.#sdk = new SafeAppsSDK(config.options)
+  constructor({
+    chains,
+    options: options_,
+  }: {
+    chains?: Chain[]
+    options?: SafeConnectorOptions
+  }) {
+    const options = {
+      shimDisconnect: true,
+      ...options_,
+    }
+    super({ chains, options })
+
+    this.#sdk = new SafeAppsSDK(options)
   }
 
   async connect() {
-    const runningAsSafeApp = await this.#isSafeApp()
-    if (!runningAsSafeApp) {
-      throw new ConnectorNotFoundError()
-    }
-
     const provider = await this.getProvider()
+    if (!provider) throw new ConnectorNotFoundError()
+
     if (provider.on) {
       provider.on('accountsChanged', this.onAccountsChanged)
       provider.on('chainChanged', this.onChainChanged)
       provider.on('disconnect', this.onDisconnect)
     }
 
+    this.emit('message', { type: 'connecting' })
+
     const account = await this.getAccount()
     const id = await this.getChainId()
+
+    // Add shim to storage signalling wallet is connected
+    if (this.options.shimDisconnect)
+      getClient().storage?.setItem(this.shimDisconnectKey, true)
 
     return {
       account,
@@ -71,53 +82,31 @@ class SafeConnector extends Connector<SafeAppProvider, SafeOpts | undefined> {
     provider.removeListener('accountsChanged', this.onAccountsChanged)
     provider.removeListener('chainChanged', this.onChainChanged)
     provider.removeListener('disconnect', this.onDisconnect)
+
+    // Remove shim signalling wallet is disconnected
+    if (this.options.shimDisconnect)
+      getClient().storage?.removeItem(this.shimDisconnectKey)
   }
 
   async getAccount() {
-    if (!this.#safe) {
-      throw new ConnectorNotFoundError()
-    }
-
-    return getAddress(this.#safe.safeAddress)
+    const provider = await this.getProvider()
+    if (!provider) throw new ConnectorNotFoundError()
+    const accounts = await provider.request({
+      method: 'eth_accounts',
+    })
+    return getAddress(accounts[0] as string)
   }
 
   async getChainId() {
-    if (!this.#provider) {
-      throw new ConnectorNotFoundError()
-    }
-
-    return normalizeChainId(this.#provider.chainId)
-  }
-
-  async #getSafeInfo(): Promise<SafeInfo> {
-    if (!this.#sdk) {
-      throw new ConnectorNotFoundError()
-    }
-    if (!this.#safe) {
-      this.#safe = await this.#sdk.safe.getInfo()
-    }
-    return this.#safe
-  }
-
-  async #isSafeApp(): Promise<boolean> {
-    if (!this.ready) {
-      return false
-    }
-
-    const safe = await Promise.race([
-      this.#getSafeInfo(),
-      new Promise<void>((resolve) => setTimeout(resolve, 300)),
-    ])
-    return !!safe
+    const provider = await this.getProvider()
+    if (!provider) throw new ConnectorNotFoundError()
+    return normalizeChainId(provider.chainId)
   }
 
   async getProvider() {
     if (!this.#provider) {
-      const safe = await this.#getSafeInfo()
-      if (!safe) {
-        throw new Error('Could not load Safe information')
-      }
-
+      const safe = await this.#sdk.safe.getInfo()
+      if (!safe) throw new Error('Could not load Safe information')
       this.#provider = new SafeAppProvider(safe, this.#sdk)
     }
     return this.#provider
@@ -131,6 +120,13 @@ class SafeConnector extends Connector<SafeAppProvider, SafeOpts | undefined> {
 
   async isAuthorized() {
     try {
+      if (
+        this.options.shimDisconnect &&
+        // If shim does not exist in storage, wallet is disconnected
+        !getClient().storage?.getItem(this.shimDisconnectKey)
+      )
+        return false
+
       const account = await this.getAccount()
       return !!account
     } catch {
@@ -138,28 +134,15 @@ class SafeConnector extends Connector<SafeAppProvider, SafeOpts | undefined> {
     }
   }
 
-  // This method is not relevant for Safe, because changing an account requires full
-  // app reload. We keep it here for consistency with other connectors.
-  protected onAccountsChanged(accounts: string[]) {
-    if (accounts.length === 0) this.emit('disconnect')
-    else this.emit('change', { account: getAddress(accounts[0] as string) })
+  protected onAccountsChanged(_accounts: string[]) {
+    // Not relevant for Safe because changing account requires app reload.
   }
 
-  protected isChainUnsupported(chainId: number) {
-    return !this.chains.some((x) => x.id === chainId)
-  }
-
-  // This method is not relevant for Safe, because smart contract wallets only exist on one chain.
-  // We keep it here for consistency with other connectors.
-  protected onChainChanged(chainId: string | number) {
-    const id = normalizeChainId(chainId)
-    const unsupported = this.isChainUnsupported(id)
-    this.emit('change', { chain: { id, unsupported } })
+  protected onChainChanged(_chainId: string | number) {
+    // Not relevant for Safe because Safe smart contract wallets only exist on single chain.
   }
 
   protected onDisconnect() {
     this.emit('disconnect')
   }
 }
-
-export { SafeConnector }

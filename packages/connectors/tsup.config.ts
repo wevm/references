@@ -13,6 +13,7 @@ export default defineConfig(
       'src/ledger.ts',
       'src/metaMask.ts',
       'src/mock/index.ts',
+      'src/safe.ts',
       'src/walletConnect.ts',
     ],
     external: [...Object.keys(dependencies), ...Object.keys(peerDependencies)],
