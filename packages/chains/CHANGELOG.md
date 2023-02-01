@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 0.2.4
+
+### Patch Changes
+
+- 98e648b: Added OKC Chain.
+
 ## 0.2.3
 
 ### Patch Changes

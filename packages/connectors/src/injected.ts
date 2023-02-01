@@ -202,10 +202,17 @@ export class InjectedConnector extends Connector<
     const id = hexValue(chainId)
 
     try {
-      await provider.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: id }],
-      })
+      await Promise.all([
+        provider.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: id }],
+        }),
+        new Promise<void>((res) =>
+          this.on('change', ({ chain }) => {
+            if (chain?.id === chainId) res()
+          }),
+        ),
+      ])
       return (
         this.chains.find((x) => x.id === chainId) ?? {
           id: chainId,
