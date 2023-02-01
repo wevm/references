@@ -22,9 +22,11 @@ const defaultV2Config = {
   namespace: 'eip155',
   methods: [
     'eth_sendTransaction',
+    'eth_sendRawTransaction',
     'eth_sign',
     'eth_signTransaction',
     'eth_signTypedData',
+    'eth_signTypedData_v3',
     'eth_signTypedData_v4',
     'personal_sign',
     'wallet_switchEthereumChain',
