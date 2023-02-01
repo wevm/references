@@ -25,6 +25,7 @@ const defaultV2Config = {
     'eth_sign',
     'eth_signTransaction',
     'eth_signTypedData',
+    'eth_signTypedData_v4',
     'personal_sign',
     'wallet_switchEthereumChain',
     'wallet_addEthereumChain',
