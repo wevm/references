@@ -49,7 +49,7 @@ export class SafeConnector extends Connector<
     options?: SafeConnectorOptions
   }) {
     const options = {
-      shimDisconnect: true,
+      shimDisconnect: false,
       ...options_,
     }
     super({ chains, options })
