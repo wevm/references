@@ -2,4 +2,4 @@
 '@wagmi/chains': patch
 ---
 
-Support both CJS + ESM for @wagmi/chains
+Added support for both CJS + ESM for `@wagmi/chains`
