@@ -19,7 +19,7 @@ export type SafeConnectorOptions = Opts & {
    * This flag simulates the disconnect behavior by keeping track of connection status in storage
    * and only autoconnecting when previously connected by user action (e.g. explicitly choosing to connect).
    *
-   * @default true
+   * @default false
    */
   shimDisconnect?: boolean
 }
@@ -49,7 +49,7 @@ export class SafeConnector extends Connector<
     options?: SafeConnectorOptions
   }) {
     const options = {
-      shimDisconnect: true,
+      shimDisconnect: false,
       ...options_,
     }
     super({ chains, options })

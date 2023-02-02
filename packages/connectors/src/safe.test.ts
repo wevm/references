@@ -8,8 +8,7 @@ import { SafeConnector } from './safe'
  *
  * 1. Run the wagmi playground app (`pnpm playground`)
  * 2. Add a custom Safe App with App URL set to `http://localhost:3000` (make sure there is a `manifest.json` file served by the playground)
- * 3. Open the playground app in browser
- * 4. Press the "Safe" button
+ * 3. Open the playground app at `https://app.safe.global/eth:0x/apps?appUrl=http%3A%2F%2Flocalhost%3A3000`
  *
  * See https://docs.gnosis-safe.io/learn/safe-tools/sdks/safe-apps/releasing-your-safe-app for more info.
  */
