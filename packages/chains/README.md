@@ -60,6 +60,8 @@ const { chains, provider } = configureChains(
 - `sepolia`
 - `taraxa`
 - `taraxaTestnet`
+- `telos`
+- `telosTestnet`
 - `zkSync`
 - `zkSyncTestnet`
 
