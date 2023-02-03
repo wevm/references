@@ -1,5 +1,5 @@
 ---
-'@wagmi/connectors': minor
+'@wagmi/connectors': patch
 ---
 
-Add a connector for [Safe](https://safe.global) wallet
+Added Connector for [Safe](https://safe.global) wallet
