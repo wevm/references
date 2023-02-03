@@ -18,25 +18,11 @@ Configure your wagmi client with connectors!
 import { configureChains, createClient } from 'wagmi'
 
 import { InjectedConnector } from '@wagmi/connectors/injected'
-import { CoinbaseWalletConnector } from '@wagmi/connectors/coinbaseWallet'
-import { WalletConnectConnector } from '@wagmi/connectors/walletConnect'
 
 const { chains, provider } = configureChains(...)
 
 const client = createClient({
   connectors: [
-    new CoinbaseWalletConnector({
-      chains,
-      options: {
-        appName: 'wagmi',
-      },
-    }),
-    new WalletConnectConnector({
-      chains,
-      options: {
-        qrcode: true,
-      },
-    }),
     new InjectedConnector({ chains }),
   ],
   provider,
@@ -52,6 +38,7 @@ const client = createClient({
 - [`LedgerConnector`](/packages/connectors/src/ledger.ts)
 - [`MetaMaskConnector`](/packages/connectors/src/metaMask.ts)
 - [`MockConnector`](/packages/connectors/src/mock.ts)
+- [`SafeConnector`](/packages/connectors/src/safe.ts)
 - [`WalletConnectConnector`](/packages/connectors/src/walletConnect.ts)
 
 ## Contributing

@@ -60,6 +60,8 @@ function prepare({ packages }: { packages: Package[] }) {
     const oldPackageJson = { ...packageJson }
 
     delete packageJson.type
+    delete packageJson.module
+    delete packageJson.exports
     writeJsonSync(packageJsonPath, packageJson, { spaces: 2 })
 
     preparedPackages.push({ dir: packageDir, oldPackageJson, packageJson })
@@ -88,7 +90,9 @@ function version({ changedPackages }: { changedPackages: Package[] }) {
   for (const { dir, packageJson } of changedPackages) {
     const newPackageJson = { ...packageJson }
     newPackageJson.version = packageJson.version + '-cjs'
-    writeJsonSync(path.join(dir, 'package.json'), newPackageJson, { spaces: 2 })
+    writeJsonSync(path.join(dir, 'package.json'), newPackageJson, {
+      spaces: 2,
+    })
   }
 }
 
@@ -114,6 +118,8 @@ function postPublish({
 }) {
   // Restore package.jsons
   for (const { oldPackageJson, dir } of preparedPackages) {
-    writeJsonSync(path.join(dir, 'package.json'), oldPackageJson, { spaces: 2 })
+    writeJsonSync(path.join(dir, 'package.json'), oldPackageJson, {
+      spaces: 2,
+    })
   }
 }
