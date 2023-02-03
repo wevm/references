@@ -25,6 +25,8 @@
     "@ledgerhq/connect-kit-loader": "^1.0.1",
     "@walletconnect/ethereum-provider": "^1.8.0",
     "@walletconnect/universal-provider": "^2.3.3",
+    "@safe-global/safe-apps-provider": "^0.15.2",
+    "@safe-global/safe-apps-sdk": "^7.9.0",
     "@web3modal/standalone": "^2.0.0",
     "abitype": "^0.3.0",
     "eventemitter3": "^4.0.7"
@@ -61,6 +63,10 @@
       "types": "./dist/mock/index.d.ts",
       "default": "./dist/mock/index.js"
     },
+    "./safe": {
+      "types": "./dist/safe.d.ts",
+      "default": "./dist/safe.js"
+    },
     "./walletConnect": {
       "types": "./dist/walletConnect.d.ts",
       "default": "./dist/walletConnect.js"
@@ -73,6 +79,7 @@
     "/ledger",
     "/metaMask",
     "/mock",
+    "/safe",
     "/walletConnect",
     "/dist"
   ],

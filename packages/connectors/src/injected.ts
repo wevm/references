@@ -55,7 +55,7 @@ export class InjectedConnector extends Connector<
   #provider?: Ethereum
   #switchingChains?: boolean
 
-  protected shimDisconnectKey = 'injected.shimDisconnect'
+  protected shimDisconnectKey = `${this.id}.shimDisconnect`
 
   constructor({
     chains,
