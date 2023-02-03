@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 0.2.6
+
+### Patch Changes
+
+- bbbc91e: Added support for both CJS + ESM for `@wagmi/chains`
+
 ## 0.2.5
 
 ### Patch Changes
