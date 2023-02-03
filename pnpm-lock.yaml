@@ -80,8 +80,8 @@ importers:
       '@ledgerhq/connect-kit-loader': ^1.0.1
       '@wagmi/core': ^0.8.19
       '@walletconnect/ethereum-provider': ^1.8.0
-      '@walletconnect/universal-provider': ^2.3.3
-      '@web3modal/standalone': ^2.1.0
+      '@walletconnect/universal-provider': 2.3.3
+      '@web3modal/standalone': ^2.1.1
       abitype: ^0.3.0
       ethers: ^5.7.2
       eventemitter3: ^4.0.7
@@ -90,7 +90,7 @@ importers:
       '@ledgerhq/connect-kit-loader': 1.0.1
       '@walletconnect/ethereum-provider': 1.8.0
       '@walletconnect/universal-provider': 2.3.3
-      '@web3modal/standalone': 2.1.0
+      '@web3modal/standalone': 2.1.1
       abitype: 0.3.0
       eventemitter3: 4.0.7
     devDependencies:
@@ -1436,7 +1436,7 @@ packages:
       '@wagmi/core': 0.8.19_egrf7ew7xcibj7pkaydxy7nghq
       '@walletconnect/ethereum-provider': 1.8.0
       '@walletconnect/universal-provider': 2.3.3
-      '@web3modal/standalone': 2.1.0
+      '@web3modal/standalone': 2.1.1
       ethers: 5.7.2
       eventemitter3: 4.0.7
     transitivePeerDependencies:
@@ -1883,26 +1883,26 @@ packages:
       '@walletconnect/window-getters': 1.0.1
       tslib: 1.14.1
 
-  /@web3modal/core/2.1.0:
-    resolution: {integrity: sha512-MaKWlWleEtqSwcGEGFqP2FM4oewGcVmSZ+nQ/yUGlKN1HUWIlubcL7MgjShxGEqYHDLzbSRImu5y662s5fH2Mg==}
+  /@web3modal/core/2.1.1:
+    resolution: {integrity: sha512-GAZAvfkPHoX2/fghQmf+y36uDspk9wBJxG7qLPUNTHzvIfRoNHWbTt3iEvRdPmUZwbTGDn1jvz9z0uU67gvZdw==}
     dependencies:
       buffer: 6.0.3
       valtio: 1.9.0
     transitivePeerDependencies:
       - react
 
-  /@web3modal/standalone/2.1.0:
-    resolution: {integrity: sha512-v5gpU7/TCgITqBfzjiUOWK4kxMWcizvsxes3sT8VW6Xw2UWYphvbD1x6lTjMdrY82WdxNl0NKPx4cBBt5Mdatg==}
+  /@web3modal/standalone/2.1.1:
+    resolution: {integrity: sha512-K06VkZqltLIBKpnLeM2oszRDSdLnwXJWCcItWEOkH4LDFQIiq8lSeLhcamuadRxRKF4ZyTSLHHJ5MFcMfZEHQQ==}
     dependencies:
-      '@web3modal/core': 2.1.0
-      '@web3modal/ui': 2.1.0
+      '@web3modal/core': 2.1.1
+      '@web3modal/ui': 2.1.1
     transitivePeerDependencies:
       - react
 
-  /@web3modal/ui/2.1.0:
-    resolution: {integrity: sha512-wu1AP8PryPcgMHoLaflm0vxWr9NGkP+/y843wDDhwln0cGJ0YQToo28TgGJ6zLx2KDHYrGpSsDig3J/WB4D/6w==}
+  /@web3modal/ui/2.1.1:
+    resolution: {integrity: sha512-0jRDxgPc/peaE5KgqnzzriXhdVu5xNyCMP5Enqdpd77VkknJIs7h16MYKidxgFexieyHpCOssWySsryWcP2sXA==}
     dependencies:
-      '@web3modal/core': 2.1.0
+      '@web3modal/core': 2.1.1
       lit: 2.6.1
       motion: 10.15.5
       qrcode: 1.5.1
