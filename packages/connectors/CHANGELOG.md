@@ -1,5 +1,12 @@
 # @wagmi/connectors
 
+## 0.2.4
+
+### Patch Changes
+
+- a4f31bc: Added Connector for [Safe](https://safe.global) wallet
+- d5e25d9: Locked ethers peer dependency version to >=5.5.1 <6
+
 ## 0.2.3
 
 ### Patch Changes
