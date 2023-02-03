@@ -3,8 +3,8 @@
   "description": "A collection of chains for wagmi",
   "license": "MIT",
   "version": "0.2.5",
-  "type": "module",
   "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsup",
@@ -13,6 +13,7 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "module": "./dist/index.mjs",
       "default": "./dist/index.js"
     },
     "./package.json": "./package.json"
