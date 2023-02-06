@@ -2,4 +2,4 @@
 '@wagmi/connectors': patch
 ---
 
-Update @web3modal/standalone package to 2.1.1
+Updated `@web3modal/standalone` to `2.1.1` for WalletConnectConnector.
