@@ -15,6 +15,6 @@ export const filecoinHyperspace = {
   },
   blockExplorers: {
     default: { name: 'Filfox', url: 'https://hyperspace.filfox.info/en' },
-    gilf: { name: 'Glif', url: 'https://explorer.glif.io/?network=hyperspace' },
+    glif: { name: 'Glif', url: 'https://explorer.glif.io/?network=hyperspace' },
   },
 } as const satisfies Chain
