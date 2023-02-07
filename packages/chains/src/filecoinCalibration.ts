@@ -14,9 +14,6 @@ export const filecoinCalibration: Chain = {
     public: { http: ['https://api.calibration.node.glif.io/rpc/v1'] },
   },
   blockExplorers: {
-    default: {
-      name: 'Glif',
-      url: 'https://explorer.glif.io/calibration',
-    },
+    default: { name: 'Glif', url: 'https://explorer.glif.io/calibration' },
   },
 }
