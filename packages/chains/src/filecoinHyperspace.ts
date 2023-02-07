@@ -1,7 +1,7 @@
 import { Chain } from './types'
 
 export const filecoinHyperspace = {
-  id: 3141,
+  id: 314_1,
   name: 'Filecoin Hyperspace',
   network: 'filecoin-hyperspace',
   nativeCurrency: {

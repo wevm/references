@@ -1,7 +1,7 @@
 import { Chain } from './types'
 
 export const filecoinCalibration: Chain = {
-  id: 314159,
+  id: 314_159,
   name: 'Filecoin Calibration',
   network: 'filecoin-calibration',
   nativeCurrency: {
