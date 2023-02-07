@@ -16,7 +16,7 @@ export const filecoinCalibration: Chain = {
   blockExplorers: {
     default: {
       name: 'Glif',
-      url: 'https://explorer.glif.io/?network=calibration',
+      url: 'https://explorer.glif.io/calibration',
     },
   },
 }
