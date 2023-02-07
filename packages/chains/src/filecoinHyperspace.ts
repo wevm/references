@@ -1,7 +1,7 @@
 import { Chain } from './types'
 
 export const filecoinHyperspace = {
-  id: 3141,
+  id: 314_1,
   name: 'Filecoin Hyperspace',
   network: 'filecoin-hyperspace',
   nativeCurrency: {
@@ -15,6 +15,6 @@ export const filecoinHyperspace = {
   },
   blockExplorers: {
     default: { name: 'Filfox', url: 'https://hyperspace.filfox.info/en' },
-    gilf: { name: 'Glif', url: 'https://explorer.glif.io/?network=hyperspace' },
+    filscan: { name: 'Filscan', url: 'https://hyperspace.filscan.io' },
   },
 } as const satisfies Chain
