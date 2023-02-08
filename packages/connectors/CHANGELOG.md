@@ -1,5 +1,12 @@
 # @wagmi/connectors
 
+## 0.2.5
+
+### Patch Changes
+
+- 5d121f2: Added `isApexWallet` to injected `window.ethereum` flags.
+- e3566eb: Updated `@web3modal/standalone` to `2.1.1` for WalletConnectConnector.
+
 ## 0.2.4
 
 ### Patch Changes
