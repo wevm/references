@@ -124,6 +124,7 @@ export class WalletConnectConnector extends Connector<
               },
             },
           }),
+          // Present web3modal if qrcode was set
           ...(this.isQrCode
             ? [
                 new Promise<void>((_resolve, reject) =>
