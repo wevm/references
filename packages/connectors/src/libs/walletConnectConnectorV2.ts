@@ -7,8 +7,8 @@ import {
   normalizeChainId,
 } from '@wagmi/core'
 import type {
+  UniversalProvider,
   UniversalProviderOpts,
-  UniversalProvider as UniversalProvider_,
 } from '@walletconnect/universal-provider'
 import type { Web3Modal } from '@web3modal/standalone'
 import { providers } from 'ethers'
@@ -16,8 +16,7 @@ import { getAddress, hexValue } from 'ethers/lib/utils.js'
 
 import { Connector } from '../base'
 
-const NAMESPACE = 'eip155'
-
+// -- Types --------------------------------------------------------------------
 type RpcMethod =
   | 'eth_sendTransaction'
   | 'eth_sendRawTransaction'
@@ -32,10 +31,9 @@ type RpcMethod =
 
 type RpcEvent = 'accountsChanged' | 'chainChanged'
 
-type UniversalProvider = InstanceType<typeof UniversalProvider_>
+type UniversalProviderType = InstanceType<typeof UniversalProvider>
 
 type WalletConnectOptions = {
-  /** When `true`, uses default WalletConnect QR Code modal */
   qrcode?: boolean
   methods?: RpcMethod[]
   events?: RpcEvent[]
@@ -44,8 +42,14 @@ type WalletConnectOptions = {
 
 type WalletConnectSigner = providers.JsonRpcSigner
 
+type ConnectorConfig = { chains?: Chain[]; options: WalletConnectOptions }
+
+// -- Constants ----------------------------------------------------------------
+const NAMESPACE = 'eip155'
+
+// -- Connector ----------------------------------------------------------------
 export class WalletConnectConnector extends Connector<
-  UniversalProvider,
+  UniversalProviderType,
   WalletConnectOptions,
   WalletConnectSigner
 > {
@@ -53,11 +57,11 @@ export class WalletConnectConnector extends Connector<
   readonly name = 'WalletConnect'
   readonly ready = true
 
-  #provider?: UniversalProvider
-  #initUniversalProviderPromise?: Promise<void>
+  #provider?: UniversalProviderType
   #web3Modal?: Web3Modal
+  #initUniversalProviderPromise?: Promise<void>
 
-  constructor(config: { chains?: Chain[]; options: WalletConnectOptions }) {
+  constructor(config: ConnectorConfig) {
     super(config)
     this.#createUniversalProvider()
     if (this.isQrCode) this.#createWeb3Modal()
@@ -91,6 +95,7 @@ export class WalletConnectConnector extends Connector<
       provider.on('disconnect', this.onDisconnect)
       provider.on('session_delete', this.onDisconnect)
       provider.on('display_uri', this.onDisplayUri)
+      provider.on('connect', this.onConnect)
 
       const isChainsAuthorized = await this.#isChainsAuthorized()
 
@@ -138,9 +143,6 @@ export class WalletConnectConnector extends Connector<
         if (this.isQrCode) this.#web3Modal?.closeModal()
       }
 
-      // Defer message to the next tick to ensure wallet connect data (provided by `.enable()`) is available
-      setTimeout(() => this.emit('message', { type: 'connecting' }), 0)
-
       const accounts = (await provider.enable()) as string[]
       const account = getAddress(accounts[0] as string)
       const id = await this.getChainId()
@@ -180,6 +182,7 @@ export class WalletConnectConnector extends Connector<
     provider.removeListener('disconnect', this.onDisconnect)
     provider.removeListener('session_delete', this.onDisconnect)
     provider.removeListener('display_uri', this.onDisplayUri)
+    provider.removeListener('connect', this.onConnect)
   }
 
   async getAccount() {
@@ -208,7 +211,7 @@ export class WalletConnectConnector extends Connector<
     if (!this.#provider) await this.#createUniversalProvider()
     if (chainId) this.#provider?.setDefaultChain(`${NAMESPACE}:${chainId}`)
 
-    return this.#provider as UniversalProvider
+    return this.#provider as UniversalProviderType
   }
 
   async getSigner({ chainId }: { chainId?: number } = {}) {
@@ -216,9 +219,8 @@ export class WalletConnectConnector extends Connector<
       this.getProvider({ chainId }),
       this.getAccount(),
     ])
-    let provider_ = provider as providers.ExternalProvider
     const chainId_ = await this.getChainId()
-    provider_ = {
+    const provider_ = {
       ...provider,
       async request(args) {
         return await provider.request(
@@ -277,7 +279,6 @@ export class WalletConnectConnector extends Connector<
    */
   async #isChainsAuthorized() {
     const provider = await this.getProvider()
-
     const providerChains = provider.namespaces?.[NAMESPACE]?.chains || []
     const authorizedChainIds = providerChains.map(
       (chain) => parseInt(chain.split(':')[1] || '') as Chain['id'],
@@ -343,5 +344,9 @@ export class WalletConnectConnector extends Connector<
 
   protected onDisplayUri = (uri: string) => {
     this.emit('message', { type: 'display_uri', data: uri })
+  }
+
+  protected onConnect = () => {
+    this.emit('connect', { provider: this.#provider })
   }
 }
