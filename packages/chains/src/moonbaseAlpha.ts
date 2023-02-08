@@ -3,7 +3,7 @@ import { Chain } from './types'
 export const moonbaseAlpha = {
   id: 1287,
   name: 'Moonbase Alpha',
-  network: 'MOON',
+  network: 'moonbase-alpha',
   nativeCurrency: {
     decimals: 18,
     name: 'DEV',
