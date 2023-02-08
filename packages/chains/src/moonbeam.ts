@@ -1,9 +1,9 @@
 import { Chain } from './types'
 
 export const moonbeam = {
-  id: 1287,
-  name: 'Moonbase Alpha',
-  network: 'MOON',
+  id: 1284,
+  name: 'Moonbeam',
+  network: 'moonbeam',
   nativeCurrency: {
     decimals: 18,
     name: 'GLMR',
