@@ -22,11 +22,11 @@ export const moonbeam = {
   blockExplorers: {
     default: {
       name: 'Moonscan',
-      url: 'https://moonscan.io/',
+      url: 'https://moonscan.io',
     },
     etherscan: {
       name: 'Moonscan',
-      url: 'https://moonscan.io/',
+      url: 'https://moonscan.io',
     },
   },
   contracts: {
