@@ -1,5 +1,5 @@
 ---
-'@wagmi/connectors': minor
+'@wagmi/connectors': patch
 ---
 
-Adding Apex as injected name mapping
+Added `isApexWallet` to injected `window.ethereum` flags.
