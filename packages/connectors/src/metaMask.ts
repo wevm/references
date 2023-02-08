@@ -46,6 +46,7 @@ export class MetaMaskConnector extends InjectedConnector {
           // Could also try RPC `web3_clientVersion` if following is unreliable
           if (ethereum.isBraveWallet && !ethereum._events && !ethereum._state)
             return
+          if (ethereum.isApexWallet) return
           if (ethereum.isAvalanche) return
           if (ethereum.isKuCoinWallet) return
           if (ethereum.isPortal) return
