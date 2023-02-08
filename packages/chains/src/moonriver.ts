@@ -22,11 +22,11 @@ export const moonriver = {
   blockExplorers: {
     default: {
       name: 'Moonscan',
-      url: 'https://moonriver.moonscan.io/',
+      url: 'https://moonriver.moonscan.io',
     },
     etherscan: {
       name: 'Moonscan',
-      url: 'https://moonriver.moonscan.io/',
+      url: 'https://moonriver.moonscan.io',
     },
   },
   contracts: {
