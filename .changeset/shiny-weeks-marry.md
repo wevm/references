@@ -2,4 +2,4 @@
 '@wagmi/chains': patch
 ---
 
-Add moonbeam, moonriver and moonbaseAlpha chains
+Added Moonbeam, Moonriver, & Moonbase Alpha chains.
