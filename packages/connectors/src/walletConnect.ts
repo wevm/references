@@ -14,27 +14,45 @@ import { Connector } from './base'
 
 // -- Types --------------------------------------------------------------------
 type RpcMethod =
+  // Added by ethereum provider as required even if not specified
+  | 'personal_sign'
   | 'eth_sendTransaction'
+  // Optional
+  | 'eth_accounts'
+  | 'eth_requestAccounts'
+  | 'eth_call'
+  | 'eth_getBalance'
   | 'eth_sendRawTransaction'
   | 'eth_sign'
   | 'eth_signTransaction'
   | 'eth_signTypedData'
   | 'eth_signTypedData_v3'
   | 'eth_signTypedData_v4'
-  | 'personal_sign'
   | 'wallet_switchEthereumChain'
   | 'wallet_addEthereumChain'
+  | 'wallet_getPermissions'
+  | 'wallet_requestPermissions'
+  | 'wallet_registerOnboarding'
+  | 'wallet_watchAsset'
+  | 'wallet_scanQRCode'
 
-type RpcEvent = 'accountsChanged' | 'chainChanged'
+type RpcEvent =
+  | 'accountsChanged'
+  | 'chainChanged'
+  | 'message'
+  | 'disconnect'
+  | 'connect'
 
 type WalletConnectOptions = {
+  projectId: string
   qrcode?: boolean
   methods?: RpcMethod[]
   events?: RpcEvent[]
-  projectId: string
 }
 
 type ConnectorConfig = { chains?: Chain[]; options: WalletConnectOptions }
+
+type ConnectArguments = { chainId?: number; pairingTopic?: string }
 
 // -- Constants ----------------------------------------------------------------
 const NAMESPACE = 'eip155'
@@ -57,21 +75,17 @@ export class WalletConnectConnector extends Connector<
     this.#createProvider()
   }
 
-  async connect({
-    chainId,
-    pairingTopic,
-  }: { chainId?: number; pairingTopic?: string } = {}) {
+  async connect({ chainId, pairingTopic }: ConnectArguments = {}) {
     try {
       let targetChainId = chainId
       if (!targetChainId) {
         const lastUsedChainId = getClient().lastUsedChainId
-        if (lastUsedChainId && !this.isChainUnsupported(lastUsedChainId))
+        if (lastUsedChainId && !this.isChainUnsupported(lastUsedChainId)) {
           targetChainId = lastUsedChainId
+        }
       }
 
-      const provider = await this.getProvider({
-        chainId: targetChainId,
-      })
+      const provider = await this.getProvider({ chainId: targetChainId })
       provider.on('accountsChanged', this.onAccountsChanged)
       provider.on('chainChanged', this.onChainChanged)
       provider.on('disconnect', this.onDisconnect)
@@ -154,8 +168,9 @@ export class WalletConnectConnector extends Connector<
 
   async getProvider({ chainId }: { chainId?: number } = {}) {
     if (!this.#provider) await this.#createProvider()
-    if (chainId)
+    if (chainId) {
       this.#provider!.signer.setDefaultChain(this.#getCaipChainId(chainId))
+    }
 
     return this.#provider!
   }
@@ -207,6 +222,7 @@ export class WalletConnectConnector extends Connector<
     if (!this.#initProviderPromise) {
       this.#initProviderPromise = this.#initProvider()
     }
+
     return this.#initProviderPromise
   }
 
@@ -261,8 +277,9 @@ export class WalletConnectConnector extends Connector<
     } catch (error) {
       const message =
         typeof error === 'string' ? error : (error as ProviderRpcError)?.message
-      if (/user rejected request/i.test(message))
+      if (/user rejected request/i.test(message)) {
         throw new UserRejectedRequestError(error)
+      }
       throw new SwitchChainError(error)
     }
   }
