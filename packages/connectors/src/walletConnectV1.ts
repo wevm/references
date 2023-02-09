@@ -32,8 +32,8 @@ export class WalletConnectConnectorV1 extends Connector<
   WalletConnectOptions,
   WalletConnectSigner
 > {
-  readonly id = 'walletConnect'
-  readonly name = 'WalletConnect'
+  readonly id = 'walletConnectV1'
+  readonly name = 'WalletConnectV1'
   readonly ready = true
 
   #provider?: WalletConnectProvider

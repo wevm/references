@@ -34,8 +34,6 @@ type WalletConnectOptions = {
   projectId: string
 }
 
-type WalletConnectSigner = providers.JsonRpcSigner
-
 type ConnectorConfig = { chains?: Chain[]; options: WalletConnectOptions }
 
 // -- Constants ----------------------------------------------------------------
@@ -45,7 +43,7 @@ const NAMESPACE = 'eip155'
 export class WalletConnectConnector extends Connector<
   EthereumProviderType,
   WalletConnectOptions,
-  WalletConnectSigner
+  providers.JsonRpcSigner
 > {
   readonly id = 'walletConnect'
   readonly name = 'WalletConnect'
@@ -57,14 +55,6 @@ export class WalletConnectConnector extends Connector<
   constructor(config: ConnectorConfig) {
     super(config)
     this.#createProvider()
-  }
-
-  get isQrCode() {
-    return this.options.qrcode !== false
-  }
-
-  get namespacedChains() {
-    return this.chains.map((chain) => `${NAMESPACE}:${chain.id}`)
   }
 
   async connect({
@@ -102,7 +92,7 @@ export class WalletConnectConnector extends Connector<
       }
 
       const accounts = await provider.enable()
-      const account = getAddress(accounts[0] as string)
+      const account = getAddress(accounts[0]!)
       const id = await this.getChainId()
       const unsupported = this.isChainUnsupported(id)
 
@@ -113,9 +103,7 @@ export class WalletConnectConnector extends Connector<
       return {
         account,
         chain: { id, unsupported },
-        provider: new providers.Web3Provider(
-          provider as providers.ExternalProvider,
-        ),
+        provider: new providers.Web3Provider(provider),
       }
     } catch (error) {
       if (/user rejected/i.test((error as ProviderRpcError)?.message)) {
@@ -167,9 +155,9 @@ export class WalletConnectConnector extends Connector<
   async getProvider({ chainId }: { chainId?: number } = {}) {
     if (!this.#provider) await this.#createProvider()
     if (chainId)
-      this.#provider?.signer.setDefaultChain(`${NAMESPACE}:${chainId}`)
+      this.#provider!.signer.setDefaultChain(this.#getCaipChainId(chainId))
 
-    return this.#provider as EthereumProviderType
+    return this.#provider!
   }
 
   async getSigner({ chainId }: { chainId?: number } = {}) {
@@ -204,7 +192,7 @@ export class WalletConnectConnector extends Connector<
       '@walletconnect/ethereum-provider'
     )
     this.#provider = await EthereumProvider?.init({
-      showQrModal: this.isQrCode,
+      showQrModal: this.options.qrcode !== false,
       projectId: this.options.projectId,
       methods: this.options.methods,
       events: this.options.events,
@@ -258,7 +246,7 @@ export class WalletConnectConnector extends Connector<
           }),
         ),
       ])
-      provider.signer.setDefaultChain(`${NAMESPACE}:${chainId}`)
+      provider.signer.setDefaultChain(this.#getCaipChainId(chainId))
       this.onChainChanged(chainId)
 
       return (
@@ -277,6 +265,10 @@ export class WalletConnectConnector extends Connector<
         throw new UserRejectedRequestError(error)
       throw new SwitchChainError(error)
     }
+  }
+
+  #getCaipChainId(chainId: number) {
+    return `${NAMESPACE}:${chainId}`
   }
 
   protected onAccountsChanged = (accounts: string[]) => {
