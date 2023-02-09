@@ -6,11 +6,11 @@ import {
   normalizeChainId,
 } from '@wagmi/core'
 import type { Chain } from '@wagmi/core/chains'
-import type WalletConnectProvider from '@walletconnect/ethereum-provider'
+import type WalletConnectProvider from '@walletconnect/legacy-provider'
 import { providers } from 'ethers'
 import { getAddress, hexValue } from 'ethers/lib/utils.js'
 
-import { Connector } from '../base'
+import { Connector } from './base'
 
 /**
  * Wallets that support chain switching through WalletConnect
@@ -129,7 +129,7 @@ export class WalletConnectConnectorV1 extends Connector<
         : {}
 
       const WalletConnectProvider = (
-        await import('@walletconnect/ethereum-provider')
+        await import('@walletconnect/legacy-provider')
       ).default
       this.#provider = new WalletConnectProvider({
         ...this.options,
