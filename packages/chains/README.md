@@ -52,6 +52,9 @@ const { chains, provider } = configureChains(
 - `mainnet`
 - `metis`
 - `metisGoerli`
+- `moonbaseAlpha`
+- `moonbeam`
+- `moonriver`
 - `okc`
 - `optimism`
 - `optimismGoerli`

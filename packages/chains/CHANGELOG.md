@@ -1,5 +1,18 @@
 # @wagmi/chains
 
+## 0.2.7
+
+### Patch Changes
+
+- 337ffeb: Updated Filecoin Chains. Added Filecoin Calibration Chain.
+- 51a5c32: Added Moonbeam, Moonriver, & Moonbase Alpha chains.
+
+## 0.2.6
+
+### Patch Changes
+
+- bbbc91e: Added support for both CJS + ESM for `@wagmi/chains`
+
 ## 0.2.5
 
 ### Patch Changes

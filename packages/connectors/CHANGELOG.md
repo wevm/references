@@ -1,5 +1,19 @@
 # @wagmi/connectors
 
+## 0.2.5
+
+### Patch Changes
+
+- 5d121f2: Added `isApexWallet` to injected `window.ethereum` flags.
+- e3566eb: Updated `@web3modal/standalone` to `2.1.1` for WalletConnectConnector.
+
+## 0.2.4
+
+### Patch Changes
+
+- a4f31bc: Added Connector for [Safe](https://safe.global) wallet
+- d5e25d9: Locked ethers peer dependency version to >=5.5.1 <6
+
 ## 0.2.3
 
 ### Patch Changes
