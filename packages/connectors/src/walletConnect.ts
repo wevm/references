@@ -14,10 +14,8 @@ import { Connector } from './base'
 
 // -- Types --------------------------------------------------------------------
 type RpcMethod =
-  // Added by ethereum provider as required even if not specified
   | 'personal_sign'
   | 'eth_sendTransaction'
-  // Optional
   | 'eth_accounts'
   | 'eth_requestAccounts'
   | 'eth_call'
@@ -54,6 +52,8 @@ type ConnectorConfig = { chains?: Chain[]; options: WalletConnectOptions }
 
 type ConnectArguments = { chainId?: number; pairingTopic?: string }
 
+type ChainIdArguments = { chainId?: number }
+
 // -- Constants ----------------------------------------------------------------
 const NAMESPACE = 'eip155'
 
@@ -75,24 +75,18 @@ export class WalletConnectConnector extends Connector<
     this.#createProvider()
   }
 
+  // -- Public -----------------------------------------------------------------
+
+  /**
+   * Connect to provider
+   * @param chainId - Set's default chain to connect to
+   * @param pairingTopic - If provided, will attempt to connect to an existing pairing
+   */
   async connect({ chainId, pairingTopic }: ConnectArguments = {}) {
     try {
-      let targetChainId = chainId
-      if (!targetChainId) {
-        const lastUsedChainId = getClient().lastUsedChainId
-        if (lastUsedChainId && !this.isChainUnsupported(lastUsedChainId)) {
-          targetChainId = lastUsedChainId
-        }
-      }
-
+      const targetChainId = chainId || getClient().lastUsedChainId
       const provider = await this.getProvider({ chainId: targetChainId })
-      provider.on('accountsChanged', this.onAccountsChanged)
-      provider.on('chainChanged', this.onChainChanged)
-      provider.on('disconnect', this.onDisconnect)
-      provider.on('session_delete', this.onDisconnect)
-      provider.on('display_uri', this.onDisplayUri)
-      provider.on('connect', this.onConnect)
-
+      this.#setProviderListeners(provider)
       const isChainsAuthorized = await this.#isChainsAuthorized()
 
       // If there is an active session, and the chains are not authorized,
@@ -102,17 +96,14 @@ export class WalletConnectConnector extends Connector<
       // If there is not an active session, or the chains are not authorized,
       // attempt to connect.
       if (!provider.session || (provider.session && !isChainsAuthorized)) {
-        await provider.connect({ pairingTopic })
+        await provider.connect({ pairingTopic, chains: [], optionalChains: [] })
       }
 
+      // Enable check for existing session internally, thus no double connection
       const accounts = await provider.enable()
       const account = getAddress(accounts[0]!)
       const id = await this.getChainId()
       const unsupported = this.isChainUnsupported(id)
-
-      // In v2, chain switching is allowed programatically
-      // as the user approves the chains when approving the pairing
-      this.switchChain = this.#switchChain
 
       return {
         account,
@@ -127,67 +118,59 @@ export class WalletConnectConnector extends Connector<
     }
   }
 
+  /**
+   * Disconnect, set up event listeners and silence non-critical errors
+   */
   async disconnect() {
     const provider = await this.getProvider()
     try {
       await provider.disconnect()
     } catch (error) {
-      // If the session does not exist, we don't want to throw.
       if (!/No matching key/i.test((error as Error).message)) throw error
+    } finally {
+      this.#removeProviderListeners(provider)
     }
-
-    provider.removeListener('accountsChanged', this.onAccountsChanged)
-    provider.removeListener('chainChanged', this.onChainChanged)
-    provider.removeListener('disconnect', this.onDisconnect)
-    provider.removeListener('session_delete', this.onDisconnect)
-    provider.removeListener('display_uri', this.onDisplayUri)
-    provider.removeListener('connect', this.onConnect)
   }
 
+  /**
+   * Get account and return checksum address
+   */
   async getAccount() {
     const provider = await this.getProvider()
     const accounts = (await provider.request({
       method: 'eth_accounts',
     })) as string[]
 
-    // return checksum address
     return getAddress(accounts[0] as string)
   }
 
+  /**
+   * WalletConnect v2 does not internally manage chainIds anymore, so
+   * we need to retrieve it from the client, or request it from the provider
+   * if none exists.
+   */
   async getChainId() {
     const provider = await this.getProvider()
-
-    // WalletConnect v2 does not internally manage chainIds anymore, so
-    // we need to retrieve it from the client, or request it from the provider
-    // if none exists.
     return (
       getClient().data?.chain?.id ??
       normalizeChainId(await provider.request({ method: 'eth_chainId' }))
     )
   }
 
-  async getProvider({ chainId }: { chainId?: number } = {}) {
+  async getProvider({ chainId }: ChainIdArguments = {}) {
     if (!this.#provider) await this.#createProvider()
     if (chainId) {
       this.#provider!.signer.setDefaultChain(this.#getCaipChainId(chainId))
     }
-
     return this.#provider!
   }
 
-  async getSigner({ chainId }: { chainId?: number } = {}) {
+  async getSigner({ chainId }: ChainIdArguments = {}) {
     const [provider, account] = await Promise.all([
       this.getProvider({ chainId }),
       this.getAccount(),
     ])
-    const provider_ = {
-      ...provider,
-      async request(args) {
-        return await provider.request(args)
-      },
-    } as providers.ExternalProvider
-
-    return new providers.Web3Provider(provider_, chainId).getSigner(account)
+    return new providers.Web3Provider(provider, chainId).getSigner(account)
   }
 
   async isAuthorized() {
@@ -202,69 +185,16 @@ export class WalletConnectConnector extends Connector<
     }
   }
 
-  async #initProvider() {
-    const { default: EthereumProvider } = await import(
-      '@walletconnect/ethereum-provider'
-    )
-    this.#provider = await EthereumProvider?.init({
-      showQrModal: this.options.qrcode !== false,
-      projectId: this.options.projectId,
-      methods: this.options.methods,
-      events: this.options.events,
-      chains: this.chains.map(({ id }) => id),
-      rpcMap: Object.fromEntries(
-        this.chains.map((chain) => [chain.id, chain.rpcUrls.default.http[0]!]),
-      ),
-    })
-  }
-
-  async #createProvider() {
-    if (!this.#initProviderPromise) {
-      this.#initProviderPromise = this.#initProvider()
-    }
-
-    return this.#initProviderPromise
-  }
-
   /**
-   * @description Checks if the connector is authorized to access the requested chains.
-   *
-   * There could be a case where requested chains are out of sync with
-   * the users' approved chains (e.g. the dapp could have added support
-   * for an additional chain), hence the user will be unauthorized.
+   * Switches to pre-approved chain and emmits chainChanged event.
+   * Will error if user is switching to unsupported chain.
    */
-  async #isChainsAuthorized() {
-    const provider = await this.getProvider()
-    const providerChains = provider.signer.namespaces?.[NAMESPACE]?.chains || []
-    const authorizedChainIds = providerChains.map(
-      (chain) => parseInt(chain.split(':')[1] || '') as Chain['id'],
-    )
-    return !this.chains.some(({ id }) => !authorizedChainIds.includes(id))
-  }
-
-  async #switchChain(chainId: number) {
+  async switchChain(chainId: number) {
     const provider = await this.getProvider()
     const id = hexValue(chainId)
 
     try {
-      // Set up a race between `wallet_switchEthereumChain` & the `chainChanged` event
-      // to ensure the chain has been switched. This is because there could be a case
-      // where a wallet may not resolve the `wallet_switchEthereumChain` method, or
-      // resolves slower than `chainChanged`.
-      await Promise.race([
-        provider.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: id }],
-        }),
-        new Promise((res) =>
-          this.on('change', ({ chain }) => {
-            if (chain?.id === chainId) res(chainId)
-          }),
-        ),
-      ])
       provider.signer.setDefaultChain(this.#getCaipChainId(chainId))
-      this.onChainChanged(chainId)
-
       return (
         this.chains.find((x) => x.id === chainId) ?? {
           id: chainId,
@@ -284,9 +214,77 @@ export class WalletConnectConnector extends Connector<
     }
   }
 
+  // -- Private ----------------------------------------------------------------
+
+  async #createProvider() {
+    if (!this.#initProviderPromise) {
+      this.#initProviderPromise = this.#initProvider()
+    }
+    return this.#initProviderPromise
+  }
+
+  async #initProvider() {
+    const { default: EthereumProvider } = await import(
+      '@walletconnect/ethereum-provider'
+    )
+    const [requiredChain, ...optionalChains] = this.chains.map(({ id }) => id)
+    if (requiredChain) {
+      // EthereumProvider populates & deduplicates required methods and events internally
+      this.#provider = await EthereumProvider?.init({
+        showQrModal: this.options.qrcode !== false,
+        projectId: this.options.projectId,
+        optionalMethods: this.options.methods,
+        optionalEvents: this.options.events,
+        chains: [requiredChain],
+        optionalChains: optionalChains,
+        rpcMap: Object.fromEntries(
+          this.chains.map((chain) => [
+            chain.id,
+            chain.rpcUrls.default.http[0]!,
+          ]),
+        ),
+      })
+    }
+  }
+
+  /**
+   * Checks if the connector is authorized to access the requested chains.
+   * There could be a case where requested chains are out of sync with
+   * the users' approved chains (e.g. the dapp could have added support
+   * for an additional chain), hence the user will be unauthorized.
+   */
+  async #isChainsAuthorized() {
+    const { signer } = await this.getProvider()
+    const providerChains = signer.namespaces?.[NAMESPACE]?.chains || []
+    const authorizedChainIds = providerChains.map(
+      (chain) => parseInt(chain.split(':')[1] || '') as Chain['id'],
+    )
+    return !this.chains.some(({ id }) => !authorizedChainIds.includes(id))
+  }
+
   #getCaipChainId(chainId: number) {
     return `${NAMESPACE}:${chainId}`
   }
+
+  #setProviderListeners(provider: EthereumProviderType) {
+    provider.on('accountsChanged', this.onAccountsChanged)
+    provider.on('chainChanged', this.onChainChanged)
+    provider.on('disconnect', this.onDisconnect)
+    provider.on('session_delete', this.onDisconnect)
+    provider.on('display_uri', this.onDisplayUri)
+    provider.on('connect', this.onConnect)
+  }
+
+  #removeProviderListeners(provider: EthereumProviderType) {
+    provider.removeListener('accountsChanged', this.onAccountsChanged)
+    provider.removeListener('chainChanged', this.onChainChanged)
+    provider.removeListener('disconnect', this.onDisconnect)
+    provider.removeListener('session_delete', this.onDisconnect)
+    provider.removeListener('display_uri', this.onDisplayUri)
+    provider.removeListener('connect', this.onConnect)
+  }
+
+  // -- Protected --------------------------------------------------------------
 
   protected onAccountsChanged = (accounts: string[]) => {
     if (accounts.length === 0) this.emit('disconnect')
