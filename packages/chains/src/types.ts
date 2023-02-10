@@ -28,6 +28,7 @@ export type Chain = {
   /** Collection of contracts */
   contracts?: {
     ensRegistry?: Contract
+    ensUniversalResolver?: Contract
     multicall3?: Contract
   }
   /** Flag for test networks */
