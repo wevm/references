@@ -226,7 +226,7 @@ export class WalletConnectConnector extends Connector<
   // -- Private ----------------------------------------------------------------
 
   async #createProvider() {
-    if (!this.#initProviderPromise) {
+    if (!this.#initProviderPromise && typeof window !== 'undefined') {
       this.#initProviderPromise = this.#initProvider()
     }
     return this.#initProviderPromise
@@ -239,7 +239,7 @@ export class WalletConnectConnector extends Connector<
     const [requiredChain, ...optionalChains] = this.chains.map(({ id }) => id)
     if (requiredChain) {
       // EthereumProvider populates & deduplicates required methods and events internally
-      this.#provider = await EthereumProvider?.init({
+      this.#provider = await EthereumProvider.init({
         showQrModal: this.options.qrcode !== false,
         projectId: this.options.projectId,
         optionalMethods: this.options.methods,
