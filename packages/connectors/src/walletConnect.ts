@@ -84,20 +84,29 @@ export class WalletConnectConnector extends Connector<
    */
   async connect({ chainId, pairingTopic }: ConnectArguments = {}) {
     try {
-      const targetChainId = chainId || getClient().lastUsedChainId
-      const provider = await this.getProvider({ chainId: targetChainId })
+      const provider = await this.getProvider()
       this.#setProviderListeners(provider)
       const isChainsAuthorized = await this.#isChainsAuthorized()
+      const requiredChainId = chainId ?? this.chains[0]?.id
 
-      // If there is an active session, and the chains are not authorized,
-      // disconnect the session.
-      if (provider.session && !isChainsAuthorized) await provider.disconnect()
-
-      // If there is not an active session, or the chains are not authorized,
-      // attempt to connect.
-      if (!provider.session || (provider.session && !isChainsAuthorized)) {
-        await provider.connect({ pairingTopic, chains: [], optionalChains: [] })
+      // Throw error, we need at least one configured chain to connect to
+      if (!requiredChainId) {
+        throw new Error('No chains provided in wagmi config')
       }
+
+      // If there is an active session or new unathorized chains were added, disconnect
+      if (provider.session || !isChainsAuthorized) await provider.disconnect()
+
+      const optionalChains = this.chains
+        .filter((chain) => chain.id !== requiredChainId)
+        .map((optionalChain) => optionalChain.id)
+
+      await provider.connect({
+        pairingTopic,
+        chains: [requiredChainId],
+        optionalChains,
+      })
+      provider.signer.setDefaultChain(this.#getCaipChainId(requiredChainId))
 
       // Enable check for existing session internally, thus no double connection
       const accounts = await provider.enable()
