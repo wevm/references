@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 0.2.8
+
+### Patch Changes
+
+- 0682a0e: Added ENS Universal Resolver Contract to Mainnet and Goerli.
+
 ## 0.2.7
 
 ### Patch Changes
