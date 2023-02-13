@@ -12,7 +12,7 @@ import {
   vi,
 } from 'vitest'
 
-import { WalletConnectConnector } from './walletConnect'
+import { WalletConnectConnectorV1 } from './walletConnectV1'
 
 const handlers = [
   rest.get('https://*.bridge.walletconnect.org', (_req, res, ctx) => {
@@ -56,7 +56,7 @@ describe('WalletConnectConnectorV1', () => {
   afterAll(() => server.close())
 
   it('inits', () => {
-    const connector = new WalletConnectConnector({
+    const connector = new WalletConnectConnectorV1({
       chains: testChains,
       options: {
         rpc: {
@@ -64,6 +64,6 @@ describe('WalletConnectConnectorV1', () => {
         },
       },
     })
-    expect(connector.name).toEqual('WalletConnect')
+    expect(connector.name).toEqual('WalletConnectV1')
   })
 })

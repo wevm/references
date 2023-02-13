@@ -23,7 +23,7 @@
   "dependencies": {
     "@coinbase/wallet-sdk": "^3.5.4",
     "@ledgerhq/connect-kit-loader": "^1.0.1",
-    "@walletconnect/ethereum-provider": "^2.4.1",
+    "@walletconnect/ethereum-provider": "^2.4.2",
     "@walletconnect/legacy-provider": "^2.0.0",
     "@safe-global/safe-apps-provider": "^0.15.2",
     "@safe-global/safe-apps-sdk": "^7.9.0",
@@ -32,7 +32,8 @@
   },
   "devDependencies": {
     "@wagmi/core": "^0.8.19",
-    "ethers": "^5.7.2"
+    "ethers": "^5.7.2",
+    "lokijs": "^1.5.12"
   },
   "type": "module",
   "main": "dist/index.js",

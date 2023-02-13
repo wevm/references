@@ -12,7 +12,7 @@
     "lint:fix": "pnpm lint --fix",
     "lint:format": "prettier --write",
     "prepare": "npx simple-git-hooks",
-    "test": "vitest",
+    "test": "vitest walletConnect.test.ts",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {

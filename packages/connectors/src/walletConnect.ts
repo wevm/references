@@ -3,7 +3,6 @@ import {
   ProviderRpcError,
   SwitchChainError,
   UserRejectedRequestError,
-  getClient,
   normalizeChainId,
 } from '@wagmi/core'
 import type EthereumProviderType from '@walletconnect/ethereum-provider'
@@ -85,8 +84,8 @@ export class WalletConnectConnector extends Connector<
   async connect({ chainId, pairingTopic }: ConnectArguments = {}) {
     try {
       const provider = await this.getProvider()
-      this.#setProviderListeners(provider)
       const isChainsAuthorized = await this.#isChainsAuthorized()
+      this.#setProviderListeners(provider)
       const requiredChainId = chainId ?? this.chains[0]?.id
 
       // Throw error, we need at least one configured chain to connect to
@@ -94,21 +93,25 @@ export class WalletConnectConnector extends Connector<
         throw new Error('No chains provided in wagmi config')
       }
 
-      // If there is an active session or new unathorized chains were added, disconnect
-      if (provider.session || !isChainsAuthorized) await provider.disconnect()
+      // If there is an active session with unauthorised chains, disconnect
+      if (provider.session && !isChainsAuthorized) await provider.disconnect()
 
-      const optionalChains = this.chains
-        .filter((chain) => chain.id !== requiredChainId)
-        .map((optionalChain) => optionalChain.id)
+      // If there no active session, or the chains are not authorized, connect
+      if (!provider.session || !isChainsAuthorized) {
+        const optionalChains = this.chains
+          .filter((chain) => chain.id !== requiredChainId)
+          .map((optionalChain) => optionalChain.id)
 
-      await provider.connect({
-        pairingTopic,
-        chains: [requiredChainId],
-        optionalChains,
-      })
-      provider.signer.setDefaultChain(this.#getCaipChainId(requiredChainId))
+        await provider.connect({
+          pairingTopic,
+          chains: [requiredChainId],
+          optionalChains,
+        })
 
-      // Enable check for existing session internally, thus no double connection
+        provider.signer.setDefaultChain(this.#getCaipChainId(requiredChainId))
+      }
+
+      // If session exists and chains are authorisedf, enable provider
       const accounts = await provider.enable()
       const account = getAddress(accounts[0]!)
       const id = await this.getChainId()
@@ -141,29 +144,16 @@ export class WalletConnectConnector extends Connector<
     }
   }
 
-  /**
-   * Get account and return checksum address
-   */
   async getAccount() {
     const provider = await this.getProvider()
-    const accounts = (await provider.request({
-      method: 'eth_accounts',
-    })) as string[]
-
-    return getAddress(accounts[0] as string)
+    const accounts = provider.accounts
+    return getAddress(accounts[0]!)
   }
 
-  /**
-   * WalletConnect v2 does not internally manage chainIds anymore, so
-   * we need to retrieve it from the client, or request it from the provider
-   * if none exists.
-   */
   async getChainId() {
     const provider = await this.getProvider()
-    return (
-      getClient().data?.chain?.id ??
-      normalizeChainId(await provider.request({ method: 'eth_chainId' }))
-    )
+    const chainId = normalizeChainId(provider.chainId)
+    return chainId
   }
 
   async getProvider({ chainId }: ChainIdArguments = {}) {
@@ -188,6 +178,7 @@ export class WalletConnectConnector extends Connector<
         this.getAccount(),
         this.#isChainsAuthorized(),
       ])
+
       return !!account && isChainsAuthorized
     } catch {
       return false
@@ -195,7 +186,7 @@ export class WalletConnectConnector extends Connector<
   }
 
   /**
-   * Switches to pre-approved chain and emmits chainChanged event.
+   * Switches to only pre-approved chains and emmits chainChanged event.
    * Will error if user is switching to unsupported chain.
    */
   async switchChain(chainId: number) {
@@ -257,18 +248,17 @@ export class WalletConnectConnector extends Connector<
   }
 
   /**
-   * Checks if the connector is authorized to access the requested chains.
-   * There could be a case where requested chains are out of sync with
-   * the users' approved chains (e.g. the dapp could have added support
-   * for an additional chain), hence the user will be unauthorized.
+   * Check if all chains from session namespace are also present in
+   * connector's chains array.
    */
   async #isChainsAuthorized() {
     const { signer } = await this.getProvider()
     const providerChains = signer.namespaces?.[NAMESPACE]?.chains || []
-    const authorizedChainIds = providerChains.map(
-      (chain) => parseInt(chain.split(':')[1] || '') as Chain['id'],
+    const namespaceChains = providerChains.map((chain) =>
+      parseInt(chain.split(':')[1] || ''),
     )
-    return !this.chains.some(({ id }) => !authorizedChainIds.includes(id))
+    const connectorChains = this.chains.map(({ id }) => id)
+    return namespaceChains.every((id) => connectorChains.includes(id))
   }
 
   #getCaipChainId(chainId: number) {
@@ -297,7 +287,7 @@ export class WalletConnectConnector extends Connector<
 
   protected onAccountsChanged = (accounts: string[]) => {
     if (accounts.length === 0) this.emit('disconnect')
-    else this.emit('change', { account: getAddress(accounts[0] as string) })
+    else this.emit('change', { account: getAddress(accounts[0]!) })
   }
 
   protected onChainChanged = (chainId: number | string) => {
