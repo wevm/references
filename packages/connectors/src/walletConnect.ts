@@ -163,27 +163,12 @@ export class WalletConnectConnector extends Connector<
     const chain = this.chains.find((chain) => chain.id === id)
 
     try {
-      // Attempt to add chain data if it was not previously approved.
-      // This will throw if wallet doesn't support wallet_addEthereumChain method.
+      // Reject chain switch if it was not approved by wallet during connection
       if (!namespace?.chains.includes(caipChainId)) {
-        if (!chain) throw new Error(`Unable to switch chain ${id}`)
-        await provider.request({
-          method: 'wallet_addEthereumChain',
-          params: [
-            {
-              chainId: id,
-              chainName: chain.name,
-              nativeCurrency: chain.nativeCurrency,
-              rpcUrls: [chain.rpcUrls.public?.http[0] ?? ''],
-              blockExplorerUrls: this.getBlockExplorerUrls(chain),
-            },
-          ],
-        })
+        throw new Error(`Unable to switch chain ${id}`)
       }
       // If chain data was already approved, set default chain
-      else {
-        provider.signer.setDefaultChain(this.#getCaipChainId(id))
-      }
+      provider.signer.setDefaultChain(caipChainId)
 
       // Return chain object or default config
       return (
