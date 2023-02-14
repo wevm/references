@@ -3,49 +3,16 @@ import {
   ProviderRpcError,
   SwitchChainError,
   UserRejectedRequestError,
-  normalizeChainId,
+  getClient,
 } from '@wagmi/core'
 import type EthereumProviderType from '@walletconnect/ethereum-provider'
 import { providers } from 'ethers'
-import { getAddress, hexValue } from 'ethers/lib/utils.js'
+import { getAddress } from 'ethers/lib/utils.js'
 
 import { Connector } from './base'
 
 // -- Types --------------------------------------------------------------------
-type RpcMethod =
-  | 'personal_sign'
-  | 'eth_sendTransaction'
-  | 'eth_accounts'
-  | 'eth_requestAccounts'
-  | 'eth_call'
-  | 'eth_getBalance'
-  | 'eth_sendRawTransaction'
-  | 'eth_sign'
-  | 'eth_signTransaction'
-  | 'eth_signTypedData'
-  | 'eth_signTypedData_v3'
-  | 'eth_signTypedData_v4'
-  | 'wallet_switchEthereumChain'
-  | 'wallet_addEthereumChain'
-  | 'wallet_getPermissions'
-  | 'wallet_requestPermissions'
-  | 'wallet_registerOnboarding'
-  | 'wallet_watchAsset'
-  | 'wallet_scanQRCode'
-
-type RpcEvent =
-  | 'accountsChanged'
-  | 'chainChanged'
-  | 'message'
-  | 'disconnect'
-  | 'connect'
-
-type WalletConnectOptions = {
-  projectId: string
-  qrcode?: boolean
-  methods?: RpcMethod[]
-  events?: RpcEvent[]
-}
+type WalletConnectOptions = { projectId: string; qrcode?: boolean }
 
 type ConnectorConfig = { chains?: Chain[]; options: WalletConnectOptions }
 
@@ -84,10 +51,12 @@ export class WalletConnectConnector extends Connector<
   async connect({ chainId, pairingTopic }: ConnectArguments = {}) {
     try {
       const provider = await this.getProvider()
-      const isChainsAuthorized = await this.#isChainsAuthorized()
+      const { lastUsedChainId } = getClient()
+      // Cleanup old listeners before setting new ones to avoid memory leaks
       this.#removeProviderListeners(provider)
       this.#setProviderListeners(provider)
-      const requiredChainId = chainId ?? this.chains[0]?.id
+      const requiredChainId = chainId ?? lastUsedChainId ?? this.chains[0]?.id
+      const isChainsAuthorized = await this.#isChainsAuthorized()
 
       // Throw error, we need at least one configured chain to connect to
       if (!requiredChainId) {
@@ -102,17 +71,15 @@ export class WalletConnectConnector extends Connector<
         const optionalChains = this.chains
           .filter((chain) => chain.id !== requiredChainId)
           .map((optionalChain) => optionalChain.id)
-
         await provider.connect({
           pairingTopic,
           chains: [requiredChainId],
           optionalChains,
         })
-
-        provider.signer.setDefaultChain(this.#getCaipChainId(requiredChainId))
       }
 
-      // If session exists and chains are authorisedf, enable provider
+      // If session exists and chains are authorisedf, enable provider for required chain
+      provider.signer.setDefaultChain(this.#getCaipChainId(requiredChainId))
       const accounts = await provider.enable()
       const account = getAddress(accounts[0]!)
       const id = await this.getChainId()
@@ -146,14 +113,12 @@ export class WalletConnectConnector extends Connector<
   }
 
   async getAccount() {
-    const provider = await this.getProvider()
-    const accounts = provider.accounts
+    const { accounts } = await this.getProvider()
     return getAddress(accounts[0]!)
   }
 
   async getChainId() {
-    const provider = await this.getProvider()
-    const chainId = normalizeChainId(provider.chainId)
+    const { chainId } = await this.getProvider()
     return chainId
   }
 
@@ -190,18 +155,43 @@ export class WalletConnectConnector extends Connector<
    * Switches to only pre-approved chains and emmits chainChanged event.
    * Will error if user is switching to unsupported chain.
    */
-  async switchChain(chainId: number) {
+  async switchChain(chainId: number | string) {
+    const id = Number(chainId)
     const provider = await this.getProvider()
-    const id = hexValue(chainId)
+    const namespace = provider.signer.namespaces[NAMESPACE]
+    const caipChainId = this.#getCaipChainId(id)
+    const chain = this.chains.find((chain) => chain.id === id)
 
     try {
-      provider.signer.setDefaultChain(this.#getCaipChainId(chainId))
+      // Attempt to add chain data if it was not previously approved.
+      // This will throw if wallet doesn't support wallet_addEthereumChain method.
+      if (!namespace?.chains.includes(caipChainId)) {
+        if (!chain) throw new Error(`Unable to switch chain ${id}`)
+        await provider.request({
+          method: 'wallet_addEthereumChain',
+          params: [
+            {
+              chainId: id,
+              chainName: chain.name,
+              nativeCurrency: chain.nativeCurrency,
+              rpcUrls: [chain.rpcUrls.public?.http[0] ?? ''],
+              blockExplorerUrls: this.getBlockExplorerUrls(chain),
+            },
+          ],
+        })
+      }
+      // If chain data was already approved, set default chain
+      else {
+        provider.signer.setDefaultChain(this.#getCaipChainId(id))
+      }
+
+      // Return chain object or default config
       return (
-        this.chains.find((x) => x.id === chainId) ?? {
-          id: chainId,
+        chain ?? {
+          id,
           name: `Chain ${id}`,
           network: `${id}`,
-          nativeCurrency: { decimals: 18, name: 'Ether', symbol: 'ETH' },
+          nativeCurrency: { name: 'Ether', decimals: 18, symbol: 'ETH' },
           rpcUrls: { default: { http: [''] }, public: { http: [''] } },
         }
       )
@@ -225,17 +215,19 @@ export class WalletConnectConnector extends Connector<
   }
 
   async #initProvider() {
-    const { default: EthereumProvider } = await import(
-      '@walletconnect/ethereum-provider'
-    )
+    const {
+      default: EthereumProvider,
+      OPTIONAL_EVENTS,
+      OPTIONAL_METHODS,
+    } = await import('@walletconnect/ethereum-provider')
     const [requiredChain, ...optionalChains] = this.chains.map(({ id }) => id)
     if (requiredChain) {
       // EthereumProvider populates & deduplicates required methods and events internally
       this.#provider = await EthereumProvider.init({
         showQrModal: this.options.qrcode !== false,
         projectId: this.options.projectId,
-        optionalMethods: this.options.methods,
-        optionalEvents: this.options.events,
+        optionalMethods: OPTIONAL_METHODS,
+        optionalEvents: OPTIONAL_EVENTS,
         chains: [requiredChain],
         optionalChains: optionalChains,
         rpcMap: Object.fromEntries(
@@ -292,7 +284,7 @@ export class WalletConnectConnector extends Connector<
   }
 
   protected onChainChanged = (chainId: number | string) => {
-    const id = normalizeChainId(chainId)
+    const id = Number(chainId)
     const unsupported = this.isChainUnsupported(id)
     this.emit('change', { chain: { id, unsupported } })
   }
