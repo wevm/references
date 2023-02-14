@@ -79,7 +79,7 @@ export class WalletConnectConnector extends Connector<
       }
 
       // If session exists and chains are authorisedf, enable provider for required chain
-      provider.signer.setDefaultChain(this.#getCaipChainId(requiredChainId))
+      await this.switchChain(requiredChainId)
       const accounts = await provider.enable()
       const account = getAddress(accounts[0]!)
       const id = await this.getChainId()
@@ -124,9 +124,7 @@ export class WalletConnectConnector extends Connector<
 
   async getProvider({ chainId }: ChainIdArguments = {}) {
     if (!this.#provider) await this.#createProvider()
-    if (chainId) {
-      this.#provider!.signer.setDefaultChain(this.#getCaipChainId(chainId))
-    }
+    if (chainId) await this.switchChain(chainId)
     return this.#provider!
   }
 
@@ -158,17 +156,13 @@ export class WalletConnectConnector extends Connector<
   async switchChain(chainId: number | string) {
     const id = Number(chainId)
     const provider = await this.getProvider()
-    const namespace = provider.signer.namespaces[NAMESPACE]
-    const caipChainId = this.#getCaipChainId(id)
     const chain = this.chains.find((chain) => chain.id === id)
 
     try {
-      // Reject chain switch if it was not approved by wallet during connection
-      if (!namespace?.chains.includes(caipChainId)) {
-        throw new Error(`Unable to switch chain ${id}`)
-      }
-      // If chain data was already approved, set default chain
-      provider.signer.setDefaultChain(caipChainId)
+      await provider.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: id }],
+      })
 
       // Return chain object or default config
       return (
@@ -237,10 +231,6 @@ export class WalletConnectConnector extends Connector<
     )
     const connectorChains = this.chains.map(({ id }) => id)
     return namespaceChains.every((id) => connectorChains.includes(id))
-  }
-
-  #getCaipChainId(chainId: number) {
-    return `${NAMESPACE}:${chainId}`
   }
 
   #setProviderListeners(provider: EthereumProviderType) {
