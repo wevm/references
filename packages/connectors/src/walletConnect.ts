@@ -78,7 +78,7 @@ export class WalletConnectConnector extends Connector<
 
   /**
    * Connect to provider
-   * @param chainId - Set's default chain to connect to
+   * @param chainId - Sets default chain to connect to
    * @param pairingTopic - If provided, will attempt to connect to an existing pairing
    */
   async connect({ chainId, pairingTopic }: ConnectArguments = {}) {
