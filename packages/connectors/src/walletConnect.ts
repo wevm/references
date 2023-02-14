@@ -7,7 +7,7 @@ import {
 } from '@wagmi/core'
 import type EthereumProviderType from '@walletconnect/ethereum-provider'
 import { providers } from 'ethers'
-import { getAddress } from 'ethers/lib/utils.js'
+import { getAddress, hexValue } from 'ethers/lib/utils.js'
 
 import { Connector } from './base'
 
@@ -50,18 +50,20 @@ export class WalletConnectConnector extends Connector<
    */
   async connect({ chainId, pairingTopic }: ConnectArguments = {}) {
     try {
+      let targetChainId = chainId
+      if (!targetChainId) {
+        const lastUsedChainId = getClient().lastUsedChainId
+        if (lastUsedChainId && !this.isChainUnsupported(lastUsedChainId))
+          targetChainId = lastUsedChainId
+        else targetChainId = this.chains[0]?.id
+      }
+      if (!targetChainId) throw new Error('No chains found on connector.')
+
       const provider = await this.getProvider()
-      const { lastUsedChainId } = getClient()
       // Cleanup old listeners before setting new ones to avoid memory leaks
       this.#removeProviderListeners(provider)
       this.#setProviderListeners(provider)
-      const requiredChainId = chainId ?? lastUsedChainId ?? this.chains[0]?.id
       const isChainsAuthorized = await this.#isChainsAuthorized()
-
-      // Throw error, we need at least one configured chain to connect to
-      if (!requiredChainId) {
-        throw new Error('No chains provided in wagmi config')
-      }
 
       // If there is an active session with unauthorised chains, disconnect
       if (provider.session && !isChainsAuthorized) await provider.disconnect()
@@ -69,17 +71,17 @@ export class WalletConnectConnector extends Connector<
       // If there no active session, or the chains are not authorized, connect
       if (!provider.session || !isChainsAuthorized) {
         const optionalChains = this.chains
-          .filter((chain) => chain.id !== requiredChainId)
+          .filter((chain) => chain.id !== targetChainId)
           .map((optionalChain) => optionalChain.id)
         await provider.connect({
           pairingTopic,
-          chains: [requiredChainId],
+          chains: [targetChainId],
           optionalChains,
         })
       }
 
       // If session exists and chains are authorisedf, enable provider for required chain
-      await this.switchChain(requiredChainId)
+      await this.switchChain(targetChainId)
       const accounts = await provider.enable()
       const account = getAddress(accounts[0]!)
       const id = await this.getChainId()
@@ -153,23 +155,22 @@ export class WalletConnectConnector extends Connector<
    * Switches to only pre-approved chains and emmits chainChanged event.
    * Will error if user is switching to unsupported chain.
    */
-  async switchChain(chainId: number | string) {
-    const id = Number(chainId)
+  async switchChain(chainId: number) {
     const provider = await this.getProvider()
-    const chain = this.chains.find((chain) => chain.id === id)
+    const chain = this.chains.find((chain) => chain.id === chainId)
 
     try {
       await provider.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId: id }],
+        params: [{ chainId: hexValue(chainId) }],
       })
 
       // Return chain object or default config
       return (
         chain ?? {
-          id,
-          name: `Chain ${id}`,
-          network: `${id}`,
+          id: chainId,
+          name: `Chain ${chainId}`,
+          network: `${chainId}`,
           nativeCurrency: { name: 'Ether', decimals: 18, symbol: 'ETH' },
           rpcUrls: { default: { http: [''] }, public: { http: [''] } },
         }
