@@ -5,50 +5,41 @@ import {
   UserRejectedRequestError,
   getClient,
 } from '@wagmi/core'
-import type EthereumProviderType from '@walletconnect/ethereum-provider'
+import type WalletConnectProvider from '@walletconnect/ethereum-provider'
 import { providers } from 'ethers'
 import { getAddress, hexValue } from 'ethers/lib/utils.js'
 
 import { Connector } from './base'
 
-// -- Types --------------------------------------------------------------------
 type WalletConnectOptions = { projectId: string; qrcode?: boolean }
+type WalletConnectSigner = providers.JsonRpcSigner
 
-type ConnectorConfig = { chains?: Chain[]; options: WalletConnectOptions }
+type ConnectConfig = {
+  /** Target chain to connect to. */
+  chainId?: number
+  /** If provided, will attempt to connect to an existing pairing. */
+  pairingTopic?: string
+}
 
-type ConnectArguments = { chainId?: number; pairingTopic?: string }
-
-type ChainIdArguments = { chainId?: number }
-
-// -- Constants ----------------------------------------------------------------
 const NAMESPACE = 'eip155'
-
-// -- Connector ----------------------------------------------------------------
 export class WalletConnectConnector extends Connector<
-  EthereumProviderType,
+  WalletConnectProvider,
   WalletConnectOptions,
-  providers.JsonRpcSigner
+  WalletConnectSigner
 > {
   readonly id = 'walletConnect'
   readonly name = 'WalletConnect'
   readonly ready = true
 
-  #provider?: EthereumProviderType
+  #provider?: WalletConnectProvider
   #initProviderPromise?: Promise<void>
 
-  constructor(config: ConnectorConfig) {
+  constructor(config: { chains?: Chain[]; options: WalletConnectOptions }) {
     super(config)
     this.#createProvider()
   }
 
-  // -- Public -----------------------------------------------------------------
-
-  /**
-   * Connect to provider
-   * @param chainId - Sets default chain to connect to
-   * @param pairingTopic - If provided, will attempt to connect to an existing pairing
-   */
-  async connect({ chainId, pairingTopic }: ConnectArguments = {}) {
+  async connect({ chainId, pairingTopic }: ConnectConfig = {}) {
     try {
       let targetChainId = chainId
       if (!targetChainId) {
@@ -60,9 +51,8 @@ export class WalletConnectConnector extends Connector<
       if (!targetChainId) throw new Error('No chains found on connector.')
 
       const provider = await this.getProvider()
-      // Cleanup old listeners before setting new ones to avoid memory leaks
-      this.#removeProviderListeners(provider)
-      this.#setProviderListeners(provider)
+      this.#setupListeners()
+
       const isChainsAuthorized = await this.#isChainsAuthorized()
 
       // If there is an active session with unauthorised chains, disconnect
@@ -73,6 +63,9 @@ export class WalletConnectConnector extends Connector<
         const optionalChains = this.chains
           .filter((chain) => chain.id !== targetChainId)
           .map((optionalChain) => optionalChain.id)
+
+        this.emit('message', { type: 'connecting' })
+
         await provider.connect({
           pairingTopic,
           chains: [targetChainId],
@@ -80,7 +73,7 @@ export class WalletConnectConnector extends Connector<
         })
       }
 
-      // If session exists and chains are authorisedf, enable provider for required chain
+      // If session exists and chains are authorized, enable provider for required chain
       await this.switchChain(targetChainId)
       const accounts = await provider.enable()
       const account = getAddress(accounts[0]!)
@@ -100,9 +93,6 @@ export class WalletConnectConnector extends Connector<
     }
   }
 
-  /**
-   * Disconnect, set up event listeners and silence non-critical errors
-   */
   async disconnect() {
     const provider = await this.getProvider()
     try {
@@ -110,7 +100,7 @@ export class WalletConnectConnector extends Connector<
     } catch (error) {
       if (!/No matching key/i.test((error as Error).message)) throw error
     } finally {
-      this.#removeProviderListeners(provider)
+      this.#removeListeners()
     }
   }
 
@@ -124,13 +114,13 @@ export class WalletConnectConnector extends Connector<
     return chainId
   }
 
-  async getProvider({ chainId }: ChainIdArguments = {}) {
+  async getProvider({ chainId }: { chainId?: number } = {}) {
     if (!this.#provider) await this.#createProvider()
     if (chainId) await this.switchChain(chainId)
     return this.#provider!
   }
 
-  async getSigner({ chainId }: ChainIdArguments = {}) {
+  async getSigner({ chainId }: { chainId?: number } = {}) {
     const [provider, account] = await Promise.all([
       this.getProvider({ chainId }),
       this.getAccount(),
@@ -152,7 +142,7 @@ export class WalletConnectConnector extends Connector<
   }
 
   /**
-   * Switches to only pre-approved chains and emmits chainChanged event.
+   * Switches to only pre-approved chains and emits `chainChanged` event.
    * Will error if user is switching to unsupported chain.
    */
   async switchChain(chainId: number) {
@@ -185,8 +175,6 @@ export class WalletConnectConnector extends Connector<
     }
   }
 
-  // -- Private ----------------------------------------------------------------
-
   async #createProvider() {
     if (!this.#initProviderPromise && typeof window !== 'undefined') {
       this.#initProviderPromise = this.#initProvider()
@@ -200,15 +188,15 @@ export class WalletConnectConnector extends Connector<
       OPTIONAL_EVENTS,
       OPTIONAL_METHODS,
     } = await import('@walletconnect/ethereum-provider')
-    const [requiredChain, ...optionalChains] = this.chains.map(({ id }) => id)
-    if (requiredChain) {
+    const [defaultChain, ...optionalChains] = this.chains.map(({ id }) => id)
+    if (defaultChain) {
       // EthereumProvider populates & deduplicates required methods and events internally
       this.#provider = await EthereumProvider.init({
         showQrModal: this.options.qrcode !== false,
         projectId: this.options.projectId,
         optionalMethods: OPTIONAL_METHODS,
         optionalEvents: OPTIONAL_EVENTS,
-        chains: [requiredChain],
+        chains: [defaultChain],
         optionalChains: optionalChains,
         rpcMap: Object.fromEntries(
           this.chains.map((chain) => [
@@ -234,25 +222,26 @@ export class WalletConnectConnector extends Connector<
     return namespaceChains.every((id) => connectorChains.includes(id))
   }
 
-  #setProviderListeners(provider: EthereumProviderType) {
-    provider.on('accountsChanged', this.onAccountsChanged)
-    provider.on('chainChanged', this.onChainChanged)
-    provider.on('disconnect', this.onDisconnect)
-    provider.on('session_delete', this.onDisconnect)
-    provider.on('display_uri', this.onDisplayUri)
-    provider.on('connect', this.onConnect)
+  #setupListeners() {
+    if (!this.#provider) return
+    this.#removeListeners()
+    this.#provider.on('accountsChanged', this.onAccountsChanged)
+    this.#provider.on('chainChanged', this.onChainChanged)
+    this.#provider.on('disconnect', this.onDisconnect)
+    this.#provider.on('session_delete', this.onDisconnect)
+    this.#provider.on('display_uri', this.onDisplayUri)
+    this.#provider.on('connect', this.onConnect)
   }
 
-  #removeProviderListeners(provider: EthereumProviderType) {
-    provider.removeListener('accountsChanged', this.onAccountsChanged)
-    provider.removeListener('chainChanged', this.onChainChanged)
-    provider.removeListener('disconnect', this.onDisconnect)
-    provider.removeListener('session_delete', this.onDisconnect)
-    provider.removeListener('display_uri', this.onDisplayUri)
-    provider.removeListener('connect', this.onConnect)
+  #removeListeners() {
+    if (!this.#provider) return
+    this.#provider.removeListener('accountsChanged', this.onAccountsChanged)
+    this.#provider.removeListener('chainChanged', this.onChainChanged)
+    this.#provider.removeListener('disconnect', this.onDisconnect)
+    this.#provider.removeListener('session_delete', this.onDisconnect)
+    this.#provider.removeListener('display_uri', this.onDisplayUri)
+    this.#provider.removeListener('connect', this.onConnect)
   }
-
-  // -- Protected --------------------------------------------------------------
 
   protected onAccountsChanged = (accounts: string[]) => {
     if (accounts.length === 0) this.emit('disconnect')
