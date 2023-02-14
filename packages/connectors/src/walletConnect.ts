@@ -85,6 +85,7 @@ export class WalletConnectConnector extends Connector<
     try {
       const provider = await this.getProvider()
       const isChainsAuthorized = await this.#isChainsAuthorized()
+      this.#removeProviderListeners(provider)
       this.#setProviderListeners(provider)
       const requiredChainId = chainId ?? this.chains[0]?.id
 
