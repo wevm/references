@@ -74,7 +74,6 @@ export class WalletConnectConnector extends Connector<
       }
 
       // If session exists and chains are authorized, enable provider for required chain
-      await this.switchChain(targetChainId)
       const accounts = await provider.enable()
       const account = getAddress(accounts[0]!)
       const id = await this.getChainId()
@@ -134,7 +133,6 @@ export class WalletConnectConnector extends Connector<
         this.getAccount(),
         this.#isChainsAuthorized(),
       ])
-
       return !!account && isChainsAuthorized
     } catch {
       return false
