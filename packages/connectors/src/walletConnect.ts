@@ -111,6 +111,7 @@ export class WalletConnectConnector extends Connector<
       if (!/No matching key/i.test((error as Error).message)) throw error
     } finally {
       this.#removeListeners()
+      this.#setRequestedChainsIds([])
     }
   }
 
@@ -316,6 +317,7 @@ export class WalletConnectConnector extends Connector<
   }
 
   protected onDisconnect = () => {
+    this.#setRequestedChainsIds([])
     this.emit('disconnect')
   }
 
