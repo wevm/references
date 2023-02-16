@@ -54,7 +54,14 @@ export class SafeConnector extends Connector<
     }
     super({ chains, options })
 
-    this.#sdk = new SafeAppsSDK(options)
+    let SDK = SafeAppsSDK
+    if (
+      typeof SafeAppsSDK !== 'function' &&
+      // @ts-expect-error This import error is not visible to TypeScript
+      typeof SafeAppsSDK.default === 'function'
+    )
+      SDK = (SafeAppsSDK as unknown as { default: typeof SafeAppsSDK }).default
+    this.#sdk = new SDK(options)
   }
 
   async connect() {
