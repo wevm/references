@@ -11,7 +11,12 @@ import { getAddress, hexValue } from 'ethers/lib/utils.js'
 
 import { Connector } from './base'
 
-type WalletConnectOptions = { projectId: string; qrcode?: boolean }
+type WalletConnectOptions = {
+  projectId: string
+  qrcode?: boolean
+  /* If provided, will disconnect user when dapp adds new / unnaproved chain */
+  disconnectOnAddChain?: boolean
+}
 type WalletConnectSigner = providers.JsonRpcSigner
 
 type ConnectConfig = {
@@ -22,6 +27,10 @@ type ConnectConfig = {
 }
 
 const NAMESPACE = 'eip155'
+const REQUESTED_CHAINS_KEY = 'wagmi.requestedChains'
+const ADD_ETH_CHAIN_METHOD = 'wallet_addEthereumChain'
+const SWITHC_ETH_CHAIN_METHOID = 'wallet_switchEthereumChain'
+
 export class WalletConnectConnector extends Connector<
   WalletConnectProvider,
   WalletConnectOptions,
@@ -71,6 +80,8 @@ export class WalletConnectConnector extends Connector<
           chains: [targetChainId],
           optionalChains,
         })
+
+        this.#setRequestedChainsIds(this.chains.map(({ id }) => id))
       }
 
       // If session exists and chains are authorized, enable provider for required chain
@@ -144,25 +155,41 @@ export class WalletConnectConnector extends Connector<
    * Will error if user is switching to unsupported chain.
    */
   async switchChain(chainId: number) {
-    const provider = await this.getProvider()
-    const chain = this.chains.find((chain) => chain.id === chainId)
-
     try {
-      await provider.request({
-        method: 'wallet_switchEthereumChain',
-        params: [{ chainId: hexValue(chainId) }],
-      })
+      const provider = await this.getProvider()
+      const namespaceChains = this.#getNamespaceChainsIds()
+      const namespaceMethods = this.#getNamespaceMethods()
+      const chain = this.chains.find((chain) => chain.id === chainId)
 
-      // Return chain object or default config
-      return (
-        chain ?? {
-          id: chainId,
-          name: `Chain ${chainId}`,
-          network: `${chainId}`,
-          nativeCurrency: { name: 'Ether', decimals: 18, symbol: 'ETH' },
-          rpcUrls: { default: { http: [''] }, public: { http: [''] } },
-        }
-      )
+      if (!chain) throw new SwitchChainError(chainId)
+
+      // Switch to already pre-approved chain
+      if (namespaceChains.includes(chainId)) {
+        await provider.request({
+          method: SWITHC_ETH_CHAIN_METHOID,
+          params: [{ chainId: hexValue(chainId) }],
+        })
+      }
+      // Add chain to wallet if add method is supported
+      else if (namespaceMethods.includes(ADD_ETH_CHAIN_METHOD)) {
+        await provider.request({
+          method: ADD_ETH_CHAIN_METHOD,
+          params: [
+            {
+              chainId: hexValue(chain.id),
+              blockExplorerUrls: [chain.blockExplorers?.default],
+              chainName: chain.name,
+              nativeCurrency: chain.nativeCurrency,
+              rpcUrls: [...chain.rpcUrls.default.http],
+            },
+          ],
+        })
+        const requestedChains = this.#getRequestedChainsIds()
+        requestedChains.push(chainId)
+        this.#setRequestedChainsIds(requestedChains)
+      }
+
+      return chain
     } catch (error) {
       const message =
         typeof error === 'string' ? error : (error as ProviderRpcError)?.message
@@ -207,17 +234,30 @@ export class WalletConnectConnector extends Connector<
   }
 
   /**
-   * Check if all chains from session namespace are also present in
-   * connector's chains array.
+   * Check if all chains from session namespace are supported by dapp
+   * Check if dapp added new chains
+   *    If yes check that wallet supports wallet_addEthereumChain
+   *    Also check that disconnectOnAddChain is not set
    */
   async #isChainsAuthorized() {
-    const { signer } = await this.getProvider()
-    const providerChains = signer.namespaces?.[NAMESPACE]?.chains || []
-    const namespaceChains = providerChains.map((chain) =>
-      parseInt(chain.split(':')[1] || ''),
-    )
+    const namespaceChains = this.#getNamespaceChainsIds()
+    const namespaceMethods = this.#getNamespaceMethods()
     const connectorChains = this.chains.map(({ id }) => id)
-    return namespaceChains.every((id) => connectorChains.includes(id))
+    const requestedChains = this.#getRequestedChainsIds()
+    const isValidNamespaceChains = namespaceChains.every((id) =>
+      connectorChains.includes(id),
+    )
+    const isValidRequestedChains = connectorChains.every((id) =>
+      requestedChains.includes(id),
+    )
+    const isAddChain =
+      namespaceMethods.includes(ADD_ETH_CHAIN_METHOD) &&
+      !this.options.disconnectOnAddChain
+
+    return (
+      isValidNamespaceChains &&
+      (isValidRequestedChains || (!isValidRequestedChains && isAddChain))
+    )
   }
 
   #setupListeners() {
@@ -239,6 +279,29 @@ export class WalletConnectConnector extends Connector<
     this.#provider.removeListener('session_delete', this.onDisconnect)
     this.#provider.removeListener('display_uri', this.onDisplayUri)
     this.#provider.removeListener('connect', this.onConnect)
+  }
+
+  #setRequestedChainsIds(chains: number[]) {
+    localStorage.setItem(REQUESTED_CHAINS_KEY, JSON.stringify(chains))
+  }
+
+  #getRequestedChainsIds(): number[] {
+    const data = localStorage.getItem(REQUESTED_CHAINS_KEY)
+    return data ? JSON.parse(data) : []
+  }
+
+  #getNamespaceChainsIds() {
+    if (!this.#provider) return []
+    const chainIds = this.#provider.signer.namespaces[NAMESPACE]?.chains.map(
+      (chain) => parseInt(chain.split(':')[1] || ''),
+    )
+    return chainIds ?? []
+  }
+
+  #getNamespaceMethods() {
+    if (!this.#provider) return []
+    const methods = this.#provider.signer.namespaces[NAMESPACE]?.methods
+    return methods ?? []
   }
 
   protected onAccountsChanged = (accounts: string[]) => {
