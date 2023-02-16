@@ -48,6 +48,7 @@ type InjectedProviderFlags = {
   isApexWallet?: true
   isAvalanche?: true
   isBitKeep?: true
+  isBitski?: true
   isBraveWallet?: true
   isCoinbaseWallet?: true
   isExodus?: true
