@@ -292,7 +292,7 @@ export class WalletConnectConnector extends Connector<
 
   #getNamespaceChainsIds() {
     if (!this.#provider) return []
-    const chainIds = this.#provider.signer.namespaces[NAMESPACE]?.chains.map(
+    const chainIds = this.#provider.session?.namespaces[NAMESPACE]?.chains?.map(
       (chain) => parseInt(chain.split(':')[1] || ''),
     )
     return chainIds ?? []
@@ -300,7 +300,7 @@ export class WalletConnectConnector extends Connector<
 
   #getNamespaceMethods() {
     if (!this.#provider) return []
-    const methods = this.#provider.signer.namespaces[NAMESPACE]?.methods
+    const methods = this.#provider.session?.namespaces[NAMESPACE]?.methods
     return methods ?? []
   }
 
