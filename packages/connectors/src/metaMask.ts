@@ -25,6 +25,8 @@ export type MetaMaskConnectorOptions = Pick<
 export class MetaMaskConnector extends InjectedConnector {
   readonly id = 'metaMask'
 
+  protected shimDisconnectKey = `${this.id}.shimDisconnect`
+
   #UNSTABLE_shimOnConnectSelectAccount: MetaMaskConnectorOptions['UNSTABLE_shimOnConnectSelectAccount']
 
   constructor({
