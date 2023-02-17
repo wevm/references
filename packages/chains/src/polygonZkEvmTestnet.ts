@@ -1,0 +1,23 @@
+import { Chain } from './types'
+
+export const polygonZkEvmTestnet = {
+  id: 1422,
+  name: 'Polygon zkEVM Testnet',
+  network: 'polygon-zkevm-testnet',
+  nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+  rpcUrls: {
+    default: {
+      http: ['https://explorer.public.zkevm-test.net'],
+    },
+    public: {
+      http: ['https://explorer.public.zkevm-test.net'],
+    },
+  },
+  blockExplorers: {
+    default: {
+      name: 'polygonZkExplorer',
+      url: 'https://explorer.public.zkevm-test.net',
+    },
+  },
+  testnet: true,
+} as const satisfies Chain
