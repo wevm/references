@@ -15,7 +15,7 @@ export const polygonZkEvmTestnet = {
   },
   blockExplorers: {
     default: {
-      name: 'polygonZkExplorer',
+      name: 'Blockscout',
       url: 'https://explorer.public.zkevm-test.net',
     },
   },
