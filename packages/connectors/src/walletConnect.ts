@@ -14,8 +14,39 @@ import { Connector } from './base'
 type WalletConnectOptions = {
   projectId: string
   qrcode?: boolean
-  /* If provided, will disconnect user when dapp adds new / unnaproved chain */
-  disconnectOnAddChain?: boolean
+  /**
+   * If a new chain is added to a previously existing configured connector `chains`, this flag
+   * will determine if that chain should be considered as stale. A stale chain is a chain that
+   * WalletConnect has yet to establish a relationship with (ie. the user has not approved or
+   * rejected the chain).
+   * Defaults to `true`.
+   *
+   * Preface: Whereas WalletConnect v1 supported dynamic chain switching, WalletConnect v2 requires
+   * the user to pre-approve a set of chains up-front. This comes with consequent UX nuances (see below) when
+   * a user tries to switch to a chain that they have not approved.
+   *
+   * This flag mainly affects the behavior when a wallet does not support dynamic chain authorization
+   * with WalletConnect v2.
+   *
+   * If `true` (default), the new chain will be treated as a stale chain. If the user
+   * has yet to establish a relationship (approved/rejected) with this chain in their WalletConnect
+   * session, the connector will disconnect upon the dapp auto-connecting, and the user will have to
+   * reconnect to the dapp (revalidate the chain) in order to approve the newly added chain.
+   * This is the default behavior to avoid an unexpected error upon switching chains which may
+   * be a confusing user experience (ie. the user will not know they have to reconnect
+   * unless the dapp handles these types of errors).
+   *
+   * If `false`, the new chain will be treated as a validated chain. This means that if the user
+   * has yet to establish a relationship with the chain in their WalletConnect session, wagmi will successfully
+   * auto-connect the user. This comes with the trade-off that the connector will throw an error
+   * when attempting to switch to the unapproved chain. This may be useful in cases where a dapp constantly
+   * modifies their configured chains, and they do not want to disconnect the user upon
+   * auto-connecting. If the user decides to switch to the unapproved chain, it is important that the
+   * dapp handles this error and prompts the user to reconnect to the dapp in order to approve
+   * the newly added chain.
+   *
+   */
+  isNewChainsStale?: boolean
 }
 type WalletConnectSigner = providers.JsonRpcSigner
 
@@ -29,7 +60,6 @@ type ConnectConfig = {
 const NAMESPACE = 'eip155'
 const REQUESTED_CHAINS_KEY = 'wagmi.requestedChains'
 const ADD_ETH_CHAIN_METHOD = 'wallet_addEthereumChain'
-const SWITHC_ETH_CHAIN_METHOID = 'wallet_switchEthereumChain'
 
 export class WalletConnectConnector extends Connector<
   WalletConnectProvider,
@@ -44,7 +74,7 @@ export class WalletConnectConnector extends Connector<
   #initProviderPromise?: Promise<void>
 
   constructor(config: { chains?: Chain[]; options: WalletConnectOptions }) {
-    super(config)
+    super({ ...config, options: { isNewChainsStale: true, ...config.options } })
     this.#createProvider()
   }
 
@@ -62,13 +92,13 @@ export class WalletConnectConnector extends Connector<
       const provider = await this.getProvider()
       this.#setupListeners()
 
-      const isChainsAuthorized = await this.#isChainsAuthorized()
+      const isChainsStale = this.#isChainsStale()
 
-      // If there is an active session with unauthorised chains, disconnect
-      if (provider.session && !isChainsAuthorized) await provider.disconnect()
+      // If there is an active session with stale chains, disconnect the current session.
+      if (provider.session && isChainsStale) await provider.disconnect()
 
-      // If there no active session, or the chains are not authorized, connect
-      if (!provider.session || !isChainsAuthorized) {
+      // If there no active session, or the chains are stale, connect.
+      if (!provider.session || isChainsStale) {
         const optionalChains = this.chains
           .filter((chain) => chain.id !== targetChainId)
           .map((optionalChain) => optionalChain.id)
@@ -141,38 +171,41 @@ export class WalletConnectConnector extends Connector<
 
   async isAuthorized() {
     try {
-      const [account, isChainsAuthorized] = await Promise.all([
+      const [account, provider] = await Promise.all([
         this.getAccount(),
-        this.#isChainsAuthorized(),
+        this.getProvider(),
       ])
-      return !!account && isChainsAuthorized
+      const isChainsStale = this.#isChainsStale()
+
+      // If an account does not exist on the session, then the connector is unauthorized.
+      if (!account) return false
+
+      // If the chains are stale on the session, then the connector is unauthorized.
+      if (isChainsStale && provider.session) {
+        try {
+          await provider.disconnect()
+        } catch {} // eslint-disable-line no-empty
+        return false
+      }
+
+      return true
     } catch {
       return false
     }
   }
 
-  /**
-   * Switches to only pre-approved chains and emits `chainChanged` event.
-   * Will error if user is switching to unsupported chain.
-   */
   async switchChain(chainId: number) {
+    const chain = this.chains.find((chain) => chain.id === chainId)
+    if (!chain)
+      throw new SwitchChainError(new Error('chain not found on connector.'))
+
     try {
       const provider = await this.getProvider()
       const namespaceChains = this.#getNamespaceChainsIds()
       const namespaceMethods = this.#getNamespaceMethods()
-      const chain = this.chains.find((chain) => chain.id === chainId)
+      const isChainApproved = namespaceChains.includes(chainId)
 
-      if (!chain) throw new SwitchChainError(chainId)
-
-      // Switch to already pre-approved chain
-      if (namespaceChains.includes(chainId)) {
-        await provider.request({
-          method: SWITHC_ETH_CHAIN_METHOID,
-          params: [{ chainId: hexValue(chainId) }],
-        })
-      }
-      // Add chain to wallet if add method is supported
-      else if (namespaceMethods.includes(ADD_ETH_CHAIN_METHOD)) {
+      if (!isChainApproved && namespaceMethods.includes(ADD_ETH_CHAIN_METHOD)) {
         await provider.request({
           method: ADD_ETH_CHAIN_METHOD,
           params: [
@@ -189,6 +222,10 @@ export class WalletConnectConnector extends Connector<
         requestedChains.push(chainId)
         this.#setRequestedChainsIds(requestedChains)
       }
+      await provider.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: hexValue(chainId) }],
+      })
 
       return chain
     } catch (error) {
@@ -235,30 +272,33 @@ export class WalletConnectConnector extends Connector<
   }
 
   /**
-   * Check if all chains from session namespace are supported by dapp
-   * Check if dapp added new chains
-   *    If yes check that wallet supports wallet_addEthereumChain
-   *    Also check that disconnectOnAddChain is not set
+   * Checks if the target chains match the chains that were
+   * initially requested by the connector for the WalletConnect session.
+   * If there is a mismatch, this means that the chains on the connector
+   * are considered stale, and need to be revalidated at a later point (via
+   * connection).
+   *
+   * There may be a scenario where a dapp adds a chain to the
+   * connector later on, however, this chain will not have been approved or rejected
+   * by the wallet. In this case, the chain is considered stale.
+   *
+   * There are exceptions however:
+   * -  If the wallet supports dynamic chain addition via `eth_addEthereumChain`,
+   *    then the chain is not considered stale.
+   * -  If the `isNewChainsStale` flag is falsy on the connector, then the chain is
+   *    not considered stale.
+   *
+   * For the above cases, chain validation occurs dynamically when the user
+   * attempts to switch chain.
    */
-  async #isChainsAuthorized() {
-    const namespaceChains = this.#getNamespaceChainsIds()
+  #isChainsStale() {
     const namespaceMethods = this.#getNamespaceMethods()
-    const connectorChains = this.chains.map(({ id }) => id)
-    const requestedChains = this.#getRequestedChainsIds()
-    const isValidNamespaceChains = namespaceChains.every((id) =>
-      connectorChains.includes(id),
-    )
-    const isValidRequestedChains = connectorChains.every((id) =>
-      requestedChains.includes(id),
-    )
-    const isAddChain =
-      namespaceMethods.includes(ADD_ETH_CHAIN_METHOD) &&
-      !this.options.disconnectOnAddChain
+    if (namespaceMethods.includes(ADD_ETH_CHAIN_METHOD)) return false
+    if (!this.options.isNewChainsStale) return false
 
-    return (
-      isValidNamespaceChains &&
-      (isValidRequestedChains || (!isValidRequestedChains && isAddChain))
-    )
+    const requestedChains = this.#getRequestedChainsIds()
+    const connectorChains = this.chains.map(({ id }) => id)
+    return !connectorChains.every((id) => requestedChains.includes(id))
   }
 
   #setupListeners() {
