@@ -290,6 +290,8 @@ export class WalletConnectConnector extends Connector<
    *
    * For the above cases, chain validation occurs dynamically when the user
    * attempts to switch chain.
+   *
+   * Also check that dapp supports at least 1 chain from previously approved session.
    */
   #isChainsStale() {
     const namespaceMethods = this.#getNamespaceMethods()
@@ -298,6 +300,11 @@ export class WalletConnectConnector extends Connector<
 
     const requestedChains = this.#getRequestedChainsIds()
     const connectorChains = this.chains.map(({ id }) => id)
+    const namespaceChains = this.#getNamespaceChainsIds()
+
+    if (!namespaceChains.some((id) => connectorChains.includes(id)))
+      return false
+
     return !connectorChains.every((id) => requestedChains.includes(id))
   }
 
