@@ -302,7 +302,10 @@ export class WalletConnectConnector extends Connector<
     const connectorChains = this.chains.map(({ id }) => id)
     const namespaceChains = this.#getNamespaceChainsIds()
 
-    if (!namespaceChains.some((id) => connectorChains.includes(id)))
+    if (
+      namespaceChains.length &&
+      !namespaceChains.some((id) => connectorChains.includes(id))
+    )
       return false
 
     return !connectorChains.every((id) => requestedChains.includes(id))
