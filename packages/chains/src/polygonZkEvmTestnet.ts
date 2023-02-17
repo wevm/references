@@ -7,10 +7,10 @@ export const polygonZkEvmTestnet = {
   nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
   rpcUrls: {
     default: {
-      http: ['https://explorer.public.zkevm-test.net'],
+      http: ['https://rpc.public.zkevm-test.net'],
     },
     public: {
-      http: ['https://explorer.public.zkevm-test.net'],
+      http: ['https://rpc.public.zkevm-test.net'],
     },
   },
   blockExplorers: {
