@@ -2,7 +2,7 @@
   "name": "@wagmi/chains",
   "description": "A collection of chains for wagmi",
   "license": "MIT",
-  "version": "0.2.8",
+  "version": "0.0.0-20230218190700",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
