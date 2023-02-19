@@ -1,7 +1,7 @@
 import { Chain } from './types'
 
 export const harmonyOne = {
-  id: 1666600000,
+  id: 1_666_600_000,
   name: 'Harmony One',
   network: 'harmony',
   nativeCurrency: {
@@ -14,8 +14,8 @@ export const harmonyOne = {
     default: { http: ['https://rpc.ankr.com/harmony'] },
   },
   blockExplorers: {
-    etherscan: { name: 'Ankr', url: 'https://rpc.ankr.com/harmony' },
-    default: { name: 'Ankr', url: 'https://rpc.ankr.com/harmony' },
+    etherscan: { name: 'HarmonyExplorer', url: 'https://explorer.harmony.one' },
+    default: { name: 'HarmonyExplorer', url: 'https://explorer.harmony.one' },
   },
   contracts: {
     multicall3: {

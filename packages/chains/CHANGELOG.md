@@ -1,11 +1,5 @@
 # @wagmi/chains
 
-## 0.2.8-20230218190700
-
-### Minor Changes
-
-- add harmonyOne shard1 of harmony chain
-- 38a89e5: add harmonyOne shard1 chain
 
 ## 0.2.8
 
