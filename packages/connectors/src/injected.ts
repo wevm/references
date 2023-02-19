@@ -48,7 +48,7 @@ export class InjectedConnector extends Connector<
   ConnectorOptions,
   providers.JsonRpcSigner
 > {
-  readonly id: string
+  readonly id: string = 'injected'
   readonly name: string
   readonly ready: boolean
 
@@ -86,7 +86,6 @@ export class InjectedConnector extends Connector<
       }
     } else this.name = 'Injected'
 
-    this.id = 'injected'
     this.ready = !!provider
   }
 
