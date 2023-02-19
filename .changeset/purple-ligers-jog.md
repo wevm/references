@@ -1,5 +1,5 @@
 ---
-'@wagmi/connectors': minor
+'@wagmi/connectors': patch
 ---
 
-Add support for Bitski injected wallet
+Added name mapping for Bitski injected wallet
