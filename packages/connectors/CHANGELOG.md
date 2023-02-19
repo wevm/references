@@ -1,5 +1,13 @@
 # @wagmi/connectors
 
+## 0.2.6
+
+### Patch Changes
+
+- bb1b88c: Added name mapping for Bitski injected wallet
+- fcb5595: Fixed shim disconnect key to read from defined Connector ID.
+- 49f8853: Fixed `SafeConnector` import type error that existed for specific build environments.
+
 ## 0.2.5
 
 ### Patch Changes
