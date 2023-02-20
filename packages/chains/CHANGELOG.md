@@ -1,6 +1,5 @@
 # @wagmi/chains
 
-
 ## 0.2.8
 
 ### Patch Changes
