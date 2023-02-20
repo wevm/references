@@ -14,8 +14,7 @@ export const harmonyOne = {
     default: { http: ['https://rpc.ankr.com/harmony'] },
   },
   blockExplorers: {
-    etherscan: { name: 'HarmonyExplorer', url: 'https://explorer.harmony.one' },
-    default: { name: 'HarmonyExplorer', url: 'https://explorer.harmony.one' },
+    default: { name: 'Harmony Explorer', url: 'https://explorer.harmony.one' },
   },
   contracts: {
     multicall3: {
