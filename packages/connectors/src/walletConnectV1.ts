@@ -27,7 +27,7 @@ type WalletConnectOptions = ConstructorParameters<
 
 type WalletConnectSigner = providers.JsonRpcSigner
 
-export class WalletConnectConnectorV1 extends Connector<
+export class WalletConnectV1Connector extends Connector<
   WalletConnectProvider,
   WalletConnectOptions,
   WalletConnectSigner
