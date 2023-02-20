@@ -2,4 +2,4 @@
 '@wagmi/chains': minor
 ---
 
-add HarmonyOne Shard 1 chain
+Added HarmonyOne Shard 1 Chain
