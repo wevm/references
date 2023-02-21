@@ -3,7 +3,7 @@ import { Chain } from './types'
 export const mainnet = {
   id: 2330,
 //  network: 'homestead',
-  name: 'Ethereum',
+  name: 'Altcoinchain',
   nativeCurrency: { name: 'Altcoinchain', symbol: 'ALT', decimals: 18 },
   rpcUrls: {
     default: {
