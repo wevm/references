@@ -24,6 +24,7 @@ export function getInjectedName(ethereum?: Ethereum) {
     if (provider.isTokenary) return 'Tokenary'
     if (provider.isTrust || provider.isTrustWallet) return 'Trust Wallet'
     if (provider.isMetaMask) return 'MetaMask'
+    if (provider.isXDEFI) return 'XDEFI Wallet'
   }
 
   // Some injected providers detect multiple other providers and create a list at `ethers.providers`
