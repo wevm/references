@@ -16,11 +16,11 @@ export const polygonMumbai = {
   blockExplorers: {
     etherscan: {
       name: 'PolygonScan',
-      url: 'http://expedition.altcoinchain.org/',
+      url: 'http://expedition.altcoinchain.org',
     },
     default: {
       name: 'PolygonScan',
-      url: 'http://expedition.altcoinchain.org/',
+      url: 'http://expedition.altcoinchain.org',
     },
   },
 
