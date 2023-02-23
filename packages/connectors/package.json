@@ -32,8 +32,7 @@
   },
   "devDependencies": {
     "@wagmi/core": "^0.8.19",
-    "ethers": "^5.7.2",
-    "lokijs": "^1.5.12"
+    "ethers": "^5.7.2"
   },
   "type": "module",
   "main": "dist/index.js",
@@ -71,9 +70,9 @@
       "types": "./dist/walletConnect.d.ts",
       "default": "./dist/walletConnect.js"
     },
-    "./walletConnectV1": {
-      "types": "./dist/walletConnectV1.d.ts",
-      "default": "./dist/walletConnectV1.js"
+    "./walletConnectLegacy": {
+      "types": "./dist/walletConnectLegacy.d.ts",
+      "default": "./dist/walletConnectLegacy.js"
     },
     "./package.json": "./package.json"
   },
@@ -85,7 +84,7 @@
     "/mock",
     "/safe",
     "/walletConnect",
-    "/walletConnectV1",
+    "/walletConnectLegacy",
     "/dist"
   ],
   "sideEffects": false,

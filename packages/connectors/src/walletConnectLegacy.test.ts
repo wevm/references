@@ -12,7 +12,7 @@ import {
   vi,
 } from 'vitest'
 
-import { WalletConnectV1Connector } from './walletConnectV1'
+import { WalletConnectLegacyConnector } from './walletConnectLegacy'
 
 const handlers = [
   rest.get('https://*.bridge.walletconnect.org', (_req, res, ctx) => {
@@ -30,7 +30,7 @@ const handlers = [
 
 const server = setupServer(...handlers)
 
-describe('WalletConnectV1Connector', () => {
+describe('WalletConnectLegacy', () => {
   beforeAll(() => {
     server.listen({
       onUnhandledRequest: 'warn',
@@ -56,7 +56,7 @@ describe('WalletConnectV1Connector', () => {
   afterAll(() => server.close())
 
   it('inits', () => {
-    const connector = new WalletConnectV1Connector({
+    const connector = new WalletConnectLegacyConnector({
       chains: testChains,
       options: {
         rpc: {
@@ -64,6 +64,6 @@ describe('WalletConnectV1Connector', () => {
         },
       },
     })
-    expect(connector.name).toEqual('WalletConnectV1')
+    expect(connector.name).toEqual('WalletConnectLegacy')
   })
 })

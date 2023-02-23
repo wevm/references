@@ -6,14 +6,18 @@ import {
   getClient,
 } from '@wagmi/core'
 import type WalletConnectProvider from '@walletconnect/ethereum-provider'
+import { EthereumProviderOptions } from '@walletconnect/ethereum-provider/dist/types/EthereumProvider'
 import { providers } from 'ethers'
 import { getAddress, hexValue } from 'ethers/lib/utils.js'
 
 import { Connector } from './base'
 
 type WalletConnectOptions = {
-  projectId: string
-  qrcode?: boolean
+  /**
+   * WalletConnect Cloud Project ID.
+   * @link https://cloud.walletconnect.com/sign-in.
+   */
+  projectId: EthereumProviderOptions['projectId']
   /**
    * If a new chain is added to a previously existing configured connector `chains`, this flag
    * will determine if that chain should be considered as stale. A stale chain is a chain that
@@ -47,6 +51,16 @@ type WalletConnectOptions = {
    *
    */
   isNewChainsStale?: boolean
+  /**
+   * Metadata for your app.
+   * @link https://docs.walletconnect.com/2.0/javascript/providers/ethereum#initialization
+   */
+  metadata?: EthereumProviderOptions['metadata']
+  /**
+   * Whether or not to show the QR code modal.
+   * @link https://docs.walletconnect.com/2.0/javascript/providers/ethereum#initialization
+   */
+  showQrModal?: EthereumProviderOptions['showQrModal']
 }
 type WalletConnectSigner = providers.JsonRpcSigner
 
@@ -74,7 +88,10 @@ export class WalletConnectConnector extends Connector<
   #initProviderPromise?: Promise<void>
 
   constructor(config: { chains?: Chain[]; options: WalletConnectOptions }) {
-    super({ ...config, options: { isNewChainsStale: true, ...config.options } })
+    super({
+      ...config,
+      options: { isNewChainsStale: true, ...config.options },
+    })
     this.#createProvider()
   }
 
@@ -253,10 +270,10 @@ export class WalletConnectConnector extends Connector<
     } = await import('@walletconnect/ethereum-provider')
     const [defaultChain, ...optionalChains] = this.chains.map(({ id }) => id)
     if (defaultChain) {
-      // EthereumProvider populates & deduplicates required methods and events internally
+      const { projectId, showQrModal } = this.options
       this.#provider = await EthereumProvider.init({
-        showQrModal: this.options.qrcode !== false,
-        projectId: this.options.projectId,
+        showQrModal,
+        projectId,
         optionalMethods: OPTIONAL_METHODS,
         optionalEvents: OPTIONAL_EVENTS,
         chains: [defaultChain],

@@ -10,10 +10,10 @@
 
 ```diff
 -import { WalletConnectConnector } from '@wagmi/connectors/walletConnect'
-+import { WalletConnectConnector } from '@wagmi/connectors/walletConnectV1'
++import { WalletConnectConnector } from '@wagmi/connectors/walletConnectLegacy'
 
 -const connector = new WalletConnectConnector({
-+const connector = new WalletConnectV1Connector({
++const connector = new WalletConnectLegacyConnector({
   options: {
     qrcode: true,
   },
@@ -29,7 +29,6 @@ const connector = new WalletConnectConnector({
   options: {
 -   version: '2',
     projectId: 'abc',
-    qrcode: true,
   },
 })
 ```
