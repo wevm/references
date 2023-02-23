@@ -27,13 +27,13 @@ type WalletConnectOptions = ConstructorParameters<
 
 type WalletConnectSigner = providers.JsonRpcSigner
 
-export class WalletConnectV1Connector extends Connector<
+export class WalletConnectLegacyConnector extends Connector<
   WalletConnectProvider,
   WalletConnectOptions,
   WalletConnectSigner
 > {
-  readonly id = 'walletConnectV1'
-  readonly name = 'WalletConnectV1'
+  readonly id = 'walletConnectLegacy'
+  readonly name = 'WalletConnectLegacy'
   readonly ready = true
 
   #provider?: WalletConnectProvider
