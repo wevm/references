@@ -1,5 +1,13 @@
 # @wagmi/chains
 
+## 0.2.9
+
+### Patch Changes
+
+- d04aa1b: Added Base Goerli
+- eb947e1: Added Polygon zkEVM Testnet Chain
+- 49072af: Added HarmonyOne Shard 1 Chain
+
 ## 0.2.8
 
 ### Patch Changes
