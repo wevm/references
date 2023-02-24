@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.2.7
+
+### Patch Changes
+
+- 57f1226: Added name mapping for XDEFI
+
 ## 0.2.6
 
 ### Patch Changes
