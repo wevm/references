@@ -67,6 +67,7 @@ type InjectedProviderFlags = {
   isTokenary?: true
   isTrust?: true
   isTrustWallet?: true
+  isXDEFI?: true
 }
 
 type InjectedProviders = InjectedProviderFlags & {
