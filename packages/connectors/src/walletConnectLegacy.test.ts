@@ -1,4 +1,5 @@
-import { mainnet } from '@wagmi/core/chains'
+import { foundry } from '@wagmi/core/chains'
+import { testChains } from '@wagmi/core/internal/test'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 import {
@@ -11,10 +12,10 @@ import {
   vi,
 } from 'vitest'
 
-import { WalletConnectConnector } from './walletConnect'
+import { WalletConnectLegacyConnector } from './walletConnectLegacy'
 
 const handlers = [
-  rest.get('https://relay.walletconnect.com', (_req, res, ctx) => {
+  rest.get('https://*.bridge.walletconnect.org', (_req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({
@@ -29,7 +30,7 @@ const handlers = [
 
 const server = setupServer(...handlers)
 
-describe('WalletConnectConnector', () => {
+describe('WalletConnectLegacy', () => {
   beforeAll(() => {
     server.listen({
       onUnhandledRequest: 'warn',
@@ -55,12 +56,14 @@ describe('WalletConnectConnector', () => {
   afterAll(() => server.close())
 
   it('inits', () => {
-    const connector = new WalletConnectConnector({
-      chains: [mainnet],
+    const connector = new WalletConnectLegacyConnector({
+      chains: testChains,
       options: {
-        projectId: process.env.VITE_WC_PROJECT_ID!,
+        rpc: {
+          [foundry.id]: foundry.rpcUrls.default.http[0]!,
+        },
       },
     })
-    expect(connector.name).toEqual('WalletConnect')
+    expect(connector.name).toEqual('WalletConnectLegacy')
   })
 })
