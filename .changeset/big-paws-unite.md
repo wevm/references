@@ -1,4 +1,3 @@
-
 ---
 '@wagmi/connectors': patch
 ---
