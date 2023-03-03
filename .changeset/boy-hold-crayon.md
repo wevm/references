@@ -2,4 +2,4 @@
 '@wagmi/connectors': patch
 ---
 
-Added name mapping for dingcxx
+Added name mapping for HyperPay.
