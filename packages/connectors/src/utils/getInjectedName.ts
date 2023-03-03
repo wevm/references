@@ -12,6 +12,7 @@ export function getInjectedName(ethereum?: Ethereum) {
     if (provider.isCoinbaseWallet) return 'Coinbase Wallet'
     if (provider.isExodus) return 'Exodus'
     if (provider.isFrame) return 'Frame'
+    if (provider.isFrontier) return 'Frontier Wallet'
     if (provider.isKuCoinWallet) return 'KuCoin Wallet'
     if (provider.isMathWallet) return 'MathWallet'
     if (provider.isOneInchIOSWallet || provider.isOneInchAndroidWallet)
@@ -25,7 +26,6 @@ export function getInjectedName(ethereum?: Ethereum) {
     if (provider.isTrust || provider.isTrustWallet) return 'Trust Wallet'
     if (provider.isMetaMask) return 'MetaMask'
     if (provider.isXDEFI) return 'XDEFI Wallet'
-    if (provider.isFrontier) return 'Frontier Wallet'
   }
 
   // Some injected providers detect multiple other providers and create a list at `ethers.providers`

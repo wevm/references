@@ -25,6 +25,7 @@ describe.each([
   { ethereum: { isCoinbaseWallet: true }, expected: 'Coinbase Wallet' },
   { ethereum: { isExodus: true }, expected: 'Exodus' },
   { ethereum: { isFrame: true }, expected: 'Frame' },
+  { ethereum: { isFrontier: true }, expected: 'Frontier Wallet' },
   { ethereum: { isKuCoinWallet: true }, expected: 'KuCoin Wallet' },
   {
     ethereum: { isKuCoinWallet: true, isMetaMask: true },
@@ -48,7 +49,6 @@ describe.each([
   { ethereum: { isTrustWallet: true }, expected: 'Trust Wallet' },
   { ethereum: { isMetaMask: true }, expected: 'MetaMask' },
   { ethereum: { isXDEFI: true }, expected: 'XDEFI Wallet' },
-  { ethereum: { isFrontier: true }, expected: 'Frontier Wallet' },
   {
     ethereum: { providers: [{ isMetaMask: true }, { isCoinbaseWallet: true }] },
     expected: ['MetaMask', 'Coinbase Wallet'],
