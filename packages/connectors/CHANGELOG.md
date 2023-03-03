@@ -1,5 +1,12 @@
 # @wagmi/connectors
 
+## 0.3.1
+
+### Patch Changes
+
+- a23c40f: Added name mapping for [Frontier](https://frontier.xyz) Wallet
+- d779fb3: Added name mapping for HyperPay.
+
 ## 0.3.0
 
 ### Minor Changes
