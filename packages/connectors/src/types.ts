@@ -68,6 +68,7 @@ type InjectedProviderFlags = {
   isTokenary?: true
   isTrust?: true
   isTrustWallet?: true
+  isHyperPay?: true
   isXDEFI?: true
 }
 

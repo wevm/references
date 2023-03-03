@@ -24,6 +24,7 @@ export function getInjectedName(ethereum?: Ethereum) {
     if (provider.isTokenPocket) return 'TokenPocket'
     if (provider.isTokenary) return 'Tokenary'
     if (provider.isTrust || provider.isTrustWallet) return 'Trust Wallet'
+    if (provider.isHyperPay) return 'HyperPay Wallet'
     if (provider.isMetaMask) return 'MetaMask'
     if (provider.isXDEFI) return 'XDEFI Wallet'
   }
