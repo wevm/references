@@ -12,6 +12,7 @@ export function getInjectedName(ethereum?: Ethereum) {
     if (provider.isCoinbaseWallet) return 'Coinbase Wallet'
     if (provider.isExodus) return 'Exodus'
     if (provider.isFrame) return 'Frame'
+    if (provider.isFrontier) return 'Frontier Wallet'
     if (provider.isKuCoinWallet) return 'KuCoin Wallet'
     if (provider.isMathWallet) return 'MathWallet'
     if (provider.isOneInchIOSWallet || provider.isOneInchAndroidWallet)
