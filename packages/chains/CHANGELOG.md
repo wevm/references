@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 0.2.10
+
+### Patch Changes
+
+- 9a2c5a2: Added support for Zhejiang Ethereum Testnet.
+
 ## 0.2.9
 
 ### Patch Changes
