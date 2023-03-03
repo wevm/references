@@ -1,5 +1,5 @@
 ---
-'@wagmi/chains': minor
+'@wagmi/chains': patch
 ---
 
-Add support for Zhejiang Ethereum Testnet
+Added support for Zhejiang Ethereum Testnet.
