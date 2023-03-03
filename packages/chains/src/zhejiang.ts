@@ -18,6 +18,10 @@ export const zhejiang = {
       name: 'Etherscan',
       url: 'https://zhejiang.beaconcha.in',
     },
+    blockscout: {
+      name: 'Blockscout',
+      url: 'https://blockscout.com/eth/zhejiang-testnet',
+    },
     default: {
       name: 'Beaconchain',
       url: 'https://zhejiang.beaconcha.in',
