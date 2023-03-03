@@ -1,7 +1,7 @@
 import { Chain } from './types'
 
 export const zhejiang = {
-  id: 1337803,
+  id: 1_337_803,
   network: 'zhejiang',
   name: 'Zhejiang',
   nativeCurrency: { name: 'Zhejiang Ether', symbol: 'ZhejETH', decimals: 18 },
