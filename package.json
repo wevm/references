@@ -67,5 +67,8 @@
     "overrides": {
       "esbuild": "^0.15.13"
     }
+  },
+  "dependencies": {
+    "pnpm": "^7.28.0"
   }
 }
