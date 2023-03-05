@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.3.2
+
+### Patch Changes
+
+- 13a6a07: Updated `@walletconnect/ethereum-provider` to `2.4.7`.
+
 ## 0.3.1
 
 ### Patch Changes
