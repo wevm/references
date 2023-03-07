@@ -16,7 +16,7 @@ export const songbird: Chain = {
   blockExplorers: {
     default: {
       name: 'Songbird Explorer',
-      url: 'https://songbird-explorer.flare.network/',
+      url: 'https://songbird-explorer.flare.network',
     },
   },
 }
