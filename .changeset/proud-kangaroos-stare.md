@@ -1,5 +1,5 @@
 ---
-'@wagmi/chains': major
+'@wagmi/chains': patch
 ---
 
 Added `shardeumSphinx` (Shardeum Sphinx) chain.
