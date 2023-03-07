@@ -2,7 +2,7 @@ import { Chain } from './types'
 
 export const boba = {
   id: 288,
-  name: 'BOBA NETWORK',
+  name: 'Boba Network',
   network: 'boba',
   nativeCurrency: {
     decimals: 18,
