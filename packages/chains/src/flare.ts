@@ -16,7 +16,7 @@ export const flare: Chain = {
   blockExplorers: {
     default: {
       name: 'Flare Explorer',
-      url: 'https://flare-explorer.flare.network/',
+      url: 'https://flare-explorer.flare.network',
     },
   },
 }
