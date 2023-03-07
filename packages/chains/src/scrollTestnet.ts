@@ -1,7 +1,7 @@
 import { Chain } from './types'
 
 export const scrollTestnet = {
-  id: 534353,
+  id: 534_353,
   name: 'Scroll Testnet',
   network: 'scroll-testnet',
   nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
@@ -18,7 +18,7 @@ export const scrollTestnet = {
   blockExplorers: {
     default: {
       name: 'Blockscout',
-      url: 'https://blockscout.scroll.io/',
+      url: 'https://blockscout.scroll.io',
     },
   },
   testnet: true,
