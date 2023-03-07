@@ -16,7 +16,7 @@ export const flareTestnet: Chain = {
   blockExplorers: {
     default: {
       name: 'Coston2 Explorer',
-      url: 'https://coston2-explorer.flare.network/',
+      url: 'https://coston2-explorer.flare.network',
     },
   },
   testnet: true,
