@@ -2,4 +2,4 @@
 "@wagmi/chains": patch
 ---
 
-Added Support for BOBA NETWORK
+Added Boba Network chain.
