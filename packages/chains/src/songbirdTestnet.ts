@@ -16,7 +16,7 @@ export const songbirdTestnet: Chain = {
   blockExplorers: {
     default: {
       name: 'Coston Explorer',
-      url: 'https://coston-explorer.flare.network/',
+      url: 'https://coston-explorer.flare.network',
     },
   },
   testnet: true,
