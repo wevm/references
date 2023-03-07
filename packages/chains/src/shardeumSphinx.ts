@@ -16,7 +16,7 @@ export const shardeumSphinx = {
   blockExplorers: {
     default: {
       name: 'Shardeum Explorer',
-      url: 'https://explorer-sphinx.shardeum.org/',
+      url: 'https://explorer-sphinx.shardeum.org',
     },
   },
   testnet: true,
