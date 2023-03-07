@@ -1,5 +1,13 @@
 # @wagmi/chains
 
+## 0.2.11
+
+### Patch Changes
+
+- 25eda6b: Added `boba` (Boba Network) chain.
+- 48f9a47: Added `flare` (Flare), `flareTestnet` (Flare Testnet), `songbird` (Songbird), `songbirdTestnet` (Songbird Testnet) chains.
+- 9559464: Added `shardeumSphinx` (Shardeum Sphinx) chain.
+
 ## 0.2.10
 
 ### Patch Changes
