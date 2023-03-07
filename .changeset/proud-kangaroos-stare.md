@@ -2,4 +2,4 @@
 '@wagmi/chains': major
 ---
 
-Added Shardeum Sphinx Network
+Added `shardeumSphinx` (Shardeum Sphinx) chain.

@@ -1,5 +1,5 @@
 ---
-"@wagmi/chains": patch
+'@wagmi/chains': patch
 ---
 
-Added Boba Network chain.
+Added `boba` (Boba Network) chain.

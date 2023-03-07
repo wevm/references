@@ -2,4 +2,4 @@
 '@wagmi/chains': major
 ---
 
-Added Flare Mainnet, Testnet and Songbird Mainnet, Testnet support
+Added `flare` (Flare), `flareTestnet` (Flare Testnet), `songbird` (Songbird), `songbirdTestnet` (Songbird Testnet) chains.
