@@ -47,6 +47,7 @@ type WatchAssetParams = {
 type InjectedProviderFlags = {
   isApexWallet?: true
   isAvalanche?: true
+  isBifrost?: true
   isBitKeep?: true
   isBitski?: true
   isBraveWallet?: true
