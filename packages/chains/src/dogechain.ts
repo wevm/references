@@ -1,0 +1,22 @@
+import { Chain } from './types'
+
+export const dogechain = {
+    id: 2000,
+    name: 'Dogechain',
+    network: 'dogechain',
+    nativeCurrency: {
+      decimals: 18,
+      name: 'Dogechain',
+      symbol: 'DC',
+    },
+    rpcUrls: {
+      default: { http: ['https://rpc.dogechain.dog	'] },
+      public: { http: ['https://rpc.dogechain.dog'] },
+    },
+    blockExplorers: {
+      etherscan: { name: 'DogeChainExplorer', url: 'https://explorer.dogechain.dog' },
+      default: { name: 'DogeChainExplorer', url: 'https://explorer.dogechain.dog' },
+    },
+  
+  } as const satisfies Chain
+  
