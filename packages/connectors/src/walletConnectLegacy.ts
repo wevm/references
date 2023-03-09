@@ -15,11 +15,13 @@ import { Connector } from './base'
 /**
  * Wallets that support chain switching through WalletConnect
  * - imToken (token.im)
+ * - Ledger Live (ledger.com)
  * - MetaMask (metamask.io)
  * - Rainbow (rainbow.me)
  * - Trust Wallet (trustwallet.com)
  */
-const switchChainAllowedRegex = /(imtoken|metamask|rainbow|trust wallet)/i
+const switchChainAllowedRegex =
+  /(imtoken|metamask|rainbow|trust wallet|ledger)/i
 
 type WalletConnectOptions = ConstructorParameters<
   typeof WalletConnectProvider
