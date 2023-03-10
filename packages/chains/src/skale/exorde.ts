@@ -1,6 +1,6 @@
 import { Chain } from '../types'
 
-export const skaleEuropa = {
+export const skaleExorde = {
   id: 2_139_927_552,
   name: 'SKALE | Exorde',
   network: 'skale-exorde',
