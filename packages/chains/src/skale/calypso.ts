@@ -1,6 +1,6 @@
 import { Chain } from '../types'
 
-export const brawl = {
+export const calypso = {
   id: 1_564_830_818,
   name: 'SKALE | Calypso NFT Hub',
   network: 'calypso',

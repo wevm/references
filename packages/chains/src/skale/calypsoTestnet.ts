@@ -1,6 +1,6 @@
 import { Chain } from '../types'
 
-export const brawl = {
+export const calypsoTestnet = {
   id: 344_106_930,
   name: 'SKALE | Calypso NFT Hub Testnet',
   network: 'calypso-testnet',
