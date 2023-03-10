@@ -2,4 +2,4 @@
 '@wagmi/chains': patch
 ---
 
-Adding Klaytn, Dogechain, DFK, and Cronos
+Added Klaytn, Dogechain, DFK, and Cronos Chains.
