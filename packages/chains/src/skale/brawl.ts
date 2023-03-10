@@ -1,9 +1,9 @@
 import { Chain } from '../types'
 
-export const brawl = {
+export const skaleBlockBrawlers = {
   id: 391_845_894,
   name: 'SKALE | Block Brawlers',
-  network: 'brawl',
+  network: 'skale-brawl',
   nativeCurrency: { name: 'BRAWL', symbol: 'BRAWL', decimals: 18 },
   rpcUrls: {
     default: {

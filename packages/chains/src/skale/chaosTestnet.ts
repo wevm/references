@@ -1,9 +1,9 @@
 import { Chain } from '../types'
 
-export const chaosTestnet = {
+export const skaleChaosTestnet = {
   id: 1_351_057_110,
   name: 'SKALE | Chaos Testnet',
-  network: 'chaos-testnet',
+  network: 'skale-chaos-testnet',
   nativeCurrency: { name: 'sFUEL', symbol: 'sFUEL', decimals: 18 },
   rpcUrls: {
     default: {

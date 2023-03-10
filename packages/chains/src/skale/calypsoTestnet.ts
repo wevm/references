@@ -1,9 +1,9 @@
 import { Chain } from '../types'
 
-export const calypsoTestnet = {
+export const skaleCalypsoTestnet = {
   id: 344_106_930,
   name: 'SKALE | Calypso NFT Hub Testnet',
-  network: 'calypso-testnet',
+  network: 'skale-calypso-testnet',
   nativeCurrency: { name: 'sFUEL', symbol: 'sFUEL', decimals: 18 },
   rpcUrls: {
     default: {
