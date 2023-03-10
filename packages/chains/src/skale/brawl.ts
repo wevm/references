@@ -2,7 +2,7 @@ import { Chain } from '../types'
 
 export const brawl = {
   id: 391_845_894,
-  name: 'Block Brawlers',
+  name: 'SKALE | Block Brawlers',
   network: 'brawl',
   nativeCurrency: { name: 'BRAWL', symbol: 'BRAWL', decimals: 18 },
   rpcUrls: {
