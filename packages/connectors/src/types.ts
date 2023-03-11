@@ -64,6 +64,7 @@ type InjectedProviderFlags = {
   isPhantom?: true
   isPortal?: true
   isRainbow?: true
+  isStatus?: true
   isTally?: true
   isTokenPocket?: true
   isTokenary?: true
@@ -71,7 +72,6 @@ type InjectedProviderFlags = {
   isTrustWallet?: true
   isHyperPay?: true
   isXDEFI?: true
-  isStatus?: true
 }
 
 type InjectedProviders = InjectedProviderFlags & {
