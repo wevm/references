@@ -71,6 +71,7 @@ type InjectedProviderFlags = {
   isTrustWallet?: true
   isHyperPay?: true
   isXDEFI?: true
+  isStatus?: true
 }
 
 type InjectedProviders = InjectedProviderFlags & {
