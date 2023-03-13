@@ -1,4 +1,4 @@
-import { Chain } from '@wagmi/core'
+import { Chain } from '../../chains/src'
 export { Connector } from './base'
 export type { ConnectorData, ConnectorEvents } from './base'
 export type { Ethereum } from './types'
