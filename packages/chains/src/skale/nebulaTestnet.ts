@@ -24,4 +24,5 @@ export const skaleNebulaTestnet = {
     },
   },
   contracts: {},
+  testnet: true,
 } as const satisfies Chain

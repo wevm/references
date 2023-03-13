@@ -24,4 +24,5 @@ export const skaleEuropaTestnet = {
     },
   },
   contracts: {},
+  testnet: true,
 } as const satisfies Chain

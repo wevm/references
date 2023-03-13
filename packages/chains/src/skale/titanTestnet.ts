@@ -28,4 +28,5 @@ export const skaleTitanTestnet = {
     },
   },
   contracts: {},
+  testnet: true,
 } as const satisfies Chain
