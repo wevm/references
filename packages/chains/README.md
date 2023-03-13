@@ -65,6 +65,7 @@ const { chains, provider } = configureChains(
 - `skaleCalypsoTestnet`
 - `skaleChaosTestnet`
 - `skaleCryptoBlades`
+- `skaleCryptoColosseum`
 - `skaleEuropa`
 - `skaleEuropaTestnet`
 - `skaleExorde`
