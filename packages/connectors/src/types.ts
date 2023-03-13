@@ -64,6 +64,7 @@ type InjectedProviderFlags = {
   isPhantom?: true
   isPortal?: true
   isRainbow?: true
+  isStatus?: true
   isTally?: true
   isTokenPocket?: true
   isTokenary?: true
