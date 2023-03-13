@@ -15,11 +15,11 @@ export const skaleCalypso = {
   },
   blockExplorers: {
     etherscan: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://honorable-steel-rasalhague.explorer.mainnet.skalenodes.com',
     },
     default: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://honorable-steel-rasalhague.explorer.mainnet.skalenodes.com',
     },
   },

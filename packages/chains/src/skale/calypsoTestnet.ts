@@ -19,11 +19,11 @@ export const skaleCalypsoTestnet = {
   },
   blockExplorers: {
     etherscan: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://staging-utter-unripe-menkar.explorer.staging-v3.skalenodes.com',
     },
     default: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://staging-utter-unripe-menkar.explorer.staging-v3.skalenodes.com',
     },
   },

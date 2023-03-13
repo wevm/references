@@ -15,11 +15,11 @@ export const skaleExorde = {
   },
   blockExplorers: {
     etherscan: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://light-vast-diphda.explorer.mainnet.skalenodes.com',
     },
     default: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://light-vast-diphda.explorer.mainnet.skalenodes.com',
     },
   },

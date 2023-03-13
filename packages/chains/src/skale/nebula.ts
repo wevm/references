@@ -15,11 +15,11 @@ export const skaleNebula = {
   },
   blockExplorers: {
     etherscan: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://green-giddy-denebola.explorer.mainnet.skalenodes.com',
     },
     default: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://green-giddy-denebola.explorer.mainnet.skalenodes.com',
     },
   },

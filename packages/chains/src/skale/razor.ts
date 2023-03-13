@@ -15,11 +15,11 @@ export const skaleRazor = {
   },
   blockExplorers: {
     etherscan: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://turbulent-unique-scheat.explorer.mainnet.skalenodes.com',
     },
     default: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://turbulent-unique-scheat.explorer.mainnet.skalenodes.com',
     },
   },

@@ -15,11 +15,11 @@ export const skaleEuropaTestnet = {
   },
   blockExplorers: {
     etherscan: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://staging-legal-crazy-castor.explorer.staging-v3.skalenodes.com',
     },
     default: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://staging-legal-crazy-castor.explorer.staging-v3.skalenodes.com',
     },
   },

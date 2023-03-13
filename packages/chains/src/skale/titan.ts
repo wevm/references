@@ -15,11 +15,11 @@ export const skaleTitan = {
   },
   blockExplorers: {
     etherscan: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://parallel-stormy-spica.explorer.mainnet.skalenodes.com',
     },
     default: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://parallel-stormy-spica.explorer.mainnet.skalenodes.com',
     },
   },

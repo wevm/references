@@ -19,11 +19,11 @@ export const skaleChaosTestnet = {
   },
   blockExplorers: {
     etherscan: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://staging-fast-active-bellatrix.explorer.staging-v3.skalenodes.com',
     },
     default: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://staging-fast-active-bellatrix.explorer.staging-v3.skalenodes.com',
     },
   },

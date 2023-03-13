@@ -15,11 +15,11 @@ export const skaleCryptoBlades = {
   },
   blockExplorers: {
     etherscan: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://affectionate-immediate-pollux.explorer.mainnet.skalenodes.com',
     },
     default: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://affectionate-immediate-pollux.explorer.mainnet.skalenodes.com',
     },
   },

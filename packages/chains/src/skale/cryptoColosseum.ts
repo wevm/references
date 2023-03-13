@@ -15,11 +15,11 @@ export const skaleCryptoColosseum = {
   },
   blockExplorers: {
     etherscan: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://haunting-devoted-deneb.explorer.mainnet.skalenodes.com',
     },
     default: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://haunting-devoted-deneb.explorer.mainnet.skalenodes.com',
     },
   },

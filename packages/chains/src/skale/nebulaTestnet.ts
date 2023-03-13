@@ -15,11 +15,11 @@ export const skaleNebulaTestnet = {
   },
   blockExplorers: {
     etherscan: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://staging-faint-slimy-achird.explorer.staging-v3.skalenodes.com',
     },
     default: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://staging-faint-slimy-achird.explorer.staging-v3.skalenodes.com',
     },
   },

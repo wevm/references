@@ -15,11 +15,11 @@ export const skaleBlockBrawlers = {
   },
   blockExplorers: {
     etherscan: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://frayed-decent-antares.explorer.mainnet.skalenodes.com',
     },
     default: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://frayed-decent-antares.explorer.mainnet.skalenodes.com',
     },
   },

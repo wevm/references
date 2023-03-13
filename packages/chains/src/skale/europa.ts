@@ -15,11 +15,11 @@ export const skaleEuropa = {
   },
   blockExplorers: {
     etherscan: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://elated-tan-skat.explorer.mainnet.skalenodes.com',
     },
     default: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://elated-tan-skat.explorer.mainnet.skalenodes.com',
     },
   },

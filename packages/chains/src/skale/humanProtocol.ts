@@ -15,11 +15,11 @@ export const skaleHumanProtocol = {
   },
   blockExplorers: {
     etherscan: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://wan-red-ain.explorer.mainnet.skalenodes.com',
     },
     default: {
-      name: 'Blockscout',
+      name: 'SKALE Explorer',
       url: 'https://wan-red-ain.explorer.mainnet.skalenodes.com',
     },
   },
