@@ -16,7 +16,7 @@ export const shibuya: Chain = {
   blockExplorers: {
     default: {
       name: 'Shibuya Explorer',
-      url: 'https://shibuya.subscan.io/',
+      url: 'https://shibuya.subscan.io',
     },
   },
   testnet: true,
