@@ -10,8 +10,8 @@ export const shibuya: Chain = {
     symbol: 'SBY',
   },
   rpcUrls: {
-    default: { http: ['https://evm.shibuya.astar.network/'] },
-    public: { http: ['https://evm.shibuya.astar.network/'] },
+    default: { http: ['https://evm.shibuya.astar.network'] },
+    public: { http: ['https://evm.shibuya.astar.network'] },
   },
   blockExplorers: {
     default: {
