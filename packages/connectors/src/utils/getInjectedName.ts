@@ -30,6 +30,7 @@ export function getInjectedName(ethereum?: Ethereum) {
     if (provider.isHyperPay) return 'HyperPay Wallet'
     if (provider.isMetaMask) return 'MetaMask'
     if (provider.isXDEFI) return 'XDEFI Wallet'
+    if (provider.isOkxWallet || provider.isOKExWallet) return 'OKX Wallet'
   }
 
   // Some injected providers detect multiple other providers and create a list at `ethers.providers`
