@@ -20,4 +20,4 @@ export const shibuya = {
     },
   },
   testnet: true,
-}  as const satisfies Chain
+} as const satisfies Chain
