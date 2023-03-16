@@ -1,5 +1,5 @@
 ---
-'@wagmi/connectors': minor
+'@wagmi/connectors': patch
 ---
 
-Update @walletconnect/ethereum-provider to 2.5.1, @web3modal/standalone is now a peerDependency that has to be installed separately
+Updated `@walletconnect/ethereum-provider` to `2.5.1`.
