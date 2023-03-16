@@ -1,9 +1,9 @@
 import { Chain } from './types'
 
-export const shibuya: Chain = {
+export const shibuya = {
   id: 81,
   name: 'Shibuya Network',
-  network: 'Shibuya-network',
+  network: 'shibuya-network',
   nativeCurrency: {
     decimals: 18,
     name: 'shibuya',
@@ -20,4 +20,4 @@ export const shibuya: Chain = {
     },
   },
   testnet: true,
-}
+}  as const satisfies Chain
