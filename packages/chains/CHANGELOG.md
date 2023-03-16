@@ -1,5 +1,29 @@
 # @wagmi/chains
 
+## 0.2.13
+
+### Patch Changes
+
+- 925a661: Added SKALE Chains.
+
+  - `skaleBlockBrawlers`
+  - `skaleCalypso`
+  - `skaleCalypsoTestnet`
+  - `skaleChaosTestnet`
+  - `skaleCryptoBlades`
+  - `skaleCryptoColosseum`
+  - `skaleEuropa`
+  - `skaleEuropaTestnet`
+  - `skaleExorde`
+  - `skaleHumanProtocol`
+  - `skaleNebula`
+  - `skaleNebulaTestnet`
+  - `skaleRazor`
+  - `skaleTitan`
+  - `skaleTitanTestnet`
+
+- 2e78551: Added `wanchain` & `wanchainTestnet` chains.
+
 ## 0.2.12
 
 ### Patch Changes
