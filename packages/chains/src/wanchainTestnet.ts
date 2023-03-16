@@ -1,8 +1,8 @@
 import { Chain } from './types'
 
 export const wanchainTestnet = {
-  id: 888,
-  name: 'WanchainTestnet',
+  id: 999,
+  name: 'Wanchain Testnet',
   network: 'wanchainTestnet',
   nativeCurrency: { name: 'WANCHAIN', symbol: 'WANt', decimals: 18 },
   rpcUrls: {
