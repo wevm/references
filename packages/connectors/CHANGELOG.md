@@ -1,5 +1,14 @@
 # @wagmi/connectors
 
+## 0.3.4
+
+### Patch Changes
+
+- 6b15d6f: Updated `@walletconnect/ethereum-provider` to `2.5.1`.
+- 1f452e7: Added OKX Wallet to injected connector flags.
+- a4d9083: Added Backpack wallet to injected connector flags.
+- 6a4af48: Enabled support for programmatic chain switching on `LedgerConnector` & added `"ledger"` to the switch chain regex on `WalletConnectLegacyConnector`.
+
 ## 0.3.3
 
 ### Patch Changes
