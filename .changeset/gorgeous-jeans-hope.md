@@ -2,4 +2,4 @@
 '@wagmi/connectors': patch
 ---
 
-Added Backpack wallet name resolution to injected connector
+Added Backpack wallet to injected connector flags.
