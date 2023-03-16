@@ -7,11 +7,12 @@ import {
   Chain,
   ProviderRpcError,
   RpcError,
+  SwitchChainError,
   UserRejectedRequestError,
   normalizeChainId,
 } from '@wagmi/core'
 import { providers } from 'ethers'
-import { getAddress } from 'ethers/lib/utils.js'
+import { getAddress, hexValue } from 'ethers/lib/utils.js'
 
 import type { ConnectorData } from './base'
 import { Connector } from './base'
@@ -64,6 +65,9 @@ export class LedgerConnector extends Connector<
       const account = getAddress(accounts[0] as string)
       const id = await this.getChainId()
       const unsupported = this.isChainUnsupported(id)
+
+      // Enable support for programmatic chain switching
+      this.switchChain = this.#switchChain
 
       return {
         account,
@@ -169,6 +173,45 @@ export class LedgerConnector extends Connector<
       return !!account
     } catch {
       return false
+    }
+  }
+
+  async #switchChain(chainId: number) {
+    const provider = await this.getProvider()
+    const id = hexValue(chainId)
+
+    try {
+      // Set up a race between `wallet_switchEthereumChain` & the `chainChanged` event
+      // to ensure the chain has been switched. This is because there could be a case
+      // where a wallet may not resolve the `wallet_switchEthereumChain` method, or
+      // resolves slower than `chainChanged`.
+      await Promise.race([
+        provider.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: id }],
+        }),
+        new Promise((res) =>
+          this.on('change', ({ chain }) => {
+            if (chain?.id === chainId) res(chainId)
+          }),
+        ),
+      ])
+      return (
+        this.chains.find((x) => x.id === chainId) ??
+        ({
+          id: chainId,
+          name: `Chain ${id}`,
+          network: `${id}`,
+          nativeCurrency: { name: 'Ether', decimals: 18, symbol: 'ETH' },
+          rpcUrls: { default: { http: [''] }, public: { http: [''] } },
+        } as Chain)
+      )
+    } catch (error) {
+      const message =
+        typeof error === 'string' ? error : (error as ProviderRpcError)?.message
+      if (/user rejected request/i.test(message))
+        throw new UserRejectedRequestError(error)
+      throw new SwitchChainError(error)
     }
   }
 

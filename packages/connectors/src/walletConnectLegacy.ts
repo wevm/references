@@ -15,13 +15,14 @@ import { Connector } from './base'
 /**
  * Wallets that support chain switching through WalletConnect
  * - imToken (token.im)
+ * - Ledger Live (ledger.com)
  * - MetaMask (metamask.io)
  * - Rainbow (rainbow.me)
  * - Trust Wallet (trustwallet.com)
  * - Uniswap Wallet (uniswap.org)
  */
 const switchChainAllowedRegex =
-  /(imtoken|metamask|rainbow|trust wallet|uniswap wallet)/i
+  /(imtoken|metamask|rainbow|trust wallet|uniswap wallet|ledger)/i
 
 type WalletConnectOptions = ConstructorParameters<
   typeof WalletConnectProvider
