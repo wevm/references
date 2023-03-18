@@ -1,7 +1,7 @@
 import { Chain } from './types'
 
 export const polygonZkEvmTestnet = {
-  id: 1422,
+  id: 1442,
   name: 'Polygon zkEVM Testnet',
   network: 'polygon-zkevm-testnet',
   nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
