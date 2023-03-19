@@ -2,4 +2,4 @@
 '@wagmi/connectors': patch
 ---
 
-Add isDawn wallet flag
+Added Dawn wallet flag
