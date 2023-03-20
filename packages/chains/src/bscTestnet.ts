@@ -10,8 +10,8 @@ export const bscTestnet = {
     symbol: 'tBNB',
   },
   rpcUrls: {
-    default: { http: ['https://bsc-testnet.public.blastapi.io'] },
-    public: { http: ['https://bsc-testnet.public.blastapi.io'] },
+    default: { http: ['https://data-seed-prebsc-1-s1.binance.org:8545'] },
+    public: { http: ['https://data-seed-prebsc-1-s1.binance.org:8545'] },
   },
   blockExplorers: {
     etherscan: { name: 'BscScan', url: 'https://testnet.bscscan.com' },
