@@ -1,5 +1,12 @@
 # @wagmi/chains
 
+## 0.2.14
+
+### Patch Changes
+
+- c857cc4: Fixed broken BSC testnet RPC URL
+- fd3680f: Updated Polygon zkEVM Testnet Chain ID
+
 ## 0.2.13
 
 ### Patch Changes
