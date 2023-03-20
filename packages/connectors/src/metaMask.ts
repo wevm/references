@@ -14,7 +14,7 @@ import { Ethereum } from './types'
 
 export type MetaMaskConnectorOptions = Pick<
   InjectedConnectorOptions,
-  'shimChainChangedDisconnect' | 'shimDisconnect'
+  'shimDisconnect'
 > & {
   /**
    * While "disconnected" with `shimDisconnect`, allows user to select a different MetaMask account (than the currently connected account) when trying to connect.
@@ -39,7 +39,6 @@ export class MetaMaskConnector extends InjectedConnector {
     const options = {
       name: 'MetaMask',
       shimDisconnect: true,
-      shimChainChangedDisconnect: true,
       getProvider() {
         function getReady(ethereum?: Ethereum) {
           const isMetaMask = !!ethereum?.isMetaMask
