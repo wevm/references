@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.3.5
+
+### Patch Changes
+
+- 8b1a526: Added Dawn wallet flag
+
 ## 0.3.4
 
 ### Patch Changes
