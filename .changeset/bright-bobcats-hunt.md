@@ -1,5 +1,5 @@
 ---
-'@wagmi/chains': minor
+'@wagmi/chains': patch
 ---
 
-update BSC testnet RPC URL
+Fixed broken BSC testnet RPC URL
