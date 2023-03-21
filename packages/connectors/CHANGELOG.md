@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.3.8
+
+### Patch Changes
+
+- 11f3fe2: Fixed issue where `UNSTABLE_shimOnConnectSelectAccount` would not bubble up error for MetaMask if request to connect was already active.
+
 ## 0.3.7
 
 ### Patch Changes
