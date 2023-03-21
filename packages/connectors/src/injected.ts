@@ -2,13 +2,14 @@ import {
   AddChainError,
   ChainNotConfiguredError,
   ConnectorNotFoundError,
+  ProviderRpcError,
   ResourceUnavailableError,
   SwitchChainError,
   UserRejectedRequestError,
   getClient,
   normalizeChainId,
 } from '@wagmi/core'
-import type { Address, ProviderRpcError, RpcError } from '@wagmi/core'
+import type { Address, RpcError } from '@wagmi/core'
 import type { Chain } from '@wagmi/core/chains'
 import { providers } from 'ethers'
 import { getAddress, hexValue } from 'ethers/lib/utils.js'
@@ -238,6 +239,14 @@ export class InjectedConnector extends Connector<
               },
             ],
           })
+
+          const currentChainId = await this.getChainId()
+          if (currentChainId !== chainId)
+            throw new ProviderRpcError(
+              'User rejected switch after adding network.',
+              { code: 4001 },
+            )
+
           return chain
         } catch (addError) {
           if (this.isUserRejectedRequestError(addError))
