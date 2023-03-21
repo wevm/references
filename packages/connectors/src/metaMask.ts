@@ -106,6 +106,12 @@ export class MetaMaskConnector extends InjectedConnector {
             // Only bubble up error if user rejects request
             if (this.isUserRejectedRequestError(error))
               throw new UserRejectedRequestError(error)
+            // Or MetaMask is already open
+            if (
+              (error as ResourceUnavailableError).code ===
+              new ResourceUnavailableError(error).code
+            )
+              throw error
           }
       }
 
