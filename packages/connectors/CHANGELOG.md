@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.3.6
+
+### Patch Changes
+
+- 85330c1: Removed `InjectedConnector` `shimChainChangedDisconnect` shim (no longer necessary).
+
 ## 0.3.5
 
 ### Patch Changes
