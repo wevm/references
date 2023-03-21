@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.3.7
+
+### Patch Changes
+
+- 04c0e47: Fixed issue switching chain after adding to MetaMask.
+
 ## 0.3.6
 
 ### Patch Changes
