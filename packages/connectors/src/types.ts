@@ -57,9 +57,12 @@ type InjectedProviderFlags = {
   isExodus?: true
   isFrame?: true
   isFrontier?: true
+  isHyperPay?: true
   isKuCoinWallet?: true
   isMathWallet?: true
   isMetaMask?: true
+  isOkxWallet?: true
+  isOKExWallet?: true
   isOneInchAndroidWallet?: true
   isOneInchIOSWallet?: true
   isOpera?: true
@@ -72,10 +75,8 @@ type InjectedProviderFlags = {
   isTokenary?: true
   isTrust?: true
   isTrustWallet?: true
-  isHyperPay?: true
   isXDEFI?: true
-  isOkxWallet?: true
-  isOKExWallet?: true
+  isZerion?: true
 }
 
 type InjectedProviders = InjectedProviderFlags & {
