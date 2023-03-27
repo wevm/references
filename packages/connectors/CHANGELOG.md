@@ -1,5 +1,12 @@
 # @wagmi/connectors
 
+## 0.3.9
+
+### Patch Changes
+
+- 5cd0afc: Added `isZerion` to `InjectedProviderFlags` and `getInjectedName`
+- be4825e: Added GameStop Wallet to injected connector flags
+
 ## 0.3.8
 
 ### Patch Changes
