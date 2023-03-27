@@ -23,9 +23,9 @@
   "dependencies": {
     "@coinbase/wallet-sdk": "^3.5.4",
     "@ledgerhq/connect-kit-loader": "^1.0.1",
-    "@walletconnect/ethereum-provider": "2.5.1",
+    "@walletconnect/ethereum-provider": "2.5.2",
     "@walletconnect/legacy-provider": "^2.0.0",
-    "@web3modal/standalone": "2.2.1",
+    "@web3modal/standalone": "2.2.2",
     "@safe-global/safe-apps-provider": "^0.15.2",
     "@safe-global/safe-apps-sdk": "^7.9.0",
     "abitype": "^0.3.0",
