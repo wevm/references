@@ -62,6 +62,11 @@ type WalletConnectOptions = {
    * @link https://docs.walletconnect.com/2.0/javascript/providers/ethereum#initialization
    */
   showQrModal?: EthereumProviderOptions['showQrModal']
+  /**
+   * Options of QR code modal.
+   * @link https://docs.walletconnect.com/2.0/web3modal/options
+   */
+  qrModalOptions?: EthereumProviderOptions['qrModalOptions']
 }
 type WalletConnectSigner = providers.JsonRpcSigner
 
@@ -271,9 +276,10 @@ export class WalletConnectConnector extends Connector<
     } = await import('@walletconnect/ethereum-provider')
     const [defaultChain, ...optionalChains] = this.chains.map(({ id }) => id)
     if (defaultChain) {
-      const { projectId, showQrModal = true } = this.options
+      const { projectId, showQrModal = true, qrModalOptions } = this.options
       this.#provider = await EthereumProvider.init({
         showQrModal,
+        qrModalOptions,
         projectId,
         optionalMethods: OPTIONAL_METHODS,
         optionalEvents: OPTIONAL_EVENTS,
