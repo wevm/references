@@ -1,5 +1,12 @@
 # @wagmi/connectors
 
+## 0.3.10
+
+### Patch Changes
+
+- 4267020: Added `qrModalOptions` option to `WalletConnectConnector`
+- e78fb0a: Pinned WalletConnect dependencies
+
 ## 0.3.9
 
 ### Patch Changes
