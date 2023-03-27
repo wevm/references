@@ -30,6 +30,7 @@ describe.each([
   { ethereum: { isFrame: true }, expected: 'Frame' },
   { ethereum: { isFrontier: true }, expected: 'Frontier Wallet' },
   { ethereum: { isGamestop: true }, expected: 'GameStop Wallet' },
+  { ethereum: { isHyperPay: true }, expected: 'HyperPay Wallet' },
   { ethereum: { isKuCoinWallet: true }, expected: 'KuCoin Wallet' },
   {
     ethereum: { isKuCoinWallet: true, isMetaMask: true },
@@ -54,9 +55,9 @@ describe.each([
   { ethereum: { isTokenary: true, isMetaMask: true }, expected: 'Tokenary' },
   { ethereum: { isTrust: true }, expected: 'Trust Wallet' },
   { ethereum: { isTrustWallet: true }, expected: 'Trust Wallet' },
-  { ethereum: { isHyperPay: true }, expected: 'HyperPay Wallet' },
-  { ethereum: { isMetaMask: true }, expected: 'MetaMask' },
   { ethereum: { isXDEFI: true }, expected: 'XDEFI Wallet' },
+  { ethereum: { isZerion: true }, expected: 'Zerion' },
+  { ethereum: { isMetaMask: true }, expected: 'MetaMask' },
   {
     ethereum: { providers: [{ isMetaMask: true }, { isCoinbaseWallet: true }] },
     expected: ['MetaMask', 'Coinbase Wallet'],
