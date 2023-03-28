@@ -23,7 +23,7 @@ describe('MockProvider', () => {
   describe('connect', () => {
     it('succeeds', async () => {
       const accounts = await provider.enable()
-      const account = await signer.getAddress()
+      const account = signer.account.address
       expect(accounts[0]).toEqual(account)
     })
 
@@ -56,7 +56,7 @@ describe('MockProvider', () => {
 
     it('connected', async () => {
       await provider.enable()
-      const account = await signer.getAddress()
+      const account = signer.account.address
       const connected = await provider.getAccounts()
       expect(connected[0]).toEqual(account)
     })

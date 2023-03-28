@@ -37,7 +37,7 @@ export class MockProvider extends providers.BaseProvider {
     if (this.#options.flags?.failConnect)
       throw new UserRejectedRequestError(new Error('Failed to connect'))
     if (!this.#signer) this.#signer = this.#options.signer
-    const address = await this.#signer.getAddress()
+    const address = await this.#signer.account.address
     this.events.emit('accountsChanged', [address])
     return [address]
   }
@@ -48,7 +48,7 @@ export class MockProvider extends providers.BaseProvider {
   }
 
   async getAccounts() {
-    const address = await this.#signer?.getAddress()
+    const address = this.#signer?.account.address
     if (!address) return []
     return [getAddress(address)]
   }
@@ -68,7 +68,7 @@ export class MockProvider extends providers.BaseProvider {
   }
 
   async switchSigner(signer: Signer) {
-    const address = await signer.getAddress()
+    const address = signer.account.address
     this.#signer = signer
     this.events.emit('accountsChanged', [address])
   }
