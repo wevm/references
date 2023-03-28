@@ -116,11 +116,12 @@ export class WalletConnectLegacyConnector extends Connector<
   }
 
   async getProvider({
-    chainId,
+    chainId: chainId_,
     create,
   }: { chainId?: number; create?: boolean } = {}) {
     // Force create new provider
-    if (!this.#provider || chainId || create) {
+    if (!this.#provider || chainId_ || create) {
+      const chainId = chainId_ ?? this.chains[0]?.id
       const rpc = !this.options?.infuraId
         ? this.chains.reduce(
             (rpc, chain) => ({
@@ -139,6 +140,15 @@ export class WalletConnectLegacyConnector extends Connector<
         chainId,
         rpc: { ...rpc, ...this.options?.rpc },
       })
+
+      // `@walletconnect/legacy-provider` automatically sets the chainId to `1`,
+      // regardless of what `chainId` we pass to `WalletConnectProvider.
+      // This causes the target chain RPC URL to become out-of-sync.
+      // WalletConnect's HTTP Provider should still work even if a wallet does
+      // not support the chain. We just need to provide it with a valid RPC URL.
+      // Here, we are making sure the RPC URL is set to the chain's RPC URL.
+      // @ts-expect-error
+      this.#provider.http = await this.#provider.setHttpProvider(chainId)
     }
 
     return this.#provider
