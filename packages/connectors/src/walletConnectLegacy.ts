@@ -142,7 +142,8 @@ export class WalletConnectLegacyConnector extends Connector<
       })
 
       // `@walletconnect/legacy-provider` automatically sets the chainId to `1`,
-      // regardless of what `chainId` we pass to `WalletConnectProvider.
+      // if a wallet does not support the target chain regardless of what `chainId` 
+      // we pass to `WalletConnectProvider`.
       // This causes the target chain RPC URL to become out-of-sync.
       // WalletConnect's HTTP Provider should still work even if a wallet does
       // not support the chain. We just need to provide it with a valid RPC URL.
