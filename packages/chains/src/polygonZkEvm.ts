@@ -19,5 +19,4 @@ export const polygonZkEvm = {
       url: 'https://zkevm.polygonscan.com/',
     },
   },
-  testnet: true,
 } as const satisfies Chain
