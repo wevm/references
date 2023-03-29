@@ -28,7 +28,7 @@ export function getInjectedName(ethereum?: Ethereum) {
     if (provider.isPortal) return 'Ripio Portal'
     if (provider.isRainbow) return 'Rainbow'
     if (provider.isStatus) return 'Status'
-    if (provider.isTally) return 'Tally'
+    if (provider.isTally) return 'Taho'
     if (provider.isTokenPocket) return 'TokenPocket'
     if (provider.isTokenary) return 'Tokenary'
     if (provider.isTrust || provider.isTrustWallet) return 'Trust Wallet'
