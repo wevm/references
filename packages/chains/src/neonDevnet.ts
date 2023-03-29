@@ -14,10 +14,6 @@ export const neonDevnet = {
     },
   },
   blockExplorers: {
-    etherscan: {
-      name: 'Neonscan',
-      url: 'https://neonscan.org/',
-    },
     default: {
       name: 'Neonscan',
       url: 'https://neonscan.org/',
