@@ -16,7 +16,7 @@ export const polygonZkEvm = {
   blockExplorers: {
     default: {
       name: 'PolygonScan',
-      url: 'https://zkevm.polygonscan.com/',
+      url: 'https://zkevm.polygonscan.com',
     },
   },
 } as const satisfies Chain
