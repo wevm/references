@@ -1,5 +1,13 @@
 # @wagmi/chains
 
+## 0.2.15
+
+### Patch Changes
+
+- 9de63cd: Added Polygon zkEVM Mainnet
+- 6f7bb30: Added Nexi Chain
+- 41c6bae: Added XDC Network
+
 ## 0.2.14
 
 ### Patch Changes
