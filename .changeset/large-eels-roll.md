@@ -2,4 +2,4 @@
 '@wagmi/chains': patch
 ---
 
-Added Nexi Chain
+Fixed Nexi Chain

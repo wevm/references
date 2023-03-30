@@ -26,7 +26,7 @@ export const nexi = {
   contracts: {
     multicall3: {
       address: '0x0277A46Cc69A57eE3A6C8c158bA874832F718B8E',
-      blockCreated: 25770160,
+      blockCreated: 80474,
     },
   },
 } as const satisfies Chain
