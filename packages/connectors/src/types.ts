@@ -69,6 +69,7 @@ type InjectedProviderFlags = {
   isOpera?: true
   isPhantom?: true
   isPortal?: true
+  isRabby?: true
   isRainbow?: true
   isStatus?: true
   isTally?: true
