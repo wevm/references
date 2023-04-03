@@ -1,7 +1,7 @@
 import { Chain } from './types'
 
 export const neonDevnet = {
-  id: 245022926,
+  id: 245_022_926,
   network: 'neonDevnet',
   name: 'Neon EVM DevNet',
   nativeCurrency: { name: 'NEON', symbol: 'NEON', decimals: 18 },
