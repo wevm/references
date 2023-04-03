@@ -10,7 +10,13 @@ export const foundry = {
     symbol: 'ETH',
   },
   rpcUrls: {
-    default: { http: ['http://127.0.0.1:8545'] },
-    public: { http: ['http://127.0.0.1:8545'] },
+    default: {
+      http: ['http://127.0.0.1:8545'],
+      webSocket: ['ws://127.0.0.1:8545'],
+    },
+    public: {
+      http: ['http://127.0.0.1:8545'],
+      webSocket: ['ws://127.0.0.1:8545'],
+    },
   },
 } as const satisfies Chain
