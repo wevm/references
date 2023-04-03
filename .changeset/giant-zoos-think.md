@@ -2,4 +2,4 @@
 '@wagmi/chains': patch
 ---
 
-Added neonDevnet.ts in references/packages/chains/srcAdded import for neonDevnet.ts in references/packages/chains/src/index.ts
+Added Neon Devnet.
