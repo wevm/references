@@ -16,7 +16,7 @@ export const neonDevnet = {
   blockExplorers: {
     default: {
       name: 'Neonscan',
-      url: 'https://neonscan.org/',
+      url: 'https://neonscan.org',
     },
   },
   contracts: {
