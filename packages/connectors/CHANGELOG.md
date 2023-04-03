@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.3.11
+
+### Patch Changes
+
+- 0778abc: Renamed `isTally` injected provider to `Taho`
+
 ## 0.3.10
 
 ### Patch Changes

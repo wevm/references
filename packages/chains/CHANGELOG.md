@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 0.2.16
+
+### Patch Changes
+
+- 6a50f1d: Added websocket RPC to foundry chain
+
 ## 0.2.15
 
 ### Patch Changes
