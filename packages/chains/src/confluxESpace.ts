@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const cfxESpace = {
+export const confluxESpace = {
   id: 1_030,
   name: 'Conflux eSpace',
   network: 'cfx-espace',
