@@ -26,6 +26,7 @@ export function getInjectedName(ethereum?: Ethereum) {
     if (provider.isOpera) return 'Opera'
     if (provider.isPhantom) return 'Phantom'
     if (provider.isPortal) return 'Ripio Portal'
+    if (provider.isRabby) return 'Rabby'
     if (provider.isRainbow) return 'Rainbow'
     if (provider.isStatus) return 'Status'
     if (provider.isTally) return 'Taho'
