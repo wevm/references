@@ -11,8 +11,8 @@ export const lineaTestnet = {
       webSocket: ['wss://rpc.goerli.linea.build/'],
     },
     public: {
-      http: ['https://rpc.goerli.linea.build/'],
-      webSocket: ['wss://rpc.goerli.linea.build/'],
+      http: ['https://rpc.goerli.linea.build'],
+      webSocket: ['wss://rpc.goerli.linea.build'],
     },
   },
   blockExplorers: {
