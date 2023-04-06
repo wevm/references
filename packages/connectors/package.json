@@ -35,7 +35,7 @@
   "devDependencies": {
     "@wagmi/core": "^0.8.19",
     "ethers": "^5.7.2",
-    "viem": "~0.2.7"
+    "viem": "0.2.8"
   },
   "type": "module",
   "main": "dist/index.js",
