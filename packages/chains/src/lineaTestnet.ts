@@ -18,7 +18,7 @@ export const lineaTestnet = {
   blockExplorers: {
     default: {
       name: 'BlockScout',
-      url: 'https://explorer.goerli.linea.build/',
+      url: 'https://explorer.goerli.linea.build',
     },
   },
   testnet: true,
