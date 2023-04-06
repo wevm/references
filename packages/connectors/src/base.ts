@@ -1,17 +1,16 @@
-import type { Address } from '@wagmi/core'
+import type { Address, Signer } from '@wagmi/core'
 import type { Chain } from '@wagmi/core/chains'
 import { goerli, mainnet } from '@wagmi/core/chains'
 import { default as EventEmitter } from 'eventemitter3'
 
-export type ConnectorData<Provider = any> = {
+export type ConnectorData = {
   account?: Address
   chain?: { id: number; unsupported: boolean }
-  provider?: Provider
 }
 
-export interface ConnectorEvents<Provider = any> {
-  change(data: ConnectorData<Provider>): void
-  connect(data: ConnectorData<Provider>): void
+export interface ConnectorEvents {
+  change(data: ConnectorData): void
+  connect(data: ConnectorData): void
   message({ type, data }: { type: string; data?: unknown }): void
   disconnect(): void
   error(error: Error): void
@@ -20,8 +19,7 @@ export interface ConnectorEvents<Provider = any> {
 export abstract class Connector<
   Provider = any,
   Options = any,
-  Signer = any,
-> extends EventEmitter<ConnectorEvents<Provider>> {
+> extends EventEmitter<ConnectorEvents> {
   /** Unique connector id */
   abstract readonly id: string
   /** Connector name */

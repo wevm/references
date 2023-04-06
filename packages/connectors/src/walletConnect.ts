@@ -7,8 +7,7 @@ import {
 } from '@wagmi/core'
 import type WalletConnectProvider from '@walletconnect/ethereum-provider'
 import { EthereumProviderOptions } from '@walletconnect/ethereum-provider/dist/types/EthereumProvider'
-import { providers } from 'ethers'
-import { getAddress, hexValue } from 'ethers/lib/utils.js'
+import { createWalletClient, custom, getAddress, numberToHex } from 'viem'
 
 import { Connector } from './base'
 
@@ -68,7 +67,6 @@ type WalletConnectOptions = {
    */
   qrModalOptions?: EthereumProviderOptions['qrModalOptions']
 }
-type WalletConnectSigner = providers.JsonRpcSigner
 
 type ConnectConfig = {
   /** Target chain to connect to. */
@@ -83,8 +81,7 @@ const ADD_ETH_CHAIN_METHOD = 'wallet_addEthereumChain'
 
 export class WalletConnectConnector extends Connector<
   WalletConnectProvider,
-  WalletConnectOptions,
-  WalletConnectSigner
+  WalletConnectOptions
 > {
   readonly id = 'walletConnect'
   readonly name = 'WalletConnect'
@@ -146,7 +143,6 @@ export class WalletConnectConnector extends Connector<
       return {
         account,
         chain: { id, unsupported },
-        provider: new providers.Web3Provider(provider),
       }
     } catch (error) {
       if (/user rejected/i.test((error as ProviderRpcError)?.message)) {
@@ -189,7 +185,13 @@ export class WalletConnectConnector extends Connector<
       this.getProvider({ chainId }),
       this.getAccount(),
     ])
-    return new providers.Web3Provider(provider, chainId).getSigner(account)
+    const chain = this.chains.find((x) => x.id === chainId) || this.chains[0]
+    if (!provider) throw new Error('provider is required.')
+    return createWalletClient({
+      account,
+      chain,
+      transport: custom(provider),
+    })
   }
 
   async isAuthorized() {
@@ -233,7 +235,7 @@ export class WalletConnectConnector extends Connector<
           method: ADD_ETH_CHAIN_METHOD,
           params: [
             {
-              chainId: hexValue(chain.id),
+              chainId: numberToHex(chain.id),
               blockExplorerUrls: [chain.blockExplorers?.default],
               chainName: chain.name,
               nativeCurrency: chain.nativeCurrency,
@@ -247,7 +249,7 @@ export class WalletConnectConnector extends Connector<
       }
       await provider.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId: hexValue(chainId) }],
+        params: [{ chainId: numberToHex(chainId) }],
       })
 
       return chain
@@ -400,6 +402,6 @@ export class WalletConnectConnector extends Connector<
   }
 
   protected onConnect = () => {
-    this.emit('connect', { provider: this.#provider })
+    this.emit('connect', {})
   }
 }

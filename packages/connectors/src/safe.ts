@@ -6,8 +6,7 @@ import {
   getClient,
   normalizeChainId,
 } from '@wagmi/core'
-import { providers } from 'ethers'
-import { getAddress } from 'ethers/lib/utils.js'
+import { createWalletClient, custom, getAddress } from 'viem'
 
 import { Connector } from './base'
 
@@ -85,7 +84,6 @@ export class SafeConnector extends Connector<
 
     return {
       account,
-      provider,
       chain: { id, unsupported: this.isChainUnsupported(id) },
     }
   }
@@ -127,10 +125,16 @@ export class SafeConnector extends Connector<
     return this.#provider
   }
 
-  async getSigner() {
+  async getSigner({ chainId }: { chainId?: number } = {}) {
     const provider = await this.getProvider()
     const account = await this.getAccount()
-    return new providers.Web3Provider(provider).getSigner(account)
+    const chain = this.chains.find((x) => x.id === chainId) || this.chains[0]
+    if (!provider) throw new Error('provider is required.')
+    return createWalletClient({
+      account,
+      chain,
+      transport: custom(provider),
+    })
   }
 
   async isAuthorized() {

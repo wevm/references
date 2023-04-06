@@ -4,7 +4,6 @@ import {
   ConnectorNotFoundError,
   ProviderRpcError,
   ResourceUnavailableError,
-  Signer,
   SwitchChainError,
   UserRejectedRequestError,
   getClient,
@@ -41,8 +40,7 @@ type ConnectorOptions = InjectedConnectorOptions &
 
 export class InjectedConnector extends Connector<
   Ethereum | undefined,
-  ConnectorOptions,
-  Signer
+  ConnectorOptions
 > {
   readonly id: string = 'injected'
   readonly name: string
@@ -113,7 +111,7 @@ export class InjectedConnector extends Connector<
       if (this.options.shimDisconnect)
         getClient().storage?.setItem(this.shimDisconnectKey, true)
 
-      return { account, chain: { id, unsupported }, provider }
+      return { account, chain: { id, unsupported } }
     } catch (error) {
       if (this.isUserRejectedRequestError(error))
         throw new UserRejectedRequestError(error)

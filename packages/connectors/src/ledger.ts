@@ -11,8 +11,7 @@ import {
   UserRejectedRequestError,
   normalizeChainId,
 } from '@wagmi/core'
-import { providers } from 'ethers'
-import { getAddress, hexValue } from 'ethers/lib/utils.js'
+import { createWalletClient, custom, getAddress, numberToHex } from 'viem'
 
 import type { ConnectorData } from './base'
 import { Connector } from './base'
@@ -24,12 +23,9 @@ type LedgerConnectorOptions = {
   rpc?: { [chainId: number]: string }
 }
 
-type LedgerSigner = providers.JsonRpcSigner
-
 export class LedgerConnector extends Connector<
   EthereumProvider,
-  LedgerConnectorOptions,
-  LedgerSigner
+  LedgerConnectorOptions
 > {
   readonly id = 'ledger'
   readonly name = 'Ledger'
@@ -72,9 +68,6 @@ export class LedgerConnector extends Connector<
       return {
         account,
         chain: { id, unsupported },
-        provider: new providers.Web3Provider(
-          provider as providers.ExternalProvider,
-        ),
       }
     } catch (error) {
       if ((error as ProviderRpcError).code === 4001) {
@@ -161,10 +154,13 @@ export class LedgerConnector extends Connector<
       this.getProvider({ chainId }),
       this.getAccount(),
     ])
-    return new providers.Web3Provider(
-      provider as providers.ExternalProvider,
-      chainId,
-    ).getSigner(account)
+    const chain = this.chains.find((x) => x.id === chainId) || this.chains[0]
+    if (!provider) throw new Error('provider is required.')
+    return createWalletClient({
+      account,
+      chain,
+      transport: custom(provider),
+    })
   }
 
   async isAuthorized() {
@@ -178,7 +174,7 @@ export class LedgerConnector extends Connector<
 
   async #switchChain(chainId: number) {
     const provider = await this.getProvider()
-    const id = hexValue(chainId)
+    const id = numberToHex(chainId)
 
     try {
       // Set up a race between `wallet_switchEthereumChain` & the `chainChanged` event

@@ -12,8 +12,7 @@ import {
 } from '@wagmi/core'
 import type { Address, ProviderRpcError } from '@wagmi/core'
 import type { Chain } from '@wagmi/core/chains'
-import { providers } from 'ethers'
-import { getAddress, hexValue } from 'ethers/lib/utils.js'
+import { createWalletClient, custom, getAddress, numberToHex } from 'viem'
 
 import { Connector } from './base'
 
@@ -36,8 +35,7 @@ type Options = Omit<CoinbaseWalletSDKOptions, 'reloadOnDisconnect'> & {
 
 export class CoinbaseWalletConnector extends Connector<
   CoinbaseWalletProvider,
-  Options,
-  providers.JsonRpcSigner
+  Options
 > {
   readonly id = 'coinbaseWallet'
   readonly name = 'Coinbase Wallet'
@@ -79,9 +77,6 @@ export class CoinbaseWalletConnector extends Connector<
       return {
         account,
         chain: { id, unsupported },
-        provider: new providers.Web3Provider(
-          provider as unknown as providers.ExternalProvider,
-        ),
       }
     } catch (error) {
       if (
@@ -171,10 +166,13 @@ export class CoinbaseWalletConnector extends Connector<
       this.getProvider(),
       this.getAccount(),
     ])
-    return new providers.Web3Provider(
-      provider as unknown as providers.ExternalProvider,
-      chainId,
-    ).getSigner(account)
+    const chain = this.chains.find((x) => x.id === chainId) || this.chains[0]
+    if (!provider) throw new Error('provider is required.')
+    return createWalletClient({
+      account,
+      chain,
+      transport: custom(provider),
+    })
   }
 
   async isAuthorized() {
@@ -188,7 +186,7 @@ export class CoinbaseWalletConnector extends Connector<
 
   async switchChain(chainId: number) {
     const provider = await this.getProvider()
-    const id = hexValue(chainId)
+    const id = numberToHex(chainId)
 
     try {
       await provider.request({

@@ -7,8 +7,7 @@ import {
 } from '@wagmi/core'
 import type { Chain } from '@wagmi/core/chains'
 import type WalletConnectProvider from '@walletconnect/legacy-provider'
-import { providers } from 'ethers'
-import { getAddress, hexValue } from 'ethers/lib/utils.js'
+import { createWalletClient, custom, getAddress, numberToHex } from 'viem'
 
 import { Connector } from './base'
 
@@ -28,12 +27,9 @@ type WalletConnectOptions = ConstructorParameters<
   typeof WalletConnectProvider
 >[0]
 
-type WalletConnectSigner = providers.JsonRpcSigner
-
 export class WalletConnectLegacyConnector extends Connector<
   WalletConnectProvider,
-  WalletConnectOptions,
-  WalletConnectSigner
+  WalletConnectOptions
 > {
   readonly id = 'walletConnectLegacy'
   readonly name = 'WalletConnectLegacy'
@@ -79,9 +75,6 @@ export class WalletConnectLegacyConnector extends Connector<
       return {
         account,
         chain: { id, unsupported },
-        provider: new providers.Web3Provider(
-          provider as providers.ExternalProvider,
-        ),
       }
     } catch (error) {
       if (/user closed modal/i.test((error as ProviderRpcError).message))
@@ -159,10 +152,13 @@ export class WalletConnectLegacyConnector extends Connector<
       this.getProvider({ chainId }),
       this.getAccount(),
     ])
-    return new providers.Web3Provider(
-      provider as providers.ExternalProvider,
-      chainId,
-    ).getSigner(account)
+    const chain = this.chains.find((x) => x.id === chainId) || this.chains[0]
+    if (!provider) throw new Error('provider is required.')
+    return createWalletClient({
+      account,
+      chain,
+      transport: custom(provider),
+    })
   }
 
   async isAuthorized() {
@@ -176,7 +172,7 @@ export class WalletConnectLegacyConnector extends Connector<
 
   async #switchChain(chainId: number) {
     const provider = await this.getProvider()
-    const id = hexValue(chainId)
+    const id = numberToHex(chainId)
 
     try {
       // Set up a race between `wallet_switchEthereumChain` & the `chainChanged` event
