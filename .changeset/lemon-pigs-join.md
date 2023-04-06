@@ -2,4 +2,4 @@
 '@wagmi/connectors': patch
 ---
 
-Update @walletconnect/ethereum-provider to 2.6.2, relax @web3modal/standalone version requirement
+Updated `@walletconnect/ethereum-provider` to `2.6.2`, relaxed `@web3modal/standalone` version requirement
