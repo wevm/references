@@ -1,6 +1,6 @@
 import { normalizeChainId } from '@wagmi/core'
 import type { Chain } from '@wagmi/core/chains'
-import { getAddress } from 'ethers/lib/utils.js'
+import { getAddress } from 'viem'
 
 import type { ConnectorData } from '../base'
 import { Connector } from '../base'

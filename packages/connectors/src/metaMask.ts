@@ -6,7 +6,7 @@ import {
 } from '@wagmi/core'
 import type { Address, RpcError } from '@wagmi/core'
 import type { Chain } from '@wagmi/core/chains'
-import { getAddress } from 'ethers/lib/utils.js'
+import { getAddress } from 'viem'
 
 import type { InjectedConnectorOptions } from './injected'
 import { InjectedConnector } from './injected'
