@@ -27,9 +27,9 @@
     "@walletconnect/ethereum-provider": "2.6.2",
     "@walletconnect/legacy-provider": "^2.0.0",
     "@web3modal/standalone": "^2.2.2",
-    "@safe-global/safe-apps-provider": "^0.15.2",
-    "@safe-global/safe-apps-sdk": "^7.9.0",
-    "abitype": "^0.3.0",
+    "@safe-global/safe-apps-provider": "0.16.0",
+    "@safe-global/safe-apps-sdk": "7.10.0",
+    "abitype": "^0.7.1",
     "eventemitter3": "^4.0.7"
   },
   "devDependencies": {
