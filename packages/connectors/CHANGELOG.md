@@ -1,5 +1,13 @@
 # @wagmi/connectors
 
+## 0.3.12
+
+### Patch Changes
+
+- 9bb22b6: Updated `@walletconnect/ethereum-provider` to `2.6.2`, relaxed `@web3modal/standalone` version requirement
+- 0d7625b: Added Rabby to injected connector flags
+- f63d7fd: Added correct error to switch network cause.
+
 ## 0.3.11
 
 ### Patch Changes

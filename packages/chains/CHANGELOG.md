@@ -1,5 +1,13 @@
 # @wagmi/chains
 
+## 0.2.17
+
+### Patch Changes
+
+- 7e98d11: Added Conflux eSpace
+- f157ffc: Added Linea Testnet Support
+- 330b4de: Added Neon Devnet Support
+
 ## 0.2.16
 
 ### Patch Changes
