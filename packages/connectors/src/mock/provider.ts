@@ -1,8 +1,7 @@
 import { UserRejectedRequestError } from '@wagmi/core'
 import type { Signer } from '@wagmi/core'
-import { providers } from 'ethers'
-import { getAddress } from 'ethers/lib/utils.js'
 import { default as EventEmitter } from 'eventemitter3'
+import { getAddress } from 'viem'
 
 export type MockProviderOptions = {
   chainId: number
@@ -22,14 +21,15 @@ type Events = {
 }
 type Event = keyof Events
 
-export class MockProvider extends providers.BaseProvider {
+export class MockProvider {
   events = new EventEmitter<Events>()
 
+  chainId: number
   #options: MockProviderOptions
   #signer?: Signer
 
   constructor(options: MockProviderOptions) {
-    super({ name: 'Network', chainId: options.chainId })
+    this.chainId = options.chainId
     this.#options = options
   }
 
@@ -37,7 +37,7 @@ export class MockProvider extends providers.BaseProvider {
     if (this.#options.flags?.failConnect)
       throw new UserRejectedRequestError(new Error('Failed to connect'))
     if (!this.#signer) this.#signer = this.#options.signer
-    const address = await this.#signer.account.address
+    const address = this.#signer.account.address
     this.events.emit('accountsChanged', [address])
     return [address]
   }
@@ -63,7 +63,7 @@ export class MockProvider extends providers.BaseProvider {
     if (this.#options.flags?.failSwitchChain)
       throw new UserRejectedRequestError(new Error('Failed to switch chain'))
     this.#options.chainId = chainId
-    this.network.chainId = chainId
+    this.chainId = chainId
     this.events.emit('chainChanged', chainId)
   }
 
@@ -82,20 +82,17 @@ export class MockProvider extends providers.BaseProvider {
     return true
   }
 
-  on(event: Event, listener: providers.Listener) {
+  async request({ method, params }: any) {
+    return this.#signer?.transport.request({ method, params })
+  }
+
+  on(event: Event, listener: (...args: any[]) => void) {
     this.events.on(event, listener)
     return this
   }
-  once(event: Event, listener: providers.Listener) {
-    this.events.once(event, listener)
-    return this
-  }
-  removeListener(event: Event, listener: providers.Listener) {
+
+  removeListener(event: Event, listener: (...args: any[]) => void) {
     this.events.removeListener(event, listener)
-    return this
-  }
-  off(event: Event, listener: providers.Listener) {
-    this.events.off(event, listener)
     return this
   }
 

@@ -47,7 +47,7 @@ export class MockConnector extends Connector<
 
     const accounts = await provider.enable()
     const account = getAddress(accounts[0] as string)
-    const id = normalizeChainId(provider._network.chainId)
+    const id = normalizeChainId(provider.chainId)
     const unsupported = this.isChainUnsupported(id)
     const data = { account, chain: { id, unsupported }, provider }
 
@@ -78,7 +78,7 @@ export class MockConnector extends Connector<
 
   async getChainId() {
     const provider = await this.getProvider()
-    return normalizeChainId(provider.network.chainId)
+    return normalizeChainId(provider.chainId)
   }
 
   async getProvider({ chainId }: { chainId?: number } = {}) {
