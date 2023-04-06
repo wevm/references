@@ -7,8 +7,8 @@ export const lineaTestnet = {
   nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
   rpcUrls: {
     default: {
-      http: ['https://rpc.goerli.linea.build/'],
-      webSocket: ['wss://rpc.goerli.linea.build/'],
+      http: ['https://rpc.goerli.linea.build'],
+      webSocket: ['wss://rpc.goerli.linea.build'],
     },
     public: {
       http: ['https://rpc.goerli.linea.build'],
