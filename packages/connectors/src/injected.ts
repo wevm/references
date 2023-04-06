@@ -250,7 +250,7 @@ export class InjectedConnector extends Connector<
           return chain
         } catch (addError) {
           if (this.isUserRejectedRequestError(addError))
-            throw new UserRejectedRequestError(error)
+            throw new UserRejectedRequestError(addError)
           throw new AddChainError()
         }
       }
