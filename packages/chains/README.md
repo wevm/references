@@ -30,6 +30,7 @@ const { chains, provider } = configureChains(
 
 - `arbitrum`
 - `arbitrumGoerli`
+- `arbitrumNova`
 - `aurora`
 - `auroraTestnet`
 - `avalanche`
