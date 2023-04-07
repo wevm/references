@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 0.2.18
+
+### Patch Changes
+
+- a1bd7c6: Added Arbitrum Nova to list of supported chains
+
 ## 0.2.17
 
 ### Patch Changes
