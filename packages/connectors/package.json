@@ -21,7 +21,7 @@
     }
   },
   "dependencies": {
-    "@coinbase/wallet-sdk": "^3.5.4",
+    "@coinbase/wallet-sdk": "^3.6.4",
     "@ledgerhq/connect-kit-loader": "^1.0.1",
     "@walletconnect/ethereum-provider": "2.6.2",
     "@walletconnect/legacy-provider": "^2.0.0",
