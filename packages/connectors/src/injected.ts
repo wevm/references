@@ -1,21 +1,24 @@
+import type { Address } from 'abitype'
 import {
-  AddChainError,
-  ChainNotConfiguredError,
-  ConnectorNotFoundError,
-  ProviderRpcError,
-  ResourceUnavailableError,
+  Chain,
+  ResourceNotFoundRpcError,
+  RpcError,
   SwitchChainError,
   UserRejectedRequestError,
-  getClient,
-  normalizeChainId,
-} from '@wagmi/core'
-import type { Address, RpcError } from '@wagmi/core'
-import type { Chain } from '@wagmi/core/chains'
-import { createWalletClient, custom, getAddress, numberToHex } from 'viem'
+  createWalletClient,
+  custom,
+  getAddress,
+  numberToHex,
+} from 'viem'
 
 import { Connector } from './base'
+import {
+  ChainNotConfiguredForConnectorError,
+  ConnectorNotFoundError,
+} from './errors'
 import { Ethereum } from './types'
 import { getInjectedName } from './utils/getInjectedName'
+import { normalizeChainId } from './utils/normalizeChainId'
 
 export type InjectedConnectorOptions = {
   /** Name of connector */
@@ -109,14 +112,14 @@ export class InjectedConnector extends Connector<
 
       // Add shim to storage signalling wallet is connected
       if (this.options.shimDisconnect)
-        getClient().storage?.setItem(this.shimDisconnectKey, true)
+        this.storage?.setItem(this.shimDisconnectKey, true)
 
       return { account, chain: { id, unsupported } }
     } catch (error) {
       if (this.isUserRejectedRequestError(error))
-        throw new UserRejectedRequestError(error)
+        throw new UserRejectedRequestError(error as Error)
       if ((error as RpcError).code === -32002)
-        throw new ResourceUnavailableError(error)
+        throw new ResourceNotFoundRpcError(error as RpcError)
       throw error
     }
   }
@@ -131,7 +134,7 @@ export class InjectedConnector extends Connector<
 
     // Remove shim signalling wallet is disconnected
     if (this.options.shimDisconnect)
-      getClient().storage?.removeItem(this.shimDisconnectKey)
+      this.storage?.removeItem(this.shimDisconnectKey)
   }
 
   async getAccount() {
@@ -175,7 +178,7 @@ export class InjectedConnector extends Connector<
       if (
         this.options.shimDisconnect &&
         // If shim does not exist in storage, wallet is disconnected
-        !getClient().storage?.getItem(this.shimDisconnectKey)
+        !this.storage?.getItem(this.shimDisconnectKey)
       )
         return false
 
@@ -217,15 +220,19 @@ export class InjectedConnector extends Connector<
     } catch (error) {
       const chain = this.chains.find((x) => x.id === chainId)
       if (!chain)
-        throw new ChainNotConfiguredError({ chainId, connectorId: this.id })
+        throw new ChainNotConfiguredForConnectorError({
+          chainId,
+          connectorId: this.id,
+        })
 
       // Indicates chain is not added to provider
       if (
-        (error as ProviderRpcError).code === 4902 ||
+        (error as RpcError).code === 4902
         // Unwrapping for MetaMask Mobile
         // https://github.com/MetaMask/metamask-mobile/issues/2944#issuecomment-976988719
-        (error as RpcError<{ originalError?: { code: number } }>)?.data
-          ?.originalError?.code === 4902
+        // TODO(viem-migration): fix this
+        // || (error as RpcError<{ originalError?: { code: number } }>)?.data
+        //   ?.originalError?.code === 4902
       ) {
         try {
           await provider.request({
@@ -243,22 +250,19 @@ export class InjectedConnector extends Connector<
 
           const currentChainId = await this.getChainId()
           if (currentChainId !== chainId)
-            throw new ProviderRpcError(
-              'User rejected switch after adding network.',
-              { code: 4001 },
+            throw new UserRejectedRequestError(
+              new Error('User rejected switch after adding network.'),
             )
 
           return chain
-        } catch (addError) {
-          if (this.isUserRejectedRequestError(addError))
-            throw new UserRejectedRequestError(addError)
-          throw new AddChainError()
+        } catch (error) {
+          throw new UserRejectedRequestError(error as Error)
         }
       }
 
       if (this.isUserRejectedRequestError(error))
-        throw new UserRejectedRequestError(error)
-      throw new SwitchChainError(error)
+        throw new UserRejectedRequestError(error as Error)
+      throw new SwitchChainError(error as Error)
     }
   }
 
@@ -317,10 +321,10 @@ export class InjectedConnector extends Connector<
     this.emit('disconnect')
     // Remove shim signalling wallet is disconnected
     if (this.options.shimDisconnect)
-      getClient().storage?.removeItem(this.shimDisconnectKey)
+      this.storage?.removeItem(this.shimDisconnectKey)
   }
 
   protected isUserRejectedRequestError(error: unknown) {
-    return (error as ProviderRpcError).code === 4001
+    return (error as RpcError).code === 4001
   }
 }

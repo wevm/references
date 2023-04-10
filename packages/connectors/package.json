@@ -8,9 +8,8 @@
     "dev": "DEV=true tsup"
   },
   "peerDependencies": {
-    "@wagmi/core": ">=0.9.x",
     "typescript": ">=4.9.4",
-    "viem": "~0.2.0"
+    "viem": "~0.2.13"
   },
   "peerDependenciesMeta": {
     "@wagmi/core": {
@@ -32,8 +31,7 @@
     "eventemitter3": "^4.0.7"
   },
   "devDependencies": {
-    "@wagmi/core": "^0.8.19",
-    "viem": "0.2.9"
+    "viem": "0.2.13"
   },
   "type": "module",
   "main": "dist/index.js",

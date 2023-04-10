@@ -1,7 +1,8 @@
-import type { Address, Signer } from '@wagmi/core'
-import type { Chain } from '@wagmi/core/chains'
-import { goerli, mainnet } from '@wagmi/core/chains'
+import { Address } from 'abitype'
 import { default as EventEmitter } from 'eventemitter3'
+import { Chain, goerli, mainnet } from 'viem/chains'
+
+import { Signer, Storage } from './types'
 
 export type ConnectorData = {
   account?: Address
@@ -28,6 +29,8 @@ export abstract class Connector<
   readonly chains: Chain[]
   /** Options to use with connector */
   readonly options: Options
+  /** Connector storage. */
+  protected storage?: Storage
   /** Whether connector is usable */
   abstract readonly ready: boolean
 
@@ -76,5 +79,9 @@ export abstract class Connector<
 
   protected isChainUnsupported(chainId: number) {
     return !this.chains.some((x) => x.id === chainId)
+  }
+
+  setStorage(storage: Storage) {
+    this.storage = storage
   }
 }

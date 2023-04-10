@@ -1,14 +1,10 @@
 import { SafeAppProvider } from '@safe-global/safe-apps-provider'
 import { Opts, default as SafeAppsSDK } from '@safe-global/safe-apps-sdk'
-import {
-  Chain,
-  ConnectorNotFoundError,
-  getClient,
-  normalizeChainId,
-} from '@wagmi/core'
-import { createWalletClient, custom, getAddress } from 'viem'
+import { Chain, createWalletClient, custom, getAddress } from 'viem'
 
 import { Connector } from './base'
+import { ConnectorNotFoundError } from './errors'
+import { normalizeChainId } from './utils/normalizeChainId'
 
 export type SafeConnectorProvider = SafeAppProvider
 export type SafeConnectorOptions = Opts & {
@@ -80,7 +76,7 @@ export class SafeConnector extends Connector<
 
     // Add shim to storage signalling wallet is connected
     if (this.options.shimDisconnect)
-      getClient().storage?.setItem(this.shimDisconnectKey, true)
+      this.storage?.setItem(this.shimDisconnectKey, true)
 
     return {
       account,
@@ -98,7 +94,7 @@ export class SafeConnector extends Connector<
 
     // Remove shim signalling wallet is disconnected
     if (this.options.shimDisconnect)
-      getClient().storage?.removeItem(this.shimDisconnectKey)
+      this.storage?.removeItem(this.shimDisconnectKey)
   }
 
   async getAccount() {
@@ -142,7 +138,7 @@ export class SafeConnector extends Connector<
       if (
         this.options.shimDisconnect &&
         // If shim does not exist in storage, wallet is disconnected
-        !getClient().storage?.getItem(this.shimDisconnectKey)
+        !this.storage?.getItem(this.shimDisconnectKey)
       )
         return false
 

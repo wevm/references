@@ -3,18 +3,21 @@ import type {
   CoinbaseWalletSDK,
 } from '@coinbase/wallet-sdk'
 import type { CoinbaseWalletSDKOptions } from '@coinbase/wallet-sdk/dist/CoinbaseWalletSDK'
+import type { Address } from 'abitype'
 import {
-  AddChainError,
-  ChainNotConfiguredError,
+  Chain,
+  RpcError,
   SwitchChainError,
   UserRejectedRequestError,
-  normalizeChainId,
-} from '@wagmi/core'
-import type { Address, ProviderRpcError } from '@wagmi/core'
-import type { Chain } from '@wagmi/core/chains'
-import { createWalletClient, custom, getAddress, numberToHex } from 'viem'
+  createWalletClient,
+  custom,
+  getAddress,
+  numberToHex,
+} from 'viem'
 
 import { Connector } from './base'
+import { ChainNotConfiguredForConnectorError } from './errors'
+import { normalizeChainId } from './utils/normalizeChainId'
 
 type Options = Omit<CoinbaseWalletSDKOptions, 'reloadOnDisconnect'> & {
   /**
@@ -81,10 +84,10 @@ export class CoinbaseWalletConnector extends Connector<
     } catch (error) {
       if (
         /(user closed modal|accounts received is empty)/i.test(
-          (error as ProviderRpcError).message,
+          (error as Error).message,
         )
       )
-        throw new UserRejectedRequestError(error)
+        throw new UserRejectedRequestError(error as Error)
       throw error
     }
   }
@@ -205,10 +208,13 @@ export class CoinbaseWalletConnector extends Connector<
     } catch (error) {
       const chain = this.chains.find((x) => x.id === chainId)
       if (!chain)
-        throw new ChainNotConfiguredError({ chainId, connectorId: this.id })
+        throw new ChainNotConfiguredForConnectorError({
+          chainId,
+          connectorId: this.id,
+        })
 
       // Indicates chain is not added to provider
-      if ((error as ProviderRpcError).code === 4902) {
+      if ((error as RpcError).code === 4902) {
         try {
           await provider.request({
             method: 'wallet_addEthereumChain',
@@ -223,16 +229,12 @@ export class CoinbaseWalletConnector extends Connector<
             ],
           })
           return chain
-        } catch (addError) {
-          if (this.#isUserRejectedRequestError(addError))
-            throw new UserRejectedRequestError(addError)
-          throw new AddChainError()
+        } catch (error) {
+          throw new UserRejectedRequestError(error as Error)
         }
       }
 
-      if (this.#isUserRejectedRequestError(error))
-        throw new UserRejectedRequestError(error)
-      throw new SwitchChainError(error)
+      throw new SwitchChainError(error as Error)
     }
   }
 
@@ -275,9 +277,5 @@ export class CoinbaseWalletConnector extends Connector<
 
   protected onDisconnect = () => {
     this.emit('disconnect')
-  }
-
-  #isUserRejectedRequestError(error: unknown) {
-    return /(user rejected)/i.test((error as Error).message)
   }
 }

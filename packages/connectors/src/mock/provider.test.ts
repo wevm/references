@@ -1,7 +1,7 @@
-import type { Signer } from '@wagmi/core'
-import { getSigners } from '@wagmi/core/internal/test'
 import { beforeEach, describe, expect, it } from 'vitest'
 
+import { getSigners } from '../../test'
+import { Signer } from '../types'
 import { MockProvider } from './provider'
 
 describe('MockProvider', () => {

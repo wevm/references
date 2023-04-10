@@ -1,13 +1,13 @@
+import type { Address } from 'abitype'
 import {
-  ConnectorNotFoundError,
-  ResourceUnavailableError,
+  Chain,
+  ResourceNotFoundRpcError,
+  RpcError,
   UserRejectedRequestError,
-  getClient,
-} from '@wagmi/core'
-import type { Address, RpcError } from '@wagmi/core'
-import type { Chain } from '@wagmi/core/chains'
-import { getAddress } from 'viem'
+  getAddress,
+} from 'viem'
 
+import { ConnectorNotFoundError } from './errors'
 import type { InjectedConnectorOptions } from './injected'
 import { InjectedConnector } from './injected'
 import { Ethereum } from './types'
@@ -88,7 +88,7 @@ export class MetaMaskConnector extends InjectedConnector {
       if (
         this.#UNSTABLE_shimOnConnectSelectAccount &&
         this.options?.shimDisconnect &&
-        !getClient().storage?.getItem(this.shimDisconnectKey)
+        !this.storage?.getItem(this.shimDisconnectKey)
       ) {
         account = await this.getAccount().catch(() => null)
         const isConnected = !!account
@@ -105,11 +105,11 @@ export class MetaMaskConnector extends InjectedConnector {
             // Not all MetaMask injected providers support `wallet_requestPermissions` (e.g. MetaMask iOS).
             // Only bubble up error if user rejects request
             if (this.isUserRejectedRequestError(error))
-              throw new UserRejectedRequestError(error)
+              throw new UserRejectedRequestError(error as Error)
             // Or MetaMask is already open
             if (
-              (error as ResourceUnavailableError).code ===
-              new ResourceUnavailableError(error).code
+              (error as RpcError).code ===
+              new ResourceNotFoundRpcError(error as RpcError).code
             )
               throw error
           }
@@ -132,14 +132,14 @@ export class MetaMaskConnector extends InjectedConnector {
       }
 
       if (this.options?.shimDisconnect)
-        getClient().storage?.setItem(this.shimDisconnectKey, true)
+        this.storage?.setItem(this.shimDisconnectKey, true)
 
       return { account, chain: { id, unsupported }, provider }
     } catch (error) {
       if (this.isUserRejectedRequestError(error))
-        throw new UserRejectedRequestError(error)
+        throw new UserRejectedRequestError(error as Error)
       if ((error as RpcError).code === -32002)
-        throw new ResourceUnavailableError(error)
+        throw new ResourceNotFoundRpcError(error as RpcError)
       throw error
     }
   }

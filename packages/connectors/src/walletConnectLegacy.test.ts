@@ -1,7 +1,6 @@
-import { foundry } from '@wagmi/core/chains'
-import { testChains } from '@wagmi/core/internal/test'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
+import { foundry } from 'viem/chains'
 import {
   afterAll,
   afterEach,
@@ -12,6 +11,7 @@ import {
   vi,
 } from 'vitest'
 
+import { testChains } from '../test'
 import { WalletConnectLegacyConnector } from './walletConnectLegacy'
 
 const handlers = [

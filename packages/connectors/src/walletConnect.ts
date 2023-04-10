@@ -1,13 +1,16 @@
+import type WalletConnectProvider from '@walletconnect/ethereum-provider'
+// eslint-disable-next-line import/no-unresolved
+import { EthereumProviderOptions } from '@walletconnect/ethereum-provider/dist/types/EthereumProvider'
 import {
   Chain,
-  ProviderRpcError,
+  RpcError,
   SwitchChainError,
   UserRejectedRequestError,
-  getClient,
-} from '@wagmi/core'
-import type WalletConnectProvider from '@walletconnect/ethereum-provider'
-import { EthereumProviderOptions } from '@walletconnect/ethereum-provider/dist/types/EthereumProvider'
-import { createWalletClient, custom, getAddress, numberToHex } from 'viem'
+  createWalletClient,
+  custom,
+  getAddress,
+  numberToHex,
+} from 'viem'
 
 import { Connector } from './base'
 
@@ -100,13 +103,7 @@ export class WalletConnectConnector extends Connector<
 
   async connect({ chainId, pairingTopic }: ConnectConfig = {}) {
     try {
-      let targetChainId = chainId
-      if (!targetChainId) {
-        const lastUsedChainId = getClient().lastUsedChainId
-        if (lastUsedChainId && !this.isChainUnsupported(lastUsedChainId))
-          targetChainId = lastUsedChainId
-        else targetChainId = this.chains[0]?.id
-      }
+      const targetChainId = chainId ?? this.chains[0]?.id
       if (!targetChainId) throw new Error('No chains found on connector.')
 
       const provider = await this.getProvider()
@@ -145,8 +142,8 @@ export class WalletConnectConnector extends Connector<
         chain: { id, unsupported },
       }
     } catch (error) {
-      if (/user rejected/i.test((error as ProviderRpcError)?.message)) {
-        throw new UserRejectedRequestError(error)
+      if (/user rejected/i.test((error as RpcError)?.message)) {
+        throw new UserRejectedRequestError(error as Error)
       }
       throw error
     }
@@ -255,11 +252,11 @@ export class WalletConnectConnector extends Connector<
       return chain
     } catch (error) {
       const message =
-        typeof error === 'string' ? error : (error as ProviderRpcError)?.message
+        typeof error === 'string' ? error : (error as RpcError)?.message
       if (/user rejected request/i.test(message)) {
-        throw new UserRejectedRequestError(error)
+        throw new UserRejectedRequestError(error as Error)
       }
-      throw new SwitchChainError(error)
+      throw new SwitchChainError(error as Error)
     }
   }
 

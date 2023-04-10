@@ -1,4 +1,5 @@
 import type { Address, ResolvedConfig } from 'abitype'
+import { Account, Chain, Transport, WalletClient } from 'viem'
 
 type AddEthereumChainParameter = {
   /** A 0x-prefixed hexadecimal string */
@@ -154,4 +155,16 @@ export interface Ethereum extends InjectedProviders {
     method: 'wallet_switchEthereumChain'
     params: [{ chainId: string }]
   }): Promise<null>
+}
+
+export type Signer<
+  TTransport extends Transport = Transport,
+  TChain extends Chain = Chain,
+  TAccount extends Account = Account,
+> = WalletClient<TTransport, TChain, TAccount>
+
+export type Storage = {
+  getItem<T>(key: string, defaultState?: T | null): T | null
+  setItem<T>(key: string, value: T | null): void
+  removeItem(key: string): void
 }

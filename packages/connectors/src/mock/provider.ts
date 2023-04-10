@@ -1,7 +1,7 @@
-import { UserRejectedRequestError } from '@wagmi/core'
-import type { Signer } from '@wagmi/core'
 import { default as EventEmitter } from 'eventemitter3'
-import { getAddress } from 'viem'
+import { UserRejectedRequestError, getAddress } from 'viem'
+
+import { Signer } from '../types'
 
 export type MockProviderOptions = {
   chainId: number
@@ -35,7 +35,7 @@ export class MockProvider {
 
   async enable() {
     if (this.#options.flags?.failConnect)
-      throw new UserRejectedRequestError(new Error('Failed to connect'))
+      throw new UserRejectedRequestError(new Error('Failed to connect.'))
     if (!this.#signer) this.#signer = this.#options.signer
     const address = this.#signer.account.address
     this.events.emit('accountsChanged', [address])
@@ -61,7 +61,7 @@ export class MockProvider {
 
   async switchChain(chainId: number) {
     if (this.#options.flags?.failSwitchChain)
-      throw new UserRejectedRequestError(new Error('Failed to switch chain'))
+      throw new UserRejectedRequestError(new Error('Failed to switch chain.'))
     this.#options.chainId = chainId
     this.chainId = chainId
     this.events.emit('chainChanged', chainId)

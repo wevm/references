@@ -1,6 +1,6 @@
-import { mainnet } from '@wagmi/core/chains'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
+import { mainnet } from 'viem/chains'
 import {
   afterAll,
   afterEach,

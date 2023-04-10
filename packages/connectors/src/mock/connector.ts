@@ -1,9 +1,8 @@
-import { normalizeChainId } from '@wagmi/core'
-import type { Chain } from '@wagmi/core/chains'
-import { getAddress } from 'viem'
+import { Chain, getAddress } from 'viem'
 
 import type { ConnectorData } from '../base'
 import { Connector } from '../base'
+import { normalizeChainId } from '../utils/normalizeChainId'
 import type { MockProviderOptions } from './provider'
 import { MockProvider } from './provider'
 

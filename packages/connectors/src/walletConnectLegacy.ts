@@ -1,15 +1,17 @@
-import type { ProviderRpcError } from '@wagmi/core'
+import type WalletConnectProvider from '@walletconnect/legacy-provider'
 import {
+  Chain,
+  RpcError,
   SwitchChainError,
   UserRejectedRequestError,
-  getClient,
-  normalizeChainId,
-} from '@wagmi/core'
-import type { Chain } from '@wagmi/core/chains'
-import type WalletConnectProvider from '@walletconnect/legacy-provider'
-import { createWalletClient, custom, getAddress, numberToHex } from 'viem'
+  createWalletClient,
+  custom,
+  getAddress,
+  numberToHex,
+} from 'viem'
 
 import { Connector } from './base'
+import { normalizeChainId } from './utils/normalizeChainId'
 
 /**
  * Wallets that support chain switching through WalletConnect
@@ -43,15 +45,8 @@ export class WalletConnectLegacyConnector extends Connector<
 
   async connect({ chainId }: { chainId?: number } = {}) {
     try {
-      let targetChainId = chainId
-      if (!targetChainId) {
-        const lastUsedChainId = getClient().lastUsedChainId
-        if (lastUsedChainId && !this.isChainUnsupported(lastUsedChainId))
-          targetChainId = lastUsedChainId
-      }
-
       const provider = await this.getProvider({
-        chainId: targetChainId,
+        chainId,
         create: true,
       })
       provider.on('accountsChanged', this.onAccountsChanged)
@@ -77,8 +72,8 @@ export class WalletConnectLegacyConnector extends Connector<
         chain: { id, unsupported },
       }
     } catch (error) {
-      if (/user closed modal/i.test((error as ProviderRpcError).message))
-        throw new UserRejectedRequestError(error)
+      if (/user closed modal/i.test((error as RpcError).message))
+        throw new UserRejectedRequestError(error as Error)
       throw error
     }
   }
@@ -202,10 +197,10 @@ export class WalletConnectLegacyConnector extends Connector<
       )
     } catch (error) {
       const message =
-        typeof error === 'string' ? error : (error as ProviderRpcError)?.message
+        typeof error === 'string' ? error : (error as RpcError)?.message
       if (/user rejected request/i.test(message))
-        throw new UserRejectedRequestError(error)
-      throw new SwitchChainError(error)
+        throw new UserRejectedRequestError(error as Error)
+      throw new SwitchChainError(error as Error)
     }
   }
 

@@ -5,16 +5,18 @@ import {
 import type { EthereumProvider } from '@ledgerhq/connect-kit-loader'
 import {
   Chain,
-  ProviderRpcError,
   RpcError,
   SwitchChainError,
   UserRejectedRequestError,
-  normalizeChainId,
-} from '@wagmi/core'
-import { createWalletClient, custom, getAddress, numberToHex } from 'viem'
+  createWalletClient,
+  custom,
+  getAddress,
+  numberToHex,
+} from 'viem'
 
 import type { ConnectorData } from './base'
 import { Connector } from './base'
+import { normalizeChainId } from './utils/normalizeChainId'
 
 type LedgerConnectorOptions = {
   bridge?: string
@@ -70,8 +72,8 @@ export class LedgerConnector extends Connector<
         chain: { id, unsupported },
       }
     } catch (error) {
-      if ((error as ProviderRpcError).code === 4001) {
-        throw new UserRejectedRequestError(error)
+      if ((error as RpcError).code === 4001) {
+        throw new UserRejectedRequestError(error as Error)
       }
       if ((error as RpcError).code === -32002) {
         throw error instanceof Error ? error : new Error(String(error))
@@ -204,10 +206,10 @@ export class LedgerConnector extends Connector<
       )
     } catch (error) {
       const message =
-        typeof error === 'string' ? error : (error as ProviderRpcError)?.message
+        typeof error === 'string' ? error : (error as RpcError)?.message
       if (/user rejected request/i.test(message))
-        throw new UserRejectedRequestError(error)
-      throw new SwitchChainError(error)
+        throw new UserRejectedRequestError(error as Error)
+      throw new SwitchChainError(error as Error)
     }
   }
 
