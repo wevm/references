@@ -57,7 +57,7 @@ export class MetaMaskConnector extends InjectedConnector {
         }
 
         if (typeof window === 'undefined') return
-        const ethereum = window.ethereum as Ethereum | undefined
+        const ethereum = (window as unknown as { ethereum?: Ethereum }).ethereum
         if (ethereum?.providers) return ethereum.providers.find(getReady)
         return getReady(ethereum)
       },

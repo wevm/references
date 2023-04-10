@@ -64,7 +64,7 @@ export class InjectedConnector extends Connector<
       shimDisconnect: true,
       getProvider: () =>
         typeof window !== 'undefined'
-          ? (window.ethereum as Ethereum)
+          ? (window as unknown as { ethereum: Ethereum }).ethereum
           : undefined,
       ...options_,
     }
