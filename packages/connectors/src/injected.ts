@@ -4,6 +4,7 @@ import {
   ConnectorNotFoundError,
   ProviderRpcError,
   ResourceUnavailableError,
+  Signer,
   SwitchChainError,
   UserRejectedRequestError,
   getClient,
@@ -11,8 +12,7 @@ import {
 } from '@wagmi/core'
 import type { Address, RpcError } from '@wagmi/core'
 import type { Chain } from '@wagmi/core/chains'
-import { providers } from 'ethers'
-import { getAddress, hexValue } from 'ethers/lib/utils.js'
+import { createWalletClient, custom, getAddress, numberToHex } from 'viem'
 
 import { Connector } from './base'
 import { Ethereum } from './types'
@@ -42,7 +42,7 @@ type ConnectorOptions = InjectedConnectorOptions &
 export class InjectedConnector extends Connector<
   Ethereum | undefined,
   ConnectorOptions,
-  providers.JsonRpcSigner
+  Signer
 > {
   readonly id: string = 'injected'
   readonly name: string
@@ -163,10 +163,13 @@ export class InjectedConnector extends Connector<
       this.getProvider(),
       this.getAccount(),
     ])
-    return new providers.Web3Provider(
-      provider as providers.ExternalProvider,
-      chainId,
-    ).getSigner(account)
+    const chain = this.chains.find((x) => x.id === chainId) || this.chains[0]
+    if (!provider) throw new Error('provider is required.')
+    return createWalletClient({
+      account,
+      chain,
+      transport: custom(provider),
+    })
   }
 
   async isAuthorized() {
@@ -190,7 +193,7 @@ export class InjectedConnector extends Connector<
   async switchChain(chainId: number) {
     const provider = await this.getProvider()
     if (!provider) throw new ConnectorNotFoundError()
-    const id = hexValue(chainId)
+    const id = numberToHex(chainId)
 
     try {
       await Promise.all([
