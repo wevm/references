@@ -1,6 +1,6 @@
+import type { Chain } from '@wagmi/chains'
 import type WalletConnectProvider from '@walletconnect/legacy-provider'
 import {
-  Chain,
   RpcError,
   SwitchChainError,
   UserRejectedRequestError,

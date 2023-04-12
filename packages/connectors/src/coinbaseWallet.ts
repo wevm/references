@@ -3,9 +3,9 @@ import type {
   CoinbaseWalletSDK,
 } from '@coinbase/wallet-sdk'
 import type { CoinbaseWalletSDKOptions } from '@coinbase/wallet-sdk/dist/CoinbaseWalletSDK'
+import type { Chain } from '@wagmi/chains'
 import type { Address } from 'abitype'
 import {
-  Chain,
   RpcError,
   SwitchChainError,
   UserRejectedRequestError,

@@ -1,4 +1,5 @@
-import { Chain, getAddress } from 'viem'
+import type { Chain } from '@wagmi/chains'
+import { getAddress } from 'viem'
 
 import type { ConnectorData } from '../base'
 import { Connector } from '../base'

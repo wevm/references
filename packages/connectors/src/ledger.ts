@@ -3,8 +3,8 @@ import {
   loadConnectKit,
 } from '@ledgerhq/connect-kit-loader'
 import type { EthereumProvider } from '@ledgerhq/connect-kit-loader'
+import type { Chain } from '@wagmi/chains'
 import {
-  Chain,
   RpcError,
   SwitchChainError,
   UserRejectedRequestError,

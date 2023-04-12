@@ -1,6 +1,7 @@
 import { SafeAppProvider } from '@safe-global/safe-apps-provider'
 import { Opts, default as SafeAppsSDK } from '@safe-global/safe-apps-sdk'
-import { Chain, createWalletClient, custom, getAddress } from 'viem'
+import type { Chain } from '@wagmi/chains'
+import { createWalletClient, custom, getAddress } from 'viem'
 
 import { Connector } from './base'
 import { ConnectorNotFoundError } from './errors'

@@ -1,8 +1,8 @@
+import type { Chain } from '@wagmi/chains'
 import type WalletConnectProvider from '@walletconnect/ethereum-provider'
 // eslint-disable-next-line import/no-unresolved
 import { EthereumProviderOptions } from '@walletconnect/ethereum-provider/dist/types/EthereumProvider'
 import {
-  Chain,
   RpcError,
   SwitchChainError,
   UserRejectedRequestError,

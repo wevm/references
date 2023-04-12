@@ -1,6 +1,6 @@
+import type { Chain } from '@wagmi/chains'
 import type { Address } from 'abitype'
 import {
-  Chain,
   ResourceNotFoundRpcError,
   RpcError,
   UserRejectedRequestError,
