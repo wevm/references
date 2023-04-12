@@ -7,7 +7,7 @@ export const oasys = {
   nativeCurrency: { name: 'Oasys', symbol: 'OAS', decimals: 18 },
   rpcUrls: {
     default: {
-      http: ['https://rpc.mainnet.oasys.games/'],
+      http: ['https://rpc.mainnet.oasys.games'],
     },
     public: {
       http: ['https://rpc.mainnet.oasys.games/'],
