@@ -73,6 +73,8 @@ jobs:
             node_modules
             packages/**/node_modules
           key: modules-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Link Dependencies
+        run: pnpm dev
       - name: Check types
         run: pnpm typecheck
       - name: Lint & format code
