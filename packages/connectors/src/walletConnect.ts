@@ -3,7 +3,7 @@ import type WalletConnectProvider from '@walletconnect/ethereum-provider'
 // eslint-disable-next-line import/no-unresolved
 import { EthereumProviderOptions } from '@walletconnect/ethereum-provider/dist/types/EthereumProvider'
 import {
-  RpcError,
+  ProviderRpcError,
   SwitchChainError,
   UserRejectedRequestError,
   createWalletClient,
@@ -142,7 +142,7 @@ export class WalletConnectConnector extends Connector<
         chain: { id, unsupported },
       }
     } catch (error) {
-      if (/user rejected/i.test((error as RpcError)?.message)) {
+      if (/user rejected/i.test((error as ProviderRpcError)?.message)) {
         throw new UserRejectedRequestError(error as Error)
       }
       throw error
@@ -252,7 +252,7 @@ export class WalletConnectConnector extends Connector<
       return chain
     } catch (error) {
       const message =
-        typeof error === 'string' ? error : (error as RpcError)?.message
+        typeof error === 'string' ? error : (error as ProviderRpcError)?.message
       if (/user rejected request/i.test(message)) {
         throw new UserRejectedRequestError(error as Error)
       }

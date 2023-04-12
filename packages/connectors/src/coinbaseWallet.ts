@@ -6,7 +6,7 @@ import type { CoinbaseWalletSDKOptions } from '@coinbase/wallet-sdk/dist/Coinbas
 import type { Chain } from '@wagmi/chains'
 import type { Address } from 'abitype'
 import {
-  RpcError,
+  ProviderRpcError,
   SwitchChainError,
   UserRejectedRequestError,
   createWalletClient,
@@ -214,7 +214,7 @@ export class CoinbaseWalletConnector extends Connector<
         })
 
       // Indicates chain is not added to provider
-      if ((error as RpcError).code === 4902) {
+      if ((error as ProviderRpcError).code === 4902) {
         try {
           await provider.request({
             method: 'wallet_addEthereumChain',

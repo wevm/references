@@ -1,7 +1,7 @@
 import type { Chain } from '@wagmi/chains'
 import type WalletConnectProvider from '@walletconnect/legacy-provider'
 import {
-  RpcError,
+  ProviderRpcError,
   SwitchChainError,
   UserRejectedRequestError,
   createWalletClient,
@@ -72,7 +72,7 @@ export class WalletConnectLegacyConnector extends Connector<
         chain: { id, unsupported },
       }
     } catch (error) {
-      if (/user closed modal/i.test((error as RpcError).message))
+      if (/user closed modal/i.test((error as ProviderRpcError).message))
         throw new UserRejectedRequestError(error as Error)
       throw error
     }
@@ -197,7 +197,7 @@ export class WalletConnectLegacyConnector extends Connector<
       )
     } catch (error) {
       const message =
-        typeof error === 'string' ? error : (error as RpcError)?.message
+        typeof error === 'string' ? error : (error as ProviderRpcError)?.message
       if (/user rejected request/i.test(message))
         throw new UserRejectedRequestError(error as Error)
       throw new SwitchChainError(error as Error)

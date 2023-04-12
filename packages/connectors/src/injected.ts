@@ -1,8 +1,8 @@
 import type { Chain } from '@wagmi/chains'
 import type { Address } from 'abitype'
 import {
+  ProviderRpcError,
   ResourceNotFoundRpcError,
-  RpcError,
   SwitchChainError,
   UserRejectedRequestError,
   createWalletClient,
@@ -118,8 +118,8 @@ export class InjectedConnector extends Connector<
     } catch (error) {
       if (this.isUserRejectedRequestError(error))
         throw new UserRejectedRequestError(error as Error)
-      if ((error as RpcError).code === -32002)
-        throw new ResourceNotFoundRpcError(error as RpcError)
+      if ((error as ProviderRpcError).code === -32002)
+        throw new ResourceNotFoundRpcError(error as ProviderRpcError)
       throw error
     }
   }
@@ -227,12 +227,12 @@ export class InjectedConnector extends Connector<
 
       // Indicates chain is not added to provider
       if (
-        (error as RpcError).code === 4902
+        (error as ProviderRpcError).code === 4902 ||
         // Unwrapping for MetaMask Mobile
         // https://github.com/MetaMask/metamask-mobile/issues/2944#issuecomment-976988719
         // TODO(viem-migration): fix this
-        // || (error as RpcError<{ originalError?: { code: number } }>)?.data
-        //   ?.originalError?.code === 4902
+        (error as ProviderRpcError<{ originalError?: { code: number } }>)?.data
+          ?.originalError?.code === 4902
       ) {
         try {
           await provider.request({
@@ -310,7 +310,7 @@ export class InjectedConnector extends Connector<
   protected onDisconnect = async (error: Error) => {
     // If MetaMask emits a `code: 1013` error, wait for reconnection before disconnecting
     // https://github.com/MetaMask/providers/pull/120
-    if ((error as RpcError).code === 1013) {
+    if ((error as ProviderRpcError).code === 1013) {
       const provider = await this.getProvider()
       if (provider) {
         const isAuthorized = await this.getAccount()
@@ -325,6 +325,6 @@ export class InjectedConnector extends Connector<
   }
 
   protected isUserRejectedRequestError(error: unknown) {
-    return (error as RpcError).code === 4001
+    return (error as ProviderRpcError).code === 4001
   }
 }
