@@ -10,7 +10,7 @@ export const oasys = {
       http: ['https://rpc.mainnet.oasys.games'],
     },
     public: {
-      http: ['https://rpc.mainnet.oasys.games/'],
+      http: ['https://rpc.mainnet.oasys.games'],
     },
   },
   blockExplorers: {
