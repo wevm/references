@@ -16,7 +16,7 @@ export const oasys = {
   blockExplorers: {
     default: {
       name: 'OasysScan',
-      url: 'https://scan.oasys.games/',
+      url: 'https://scan.oasys.games',
     },
   },
 } as const satisfies Chain
