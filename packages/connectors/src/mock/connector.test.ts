@@ -46,9 +46,13 @@ describe('MockConnector', () => {
           signer,
         },
       })
-      await expect(
-        connector.connect(),
-      ).rejects.toThrowErrorMatchingInlineSnapshot(`"User rejected request"`)
+      await expect(connector.connect()).rejects
+        .toThrowErrorMatchingInlineSnapshot(`
+        "User rejected the request.
+
+        Details: Failed to connect.
+        Version: viem@0.3.0"
+      `)
     })
   })
 
@@ -208,9 +212,13 @@ describe('MockConnector', () => {
         },
       })
       await connector.connect()
-      await expect(
-        connector.switchChain?.(4),
-      ).rejects.toThrowErrorMatchingInlineSnapshot(`"User rejected request"`)
+      await expect(connector.switchChain?.(4)).rejects
+        .toThrowErrorMatchingInlineSnapshot(`
+        "User rejected the request.
+
+        Details: Failed to switch chain.
+        Version: viem@0.3.0"
+      `)
     })
   })
 

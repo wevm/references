@@ -35,9 +35,13 @@ describe('MockProvider', () => {
         flags: { failConnect: true },
         signer,
       })
-      await expect(
-        provider.enable(),
-      ).rejects.toThrowErrorMatchingInlineSnapshot(`"User rejected request"`)
+      await expect(provider.enable()).rejects
+        .toThrowErrorMatchingInlineSnapshot(`
+        "User rejected the request.
+
+        Details: Failed to connect.
+        Version: viem@0.3.0"
+      `)
     })
   })
 
@@ -175,9 +179,13 @@ describe('MockProvider', () => {
         flags: { failSwitchChain: true },
         signer,
       })
-      await expect(
-        provider.switchChain(4),
-      ).rejects.toThrowErrorMatchingInlineSnapshot(`"User rejected request"`)
+      await expect(provider.switchChain(4)).rejects
+        .toThrowErrorMatchingInlineSnapshot(`
+        "User rejected the request.
+
+        Details: Failed to switch chain.
+        Version: viem@0.3.0"
+      `)
     })
   })
 
