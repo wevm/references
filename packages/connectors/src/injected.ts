@@ -62,10 +62,12 @@ export class InjectedConnector extends Connector<
   } = {}) {
     const options = {
       shimDisconnect: true,
-      getProvider: () =>
-        typeof window !== 'undefined'
-          ? (window as unknown as { ethereum: Ethereum }).ethereum
-          : undefined,
+      getProvider() {
+        if (typeof window === 'undefined') return
+        const ethereum = (window as unknown as { ethereum?: Ethereum }).ethereum
+        if (ethereum?.providers) return ethereum.providers[0]
+        return ethereum
+      },
       ...options_,
     }
     super({ chains, options })
@@ -230,7 +232,6 @@ export class InjectedConnector extends Connector<
         (error as ProviderRpcError).code === 4902 ||
         // Unwrapping for MetaMask Mobile
         // https://github.com/MetaMask/metamask-mobile/issues/2944#issuecomment-976988719
-        // TODO(viem-migration): fix this
         (error as ProviderRpcError<{ originalError?: { code: number } }>)?.data
           ?.originalError?.code === 4902
       ) {
