@@ -53,6 +53,13 @@ export class MetaMaskConnector extends InjectedConnector {
           if (ethereum.isPortal) return
           if (ethereum.isTokenPocket) return
           if (ethereum.isTokenary) return
+          if (ethereum.isBitKeep) return
+          if (ethereum.isMathWallet) return
+          if (ethereum.isOkxWallet || ethereum.isOKExWallet) return
+          if (ethereum.isOneInchIOSWallet || ethereum.isOneInchAndroidWallet) return
+          if (ethereum.isOpera) return
+          if (ethereum.isRabby) return
+          if (ethereum.isZerion) return
           return ethereum
         }
 
