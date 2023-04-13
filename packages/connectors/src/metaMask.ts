@@ -51,7 +51,6 @@ export class MetaMaskConnector extends InjectedConnector {
           if (ethereum.isAvalanche) return
           if (ethereum.isKuCoinWallet) return
           if (ethereum.isPortal) return
-          if (ethereum.isTokenPocket) return
           if (ethereum.isTokenary) return
           return ethereum
         }
