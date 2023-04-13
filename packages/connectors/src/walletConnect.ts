@@ -13,6 +13,7 @@ import {
 } from 'viem'
 
 import { Connector } from './base'
+import { StorageStoreData } from './types'
 
 type WalletConnectOptions = {
   /**
@@ -79,7 +80,8 @@ type ConnectConfig = {
 }
 
 const NAMESPACE = 'eip155'
-const REQUESTED_CHAINS_KEY = 'wagmi.requestedChains'
+const STORE_KEY = 'store'
+const REQUESTED_CHAINS_KEY = 'requestedChains'
 const ADD_ETH_CHAIN_METHOD = 'wallet_addEthereumChain'
 
 export class WalletConnectConnector extends Connector<
@@ -103,7 +105,14 @@ export class WalletConnectConnector extends Connector<
 
   async connect({ chainId, pairingTopic }: ConnectConfig = {}) {
     try {
-      const targetChainId = chainId ?? this.chains[0]?.id
+      let targetChainId = chainId
+      if (!targetChainId) {
+        const store = this.storage?.getItem<StorageStoreData>(STORE_KEY)
+        const lastUsedChainId = store?.state?.data?.chain?.id
+        if (lastUsedChainId && !this.isChainUnsupported(lastUsedChainId))
+          targetChainId = lastUsedChainId
+        else targetChainId = this.chains[0]?.id
+      }
       if (!targetChainId) throw new Error('No chains found on connector.')
 
       const provider = await this.getProvider()
@@ -356,12 +365,11 @@ export class WalletConnectConnector extends Connector<
   }
 
   #setRequestedChainsIds(chains: number[]) {
-    localStorage.setItem(REQUESTED_CHAINS_KEY, JSON.stringify(chains))
+    this.storage?.setItem(REQUESTED_CHAINS_KEY, chains)
   }
 
   #getRequestedChainsIds(): number[] {
-    const data = localStorage.getItem(REQUESTED_CHAINS_KEY)
-    return data ? JSON.parse(data) : []
+    return this.storage?.getItem(REQUESTED_CHAINS_KEY) ?? []
   }
 
   #getNamespaceChainsIds() {

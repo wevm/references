@@ -1,6 +1,8 @@
 import type { Address, ResolvedConfig } from 'abitype'
 import { Account, Chain, Transport, WalletClient } from 'viem'
 
+import { ConnectorData } from './base'
+
 type AddEthereumChainParameter = {
   /** A 0x-prefixed hexadecimal string */
   chainId: string
@@ -167,4 +169,8 @@ export type Storage = {
   getItem<T>(key: string, defaultState?: T | null): T | null
   setItem<T>(key: string, value: T | null): void
   removeItem(key: string): void
+}
+
+export type StorageStoreData = {
+  state: { data?: ConnectorData }
 }

@@ -11,6 +11,7 @@ import {
 } from 'viem'
 
 import { Connector } from './base'
+import { StorageStoreData } from './types'
 import { normalizeChainId } from './utils/normalizeChainId'
 
 /**
@@ -45,8 +46,16 @@ export class WalletConnectLegacyConnector extends Connector<
 
   async connect({ chainId }: { chainId?: number } = {}) {
     try {
+      let targetChainId = chainId
+      if (!targetChainId) {
+        const store = this.storage?.getItem<StorageStoreData>('store')
+        const lastUsedChainId = store?.state?.data?.chain?.id
+        if (lastUsedChainId && !this.isChainUnsupported(lastUsedChainId))
+          targetChainId = lastUsedChainId
+      }
+
       const provider = await this.getProvider({
-        chainId,
+        chainId: targetChainId,
         create: true,
       })
       provider.on('accountsChanged', this.onAccountsChanged)
