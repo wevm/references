@@ -42,6 +42,7 @@ const { chains, provider } = configureChains(
 - `canto`
 - `celo`
 - `celoAlfajores`
+- `celoCannoli`
 - `fantom`
 - `fantomTestnet`
 - `foundry`
