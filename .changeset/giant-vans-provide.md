@@ -2,4 +2,4 @@
 "@wagmi/chains": patch
 ---
 
-Add Oasys Support
+Added Oasys Support
