@@ -30,6 +30,7 @@ const { chains, provider } = configureChains(
 
 - `arbitrum`
 - `arbitrumGoerli`
+- `arbitrumNova`
 - `aurora`
 - `auroraTestnet`
 - `avalanche`
@@ -55,6 +56,7 @@ const { chains, provider } = configureChains(
 - `moonbaseAlpha`
 - `moonbeam`
 - `moonriver`
+- `oasys`
 - `okc`
 - `optimism`
 - `optimismGoerli`
