@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const zkSyncTestnet = {
+export const zkSyncEraTestnet = {
   id: 280,
   name: 'zkSync Era Testnet',
   network: 'zksync-era-testnet',
