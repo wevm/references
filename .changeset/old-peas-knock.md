@@ -1,5 +1,5 @@
 ---
-'@wagmi/chains': major
+'@wagmi/chains': patch
 ---
 
 Added fuse network support
