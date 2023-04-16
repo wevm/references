@@ -2,17 +2,17 @@ import { Chain } from './types'
 
 export const zkSyncTestnet = {
   id: 280,
-  name: 'zkSync Testnet',
-  network: 'zksync-testnet',
+  name: 'zkSync Era Testnet',
+  network: 'zksync-era-testnet',
   nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
   rpcUrls: {
     default: {
-      http: ['https://zksync2-testnet.zksync.dev'],
-      webSocket: ['wss://zksync2-testnet.zksync.dev/ws'],
+      http: ['https://testnet.era.zksync.dev'],
+      webSocket: ['wss://testnet.era.zksync.dev/ws'],
     },
     public: {
-      http: ['https://zksync2-testnet.zksync.dev'],
-      webSocket: ['wss://zksync2-testnet.zksync.dev/ws'],
+      http: ['https://testnet.era.zksync.dev'],
+      webSocket: ['wss://testnet.era.zksync.dev/ws'],
     },
   },
   blockExplorers: {
