@@ -2,4 +2,4 @@
 '@wagmi/chains': patch
 ---
 
-Added Oasys Support
+Added `fuse` chain.
