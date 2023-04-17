@@ -23,6 +23,11 @@ export const celoCannoli = {
       url: 'https://explorer.celo.org/cannoli',
     },
   },
-  contracts: {},
+  contracts: {
+    multicall3: {
+      address: '0x1b5c5e5e7f1c1c1b5c5e5e7f1c1c1b5c5e5e7f1c',
+      blockCreated: 87429,
+    },
+  },
   testnet: true,
 } as const satisfies Chain
