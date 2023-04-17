@@ -2,4 +2,4 @@
 '@wagmi/chains': patch
 ---
 
-Added fuse network support
+Added `fuse` chain.
