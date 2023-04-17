@@ -1,5 +1,5 @@
 ---
-"@wagmi/chains": patch
+'@wagmi/chains': patch
 ---
 
 Added Oasys Support
