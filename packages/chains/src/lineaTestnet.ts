@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const lineaGoerli = {
+export const lineaTestnet = {
   id: 59140,
   name: 'Linea Goerli Testnet',
   network: 'linea-testnet',
@@ -8,18 +8,20 @@ export const lineaGoerli = {
   rpcUrls: {
     infura: {
       http: ['https://consensys-zkevm-goerli-prealpha.infura.io/v3/'],
-      webSocket: ['wss://consensys-zkevm-goerli-prealpha.infura.io/ws/v3/'],
+      webSocket: ['wss://consensys-zkevm-goerli-prealpha.infura.io/ws/v3/']
     },
     default: {
       http: ['https://rpc.goerli.linea.build'],
+      webSocket: ['wss://rpc.goerli.linea.build']
     },
     public: {
       http: ['https://rpc.goerli.linea.build'],
+      webSocket: ['wss://rpc.goerli.linea.build']
     },
   },
   blockExplorers: {
     default: {
-      name: 'Blockscout',
+      name: 'BlockScout',
       url: 'https://explorer.goerli.linea.build',
     },
   },
