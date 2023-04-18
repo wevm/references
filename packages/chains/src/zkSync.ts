@@ -2,7 +2,7 @@ import { Chain } from './types'
 
 export const zkSync = {
   id: 324,
-  name: 'zkSync Era Mainnet',
+  name: 'zkSync Era',
   network: 'zksync-era',
   nativeCurrency: {
     decimals: 18,
