@@ -2,4 +2,4 @@
 '@wagmi/chains': minor
 ---
 
-Add Alchemy on Sepolia
+Added Alchemy RPC URLs for Sepolia.
