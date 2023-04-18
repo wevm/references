@@ -47,29 +47,38 @@ type WatchAssetParams = {
 type InjectedProviderFlags = {
   isApexWallet?: true
   isAvalanche?: true
+  isBackpack?: true
+  isBifrost?: true
   isBitKeep?: true
   isBitski?: true
   isBraveWallet?: true
   isCoinbaseWallet?: true
+  isDawn?: true
   isExodus?: true
   isFrame?: true
   isFrontier?: true
+  isGamestop?: true
+  isHyperPay?: true
   isKuCoinWallet?: true
   isMathWallet?: true
   isMetaMask?: true
+  isOkxWallet?: true
+  isOKExWallet?: true
   isOneInchAndroidWallet?: true
   isOneInchIOSWallet?: true
   isOpera?: true
   isPhantom?: true
   isPortal?: true
+  isRabby?: true
   isRainbow?: true
+  isStatus?: true
   isTally?: true
   isTokenPocket?: true
   isTokenary?: true
   isTrust?: true
   isTrustWallet?: true
-  isHyperPay?: true
   isXDEFI?: true
+  isZerion?: true
 }
 
 type InjectedProviders = InjectedProviderFlags & {

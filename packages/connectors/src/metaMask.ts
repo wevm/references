@@ -14,7 +14,7 @@ import { Ethereum } from './types'
 
 export type MetaMaskConnectorOptions = Pick<
   InjectedConnectorOptions,
-  'shimChainChangedDisconnect' | 'shimDisconnect'
+  'shimDisconnect'
 > & {
   /**
    * While "disconnected" with `shimDisconnect`, allows user to select a different MetaMask account (than the currently connected account) when trying to connect.
@@ -39,7 +39,6 @@ export class MetaMaskConnector extends InjectedConnector {
     const options = {
       name: 'MetaMask',
       shimDisconnect: true,
-      shimChainChangedDisconnect: true,
       getProvider() {
         function getReady(ethereum?: Ethereum) {
           const isMetaMask = !!ethereum?.isMetaMask
@@ -50,10 +49,17 @@ export class MetaMaskConnector extends InjectedConnector {
             return
           if (ethereum.isApexWallet) return
           if (ethereum.isAvalanche) return
+          if (ethereum.isBitKeep) return
           if (ethereum.isKuCoinWallet) return
+          if (ethereum.isMathWallet) return
+          if (ethereum.isOkxWallet || ethereum.isOKExWallet) return
+          if (ethereum.isOneInchIOSWallet || ethereum.isOneInchAndroidWallet) return
+          if (ethereum.isOpera) return
           if (ethereum.isPortal) return
+          if (ethereum.isRabby) return
           if (ethereum.isTokenPocket) return
           if (ethereum.isTokenary) return
+          if (ethereum.isZerion) return
           return ethereum
         }
 
@@ -107,6 +113,12 @@ export class MetaMaskConnector extends InjectedConnector {
             // Only bubble up error if user rejects request
             if (this.isUserRejectedRequestError(error))
               throw new UserRejectedRequestError(error)
+            // Or MetaMask is already open
+            if (
+              (error as ResourceUnavailableError).code ===
+              new ResourceUnavailableError(error).code
+            )
+              throw error
           }
       }
 

@@ -30,6 +30,7 @@ const { chains, provider } = configureChains(
 
 - `arbitrum`
 - `arbitrumGoerli`
+- `arbitrumNova`
 - `aurora`
 - `auroraTestnet`
 - `avalanche`
@@ -44,6 +45,7 @@ const { chains, provider } = configureChains(
 - `fantom`
 - `fantomTestnet`
 - `foundry`
+- `fuse`
 - `goerli`
 - `hardhat`
 - `iotex`
@@ -55,11 +57,27 @@ const { chains, provider } = configureChains(
 - `moonbaseAlpha`
 - `moonbeam`
 - `moonriver`
+- `oasys`
 - `okc`
 - `optimism`
 - `optimismGoerli`
 - `polygon`
 - `polygonMumbai`
+- `skaleBlockBrawlers`
+- `skaleCalypso`
+- `skaleCalypsoTestnet`
+- `skaleChaosTestnet`
+- `skaleCryptoBlades`
+- `skaleCryptoColosseum`
+- `skaleEuropa`
+- `skaleEuropaTestnet`
+- `skaleExorde`
+- `skaleHumanProtocol`
+- `skaleNebula`
+- `skaleNebulaTestnet`
+- `skaleRazor`
+- `skaleTitan`
+- `skaleTitanTestnet`
 - `sepolia`
 - `taraxa`
 - `taraxaTestnet`

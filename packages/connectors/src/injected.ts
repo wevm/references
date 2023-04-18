@@ -2,13 +2,14 @@ import {
   AddChainError,
   ChainNotConfiguredError,
   ConnectorNotFoundError,
+  ProviderRpcError,
   ResourceUnavailableError,
   SwitchChainError,
   UserRejectedRequestError,
   getClient,
   normalizeChainId,
 } from '@wagmi/core'
-import type { Address, ProviderRpcError, RpcError } from '@wagmi/core'
+import type { Address, RpcError } from '@wagmi/core'
 import type { Chain } from '@wagmi/core/chains'
 import { providers } from 'ethers'
 import { getAddress, hexValue } from 'ethers/lib/utils.js'
@@ -27,11 +28,6 @@ export type InjectedConnectorOptions = {
    * () => typeof window !== 'undefined' ? window.ethereum : undefined
    */
   getProvider?: () => Ethereum | undefined
-  /**
-   * MetaMask 10.9.3 emits disconnect event when chain is changed.
-   * This flag prevents the `"disconnect"` event from being emitted upon switching chains. See [GitHub issue](https://github.com/MetaMask/metamask-extension/issues/13375#issuecomment-1027663334) for more info.
-   */
-  shimChainChangedDisconnect?: boolean
   /**
    * MetaMask and other injected providers do not support programmatic disconnect.
    * This flag simulates the disconnect behavior by keeping track of connection status in storage. See [GitHub issue](https://github.com/MetaMask/metamask-extension/issues/10353) for more info.
@@ -53,7 +49,6 @@ export class InjectedConnector extends Connector<
   readonly ready: boolean
 
   #provider?: Ethereum
-  #switchingChains?: boolean
 
   protected shimDisconnectKey = `${this.id}.shimDisconnect`
 
@@ -66,7 +61,6 @@ export class InjectedConnector extends Connector<
   } = {}) {
     const options = {
       shimDisconnect: true,
-      shimChainChangedDisconnect: true,
       getProvider: () =>
         typeof window !== 'undefined'
           ? (window.ethereum as Ethereum)
@@ -194,8 +188,6 @@ export class InjectedConnector extends Connector<
   }
 
   async switchChain(chainId: number) {
-    if (this.options.shimChainChangedDisconnect) this.#switchingChains = true
-
     const provider = await this.getProvider()
     if (!provider) throw new ConnectorNotFoundError()
     const id = hexValue(chainId)
@@ -247,10 +239,18 @@ export class InjectedConnector extends Connector<
               },
             ],
           })
+
+          const currentChainId = await this.getChainId()
+          if (currentChainId !== chainId)
+            throw new ProviderRpcError(
+              'User rejected switch after adding network.',
+              { code: 4001 },
+            )
+
           return chain
         } catch (addError) {
           if (this.isUserRejectedRequestError(addError))
-            throw new UserRejectedRequestError(error)
+            throw new UserRejectedRequestError(addError)
           throw new AddChainError()
         }
       }
@@ -302,13 +302,15 @@ export class InjectedConnector extends Connector<
     this.emit('change', { chain: { id, unsupported } })
   }
 
-  protected onDisconnect = () => {
-    // We need this as MetaMask can emit the "disconnect" event
-    // upon switching chains. This workaround ensures that the
-    // user currently isn't in the process of switching chains.
-    if (this.options.shimChainChangedDisconnect && this.#switchingChains) {
-      this.#switchingChains = false
-      return
+  protected onDisconnect = async (error: Error) => {
+    // If MetaMask emits a `code: 1013` error, wait for reconnection before disconnecting
+    // https://github.com/MetaMask/providers/pull/120
+    if ((error as RpcError).code === 1013) {
+      const provider = await this.getProvider()
+      if (provider) {
+        const isAuthorized = await this.getAccount()
+        if (isAuthorized) return
+      }
     }
 
     this.emit('disconnect')

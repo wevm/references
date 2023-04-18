@@ -1,5 +1,88 @@
 # @wagmi/connectors
 
+## 0.3.13
+
+### Patch Changes
+
+- 2a21d27: Updated `@coinbase/wallet-sdk` to `3.6.4`
+
+## 0.3.12
+
+### Patch Changes
+
+- 9bb22b6: Updated `@walletconnect/ethereum-provider` to `2.6.2`, relaxed `@web3modal/standalone` version requirement
+- 0d7625b: Added Rabby to injected connector flags
+- f63d7fd: Added correct error to switch network cause.
+
+## 0.3.11
+
+### Patch Changes
+
+- 0778abc: Renamed `isTally` injected provider to `Taho`
+
+## 0.3.10
+
+### Patch Changes
+
+- 4267020: Added `qrModalOptions` option to `WalletConnectConnector`
+- e78fb0a: Pinned WalletConnect dependencies
+
+## 0.3.9
+
+### Patch Changes
+
+- 5cd0afc: Added `isZerion` to `InjectedProviderFlags` and `getInjectedName`
+- be4825e: Added GameStop Wallet to injected connector flags
+
+## 0.3.8
+
+### Patch Changes
+
+- 11f3fe2: Fixed issue where `UNSTABLE_shimOnConnectSelectAccount` would not bubble up error for MetaMask if request to connect was already active.
+
+## 0.3.7
+
+### Patch Changes
+
+- 04c0e47: Fixed issue switching chain after adding to MetaMask.
+
+## 0.3.6
+
+### Patch Changes
+
+- 85330c1: Removed `InjectedConnector` `shimChainChangedDisconnect` shim (no longer necessary).
+
+## 0.3.5
+
+### Patch Changes
+
+- 8b1a526: Added Dawn wallet flag
+
+## 0.3.4
+
+### Patch Changes
+
+- 6b15d6f: Updated `@walletconnect/ethereum-provider` to `2.5.1`.
+- 1f452e7: Added OKX Wallet to injected connector flags.
+- a4d9083: Added Backpack wallet to injected connector flags.
+- 6a4af48: Enabled support for programmatic chain switching on `LedgerConnector` & added `"ledger"` to the switch chain regex on `WalletConnectLegacyConnector`.
+
+## 0.3.3
+
+### Patch Changes
+
+- f24ce0c: Updated @walletconnect/ethereum-provider to 2.4.8
+- e3a3fee: Added "uniswap wallet" to the regex that determines wallets allowed to switch chains in the WalletConnect legacy connector
+- 641af48: Added name mapping for Bifrost Wallet
+- 4d2c90a: Added name mapping for Phantom
+- 3d276d0: Added Status as the name of the injected connector for the Status App
+
+## 0.3.2
+
+### Patch Changes
+
+- 13a6a07: Updated `@walletconnect/ethereum-provider` to `2.4.7`.
+
 ## 0.3.1
 
 ### Patch Changes

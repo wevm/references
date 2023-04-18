@@ -23,7 +23,6 @@ type WalletConnectOptions = {
    * will determine if that chain should be considered as stale. A stale chain is a chain that
    * WalletConnect has yet to establish a relationship with (ie. the user has not approved or
    * rejected the chain).
-   * Defaults to `true`.
    *
    * Preface: Whereas WalletConnect v1 supported dynamic chain switching, WalletConnect v2 requires
    * the user to pre-approve a set of chains up-front. This comes with consequent UX nuances (see below) when
@@ -49,6 +48,7 @@ type WalletConnectOptions = {
    * dapp handles this error and prompts the user to reconnect to the dapp in order to approve
    * the newly added chain.
    *
+   * @default true
    */
   isNewChainsStale?: boolean
   /**
@@ -58,9 +58,15 @@ type WalletConnectOptions = {
   metadata?: EthereumProviderOptions['metadata']
   /**
    * Whether or not to show the QR code modal.
+   * @default true
    * @link https://docs.walletconnect.com/2.0/javascript/providers/ethereum#initialization
    */
   showQrModal?: EthereumProviderOptions['showQrModal']
+  /**
+   * Options of QR code modal.
+   * @link https://docs.walletconnect.com/2.0/web3modal/options
+   */
+  qrModalOptions?: EthereumProviderOptions['qrModalOptions']
 }
 type WalletConnectSigner = providers.JsonRpcSigner
 
@@ -270,9 +276,10 @@ export class WalletConnectConnector extends Connector<
     } = await import('@walletconnect/ethereum-provider')
     const [defaultChain, ...optionalChains] = this.chains.map(({ id }) => id)
     if (defaultChain) {
-      const { projectId, showQrModal } = this.options
+      const { projectId, showQrModal = true, qrModalOptions } = this.options
       this.#provider = await EthereumProvider.init({
         showQrModal,
+        qrModalOptions,
         projectId,
         optionalMethods: OPTIONAL_METHODS,
         optionalEvents: OPTIONAL_EVENTS,

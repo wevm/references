@@ -1,5 +1,79 @@
 # @wagmi/chains
 
+## 0.2.18
+
+### Patch Changes
+
+- a1bd7c6: Added Arbitrum Nova to list of supported chains
+
+## 0.2.17
+
+### Patch Changes
+
+- 7e98d11: Added Conflux eSpace
+- f157ffc: Added Linea Testnet Support
+- 330b4de: Added Neon Devnet Support
+
+## 0.2.16
+
+### Patch Changes
+
+- 6a50f1d: Added websocket RPC to foundry chain
+
+## 0.2.15
+
+### Patch Changes
+
+- 9de63cd: Added Polygon zkEVM Mainnet
+- 6f7bb30: Added Nexi Chain
+- 41c6bae: Added XDC Network
+
+## 0.2.14
+
+### Patch Changes
+
+- c857cc4: Fixed broken BSC testnet RPC URL
+- fd3680f: Updated Polygon zkEVM Testnet Chain ID
+
+## 0.2.13
+
+### Patch Changes
+
+- 925a661: Added SKALE Chains.
+
+  - `skaleBlockBrawlers`
+  - `skaleCalypso`
+  - `skaleCalypsoTestnet`
+  - `skaleChaosTestnet`
+  - `skaleCryptoBlades`
+  - `skaleCryptoColosseum`
+  - `skaleEuropa`
+  - `skaleEuropaTestnet`
+  - `skaleExorde`
+  - `skaleHumanProtocol`
+  - `skaleNebula`
+  - `skaleNebulaTestnet`
+  - `skaleRazor`
+  - `skaleTitan`
+  - `skaleTitanTestnet`
+
+- 2e78551: Added `wanchain` & `wanchainTestnet` chains.
+
+## 0.2.12
+
+### Patch Changes
+
+- c6b2b3a: Added Scroll Testnet Chain
+- f9c1f95: Added Klaytn, Dogechain, DFK, and Cronos Chains.
+
+## 0.2.11
+
+### Patch Changes
+
+- 25eda6b: Added `boba` (Boba Network) chain.
+- 48f9a47: Added `flare` (Flare), `flareTestnet` (Flare Testnet), `songbird` (Songbird), `songbirdTestnet` (Songbird Testnet) chains.
+- 9559464: Added `shardeumSphinx` (Shardeum Sphinx) chain.
+
 ## 0.2.10
 
 ### Patch Changes

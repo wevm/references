@@ -15,11 +15,14 @@ import { Connector } from './base'
 /**
  * Wallets that support chain switching through WalletConnect
  * - imToken (token.im)
+ * - Ledger Live (ledger.com)
  * - MetaMask (metamask.io)
  * - Rainbow (rainbow.me)
  * - Trust Wallet (trustwallet.com)
+ * - Uniswap Wallet (uniswap.org)
  */
-const switchChainAllowedRegex = /(imtoken|metamask|rainbow|trust wallet)/i
+const switchChainAllowedRegex =
+  /(imtoken|metamask|rainbow|trust wallet|uniswap wallet|ledger)/i
 
 type WalletConnectOptions = ConstructorParameters<
   typeof WalletConnectProvider
@@ -136,6 +139,16 @@ export class WalletConnectLegacyConnector extends Connector<
         chainId,
         rpc: { ...rpc, ...this.options?.rpc },
       })
+
+      // `@walletconnect/legacy-provider` automatically sets the chainId to `1`
+      // if a wallet does not support the target chain regardless of what `chainId`
+      // we pass to `WalletConnectProvider`.
+      // This causes the target chain RPC URL to become out-of-sync.
+      // WalletConnect's HTTP Provider should still work even if a wallet does
+      // not support the chain. We just need to provide it with a valid RPC URL.
+      // Here, we are making sure the RPC URL is set to the chain's RPC URL.
+      // @ts-expect-error – ignore
+      this.#provider.http = await this.#provider.setHttpProvider(chainId)
     }
 
     return this.#provider
