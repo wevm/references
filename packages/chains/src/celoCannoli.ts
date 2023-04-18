@@ -25,7 +25,7 @@ export const celoCannoli = {
   },
   contracts: {
     multicall3: {
-      address: '0x1b5c5e5e7f1c1c1b5c5e5e7f1c1c1b5c5e5e7f1c',
+      address: '0x5Acb0aa8BF4E8Ff0d882Ee187140713C12BF9718',
       blockCreated: 87429,
     },
   },
