@@ -2,4 +2,4 @@
 '@wagmi/chains': patch
 ---
 
-Add Celo Cannoli Testnet
+Added Celo Cannoli Testnet
