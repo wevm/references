@@ -1,5 +1,5 @@
 ---
-'@wagmi/chains': minor
+'@wagmi/chains': patch
 ---
 
 Added Alchemy RPC URLs for Sepolia.
