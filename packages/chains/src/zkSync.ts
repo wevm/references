@@ -2,8 +2,8 @@ import { Chain } from './types'
 
 export const zkSync = {
   id: 324,
-  name: 'zkSync',
-  network: 'zksync',
+  name: 'zkSync Era',
+  network: 'zksync-era',
   nativeCurrency: {
     decimals: 18,
     name: 'Ether',
@@ -11,12 +11,12 @@ export const zkSync = {
   },
   rpcUrls: {
     default: {
-      http: ['https://zksync2-mainnet.zksync.io'],
-      webSocket: ['wss://zksync2-mainnet.zksync.io/ws'],
+      http: ['https://mainnet.era.zksync.io'],
+      webSocket: ['wss://mainnet.era.zksync.io/ws'],
     },
     public: {
-      http: ['https://zksync2-mainnet.zksync.io'],
-      webSocket: ['wss://zksync2-mainnet.zksync.io/ws'],
+      http: ['https://mainnet.era.zksync.io'],
+      webSocket: ['wss://mainnet.era.zksync.io/ws'],
     },
   },
   blockExplorers: {
