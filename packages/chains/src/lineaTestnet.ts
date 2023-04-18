@@ -4,7 +4,7 @@ export const lineaTestnet = {
   id: 59140,
   name: 'Linea Goerli Testnet',
   network: 'linea-testnet',
-  nativeCurrency: { name: 'Linea Goerli Ether', symbol: 'ETH', decimals: 18 },
+  nativeCurrency: { name: 'Linea Ether', symbol: 'ETH', decimals: 18 },
   rpcUrls: {
     infura: {
       http: ['https://consensys-zkevm-goerli-prealpha.infura.io/v3/'],
