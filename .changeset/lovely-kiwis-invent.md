@@ -2,4 +2,4 @@
 "@wagmi/chains": patch
 ---
 
-Added Boba Network chain.
+Added Syscoin Mainnet.
