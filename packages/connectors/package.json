@@ -2,7 +2,7 @@
   "name": "@wagmi/connectors",
   "description": "A collection of connectors for wagmi",
   "license": "MIT",
-  "version": "0.3.13",
+  "version": "0.3.14",
   "scripts": {
     "build": "tsup",
     "dev": "DEV=true tsup"
