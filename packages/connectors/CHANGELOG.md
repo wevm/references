@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.3.15
+
+### Patch Changes
+
+- d4825e6: Fixed ABIType version to match downstream packages.
+
 ## 0.3.14
 
 ### Patch Changes
