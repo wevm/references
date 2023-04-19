@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.3.16
+
+### Patch Changes
+
+- c1e3ddf: Reverted ABIType version change.
+
 ## 0.3.15
 
 ### Patch Changes
