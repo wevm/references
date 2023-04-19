@@ -84,7 +84,7 @@ importers:
       '@walletconnect/ethereum-provider': 2.7.0
       '@walletconnect/legacy-provider': ^2.0.0
       '@web3modal/standalone': ^2.3.0
-      abitype: ^0.7.1
+      abitype: ^0.3.0
       ethers: ^5.7.2
       eventemitter3: ^4.0.7
     dependencies:
@@ -95,7 +95,7 @@ importers:
       '@walletconnect/ethereum-provider': 2.7.0_fwxzt3gbpadbzffqb4mpukenhi
       '@walletconnect/legacy-provider': 2.0.0
       '@web3modal/standalone': 2.3.0
-      abitype: 0.7.1
+      abitype: 0.3.0
       eventemitter3: 4.0.7
     devDependencies:
       '@wagmi/core': 0.8.19_vn26i2w6bdjznwkhk736p5zznm
@@ -2209,11 +2209,12 @@ packages:
         optional: true
     dev: true
 
-  /abitype/0.7.1:
-    resolution: {integrity: sha512-VBkRHTDZf9Myaek/dO3yMmOzB/y2s3Zo6nVU7yaw1G+TvCHAjwaJzNGN9yo4K5D8bU/VZXKP1EJpRhFr862PlQ==}
+  /abitype/0.3.0:
+    resolution: {integrity: sha512-0YokyAV4hKMcy97Pl+6QgZBlBdZJN2llslOs7kiFY+cu7kMlVXDBpxMExfv0krzBCQt2t7hNovpQ3y/zvEm18A==}
+    engines: {pnpm: '>=7'}
     peerDependencies:
       typescript: '>=4.9.4'
-      zod: ^3 >=3.19.1
+      zod: '>=3.19.1'
     peerDependenciesMeta:
       zod:
         optional: true
