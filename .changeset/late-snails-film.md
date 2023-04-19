@@ -2,4 +2,4 @@
 '@wagmi/connectors': patch
 ---
 
-Add `ImToken` to `getInjectedName` list
+Added `ImToken` to `getInjectedName` list
