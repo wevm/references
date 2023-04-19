@@ -59,6 +59,7 @@ type InjectedProviderFlags = {
   isFrontier?: true
   isGamestop?: true
   isHyperPay?: true
+  isImToken?: true
   isKuCoinWallet?: true
   isMathWallet?: true
   isMetaMask?: true

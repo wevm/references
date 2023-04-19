@@ -18,6 +18,7 @@ export function getInjectedName(ethereum?: Ethereum) {
     if (provider.isFrontier) return 'Frontier Wallet'
     if (provider.isGamestop) return 'GameStop Wallet'
     if (provider.isHyperPay) return 'HyperPay Wallet'
+    if (provider.isImToken) return 'ImToken'
     if (provider.isKuCoinWallet) return 'KuCoin Wallet'
     if (provider.isMathWallet) return 'MathWallet'
     if (provider.isOkxWallet || provider.isOKExWallet) return 'OKX Wallet'
