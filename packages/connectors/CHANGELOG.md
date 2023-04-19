@@ -1,5 +1,25 @@
 # @wagmi/connectors
 
+## 0.3.16
+
+### Patch Changes
+
+- c1e3ddf: Reverted ABIType version change.
+
+## 0.3.15
+
+### Patch Changes
+
+- d4825e6: Fixed ABIType version to match downstream packages.
+
+## 0.3.14
+
+### Patch Changes
+
+- c25ac82: Added more flags to `MetaMaskConnector` `getProvider` check.
+- b19a932: Updated @web3modal/standalone to 2.3.0, @walletconnect/ethereum-provider to 2.7.0
+- cdc387e: Added `ImToken` to `getInjectedName` list
+
 ## 0.3.13
 
 ### Patch Changes

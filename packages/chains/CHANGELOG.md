@@ -1,5 +1,13 @@
 # @wagmi/chains
 
+## 0.2.19
+
+### Patch Changes
+
+- 16b8482: Added Alchemy RPC URLs for Sepolia.
+- ab1a4ea: Added Oasys Support
+- cb509d5: Added `fuse` chain.
+
 ## 0.2.18
 
 ### Patch Changes

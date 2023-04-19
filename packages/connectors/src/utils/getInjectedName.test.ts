@@ -31,6 +31,7 @@ describe.each([
   { ethereum: { isFrontier: true }, expected: 'Frontier Wallet' },
   { ethereum: { isGamestop: true }, expected: 'GameStop Wallet' },
   { ethereum: { isHyperPay: true }, expected: 'HyperPay Wallet' },
+  { ethereum: { isImToken: true }, expected: 'ImToken' },
   { ethereum: { isKuCoinWallet: true }, expected: 'KuCoin Wallet' },
   {
     ethereum: { isKuCoinWallet: true, isMetaMask: true },
