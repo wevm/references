@@ -36,6 +36,7 @@ export function getInjectedName(ethereum?: Ethereum) {
     if (provider.isTrust || provider.isTrustWallet) return 'Trust Wallet'
     if (provider.isXDEFI) return 'XDEFI Wallet'
     if (provider.isZerion) return 'Zerion'
+    if (provider.isBlockWallet) return 'BlockWallet'
     if (provider.isMetaMask) return 'MetaMask'
   }
 

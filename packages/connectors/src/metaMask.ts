@@ -61,6 +61,7 @@ export class MetaMaskConnector extends InjectedConnector {
           if (ethereum.isTokenPocket) return
           if (ethereum.isTokenary) return
           if (ethereum.isZerion) return
+          if (ethereum.isBlockWallet) return
           return ethereum
         }
 
