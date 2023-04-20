@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const ektaChain ={
+export const ektaChainTestnet ={
     id: 1004,
     name: "Ekta Chain Testnet",
     network: "ektachain-testnet",
