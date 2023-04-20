@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.3.18
+
+### Patch Changes
+
+- f66e065: Added BlockWallet to injected connector flags.
+
 ## 0.3.17
 
 ### Patch Changes
