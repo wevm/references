@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.3.17
+
+### Patch Changes
+
+- 12ab5d1: Updated @coinbase/wallet-sdk to 3.6.6
+
 ## 0.3.16
 
 ### Patch Changes
