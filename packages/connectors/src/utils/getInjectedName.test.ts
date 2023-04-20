@@ -19,6 +19,7 @@ describe.each([
   { ethereum: { isBifrost: true }, expected: 'Bifrost Wallet' },
   { ethereum: { isBitKeep: true }, expected: 'BitKeep' },
   { ethereum: { isBitski: true }, expected: 'Bitski' },
+  { ethereum: { isBlockWallet: true }, expected: 'BlockWallet' },
   { ethereum: { isBraveWallet: true }, expected: 'Brave Wallet' },
   {
     ethereum: { isBraveWallet: true, isMetaMask: true },
