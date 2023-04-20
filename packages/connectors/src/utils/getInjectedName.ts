@@ -10,6 +10,7 @@ export function getInjectedName(ethereum?: Ethereum) {
     if (provider.isBifrost) return 'Bifrost Wallet'
     if (provider.isBitKeep) return 'BitKeep'
     if (provider.isBitski) return 'Bitski'
+    if (provider.isBlockWallet) return 'BlockWallet'
     if (provider.isBraveWallet) return 'Brave Wallet'
     if (provider.isCoinbaseWallet) return 'Coinbase Wallet'
     if (provider.isDawn) return 'Dawn Wallet'
@@ -36,7 +37,6 @@ export function getInjectedName(ethereum?: Ethereum) {
     if (provider.isTrust || provider.isTrustWallet) return 'Trust Wallet'
     if (provider.isXDEFI) return 'XDEFI Wallet'
     if (provider.isZerion) return 'Zerion'
-    if (provider.isBlockWallet) return 'BlockWallet'
     if (provider.isMetaMask) return 'MetaMask'
   }
 

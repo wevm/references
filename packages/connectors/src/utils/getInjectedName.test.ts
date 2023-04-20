@@ -19,6 +19,7 @@ describe.each([
   { ethereum: { isBifrost: true }, expected: 'Bifrost Wallet' },
   { ethereum: { isBitKeep: true }, expected: 'BitKeep' },
   { ethereum: { isBitski: true }, expected: 'Bitski' },
+  { ethereum: { isBlockWallet: true }, expected: 'BlockWallet' },
   { ethereum: { isBraveWallet: true }, expected: 'Brave Wallet' },
   {
     ethereum: { isBraveWallet: true, isMetaMask: true },
@@ -59,7 +60,6 @@ describe.each([
   { ethereum: { isTrustWallet: true }, expected: 'Trust Wallet' },
   { ethereum: { isXDEFI: true }, expected: 'XDEFI Wallet' },
   { ethereum: { isZerion: true }, expected: 'Zerion' },
-  { ethereum: { isBlockWallet: true }, expected: 'BlockWallet' },
   { ethereum: { isMetaMask: true }, expected: 'MetaMask' },
   {
     ethereum: { providers: [{ isMetaMask: true }, { isCoinbaseWallet: true }] },
