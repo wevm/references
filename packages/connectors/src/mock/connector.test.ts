@@ -1,17 +1,17 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { getSigners } from '../../test'
-import { Signer } from '../types'
+import { getWalletClients } from '../../test'
+import { WalletClient } from '../types'
 import { MockConnector } from './connector'
 
 describe('MockConnector', () => {
   let connector: MockConnector
-  let signer: Signer
+  let walletClient: WalletClient
   beforeEach(() => {
-    const signers = getSigners()
-    signer = signers[0]!
+    const walletClients = getWalletClients()
+    walletClient = walletClients[0]!
     connector = new MockConnector({
-      options: { signer },
+      options: { walletClient },
     })
   })
 
@@ -43,7 +43,7 @@ describe('MockConnector', () => {
       const connector = new MockConnector({
         options: {
           flags: { failConnect: true },
-          signer,
+          walletClient,
         },
       })
       await expect(connector.connect()).rejects
@@ -90,10 +90,10 @@ describe('MockConnector', () => {
     )
   })
 
-  it('getSigner', async () => {
+  it('getWalletClient', async () => {
     await connector.connect()
-    const { uid, ...signer } = await connector.getSigner()
-    expect(signer).toMatchInlineSnapshot(`
+    const { uid, ...walletClient } = await connector.getWalletClient()
+    expect(walletClient).toMatchInlineSnapshot(`
       {
         "account": {
           "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
@@ -208,7 +208,7 @@ describe('MockConnector', () => {
       const connector = new MockConnector({
         options: {
           flags: { failSwitchChain: true },
-          signer,
+          walletClient,
         },
       })
       await connector.connect()

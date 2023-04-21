@@ -1,7 +1,7 @@
 import { default as EventEmitter } from 'eventemitter3'
 import { UserRejectedRequestError, getAddress } from 'viem'
 
-import { Signer } from '../types'
+import { WalletClient } from '../types'
 
 export type MockProviderOptions = {
   chainId: number
@@ -11,7 +11,7 @@ export type MockProviderOptions = {
     failSwitchChain?: boolean
     noSwitchChain?: boolean
   }
-  signer: Signer
+  walletClient: WalletClient
 }
 
 type Events = {
@@ -26,7 +26,7 @@ export class MockProvider {
 
   chainId: number
   #options: MockProviderOptions
-  #signer?: Signer
+  #walletClient?: WalletClient
 
   constructor(options: MockProviderOptions) {
     this.chainId = options.chainId
@@ -36,27 +36,27 @@ export class MockProvider {
   async enable() {
     if (this.#options.flags?.failConnect)
       throw new UserRejectedRequestError(new Error('Failed to connect.'))
-    if (!this.#signer) this.#signer = this.#options.signer
-    const address = this.#signer.account.address
+    if (!this.#walletClient) this.#walletClient = this.#options.walletClient
+    const address = this.#walletClient.account.address
     this.events.emit('accountsChanged', [address])
     return [address]
   }
 
   async disconnect() {
     this.events.emit('disconnect')
-    this.#signer = undefined
+    this.#walletClient = undefined
   }
 
   async getAccounts() {
-    const address = this.#signer?.account.address
+    const address = this.#walletClient?.account.address
     if (!address) return []
     return [getAddress(address)]
   }
 
-  getSigner() {
-    const signer = this.#signer
-    if (!signer) throw new Error('Signer not found')
-    return signer
+  getWalletClient() {
+    const walletClient = this.#walletClient
+    if (!walletClient) throw new Error('walletClient not found')
+    return walletClient
   }
 
   async switchChain(chainId: number) {
@@ -67,9 +67,9 @@ export class MockProvider {
     this.events.emit('chainChanged', chainId)
   }
 
-  async switchSigner(signer: Signer) {
-    const address = signer.account.address
-    this.#signer = signer
+  async switchWalletClient(walletClient: WalletClient) {
+    const address = walletClient.account.address
+    this.#walletClient = walletClient
     this.events.emit('accountsChanged', [address])
   }
 
@@ -83,7 +83,7 @@ export class MockProvider {
   }
 
   async request({ method, params }: any) {
-    return this.#signer?.transport.request({ method, params })
+    return this.#walletClient?.transport.request({ method, params })
   }
 
   on(event: Event, listener: (...args: any[]) => void) {

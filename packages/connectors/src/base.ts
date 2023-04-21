@@ -3,7 +3,7 @@ import { Address } from 'abitype'
 import { default as EventEmitter } from 'eventemitter3'
 import { goerli, mainnet } from 'viem/chains'
 
-import { Signer, Storage } from './types'
+import { Storage, WalletClient } from './types'
 
 export type ConnectorData = {
   account?: Address
@@ -54,7 +54,7 @@ export abstract class Connector<
   abstract getAccount(): Promise<Address>
   abstract getChainId(): Promise<number>
   abstract getProvider(config?: { chainId?: number }): Promise<Provider>
-  abstract getSigner(config?: { chainId?: number }): Promise<Signer>
+  abstract getWalletClient(config?: { chainId?: number }): Promise<WalletClient>
   abstract isAuthorized(): Promise<boolean>
   switchChain?(chainId: number): Promise<Chain>
   watchAsset?(asset: {

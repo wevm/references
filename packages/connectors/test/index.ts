@@ -132,7 +132,7 @@ export function getProvider({
   })
 }
 
-export function getSigners() {
+export function getWalletClients() {
   const provider = getProvider()
   provider.request = async ({ method, params }: any) => {
     if (method === 'personal_sign') {

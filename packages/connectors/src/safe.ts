@@ -122,7 +122,7 @@ export class SafeConnector extends Connector<
     return this.#provider
   }
 
-  async getSigner({ chainId }: { chainId?: number } = {}) {
+  async getWalletClient({ chainId }: { chainId?: number } = {}) {
     const provider = await this.getProvider()
     const account = await this.getAccount()
     const chain = this.chains.find((x) => x.id === chainId) || this.chains[0]

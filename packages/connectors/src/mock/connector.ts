@@ -90,9 +90,9 @@ export class MockConnector extends Connector<
     return this.#provider
   }
 
-  async getSigner() {
+  async getWalletClient() {
     const provider = await this.getProvider()
-    return provider.getSigner()
+    return provider.getWalletClient()
   }
 
   async isAuthorized() {

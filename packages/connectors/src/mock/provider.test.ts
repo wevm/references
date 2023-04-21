@@ -1,18 +1,18 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 
-import { getSigners } from '../../test'
-import { Signer } from '../types'
+import { getWalletClients } from '../../test'
+import { WalletClient } from '../types'
 import { MockProvider } from './provider'
 
 describe('MockProvider', () => {
   let provider: MockProvider
-  let signer: Signer
+  let walletClient: WalletClient
   beforeEach(() => {
-    const signers = getSigners()
-    signer = signers[0]!
+    const walletClients = getWalletClients()
+    walletClient = walletClients[0]!
     provider = new MockProvider({
       chainId: 1,
-      signer,
+      walletClient,
     })
   })
 
@@ -23,17 +23,17 @@ describe('MockProvider', () => {
   describe('connect', () => {
     it('succeeds', async () => {
       const accounts = await provider.enable()
-      const account = signer.account.address
+      const account = walletClient.account.address
       expect(accounts[0]).toEqual(account)
     })
 
     it('fails', async () => {
-      const signers = getSigners()
-      signer = signers[0]!
+      const walletClients = getWalletClients()
+      walletClient = walletClients[0]!
       const provider = new MockProvider({
         chainId: 1,
         flags: { failConnect: true },
-        signer,
+        walletClient,
       })
       await expect(provider.enable()).rejects
         .toThrowErrorMatchingInlineSnapshot(`
@@ -60,25 +60,25 @@ describe('MockProvider', () => {
 
     it('connected', async () => {
       await provider.enable()
-      const account = signer.account.address
+      const account = walletClient.account.address
       const connected = await provider.getAccounts()
       expect(connected[0]).toEqual(account)
     })
   })
 
-  describe('getSigner', () => {
+  describe('getWalletClient', () => {
     it('disconnected', () => {
       try {
-        provider.getSigner()
+        provider.getWalletClient()
       } catch (error) {
-        expect(error).toMatchInlineSnapshot(`[Error: Signer not found]`)
+        expect(error).toMatchInlineSnapshot(`[Error: walletClient not found]`)
       }
     })
 
     it('connected', async () => {
       await provider.enable()
-      const { uid, ...signer } = provider.getSigner()
-      expect(signer).toMatchInlineSnapshot(`
+      const { uid, ...walletClient } = provider.getWalletClient()
+      expect(walletClient).toMatchInlineSnapshot(`
         {
           "account": {
             "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
@@ -177,7 +177,7 @@ describe('MockProvider', () => {
       const provider = new MockProvider({
         chainId: 1,
         flags: { failSwitchChain: true },
-        signer,
+        walletClient,
       })
       await expect(provider.switchChain(4)).rejects
         .toThrowErrorMatchingInlineSnapshot(`

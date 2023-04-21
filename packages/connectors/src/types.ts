@@ -1,5 +1,5 @@
 import type { Address, ResolvedConfig } from 'abitype'
-import { Account, Chain, Transport, WalletClient } from 'viem'
+import { Account, Chain, Transport, WalletClient as WalletClient_ } from 'viem'
 
 import { ConnectorData } from './base'
 
@@ -159,11 +159,11 @@ export interface Ethereum extends InjectedProviders {
   }): Promise<null>
 }
 
-export type Signer<
+export type WalletClient<
   TTransport extends Transport = Transport,
   TChain extends Chain = Chain,
   TAccount extends Account = Account,
-> = WalletClient<TTransport, TChain, TAccount>
+> = WalletClient_<TTransport, TChain, TAccount>
 
 export type Storage = {
   getItem<T>(key: string, defaultState?: T | null): T | null
