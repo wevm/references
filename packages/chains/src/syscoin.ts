@@ -14,7 +14,6 @@ export const syscoin = {
     public: { http: ['https://rpc.syscoin.org'] },
   },
   blockExplorers: {
-    etherscan: { name: 'SyscoinExplorer', url: 'https://explorer.syscoin.org' },
     default: { name: 'SyscoinExplorer', url: 'https://explorer.syscoin.org' },
   },
   contracts: {
