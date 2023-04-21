@@ -1,5 +1,12 @@
 # @wagmi/chains
 
+## 0.2.20
+
+### Patch Changes
+
+- edaa1cc: Added Syscoin Mainnet.
+- b641bc4: Updated Linea Chain properties.
+
 ## 0.2.19
 
 ### Patch Changes
