@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94001bc2-9ce2-42ec-8d25-6dba9175af84" name="Changes" comment=":fire: Added Ekta Chain and Ekta Chain Testnet" />
+    <list default="true" id="94001bc2-9ce2-42ec-8d25-6dba9175af84" name="Changes" comment=":art: Other changes" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,6 +16,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
     <option name="recentBranches">
       <RecentBranches>
         <option name="branchesForRepo">
@@ -57,6 +58,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2022.2.3\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external"
   }
@@ -70,6 +73,7 @@
       <option name="presentableId" value="Default" />
       <updated>1681971313701</updated>
       <workItem from="1681971315106" duration="4323000" />
+      <workItem from="1682290805871" duration="658000" />
     </task>
     <task id="LOCAL-00001" summary=":fire: Added Ekta Chain and Ekta Chain Testnet">
       <created>1681972715484</created>
@@ -85,7 +89,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681976228725</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary=":art: Other changes">
+      <created>1682293271149</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1682293271149</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -104,6 +115,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value=":fire: Added Ekta Chain and Ekta Chain Testnet" />
-    <option name="LAST_COMMIT_MESSAGE" value=":fire: Added Ekta Chain and Ekta Chain Testnet" />
+    <MESSAGE value=":art: Other changes" />
+    <option name="LAST_COMMIT_MESSAGE" value=":art: Other changes" />
   </component>
 </project>
