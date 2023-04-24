@@ -21,6 +21,8 @@ import { getInjectedName } from './utils/getInjectedName'
 export type InjectedConnectorOptions = {
   /** Name of connector */
   name?: string | ((detectedName: string | string[]) => string)
+  /** Id of connector */
+  id?: string
   /**
    * [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) Ethereum Provider to target
    *
@@ -80,6 +82,7 @@ export class InjectedConnector extends Connector<
       }
     } else this.name = 'Injected'
 
+    if (typeof options.id === 'string') this.id = options.id
     this.ready = !!provider
   }
 
