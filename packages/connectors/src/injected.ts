@@ -16,7 +16,7 @@ import {
   ChainNotConfiguredForConnectorError,
   ConnectorNotFoundError,
 } from './errors'
-import { Ethereum } from './types'
+import { WindowProvider } from './types'
 import { getInjectedName } from './utils/getInjectedName'
 import { normalizeChainId } from './utils/normalizeChainId'
 
@@ -29,7 +29,7 @@ export type InjectedConnectorOptions = {
    * @default
    * () => typeof window !== 'undefined' ? window.ethereum : undefined
    */
-  getProvider?: () => Ethereum | undefined
+  getProvider?: () => WindowProvider | undefined
   /**
    * MetaMask and other injected providers do not support programmatic disconnect.
    * This flag simulates the disconnect behavior by keeping track of connection status in storage. See [GitHub issue](https://github.com/MetaMask/metamask-extension/issues/10353) for more info.
@@ -42,14 +42,14 @@ type ConnectorOptions = InjectedConnectorOptions &
   Required<Pick<InjectedConnectorOptions, 'getProvider'>>
 
 export class InjectedConnector extends Connector<
-  Ethereum | undefined,
+  WindowProvider | undefined,
   ConnectorOptions
 > {
   readonly id: string = 'injected'
   readonly name: string
   readonly ready: boolean
 
-  #provider?: Ethereum
+  #provider?: WindowProvider
 
   protected shimDisconnectKey = `${this.id}.shimDisconnect`
 
@@ -64,7 +64,8 @@ export class InjectedConnector extends Connector<
       shimDisconnect: true,
       getProvider() {
         if (typeof window === 'undefined') return
-        const ethereum = (window as unknown as { ethereum?: Ethereum }).ethereum
+        const ethereum = (window as unknown as { ethereum?: WindowProvider })
+          .ethereum
         if (ethereum?.providers) return ethereum.providers[0]
         return ethereum
       },

@@ -10,7 +10,7 @@ import {
 import { ConnectorNotFoundError } from './errors'
 import type { InjectedConnectorOptions } from './injected'
 import { InjectedConnector } from './injected'
-import { Ethereum } from './types'
+import { WindowProvider } from './types'
 
 export type MetaMaskConnectorOptions = Pick<
   InjectedConnectorOptions,
@@ -40,7 +40,7 @@ export class MetaMaskConnector extends InjectedConnector {
       name: 'MetaMask',
       shimDisconnect: true,
       getProvider() {
-        function getReady(ethereum?: Ethereum) {
+        function getReady(ethereum?: WindowProvider) {
           const isMetaMask = !!ethereum?.isMetaMask
           if (!isMetaMask) return
           // Brave tries to make itself look like MetaMask
@@ -57,7 +57,8 @@ export class MetaMaskConnector extends InjectedConnector {
         }
 
         if (typeof window === 'undefined') return
-        const ethereum = (window as unknown as { ethereum?: Ethereum }).ethereum
+        const ethereum = (window as unknown as { ethereum?: WindowProvider })
+          .ethereum
         if (ethereum?.providers) return ethereum.providers.find(getReady)
         return getReady(ethereum)
       },

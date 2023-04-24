@@ -1,9 +1,9 @@
-import type { Ethereum } from '../types'
+import type { WindowProvider } from '../types'
 
-export function getInjectedName(ethereum?: Ethereum) {
+export function getInjectedName(ethereum?: WindowProvider) {
   if (!ethereum) return 'Injected'
 
-  const getName = (provider: Ethereum) => {
+  const getName = (provider: WindowProvider) => {
     if (provider.isApexWallet) return 'Apex Wallet'
     if (provider.isAvalanche) return 'Core Wallet'
     if (provider.isBackpack) return 'Backpack'

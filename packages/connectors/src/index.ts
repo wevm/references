@@ -6,4 +6,4 @@ export {
   ConnectorNotFoundError,
 } from './errors'
 
-export type { Ethereum } from './types'
+export type { WindowProvider } from './types'
