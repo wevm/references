@@ -28,6 +28,7 @@
     "@web3modal/standalone": "^2.3.0",
     "@safe-global/safe-apps-provider": "^0.15.2",
     "@safe-global/safe-apps-sdk": "^7.9.0",
+    "@venly/web3-provider": "^3.0.0-develop.8",
     "abitype": "^0.3.0",
     "eventemitter3": "^4.0.7"
   },
@@ -67,6 +68,10 @@
       "types": "./dist/safe.d.ts",
       "default": "./dist/safe.js"
     },
+    "./venly": {
+      "types": "./dist/venly.d.ts",
+      "default": "./dist/venly.js"
+    },
     "./walletConnect": {
       "types": "./dist/walletConnect.d.ts",
       "default": "./dist/walletConnect.js"
@@ -84,6 +89,7 @@
     "/metaMask",
     "/mock",
     "/safe",
+    "/venly",
     "/walletConnect",
     "/walletConnectLegacy",
     "/dist"

@@ -40,6 +40,7 @@ const client = createClient({
 - [`MockConnector`](/packages/connectors/src/mock.ts)
 - [`SafeConnector`](/packages/connectors/src/safe.ts)
 - [`WalletConnectConnector`](/packages/connectors/src/walletConnect.ts)
+- [`VenlyConnector`](/packages/connectors/src/venly.ts)
 
 ## Contributing
 
