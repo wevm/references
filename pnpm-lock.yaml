@@ -80,6 +80,7 @@ importers:
       '@ledgerhq/connect-kit-loader': ^1.0.1
       '@safe-global/safe-apps-provider': ^0.15.2
       '@safe-global/safe-apps-sdk': ^7.9.0
+      '@venly/web3-provider': ^3.0.0-develop.8
       '@wagmi/core': ^0.8.19
       '@walletconnect/ethereum-provider': 2.7.0
       '@walletconnect/legacy-provider': ^2.0.0
@@ -92,6 +93,7 @@ importers:
       '@ledgerhq/connect-kit-loader': 1.0.1
       '@safe-global/safe-apps-provider': 0.15.2
       '@safe-global/safe-apps-sdk': 7.9.0
+      '@venly/web3-provider': 3.0.0-develop.8
       '@walletconnect/ethereum-provider': 2.7.0_fwxzt3gbpadbzffqb4mpukenhi
       '@walletconnect/legacy-provider': 2.0.0
       '@web3modal/standalone': 2.3.0
@@ -1340,6 +1342,29 @@ packages:
       '@typescript-eslint/types': 5.49.0
       eslint-visitor-keys: 3.3.0
     dev: true
+    
+  /@venly/connect@1.41.0-develop.37:
+    resolution: {integrity: sha512-3peOgWEVi7ikJ9SUewB6Ho0eI4DHrxRbEgk0OgDtxJq7L9DeTESx7RnWZseRAJ+C8apdsiUI74/LC4FVHvB4lw==}
+    dependencies:
+      '@types/node': 12.20.55
+      core-js: 3.30.1
+      es6-promise: 4.2.8
+      keycloak-js: 11.0.2
+      querystring: 0.2.1
+    dev: false
+
+  /@venly/web3-provider@3.0.0-develop.8:
+    resolution: {integrity: sha512-ewA6vProJAbsEJbrRXWhC734t1MzSq7a/KWnTdvlIW4XAj806+FKQE2CgyDd+2be9S7EWqBA6+B886qDUXn3ng==}
+    dependencies:
+      '@metamask/eth-json-rpc-middleware': 11.0.0
+      '@metamask/eth-json-rpc-provider': 1.0.0
+      '@venly/connect': 1.41.0-develop.37
+      eth-block-tracker: 7.0.0
+      eth-json-rpc-filters: 6.0.0
+      json-rpc-engine: 6.1.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /@vitest/coverage-c8/0.25.8_eetf2xjpdhuqcs2dx4ndfgw7iq:
     resolution: {integrity: sha512-fWgzQoK2KNzTTNnDcLCyibfO9/pbcpPOMtZ9Yvq/Eggpi2X8lewx/OcKZkO5ba5q9dl6+BBn6d5hTcS1709rZw==}
