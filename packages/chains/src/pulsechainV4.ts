@@ -4,6 +4,7 @@ export const pulsechainV4 = {
   id: 943,
   network: 'pulsechainV4',
   name: 'Pulsechain V4',
+  testnet: true,
   nativeCurrency: { name: 'Pulse', symbol: 'PLS', decimals: 18 },
   rpcUrls: {
     default: {
