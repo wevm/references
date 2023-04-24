@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94001bc2-9ce2-42ec-8d25-6dba9175af84" name="Changes" comment=":art: Other changes" />
+    <list default="true" id="94001bc2-9ce2-42ec-8d25-6dba9175af84" name="Changes" comment=":white_check_mark: Fix issue with Lint checking">
+      <change beforePath="$PROJECT_DIR$/.idea/git_toolbox_prj.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/wagmi-references.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,7 +68,7 @@
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2022.2.3\\plugins\\JavaScriptLanguage\\jsLanguageServicesImpl\\external"
+    "ts.external.directory.path": "C:\\ekta\\wagmi-references\\node_modules\\typescript\\lib"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -73,7 +80,7 @@
       <option name="presentableId" value="Default" />
       <updated>1681971313701</updated>
       <workItem from="1681971315106" duration="4323000" />
-      <workItem from="1682290805871" duration="1056000" />
+      <workItem from="1682290805871" duration="1709000" />
     </task>
     <task id="LOCAL-00001" summary=":fire: Added Ekta Chain and Ekta Chain Testnet">
       <created>1681972715484</created>
@@ -96,7 +103,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682293271149</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary=":white_check_mark: Fix issue with Lint checking">
+      <created>1682293865972</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1682293865972</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -116,6 +130,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value=":fire: Added Ekta Chain and Ekta Chain Testnet" />
     <MESSAGE value=":art: Other changes" />
-    <option name="LAST_COMMIT_MESSAGE" value=":art: Other changes" />
+    <MESSAGE value=":white_check_mark: Fix issue with Lint checking" />
+    <option name="LAST_COMMIT_MESSAGE" value=":white_check_mark: Fix issue with Lint checking" />
   </component>
 </project>
