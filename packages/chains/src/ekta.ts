@@ -2,7 +2,7 @@ import { Chain } from './types'
 
 export const ekta = {
   id: 1994,
-  name: 'Ekta Chain',
+  name: 'Ekta',
   network: 'ekta',
   nativeCurrency: {
     decimals: 18,
@@ -16,5 +16,4 @@ export const ekta = {
   blockExplorers: {
     default: { name: 'Ektascan', url: 'https://ektascan.io' },
   },
-  testnet: false,
 } as const satisfies Chain
