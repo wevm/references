@@ -50,10 +50,12 @@ export class MetaMaskConnector extends InjectedConnector {
           if (ethereum.isApexWallet) return
           if (ethereum.isAvalanche) return
           if (ethereum.isBitKeep) return
+          if (ethereum.isBlockWallet) return
           if (ethereum.isKuCoinWallet) return
           if (ethereum.isMathWallet) return
           if (ethereum.isOkxWallet || ethereum.isOKExWallet) return
-          if (ethereum.isOneInchIOSWallet || ethereum.isOneInchAndroidWallet) return
+          if (ethereum.isOneInchIOSWallet || ethereum.isOneInchAndroidWallet)
+            return
           if (ethereum.isOpera) return
           if (ethereum.isPortal) return
           if (ethereum.isRabby) return

@@ -2,7 +2,7 @@
   "name": "@wagmi/connectors",
   "description": "A collection of connectors for wagmi",
   "license": "MIT",
-  "version": "0.3.13",
+  "version": "0.3.18",
   "scripts": {
     "build": "tsup",
     "dev": "DEV=true tsup"
@@ -21,7 +21,7 @@
     }
   },
   "dependencies": {
-    "@coinbase/wallet-sdk": "^3.6.4",
+    "@coinbase/wallet-sdk": "^3.6.6",
     "@ledgerhq/connect-kit-loader": "^1.0.1",
     "@walletconnect/ethereum-provider": "2.7.0",
     "@walletconnect/legacy-provider": "^2.0.0",

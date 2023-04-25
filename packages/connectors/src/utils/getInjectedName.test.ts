@@ -19,6 +19,7 @@ describe.each([
   { ethereum: { isBifrost: true }, expected: 'Bifrost Wallet' },
   { ethereum: { isBitKeep: true }, expected: 'BitKeep' },
   { ethereum: { isBitski: true }, expected: 'Bitski' },
+  { ethereum: { isBlockWallet: true }, expected: 'BlockWallet' },
   { ethereum: { isBraveWallet: true }, expected: 'Brave Wallet' },
   {
     ethereum: { isBraveWallet: true, isMetaMask: true },
@@ -31,6 +32,7 @@ describe.each([
   { ethereum: { isFrontier: true }, expected: 'Frontier Wallet' },
   { ethereum: { isGamestop: true }, expected: 'GameStop Wallet' },
   { ethereum: { isHyperPay: true }, expected: 'HyperPay Wallet' },
+  { ethereum: { isImToken: true }, expected: 'ImToken' },
   { ethereum: { isKuCoinWallet: true }, expected: 'KuCoin Wallet' },
   {
     ethereum: { isKuCoinWallet: true, isMetaMask: true },
