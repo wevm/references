@@ -2,7 +2,7 @@ import { Chain } from './types'
 
 export const ektaTestnet = {
   id: 1004,
-  name: 'Ekta Chain Testnet',
+  name: 'Ekta Testnet',
   network: 'ekta-testnet',
   nativeCurrency: {
     decimals: 18,
