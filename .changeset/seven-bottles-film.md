@@ -2,4 +2,4 @@
 '@wagmi/connectors': minor
 ---
 
-Add Enkrypt extension detection
+Added Enkrypt extension detection
