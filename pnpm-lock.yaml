@@ -122,8 +122,8 @@ importers:
         specifier: ^7.9.0
         version: 7.10.1
       '@walletconnect/ethereum-provider':
-        specifier: 2.7.0
-        version: 2.7.0(@web3modal/standalone@2.3.6)(lokijs@1.5.12)
+        specifier: 2.7.1
+        version: 2.7.1(@web3modal/standalone@2.3.6)(lokijs@1.5.12)
       '@walletconnect/legacy-provider':
         specifier: ^2.0.0
         version: 2.0.0
@@ -145,7 +145,7 @@ importers:
     devDependencies:
       '@wagmi/core':
         specifier: ^0.8.19
-        version: 0.8.19(@coinbase/wallet-sdk@3.6.6)(@walletconnect/ethereum-provider@2.7.0)(ethers@5.7.2)(lokijs@1.5.12)(react@18.2.0)(typescript@4.9.5)
+        version: 0.8.19(@coinbase/wallet-sdk@3.6.6)(@walletconnect/ethereum-provider@2.7.1)(ethers@5.7.2)(lokijs@1.5.12)(react@18.2.0)(typescript@4.9.5)
       ethereum-provider:
         specifier: ^0.7.7
         version: 0.7.7
@@ -1446,7 +1446,7 @@ packages:
     dependencies:
       '@coinbase/wallet-sdk': 3.6.6
       '@ledgerhq/connect-kit-loader': 1.0.2
-      '@wagmi/core': 0.8.19(@coinbase/wallet-sdk@3.6.6)(@walletconnect/ethereum-provider@2.7.0)(ethers@5.7.2)(lokijs@1.5.12)(react@18.2.0)(typescript@4.9.5)
+      '@wagmi/core': 0.8.19(@coinbase/wallet-sdk@3.6.6)(@walletconnect/ethereum-provider@2.7.1)(ethers@5.7.2)(lokijs@1.5.12)(react@18.2.0)(typescript@4.9.5)
       '@walletconnect/ethereum-provider': 1.8.0
       '@walletconnect/universal-provider': 2.7.0(lokijs@1.5.12)
       '@web3modal/standalone': 2.3.6(react@18.2.0)
@@ -1463,7 +1463,7 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@wagmi/core@0.8.19(@coinbase/wallet-sdk@3.6.6)(@walletconnect/ethereum-provider@2.7.0)(ethers@5.7.2)(lokijs@1.5.12)(react@18.2.0)(typescript@4.9.5):
+  /@wagmi/core@0.8.19(@coinbase/wallet-sdk@3.6.6)(@walletconnect/ethereum-provider@2.7.1)(ethers@5.7.2)(lokijs@1.5.12)(react@18.2.0)(typescript@4.9.5):
     resolution: {integrity: sha512-B1iXB4MRjxgoybZATRmBI7YEfUhpIl3aZGUjo5GXPU1SNtlXIA4/3wePlmLD64XzICXVBp99kynrrdlvJxc4gw==}
     peerDependencies:
       '@coinbase/wallet-sdk': '>=3.6.0'
@@ -1478,7 +1478,7 @@ packages:
       '@coinbase/wallet-sdk': 3.6.6
       '@wagmi/chains': 0.1.14
       '@wagmi/connectors': 0.1.10(@wagmi/core@0.8.19)(ethers@5.7.2)(lokijs@1.5.12)(react@18.2.0)
-      '@walletconnect/ethereum-provider': 2.7.0(@web3modal/standalone@2.3.6)(lokijs@1.5.12)
+      '@walletconnect/ethereum-provider': 2.7.1(@web3modal/standalone@2.3.6)(lokijs@1.5.12)
       abitype: 0.2.5(typescript@4.9.5)
       ethers: 5.7.2
       eventemitter3: 4.0.7
@@ -1554,6 +1554,31 @@ packages:
       - bufferutil
       - lokijs
       - utf-8-validate
+    dev: true
+
+  /@walletconnect/core@2.7.1(lokijs@1.5.12):
+    resolution: {integrity: sha512-ClESMat8v//dpvuFFBDiCPkbYGFhX/+dkwkl9tDWyj716CrR4iQ6/PdXZH8P7D05Wcl7n/lEqgVzTG3xfVporQ==}
+    dependencies:
+      '@walletconnect/heartbeat': 1.2.1
+      '@walletconnect/jsonrpc-provider': 1.0.12
+      '@walletconnect/jsonrpc-utils': 1.0.7
+      '@walletconnect/jsonrpc-ws-connection': 1.0.11
+      '@walletconnect/keyvaluestorage': 1.0.2(lokijs@1.5.12)
+      '@walletconnect/logger': 2.0.1
+      '@walletconnect/relay-api': 1.0.9
+      '@walletconnect/relay-auth': 1.0.4
+      '@walletconnect/safe-json': 1.0.2
+      '@walletconnect/time': 1.0.2
+      '@walletconnect/types': 2.7.1(lokijs@1.5.12)
+      '@walletconnect/utils': 2.7.1(lokijs@1.5.12)
+      events: 3.3.0
+      lodash.isequal: 4.5.0
+      uint8arrays: 3.1.1
+    transitivePeerDependencies:
+      - '@react-native-async-storage/async-storage'
+      - bufferutil
+      - lokijs
+      - utf-8-validate
 
   /@walletconnect/crypto@1.0.3:
     resolution: {integrity: sha512-+2jdORD7XQs76I2Odgr3wwrtyuLUXD/kprNVsjWRhhhdO9Mt6WqVzOPu0/t7OHSmgal8k7SoBQzUc5hu/8zL/g==}
@@ -1596,8 +1621,8 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@walletconnect/ethereum-provider@2.7.0(@web3modal/standalone@2.3.6)(lokijs@1.5.12):
-    resolution: {integrity: sha512-6TwQ05zi6DP1TP1XNgSvLbmCmLf/sz7kLTfMaVk45YYHNgYTTBlXqkyjUpQZI9lpq+uXLBbHn/jx2OGhOPUP0Q==}
+  /@walletconnect/ethereum-provider@2.7.1(@web3modal/standalone@2.3.6)(lokijs@1.5.12):
+    resolution: {integrity: sha512-dg4Si6DTo/XpElMLrLWXwpVcPW3ypFqoDCYpvxSvwLzb7yIuzVC+Qd7CClv9DTKmwPHIwLjeX5IHw2Iytba1nw==}
     peerDependencies:
       '@web3modal/standalone': '>=2'
     peerDependenciesMeta:
@@ -1608,10 +1633,10 @@ packages:
       '@walletconnect/jsonrpc-provider': 1.0.12
       '@walletconnect/jsonrpc-types': 1.0.2
       '@walletconnect/jsonrpc-utils': 1.0.7
-      '@walletconnect/sign-client': 2.7.0(lokijs@1.5.12)
-      '@walletconnect/types': 2.7.0(lokijs@1.5.12)
-      '@walletconnect/universal-provider': 2.7.0(lokijs@1.5.12)
-      '@walletconnect/utils': 2.7.0(lokijs@1.5.12)
+      '@walletconnect/sign-client': 2.7.1(lokijs@1.5.12)
+      '@walletconnect/types': 2.7.1(lokijs@1.5.12)
+      '@walletconnect/universal-provider': 2.7.1(lokijs@1.5.12)
+      '@walletconnect/utils': 2.7.1(lokijs@1.5.12)
       '@web3modal/standalone': 2.3.6(react@18.2.0)
       events: 3.3.0
     transitivePeerDependencies:
@@ -1830,6 +1855,25 @@ packages:
       - bufferutil
       - lokijs
       - utf-8-validate
+    dev: true
+
+  /@walletconnect/sign-client@2.7.1(lokijs@1.5.12):
+    resolution: {integrity: sha512-DVmrrkdLJjD9CZBWBRYbCdFpYtZH0zpsNE/5DEvaxEoNshLut0/NUwn4z2zetnc+nKgr7ThnotNMItuqTG5Xkg==}
+    dependencies:
+      '@walletconnect/core': 2.7.1(lokijs@1.5.12)
+      '@walletconnect/events': 1.0.1
+      '@walletconnect/heartbeat': 1.2.1
+      '@walletconnect/jsonrpc-utils': 1.0.7
+      '@walletconnect/logger': 2.0.1
+      '@walletconnect/time': 1.0.2
+      '@walletconnect/types': 2.7.1(lokijs@1.5.12)
+      '@walletconnect/utils': 2.7.1(lokijs@1.5.12)
+      events: 3.3.0
+    transitivePeerDependencies:
+      - '@react-native-async-storage/async-storage'
+      - bufferutil
+      - lokijs
+      - utf-8-validate
 
   /@walletconnect/signer-connection@1.8.0:
     resolution: {integrity: sha512-+YAaTAP52MWZJ2wWnqKClKCPlPHBo6reURFe0cWidLADh9mi/kPWGALZ5AENK22zpem1bbKV466rF5Rzvu0ehA==}
@@ -1878,6 +1922,20 @@ packages:
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - lokijs
+    dev: true
+
+  /@walletconnect/types@2.7.1(lokijs@1.5.12):
+    resolution: {integrity: sha512-5158RnzVHDMQ3N5K8cl3HzriQxyVeHNUwBdgAG1qnJe1J04UwxfWOnNioVO7BeKT0yrf9UB5IMH+OYqnWI0ClA==}
+    dependencies:
+      '@walletconnect/events': 1.0.1
+      '@walletconnect/heartbeat': 1.2.1
+      '@walletconnect/jsonrpc-types': 1.0.2
+      '@walletconnect/keyvaluestorage': 1.0.2(lokijs@1.5.12)
+      '@walletconnect/logger': 2.0.1
+      events: 3.3.0
+    transitivePeerDependencies:
+      - '@react-native-async-storage/async-storage'
+      - lokijs
 
   /@walletconnect/universal-provider@2.7.0(lokijs@1.5.12):
     resolution: {integrity: sha512-aAIudO3ZlKD16X36VnXChpxBB6/JLK1SCJBfidk7E0GE2S4xr1xW5jXGSGS4Z+wIkNZXK0n7ULSK3PZ7mPBdog==}
@@ -1890,6 +1948,28 @@ packages:
       '@walletconnect/sign-client': 2.7.0(lokijs@1.5.12)
       '@walletconnect/types': 2.7.0(lokijs@1.5.12)
       '@walletconnect/utils': 2.7.0(lokijs@1.5.12)
+      eip1193-provider: 1.0.1
+      events: 3.3.0
+    transitivePeerDependencies:
+      - '@react-native-async-storage/async-storage'
+      - bufferutil
+      - debug
+      - encoding
+      - lokijs
+      - utf-8-validate
+    dev: true
+
+  /@walletconnect/universal-provider@2.7.1(lokijs@1.5.12):
+    resolution: {integrity: sha512-fxWlXqJP1qArMzZrMU1b7X38V9IUCQ2PJeN/DBVwOF7/iKURySkqRGOCcCkOJV/fgc+yWjognUJx0oZIsoafpA==}
+    dependencies:
+      '@walletconnect/jsonrpc-http-connection': 1.0.6
+      '@walletconnect/jsonrpc-provider': 1.0.12
+      '@walletconnect/jsonrpc-types': 1.0.2
+      '@walletconnect/jsonrpc-utils': 1.0.7
+      '@walletconnect/logger': 2.0.1
+      '@walletconnect/sign-client': 2.7.1(lokijs@1.5.12)
+      '@walletconnect/types': 2.7.1(lokijs@1.5.12)
+      '@walletconnect/utils': 2.7.1(lokijs@1.5.12)
       eip1193-provider: 1.0.1
       events: 3.3.0
     transitivePeerDependencies:
@@ -1933,6 +2013,29 @@ packages:
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
       - lokijs
+    dev: true
+
+  /@walletconnect/utils@2.7.1(lokijs@1.5.12):
+    resolution: {integrity: sha512-a/EHIpbymLHmboONTe0qNFizjS/x3r5qfiUe143YI4cL8glIlVuWnu2PpdAlEiSjACJocEcSxOJrsh2aonzw3A==}
+    dependencies:
+      '@stablelib/chacha20poly1305': 1.0.1
+      '@stablelib/hkdf': 1.0.1
+      '@stablelib/random': 1.0.2
+      '@stablelib/sha256': 1.0.1
+      '@stablelib/x25519': 1.0.3
+      '@walletconnect/jsonrpc-utils': 1.0.7
+      '@walletconnect/relay-api': 1.0.9
+      '@walletconnect/safe-json': 1.0.2
+      '@walletconnect/time': 1.0.2
+      '@walletconnect/types': 2.7.1(lokijs@1.5.12)
+      '@walletconnect/window-getters': 1.0.1
+      '@walletconnect/window-metadata': 1.0.1
+      detect-browser: 5.3.0
+      query-string: 7.1.3
+      uint8arrays: 3.1.1
+    transitivePeerDependencies:
+      - '@react-native-async-storage/async-storage'
+      - lokijs
 
   /@walletconnect/window-getters@1.0.0:
     resolution: {integrity: sha512-xB0SQsLaleIYIkSsl43vm8EwETpBzJ2gnzk7e0wMF3ktqiTGS6TFHxcprMl5R44KKh4tCcHCJwolMCaDSwtAaA==}
@@ -1946,7 +2049,7 @@ packages:
   /@walletconnect/window-metadata@1.0.0:
     resolution: {integrity: sha512-9eFvmJxIKCC3YWOL97SgRkKhlyGXkrHwamfechmqszbypFspaSk+t2jQXAEU7YClHF6Qjw5eYOmy1//zFi9/GA==}
     dependencies:
-      '@walletconnect/window-getters': 1.0.0
+      '@walletconnect/window-getters': 1.0.1
     dev: true
 
   /@walletconnect/window-metadata@1.0.1:
@@ -5486,6 +5589,16 @@ packages:
 
   /query-string@7.1.1:
     resolution: {integrity: sha512-MplouLRDHBZSG9z7fpuAAcI7aAYjDLhtsiVZsevsfaHWDS2IDdORKbSd1kWUA+V4zyva/HZoSfpwnYMMQDhb0w==}
+    engines: {node: '>=6'}
+    dependencies:
+      decode-uri-component: 0.2.2
+      filter-obj: 1.1.0
+      split-on-first: 1.1.0
+      strict-uri-encode: 2.0.0
+    dev: true
+
+  /query-string@7.1.3:
+    resolution: {integrity: sha512-hh2WYhq4fi8+b+/2Kg9CEge4fDPvHS534aOOvOZeQ3+Vf2mCFsaFBYj0i+iXcAq6I9Vzp5fjMFBlONvayDC1qg==}
     engines: {node: '>=6'}
     dependencies:
       decode-uri-component: 0.2.2
