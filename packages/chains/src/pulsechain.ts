@@ -16,13 +16,9 @@ export const pulsechain = {
     },
   },
   blockExplorers: {
-    etherscan: {
-      name: 'Etherscan',
-      url: 'https://scan.mainnet.pulsechain.com',
-    },
     default: {
       name: 'Etherscan',
-      url: 'https://scan.mainnet.pulsechain.com',
+      url: 'https://scan.pulsechain.com',
     },
   },
   contracts: {

@@ -17,12 +17,8 @@ export const pulsechainV4 = {
     },
   },
   blockExplorers: {
-    etherscan: {
-      name: 'Etherscan',
-      url: 'https://scan.v4.testnet.pulsechain.com',
-    },
     default: {
-      name: 'Etherscan',
+      name: 'Blockscout',
       url: 'https://scan.v4.testnet.pulsechain.com',
     },
   },
