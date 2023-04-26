@@ -1,5 +1,15 @@
 # @wagmi/connectors
 
+## 1.0.0-next.0
+
+### Major Changes
+
+- 33488cf: Released v1.
+
+### Patch Changes
+
+- 2a21d27: Updated `@coinbase/wallet-sdk` to `3.6.4`
+
 ## 0.3.12
 
 ### Patch Changes
