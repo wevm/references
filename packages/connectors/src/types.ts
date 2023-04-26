@@ -55,6 +55,7 @@ type InjectedProviderFlags = {
   isBraveWallet?: true
   isCoinbaseWallet?: true
   isDawn?: true
+  isEnkrypt?: true
   isExodus?: true
   isFrame?: true
   isFrontier?: true

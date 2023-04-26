@@ -14,6 +14,7 @@ export function getInjectedName(ethereum?: Ethereum) {
     if (provider.isBraveWallet) return 'Brave Wallet'
     if (provider.isCoinbaseWallet) return 'Coinbase Wallet'
     if (provider.isDawn) return 'Dawn Wallet'
+    if (provider.isEnkrypt) return 'Enkrypt'
     if (provider.isExodus) return 'Exodus'
     if (provider.isFrame) return 'Frame'
     if (provider.isFrontier) return 'Frontier Wallet'
