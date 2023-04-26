@@ -1,5 +1,5 @@
 ---
-'@wagmi/connectors': minor
+'@wagmi/connectors': patch
 ---
 
 Added Enkrypt extension detection
