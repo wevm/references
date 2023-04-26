@@ -6,19 +6,19 @@ import {
   UserRejectedRequestError,
   normalizeChainId,
 } from '@wagmi/core'
-import type EthereumProvider from 'ethereum-provider'
+import Provider from 'ethereum-provider'
 import { providers } from 'ethers'
 import { getAddress, hexValue } from 'ethers/lib/utils.js'
 
 import type { ConnectorData } from './base'
 import { Connector } from './base'
 
-export class FrameConnector extends Connector<EthereumProvider> {
+export class FrameConnector extends Connector<Provider> {
   readonly id = 'frame'
   readonly name = 'Frame'
   readonly ready = true
 
-  #provider?: EthereumProvider
+  #provider?: Provider
 
   constructor({
     chains,
@@ -29,7 +29,7 @@ export class FrameConnector extends Connector<EthereumProvider> {
 
     this.#provider =
       typeof window !== 'undefined' && window.ethereum?.isFrame
-        ? (window.ethereum as unknown as EthereumProvider)
+        ? (window.ethereum as unknown as Provider)
         : undefined
   }
 
