@@ -26,11 +26,16 @@ export class FrameConnector extends Connector<EthereumProvider> {
     chains?: Chain[]
   } = {}) {
     super({ chains, options: {} })
+
+    this.#provider =
+      typeof window !== 'undefined' && window.ethereum?.isFrame
+        ? (window.ethereum as unknown as EthereumProvider)
+        : undefined
   }
 
   async connect(): Promise<Required<ConnectorData>> {
     try {
-      const provider = await this.getProvider({ create: true })
+      const provider = await this.getProvider()
 
       if (provider.on) {
         provider.on('accountsChanged', this.onAccountsChanged)
@@ -102,12 +107,8 @@ export class FrameConnector extends Connector<EthereumProvider> {
     return normalizeChainId(chainId)
   }
 
-  async getProvider(
-    { chainId, create }: { chainId?: number; create?: boolean } = {
-      create: false,
-    },
-  ) {
-    if (!this.#provider || chainId || create) {
+  async getProvider() {
+    if (!this.#provider) {
       const ethProvider = (await import('eth-provider')).default
       this.#provider = ethProvider('frame')
     }
@@ -116,7 +117,7 @@ export class FrameConnector extends Connector<EthereumProvider> {
 
   async getSigner({ chainId }: { chainId?: number } = {}) {
     const [provider, account] = await Promise.all([
-      this.getProvider({ chainId }),
+      this.getProvider(),
       this.getAccount(),
     ])
     return new providers.Web3Provider(
