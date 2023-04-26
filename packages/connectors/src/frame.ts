@@ -18,6 +18,7 @@ export class FrameConnector extends Connector<Provider> {
   readonly name = 'Frame'
   readonly ready = true
 
+  #injected = false
   #provider?: Provider
 
   constructor({
@@ -27,10 +28,12 @@ export class FrameConnector extends Connector<Provider> {
   } = {}) {
     super({ chains, options: {} })
 
-    this.#provider =
+    this.#injected = !!(
       typeof window !== 'undefined' && window.ethereum?.isFrame
-        ? (window.ethereum as unknown as Provider)
-        : undefined
+    )
+    this.#provider = this.#injected
+      ? (window.ethereum as unknown as Provider)
+      : undefined
   }
 
   async connect(): Promise<Required<ConnectorData>> {
@@ -58,9 +61,7 @@ export class FrameConnector extends Connector<Provider> {
       return {
         account,
         chain: { id, unsupported },
-        provider: new providers.Web3Provider(
-          provider as unknown as providers.ExternalProvider,
-        ),
+        provider,
       }
     } catch (error) {
       if ((error as ProviderRpcError).code === 4001) {
@@ -77,14 +78,14 @@ export class FrameConnector extends Connector<Provider> {
   async disconnect() {
     const provider = await this.getProvider()
 
-    if (provider?.close) {
-      provider.close()
-    }
-
     if (provider?.removeListener) {
       provider.removeListener('accountsChanged', this.onAccountsChanged)
       provider.removeListener('chainChanged', this.onChainChanged)
       provider.removeListener('disconnect', this.onDisconnect)
+    }
+
+    if (provider?.close) {
+      provider.close()
     }
   }
 
