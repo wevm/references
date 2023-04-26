@@ -123,13 +123,13 @@ importers:
         version: 7.10.1
       '@walletconnect/ethereum-provider':
         specifier: 2.7.1
-        version: 2.7.1(@web3modal/standalone@2.3.6)(lokijs@1.5.12)
+        version: 2.7.1(@web3modal/standalone@2.3.7)(lokijs@1.5.12)
       '@walletconnect/legacy-provider':
         specifier: ^2.0.0
         version: 2.0.0
       '@web3modal/standalone':
-        specifier: ^2.3.0
-        version: 2.3.6(react@18.2.0)
+        specifier: ^2.3.7
+        version: 2.3.7(react@18.2.0)
       abitype:
         specifier: ^0.3.0
         version: 0.3.0(typescript@4.9.5)
@@ -1449,7 +1449,7 @@ packages:
       '@wagmi/core': 0.8.19(@coinbase/wallet-sdk@3.6.6)(@walletconnect/ethereum-provider@2.7.1)(ethers@5.7.2)(lokijs@1.5.12)(react@18.2.0)(typescript@4.9.5)
       '@walletconnect/ethereum-provider': 1.8.0
       '@walletconnect/universal-provider': 2.7.0(lokijs@1.5.12)
-      '@web3modal/standalone': 2.3.6(react@18.2.0)
+      '@web3modal/standalone': 2.3.7(react@18.2.0)
       ethers: 5.7.2
       eventemitter3: 4.0.7
     transitivePeerDependencies:
@@ -1478,7 +1478,7 @@ packages:
       '@coinbase/wallet-sdk': 3.6.6
       '@wagmi/chains': 0.1.14
       '@wagmi/connectors': 0.1.10(@wagmi/core@0.8.19)(ethers@5.7.2)(lokijs@1.5.12)(react@18.2.0)
-      '@walletconnect/ethereum-provider': 2.7.1(@web3modal/standalone@2.3.6)(lokijs@1.5.12)
+      '@walletconnect/ethereum-provider': 2.7.1(@web3modal/standalone@2.3.7)(lokijs@1.5.12)
       abitype: 0.2.5(typescript@4.9.5)
       ethers: 5.7.2
       eventemitter3: 4.0.7
@@ -1621,7 +1621,7 @@ packages:
       - utf-8-validate
     dev: true
 
-  /@walletconnect/ethereum-provider@2.7.1(@web3modal/standalone@2.3.6)(lokijs@1.5.12):
+  /@walletconnect/ethereum-provider@2.7.1(@web3modal/standalone@2.3.7)(lokijs@1.5.12):
     resolution: {integrity: sha512-dg4Si6DTo/XpElMLrLWXwpVcPW3ypFqoDCYpvxSvwLzb7yIuzVC+Qd7CClv9DTKmwPHIwLjeX5IHw2Iytba1nw==}
     peerDependencies:
       '@web3modal/standalone': '>=2'
@@ -1637,7 +1637,7 @@ packages:
       '@walletconnect/types': 2.7.1(lokijs@1.5.12)
       '@walletconnect/universal-provider': 2.7.1(lokijs@1.5.12)
       '@walletconnect/utils': 2.7.1(lokijs@1.5.12)
-      '@web3modal/standalone': 2.3.6(react@18.2.0)
+      '@web3modal/standalone': 2.3.7(react@18.2.0)
       events: 3.3.0
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
@@ -2058,29 +2058,29 @@ packages:
       '@walletconnect/window-getters': 1.0.1
       tslib: 1.14.1
 
-  /@web3modal/core@2.3.6(react@18.2.0):
-    resolution: {integrity: sha512-65zO6Szdn16eBG2YJT3jgYAMcmtWaCy24RQu6x/fXY0V/IsgyR2JyBci4m1r6RU+7f1rrHDCnb8WTgIcSy5Ozw==}
+  /@web3modal/core@2.3.7(react@18.2.0):
+    resolution: {integrity: sha512-ggl9+tkAzz43npj97iTj6p4oQYaklxADQyCKAX7AnMfglZg5bRseMDGnfmpvnjlDn8TI+DGGO6da3ITmYRIDYQ==}
     dependencies:
       buffer: 6.0.3
       valtio: 1.10.4(react@18.2.0)
     transitivePeerDependencies:
       - react
 
-  /@web3modal/standalone@2.3.6(react@18.2.0):
-    resolution: {integrity: sha512-JT5NMefI9luSqKU/aOiGYYtdLXj2LvmnyZGosmY/31bTawbbxfaP7PXd0ZoiC4bpHFuooxiR6kbMURd06SrwuQ==}
+  /@web3modal/standalone@2.3.7(react@18.2.0):
+    resolution: {integrity: sha512-zgavWcimRVXnLdup2WQ0fFEnBnH+Wwn+k1/XzhwVpdJ//mrExWNYQaXt139RijxGUcux68ExRCyMqm1jkXTq3g==}
     dependencies:
-      '@web3modal/core': 2.3.6(react@18.2.0)
-      '@web3modal/ui': 2.3.6(react@18.2.0)
+      '@web3modal/core': 2.3.7(react@18.2.0)
+      '@web3modal/ui': 2.3.7(react@18.2.0)
     transitivePeerDependencies:
       - react
 
-  /@web3modal/ui@2.3.6(react@18.2.0):
-    resolution: {integrity: sha512-OlM/+z/PZhk9mklVIgtuN+VWjQz8S7Jebg5bC01a9jkUwds0ouFA+X5BBbbvTy2VbcCR4aUWokUYII71aWadFA==}
+  /@web3modal/ui@2.3.7(react@18.2.0):
+    resolution: {integrity: sha512-mNDXY4ElcvXXixKHZTLcEjKC9zs3O8BD1EtaC8cKIy+RKFyHMpLB1DOQmz77tn91jNjOkrvEryqUwCbsJ7hjfA==}
     dependencies:
-      '@web3modal/core': 2.3.6(react@18.2.0)
-      lit: 2.7.2
+      '@web3modal/core': 2.3.7(react@18.2.0)
+      lit: 2.7.3
       motion: 10.15.5
-      qrcode: 1.5.1
+      qrcode: 1.5.3
     transitivePeerDependencies:
       - react
 
@@ -4766,8 +4766,8 @@ packages:
     dependencies:
       '@types/trusted-types': 2.0.3
 
-  /lit@2.7.2:
-    resolution: {integrity: sha512-9QnZmG5mIKPRja96cpndMclLSi0Qrz2BXD6EbqNqCKMMjOWVm/BwAeXufFk2jqFsNmY07HOzU8X+8aTSVt3yrA==}
+  /lit@2.7.3:
+    resolution: {integrity: sha512-0a+u+vVbmgSfPu+fyvqjMPBX0Kwbyj9QOv9MbQFZhWGlV2cyk3lEwgfUQgYN+i/lx++1Z3wZknSIp3QCKxHLyg==}
     dependencies:
       '@lit/reactive-element': 1.6.1
       lit-element: 3.3.1
@@ -5541,16 +5541,6 @@ packages:
       yargs: 13.3.2
     dev: true
 
-  /qrcode@1.5.1:
-    resolution: {integrity: sha512-nS8NJ1Z3md8uTjKtP+SGGhfqmTCs5flU/xR623oI0JX+Wepz9R8UrRVCTBTJm3qGw3rH6jJ6MUHjkDx15cxSSg==}
-    engines: {node: '>=10.13.0'}
-    hasBin: true
-    dependencies:
-      dijkstrajs: 1.0.3
-      encode-utf8: 1.0.3
-      pngjs: 5.0.0
-      yargs: 15.4.1
-
   /qrcode@1.5.3:
     resolution: {integrity: sha512-puyri6ApkEHYiVl4CFzo1tDkAZ+ATcnbJrJ6RiBM1Fhctdn/ix9MTE3hRph33omisEbC/2fcfemsseiKgBPKZg==}
     engines: {node: '>=10.13.0'}
@@ -5560,7 +5550,6 @@ packages:
       encode-utf8: 1.0.3
       pngjs: 5.0.0
       yargs: 15.4.1
-    dev: false
 
   /qs@6.11.1:
     resolution: {integrity: sha512-0wsrzgTz/kAVIeuxSjnpGC56rzYtr6JT/2BwEvMaPhFIoYa1aGO8LbzuU1R0uUYQkLpWBTOj0l/CLAJB64J6nQ==}

@@ -27,7 +27,7 @@
     "@safe-global/safe-apps-sdk": "^7.9.0",
     "@walletconnect/ethereum-provider": "2.7.1",
     "@walletconnect/legacy-provider": "^2.0.0",
-    "@web3modal/standalone": "^2.3.0",
+    "@web3modal/standalone": "^2.3.7",
     "abitype": "^0.3.0",
     "eth-provider": "^0.13.6",
     "eventemitter3": "^4.0.7"
