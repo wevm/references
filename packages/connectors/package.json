@@ -49,6 +49,10 @@
       "types": "./dist/coinbaseWallet.d.ts",
       "default": "./dist/coinbaseWallet.js"
     },
+    "./frame": {
+      "types": "./dist/frame.d.ts",
+      "default": "./dist/frame.js"
+    },
     "./injected": {
       "types": "./dist/injected.d.ts",
       "default": "./dist/injected.js"
@@ -81,6 +85,7 @@
   },
   "files": [
     "/coinbaseWallet",
+    "/frame",
     "/injected",
     "/ledger",
     "/metaMask",
