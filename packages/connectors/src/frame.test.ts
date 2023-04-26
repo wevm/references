@@ -1,13 +1,13 @@
 import { testChains } from '@wagmi/core/internal/test'
 
-import EthereumProvider from 'ethereum-provider'
+import Provider from 'ethereum-provider'
 import { describe, expect, it, vitest } from 'vitest'
 
 import { FrameConnector } from './frame'
 import { Ethereum } from './types'
 import { EventEmitter } from 'stream'
 
-class FrameProvider extends EthereumProvider {}
+class FrameProvider extends Provider {}
 
 class FrameConnection extends EventEmitter {
   constructor() {
