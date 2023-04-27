@@ -1,3 +1,4 @@
+import { Chain } from '@wagmi/core'
 import { testChains } from '@wagmi/core/internal/test'
 import Provider from 'ethereum-provider'
 import { describe, expect, it, vitest } from 'vitest'
@@ -143,7 +144,28 @@ describe('FrameConnector', () => {
     expect(provider.isConnected()).toEqual(false)
   })
 
-  it.todo('switches chains')
+  it('switches chains', async () => {
+    window.ethereum = undefined
+    const connector = new FrameConnector({
+      chains: testChains,
+    })
+    const provider = await connector.getProvider()
+    provider.request = vitest.fn().mockImplementation(
+      (requestArgs: { method: string }) =>
+        new Promise((resolve) => {
+          if (requestArgs.method === 'eth_requestAccounts')
+            resolve(['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B'])
+          resolve([])
+        }),
+    )
+    await (connector.switchChain as (chainId: number) => Promise<Chain>)(5)
+    await new Promise((resolve) => {
+      provider.on('chainChanged', (chainId) => {
+        expect(chainId).toEqual(5)
+        resolve(true)
+      })
+    })
+  })
 
   it.todo('switches accounts')
 
