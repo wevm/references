@@ -1,9 +1,11 @@
 import {
   Chain,
+  ConnectorNotFoundError,
   ProviderRpcError,
   RpcError,
   SwitchChainError,
   UserRejectedRequestError,
+  getClient,
   normalizeChainId,
 } from '@wagmi/core'
 import Provider from 'ethereum-provider'
@@ -13,32 +15,55 @@ import { getAddress, hexValue } from 'ethers/lib/utils.js'
 import type { ConnectorData } from './base'
 import { Connector } from './base'
 
+export type FrameConnectorOptions = {
+  /**
+   * MetaMask and other injected providers do not support programmatic disconnect.
+   * This flag simulates the disconnect behavior by keeping track of connection status in storage. See [GitHub issue](https://github.com/MetaMask/metamask-extension/issues/10353) for more info.
+   * @default true
+   */
+  shimDisconnect?: boolean
+}
+
 export class FrameConnector extends Connector<Provider> {
   readonly id = 'frame'
   readonly name = 'Frame'
   readonly ready = true
+  protected shimDisconnectKey = `${this.id}.shimDisconnect`
+  private isInjected = () => true
 
-  #injected = false
   #provider?: Provider
 
   constructor({
     chains,
+    options: suppliedOptions,
   }: {
     chains?: Chain[]
+    options?: FrameConnectorOptions
   } = {}) {
-    super({ chains, options: {} })
+    const isInjected = () =>
+      !!(typeof window !== 'undefined' && window.ethereum?.isFrame)
+    const options = {
+      shimDisconnect: true,
+      getProvider: async () => {
+        if (!isInjected()) {
+          const ethProvider = (await import('eth-provider')).default
+          return ethProvider('frame')
+        }
 
-    this.#injected = !!(
-      typeof window !== 'undefined' && window.ethereum?.isFrame
-    )
-    this.#provider = this.#injected
-      ? (window.ethereum as unknown as Provider)
-      : undefined
+        return Promise.resolve(window.ethereum as unknown as Provider)
+      },
+      ...suppliedOptions,
+    }
+    super({ chains, options })
+    this.isInjected = isInjected
   }
 
   async connect(): Promise<Required<ConnectorData>> {
     try {
       const provider = await this.getProvider()
+      if (!provider) {
+        throw new ConnectorNotFoundError()
+      }
 
       if (provider.on) {
         provider.on('accountsChanged', this.onAccountsChanged)
@@ -57,6 +82,9 @@ export class FrameConnector extends Connector<Provider> {
 
       // Enable support for programmatic chain switching
       this.switchChain = this.#switchChain
+
+      // Add shim to storage signalling wallet is connected
+      getClient().storage?.setItem(this.shimDisconnectKey, true)
 
       return {
         account,
@@ -77,16 +105,20 @@ export class FrameConnector extends Connector<Provider> {
 
   async disconnect() {
     const provider = await this.getProvider()
-
-    if (provider?.removeListener) {
-      provider.removeListener('accountsChanged', this.onAccountsChanged)
-      provider.removeListener('chainChanged', this.onChainChanged)
-      provider.removeListener('disconnect', this.onDisconnect)
+    if (!provider.removeListener) {
+      return
     }
 
-    if (provider?.close) {
+    provider.removeListener('accountsChanged', this.onAccountsChanged)
+    provider.removeListener('chainChanged', this.onChainChanged)
+    provider.removeListener('disconnect', this.onDisconnect)
+
+    if (!this.isInjected()) {
       provider.close()
     }
+
+    // Remove shim signalling wallet is disconnected
+    getClient().storage?.removeItem(this.shimDisconnectKey)
   }
 
   async getAccount() {
@@ -109,11 +141,11 @@ export class FrameConnector extends Connector<Provider> {
   }
 
   async getProvider() {
-    if (!this.#provider) {
-      const ethProvider = (await import('eth-provider')).default
-      this.#provider = ethProvider('frame')
+    const provider = await this.options.getProvider()
+    if (provider) {
+      this.#provider = provider
     }
-    return this.#provider
+    return this.#provider as Provider
   }
 
   async getSigner({ chainId }: { chainId?: number } = {}) {
@@ -128,6 +160,10 @@ export class FrameConnector extends Connector<Provider> {
   }
 
   async isAuthorized() {
+    if (!getClient().storage?.getItem(this.shimDisconnectKey)) {
+      return false
+    }
+
     try {
       const account = await this.getAccount()
       return !!account
@@ -188,5 +224,6 @@ export class FrameConnector extends Connector<Provider> {
 
   protected onDisconnect = () => {
     this.emit('disconnect')
+    getClient().storage?.removeItem(this.shimDisconnectKey)
   }
 }
