@@ -1,11 +1,25 @@
 import { Chain } from '@wagmi/chains'
 import Provider from 'ethereum-provider'
-import { describe, expect, it, vitest } from 'vitest'
+import { vi, describe, expect, it, vitest } from 'vitest'
 
 import { testChains } from '../test'
 import { FrameConnector, FrameInjectedProvider } from './frame'
 import { WindowProvider } from './types'
 import { EventEmitter } from 'stream'
+
+const ethProviderMock = vi.fn()
+const ethProviderMockRequest = vi.fn()
+const ethProviderMockClose = vi.fn()
+
+vi.mock('eth-provider', () => ({
+  default: ethProviderMock.mockImplementation(() =>
+    Promise.resolve({
+      request: ethProviderMockRequest,
+      close: ethProviderMockClose,
+      removeListener: vi.fn(),
+    }),
+  ),
+}))
 
 class FrameProvider extends Provider {}
 
@@ -40,9 +54,11 @@ describe('FrameConnector', () => {
       .mockImplementation(
         (requestArgs: { method: string }) =>
           new Promise((resolve) => {
-            if (requestArgs.method === 'eth_requestAccounts')
-              resolve(['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B'])
-            resolve([])
+            resolve(
+              requestArgs.method === 'eth_requestAccounts'
+                ? ['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B']
+                : [],
+            )
           }),
       )
 
@@ -60,16 +76,18 @@ describe('FrameConnector', () => {
     const connector = new FrameConnector({
       chains: testChains,
     })
-    const provider = (await connector.getProvider()) as Provider
-    provider.request = vitest.fn().mockImplementation(
+    ethProviderMockRequest.mockImplementation(
       (requestArgs: { method: string }) =>
         new Promise((resolve) => {
-          if (requestArgs.method === 'eth_requestAccounts')
-            resolve(['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B'])
-          resolve([])
+          resolve(
+            requestArgs.method === 'eth_requestAccounts'
+              ? ['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B']
+              : [],
+          )
         }),
     )
     const connection = await connector.connect()
+    expect(ethProviderMock).toHaveBeenCalledWith('frame')
     expect(connection.account).toEqual(
       '0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B',
     )
@@ -81,15 +99,17 @@ describe('FrameConnector', () => {
     const connector = new FrameConnector({
       chains: testChains,
     })
-    const provider = (await connector.getProvider()) as Provider
-    provider.request = vitest.fn().mockImplementation(
+    ethProviderMockRequest.mockImplementation(
       (requestArgs: { method: string }) =>
         new Promise((resolve) => {
-          if (requestArgs.method === 'eth_requestAccounts')
-            resolve(['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B'])
-          resolve([])
+          resolve(
+            requestArgs.method === 'eth_requestAccounts'
+              ? ['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B']
+              : [],
+          )
         }),
     )
+    const provider = (await connector.getProvider()) as Provider
     const connection = await connector.connect()
     expect(connection.account).toEqual(
       '0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B',
@@ -99,16 +119,17 @@ describe('FrameConnector', () => {
 
   it('disconnects via the injected provider', async () => {
     window.ethereum = new FrameProvider(new FrameConnection())
-    window.ethereum = new FrameProvider(new FrameConnection())
     ;(window.ethereum as FrameInjectedProvider).isFrame = true
     ;(window.ethereum as FrameInjectedProvider).request = vitest
       .fn()
       .mockImplementation(
         (requestArgs: { method: string }) =>
           new Promise((resolve) => {
-            if (requestArgs.method === 'eth_requestAccounts')
-              resolve(['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B'])
-            resolve([])
+            resolve(
+              requestArgs.method === 'eth_requestAccounts'
+                ? ['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B']
+                : [],
+            )
           }),
       )
 
@@ -130,43 +151,89 @@ describe('FrameConnector', () => {
     const connector = new FrameConnector({
       chains: testChains,
     })
-    const provider = (await connector.getProvider()) as Provider
-    provider.request = vitest.fn().mockImplementation(
+    ethProviderMockRequest.mockImplementation(
       (requestArgs: { method: string }) =>
         new Promise((resolve) => {
-          if (requestArgs.method === 'eth_requestAccounts')
-            resolve(['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B'])
-          resolve([])
+          resolve(
+            requestArgs.method === 'eth_requestAccounts'
+              ? ['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B']
+              : [],
+          )
         }),
     )
     await connector.disconnect()
-    expect(provider.isConnected()).toEqual(false)
+    expect(ethProviderMockClose).toHaveBeenCalledOnce()
   })
 
   it('switches chains', async () => {
-    window.ethereum = undefined
+    window.ethereum = new FrameProvider(new FrameConnection())
+    ;(window.ethereum as FrameInjectedProvider).isFrame = true
+    ;(window.ethereum as FrameInjectedProvider).request = vitest
+      .fn()
+      .mockImplementation(
+        (requestArgs: { method: string }) =>
+          new Promise((resolve) => {
+            const responseMap = {
+              eth_requestAccounts: () =>
+                resolve(['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B']),
+              wallet_switchEthereumChain: () =>
+                (window.ethereum as FrameInjectedProvider).emit(
+                  'chainChanged',
+                  { chainId: 5 },
+                ),
+            }
+            responseMap[requestArgs.method as keyof typeof responseMap]()
+          }),
+      )
     const connector = new FrameConnector({
       chains: testChains,
     })
-    const provider = (await connector.getProvider()) as WindowProvider
-    provider.request = vitest.fn().mockImplementation(
-      (requestArgs: { method: string }) =>
-        new Promise((resolve) => {
-          if (requestArgs.method === 'eth_requestAccounts')
-            resolve(['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B'])
-          resolve([])
-        }),
-    )
-    await (connector.switchChain as (chainId: number) => Promise<Chain>)(5)
     await new Promise((resolve) => {
-      provider.on('chainChanged', (chainId) => {
-        expect(chainId).toEqual(5)
-        resolve(true)
-      })
+      ;(window.ethereum as FrameInjectedProvider).on(
+        'chainChanged',
+        ({ chainId }) => {
+          expect(chainId).toEqual(5)
+          resolve(true)
+        },
+      )
+      connector.switchChain(5)
     })
   })
 
-  it.todo('switches accounts')
+  it('switches accounts', async () => {
+    window.ethereum = new FrameProvider(new FrameConnection())
+    ;(window.ethereum as FrameInjectedProvider).isFrame = true
+    ;(window.ethereum as FrameInjectedProvider).request = vitest
+      .fn()
+      .mockImplementation(
+        (requestArgs: { method: string }) =>
+          new Promise((resolve) => {
+            const responseMap = {
+              eth_requestAccounts: () =>
+                resolve(['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B']),
+              wallet_switchEthereumChain: () =>
+                (window.ethereum as FrameInjectedProvider).emit(
+                  'chainChanged',
+                  { chainId: 5 },
+                ),
+            }
+            responseMap[requestArgs.method as keyof typeof responseMap]()
+          }),
+      )
+    const connector = new FrameConnector({
+      chains: testChains,
+    })
+    await new Promise((resolve) => {
+      ;(window.ethereum as FrameInjectedProvider).on(
+        'chainChanged',
+        ({ chainId }) => {
+          expect(chainId).toEqual(5)
+          resolve(true)
+        },
+      )
+      connector.switchChain(5)
+    })
+  })
 
   it.todo('sends a transaction')
 
