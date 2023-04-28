@@ -22,15 +22,8 @@ import { normalizeChainId } from './utils/normalizeChainId'
 
 export type FrameConnectorOptions = {
   /**
-   * [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) Ethereum Provider to target
-   *
-   * @default
-   * () => typeof window !== 'undefined' ? window.ethereum : undefined
-   */
-  getProvider?: () => Promise<Provider | WindowProvider | undefined>
-  /**
-   * MetaMask and other injected providers do not support programmatic disconnect.
-   * This flag simulates the disconnect behavior by keeping track of connection status in storage. See [GitHub issue](https://github.com/MetaMask/metamask-extension/issues/10353) for more info.
+   * eth-provider and the Frame Companion injected provider do not support programmatic disconnect.
+   * This flag simulates the disconnect behavior by keeping track of connection status in storage.
    * @default true
    */
   shimDisconnect?: boolean
@@ -65,17 +58,19 @@ export class FrameConnector extends Connector<
       !!(typeof window !== 'undefined' && injectedProvider?.isFrame)
     const options = {
       shimDisconnect: true,
+      ...suppliedOptions,
       getProvider: async () => {
         if (!isInjected()) {
           const ethProvider = (await import('eth-provider')).default
           return ethProvider('frame')
         }
 
-        return injectedProvider?.providers
-          ? injectedProvider.providers[0]
-          : injectedProvider
+        return Promise.resolve(
+          injectedProvider?.providers
+            ? injectedProvider.providers[0]
+            : injectedProvider,
+        )
       },
-      ...suppliedOptions,
     }
     super({ chains, options })
     this.isInjected = isInjected
