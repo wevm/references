@@ -239,13 +239,7 @@ export class FrameConnector extends Connector<
         })
 
       // Indicates chain is not added to provider
-      if (
-        (error as ProviderRpcError).code === 4902 ||
-        // Unwrapping for MetaMask Mobile
-        // https://github.com/MetaMask/metamask-mobile/issues/2944#issuecomment-976988719
-        (error as ProviderRpcError<{ originalError?: { code: number } }>)?.data
-          ?.originalError?.code === 4902
-      ) {
+      if ((error as ProviderRpcError).code === 4902) {
         try {
           await provider.request({
             method: 'wallet_addEthereumChain',
