@@ -1,10 +1,10 @@
-import { Chain } from '@wagmi/core'
-import { testChains } from '@wagmi/core/internal/test'
+import { Chain } from '@wagmi/chains'
 import Provider from 'ethereum-provider'
 import { describe, expect, it, vitest } from 'vitest'
 
-import { FrameConnector } from './frame'
-import { Ethereum } from './types'
+import { testChains } from '../test'
+import { FrameConnector, FrameInjectedProvider } from './frame'
+import { WindowProvider } from './types'
 import { EventEmitter } from 'stream'
 
 class FrameProvider extends Provider {}
@@ -33,18 +33,18 @@ describe('FrameConnector', () => {
   })
 
   it('connects via the injected provider', async () => {
-    window.ethereum = new FrameProvider(
-      new FrameConnection(),
-    ) as unknown as Ethereum
-    window.ethereum.isFrame = true
-    window.ethereum.request = vitest.fn().mockImplementation(
-      (requestArgs: { method: string }) =>
-        new Promise((resolve) => {
-          if (requestArgs.method === 'eth_requestAccounts')
-            resolve(['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B'])
-          resolve([])
-        }),
-    )
+    window.ethereum = new FrameProvider(new FrameConnection())
+    ;(window.ethereum as FrameInjectedProvider).isFrame = true
+    ;(window.ethereum as FrameInjectedProvider).request = vitest
+      .fn()
+      .mockImplementation(
+        (requestArgs: { method: string }) =>
+          new Promise((resolve) => {
+            if (requestArgs.method === 'eth_requestAccounts')
+              resolve(['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B'])
+            resolve([])
+          }),
+      )
 
     const connector = new FrameConnector({
       chains: testChains,
@@ -60,7 +60,7 @@ describe('FrameConnector', () => {
     const connector = new FrameConnector({
       chains: testChains,
     })
-    const provider = await connector.getProvider()
+    const provider = (await connector.getProvider()) as Provider
     provider.request = vitest.fn().mockImplementation(
       (requestArgs: { method: string }) =>
         new Promise((resolve) => {
@@ -76,14 +76,12 @@ describe('FrameConnector', () => {
   })
 
   it('connects via eth-provider when the injected provider is not Frame', async () => {
-    window.ethereum = new FrameProvider(
-      new FrameConnection(),
-    ) as unknown as Ethereum
-    window.ethereum.isMetaMask = true
+    window.ethereum = new FrameProvider(new FrameConnection())
+    ;(window.ethereum as WindowProvider).isMetaMask = true
     const connector = new FrameConnector({
       chains: testChains,
     })
-    const provider = await connector.getProvider()
+    const provider = (await connector.getProvider()) as Provider
     provider.request = vitest.fn().mockImplementation(
       (requestArgs: { method: string }) =>
         new Promise((resolve) => {
@@ -96,22 +94,23 @@ describe('FrameConnector', () => {
     expect(connection.account).toEqual(
       '0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B',
     )
-    expect(connection.provider.isMetaMask).toBe(undefined)
+    expect((provider as unknown as WindowProvider).isMetaMask).toBe(undefined)
   })
 
   it('disconnects via the injected provider', async () => {
-    window.ethereum = new FrameProvider(
-      new FrameConnection(),
-    ) as unknown as Ethereum
-    window.ethereum.isFrame = true
-    window.ethereum.request = vitest.fn().mockImplementation(
-      (requestArgs: { method: string }) =>
-        new Promise((resolve) => {
-          if (requestArgs.method === 'eth_requestAccounts')
-            resolve(['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B'])
-          resolve([])
-        }),
-    )
+    window.ethereum = new FrameProvider(new FrameConnection())
+    window.ethereum = new FrameProvider(new FrameConnection())
+    ;(window.ethereum as FrameInjectedProvider).isFrame = true
+    ;(window.ethereum as FrameInjectedProvider).request = vitest
+      .fn()
+      .mockImplementation(
+        (requestArgs: { method: string }) =>
+          new Promise((resolve) => {
+            if (requestArgs.method === 'eth_requestAccounts')
+              resolve(['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B'])
+            resolve([])
+          }),
+      )
 
     const connector = new FrameConnector({
       chains: testChains,
@@ -131,7 +130,7 @@ describe('FrameConnector', () => {
     const connector = new FrameConnector({
       chains: testChains,
     })
-    const provider = await connector.getProvider()
+    const provider = (await connector.getProvider()) as Provider
     provider.request = vitest.fn().mockImplementation(
       (requestArgs: { method: string }) =>
         new Promise((resolve) => {
@@ -149,7 +148,7 @@ describe('FrameConnector', () => {
     const connector = new FrameConnector({
       chains: testChains,
     })
-    const provider = await connector.getProvider()
+    const provider = (await connector.getProvider()) as WindowProvider
     provider.request = vitest.fn().mockImplementation(
       (requestArgs: { method: string }) =>
         new Promise((resolve) => {

@@ -17,8 +17,8 @@ import {
   ChainNotConfiguredForConnectorError,
   ConnectorNotFoundError,
 } from './errors'
-import { normalizeChainId } from './utils/normalizeChainId'
 import { WindowProvider } from './types'
+import { normalizeChainId } from './utils/normalizeChainId'
 
 export type FrameConnectorOptions = {
   /**
@@ -36,7 +36,7 @@ export type FrameConnectorOptions = {
   shimDisconnect?: boolean
 }
 
-type FrameInjectedProvider = Provider & {
+export type FrameInjectedProvider = Provider & {
   providers: WindowProvider[]
   isFrame: true
 }
