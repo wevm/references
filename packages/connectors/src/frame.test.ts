@@ -20,9 +20,7 @@ vi.mock('eth-provider', () => ({
   ),
 }))
 
-class FrameProvider extends Provider {}
-
-class FrameConnection extends EventEmitter {
+class Connection extends EventEmitter {
   constructor() {
     super()
     setTimeout(() => this.emit('connect'), 0)
@@ -37,6 +35,25 @@ class FrameConnection extends EventEmitter {
   }
 }
 
+type MetamaskInjectedProvider = Provider & {
+  providers: WindowProvider[]
+  isMetaMask: true
+}
+
+function createInjectedProvider({ isFrame } = { isFrame: true }) {
+  window.ethereum = new Provider(new Connection())
+  let injectedProvider
+  if (isFrame) {
+    injectedProvider = window.ethereum as FrameInjectedProvider
+    injectedProvider.isFrame = true
+  } else {
+    injectedProvider = window.ethereum as MetamaskInjectedProvider
+    injectedProvider.isMetaMask = true
+  }
+
+  return injectedProvider
+}
+
 describe('FrameConnector', () => {
   it('inits', () => {
     const connector = new FrameConnector({
@@ -46,20 +63,17 @@ describe('FrameConnector', () => {
   })
 
   it('connects via the injected provider', async () => {
-    window.ethereum = new FrameProvider(new FrameConnection())
-    ;(window.ethereum as FrameInjectedProvider).isFrame = true
-    ;(window.ethereum as FrameInjectedProvider).request = vitest
-      .fn()
-      .mockImplementation(
-        (requestArgs: { method: string }) =>
-          new Promise((resolve) => {
-            resolve(
-              requestArgs.method === 'eth_requestAccounts'
-                ? ['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B']
-                : [],
-            )
-          }),
-      )
+    const injectedProvider = createInjectedProvider()
+    injectedProvider.request = vitest.fn().mockImplementation(
+      (requestArgs: { method: string }) =>
+        new Promise((resolve) => {
+          resolve(
+            requestArgs.method === 'eth_requestAccounts'
+              ? ['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B']
+              : [],
+          )
+        }),
+    )
 
     const connector = new FrameConnector({
       chains: testChains,
@@ -93,8 +107,7 @@ describe('FrameConnector', () => {
   })
 
   it('connects via eth-provider when the injected provider is not Frame', async () => {
-    window.ethereum = new FrameProvider(new FrameConnection())
-    ;(window.ethereum as WindowProvider).isMetaMask = true
+    createInjectedProvider({ isFrame: false })
     const connector = new FrameConnector({
       chains: testChains,
     })
@@ -117,20 +130,17 @@ describe('FrameConnector', () => {
   })
 
   it('disconnects via the injected provider', async () => {
-    window.ethereum = new FrameProvider(new FrameConnection())
-    ;(window.ethereum as FrameInjectedProvider).isFrame = true
-    ;(window.ethereum as FrameInjectedProvider).request = vitest
-      .fn()
-      .mockImplementation(
-        (requestArgs: { method: string }) =>
-          new Promise((resolve) => {
-            resolve(
-              requestArgs.method === 'eth_requestAccounts'
-                ? ['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B']
-                : [],
-            )
-          }),
-      )
+    const injectedProvider = createInjectedProvider()
+    injectedProvider.request = vitest.fn().mockImplementation(
+      (requestArgs: { method: string }) =>
+        new Promise((resolve) => {
+          resolve(
+            requestArgs.method === 'eth_requestAccounts'
+              ? ['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B']
+              : [],
+          )
+        }),
+    )
 
     const connector = new FrameConnector({
       chains: testChains,
@@ -165,61 +175,51 @@ describe('FrameConnector', () => {
   })
 
   it('switches chains', async () => {
-    window.ethereum = new FrameProvider(new FrameConnection())
-    ;(window.ethereum as FrameInjectedProvider).isFrame = true
-    ;(window.ethereum as FrameInjectedProvider).request = vitest
-      .fn()
-      .mockImplementation(
-        (requestArgs: { method: string }) =>
-          new Promise((resolve) => {
-            const responseMap = {
-              eth_requestAccounts: () =>
-                resolve(['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B']),
-              eth_chainId: () => resolve({ chainId: 1 }),
-              wallet_switchEthereumChain: () =>
-                (window.ethereum as FrameInjectedProvider).emit(
-                  'chainChanged',
-                  { chainId: 5 },
-                ),
-            }
-            responseMap[requestArgs.method as keyof typeof responseMap]()
-          }),
-      )
+    const injectedProvider = createInjectedProvider()
+    injectedProvider.request = vitest.fn().mockImplementation(
+      (requestArgs: { method: string }) =>
+        new Promise((resolve) => {
+          const responseMap = {
+            eth_requestAccounts: () =>
+              resolve(['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B']),
+            eth_chainId: () => resolve({ chainId: 1 }),
+            wallet_switchEthereumChain: () =>
+              (window.ethereum as FrameInjectedProvider).emit('chainChanged', {
+                chainId: 5,
+              }),
+          }
+          responseMap[requestArgs.method as keyof typeof responseMap]()
+        }),
+    )
+
     const connector = new FrameConnector({
       chains: testChains,
     })
     await connector.connect()
     await new Promise((resolve) => {
-      ;(window.ethereum as FrameInjectedProvider).on(
-        'chainChanged',
-        ({ chainId }) => {
-          expect(chainId).toEqual(5)
-          resolve(true)
-        },
-      )
+      injectedProvider.on('chainChanged', ({ chainId }) => {
+        expect(chainId).toEqual(5)
+        resolve(true)
+      })
       connector.switchChain(5)
     })
   })
 
   it('switches accounts', async () => {
-    const frameConnection = new FrameConnection()
-    window.ethereum = new FrameProvider(frameConnection)
-    ;(window.ethereum as FrameInjectedProvider).isFrame = true
-    ;(window.ethereum as FrameInjectedProvider).request = vitest
-      .fn()
-      .mockImplementation(
-        (requestArgs: { method: string }) =>
-          new Promise((resolve) => {
-            resolve(
-              requestArgs.method === 'eth_requestAccounts'
-                ? [
-                    '0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B',
-                    '0x71C7656EC7ab88b098defB751B7401B5f6d8976F',
-                  ]
-                : [],
-            )
-          }),
-      )
+    const injectedProvider = createInjectedProvider()
+    injectedProvider.request = vitest.fn().mockImplementation(
+      (requestArgs: { method: string }) =>
+        new Promise((resolve) => {
+          resolve(
+            requestArgs.method === 'eth_requestAccounts'
+              ? [
+                  '0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B',
+                  '0x71C7656EC7ab88b098defB751B7401B5f6d8976F',
+                ]
+              : [],
+          )
+        }),
+    )
     const connector = new FrameConnector({
       chains: testChains,
     })
@@ -229,7 +229,7 @@ describe('FrameConnector', () => {
         expect(account).toEqual('0x71C7656EC7ab88b098defB751B7401B5f6d8976F')
         resolve(true)
       })
-      ;(window.ethereum as FrameInjectedProvider).emit('accountsChanged', [
+      injectedProvider.emit('accountsChanged', [
         '0x71C7656EC7ab88b098defB751B7401B5f6d8976F',
       ])
     })
