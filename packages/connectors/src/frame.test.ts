@@ -1,4 +1,3 @@
-import { Chain } from '@wagmi/chains'
 import Provider from 'ethereum-provider'
 import { vi, describe, expect, it, vitest } from 'vitest'
 
@@ -176,6 +175,7 @@ describe('FrameConnector', () => {
             const responseMap = {
               eth_requestAccounts: () =>
                 resolve(['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B']),
+              eth_chainId: () => resolve({ chainId: 1 }),
               wallet_switchEthereumChain: () =>
                 (window.ethereum as FrameInjectedProvider).emit(
                   'chainChanged',
@@ -188,6 +188,7 @@ describe('FrameConnector', () => {
     const connector = new FrameConnector({
       chains: testChains,
     })
+    await connector.connect()
     await new Promise((resolve) => {
       ;(window.ethereum as FrameInjectedProvider).on(
         'chainChanged',
@@ -201,41 +202,36 @@ describe('FrameConnector', () => {
   })
 
   it('switches accounts', async () => {
-    window.ethereum = new FrameProvider(new FrameConnection())
+    const frameConnection = new FrameConnection()
+    window.ethereum = new FrameProvider(frameConnection)
     ;(window.ethereum as FrameInjectedProvider).isFrame = true
     ;(window.ethereum as FrameInjectedProvider).request = vitest
       .fn()
       .mockImplementation(
         (requestArgs: { method: string }) =>
           new Promise((resolve) => {
-            const responseMap = {
-              eth_requestAccounts: () =>
-                resolve(['0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B']),
-              wallet_switchEthereumChain: () =>
-                (window.ethereum as FrameInjectedProvider).emit(
-                  'chainChanged',
-                  { chainId: 5 },
-                ),
-            }
-            responseMap[requestArgs.method as keyof typeof responseMap]()
+            resolve(
+              requestArgs.method === 'eth_requestAccounts'
+                ? [
+                    '0xAb5801a7D398351b8bE11C439e05C5B3259aeC9B',
+                    '0x71C7656EC7ab88b098defB751B7401B5f6d8976F',
+                  ]
+                : [],
+            )
           }),
       )
     const connector = new FrameConnector({
       chains: testChains,
     })
+    await connector.connect()
     await new Promise((resolve) => {
-      ;(window.ethereum as FrameInjectedProvider).on(
-        'chainChanged',
-        ({ chainId }) => {
-          expect(chainId).toEqual(5)
-          resolve(true)
-        },
-      )
-      connector.switchChain(5)
+      connector.on('change', ({ account }) => {
+        expect(account).toEqual('0x71C7656EC7ab88b098defB751B7401B5f6d8976F')
+        resolve(true)
+      })
+      ;(window.ethereum as FrameInjectedProvider).emit('accountsChanged', [
+        '0x71C7656EC7ab88b098defB751B7401B5f6d8976F',
+      ])
     })
   })
-
-  it.todo('sends a transaction')
-
-  it.todo('signs a message')
 })
