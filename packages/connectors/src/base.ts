@@ -1,17 +1,18 @@
-import type { Address } from '@wagmi/core'
-import type { Chain } from '@wagmi/core/chains'
-import { goerli, mainnet } from '@wagmi/core/chains'
+import type { Chain } from '@wagmi/chains'
+import { Address } from 'abitype'
 import { default as EventEmitter } from 'eventemitter3'
+import { goerli, mainnet } from 'viem/chains'
 
-export type ConnectorData<Provider = any> = {
+import { Storage, WalletClient } from './types'
+
+export type ConnectorData = {
   account?: Address
   chain?: { id: number; unsupported: boolean }
-  provider?: Provider
 }
 
-export interface ConnectorEvents<Provider = any> {
-  change(data: ConnectorData<Provider>): void
-  connect(data: ConnectorData<Provider>): void
+export interface ConnectorEvents {
+  change(data: ConnectorData): void
+  connect(data: ConnectorData): void
   message({ type, data }: { type: string; data?: unknown }): void
   disconnect(): void
   error(error: Error): void
@@ -20,8 +21,7 @@ export interface ConnectorEvents<Provider = any> {
 export abstract class Connector<
   Provider = any,
   Options = any,
-  Signer = any,
-> extends EventEmitter<ConnectorEvents<Provider>> {
+> extends EventEmitter<ConnectorEvents> {
   /** Unique connector id */
   abstract readonly id: string
   /** Connector name */
@@ -30,6 +30,8 @@ export abstract class Connector<
   readonly chains: Chain[]
   /** Options to use with connector */
   readonly options: Options
+  /** Connector storage. */
+  protected storage?: Storage
   /** Whether connector is usable */
   abstract readonly ready: boolean
 
@@ -52,7 +54,7 @@ export abstract class Connector<
   abstract getAccount(): Promise<Address>
   abstract getChainId(): Promise<number>
   abstract getProvider(config?: { chainId?: number }): Promise<Provider>
-  abstract getSigner(config?: { chainId?: number }): Promise<Signer>
+  abstract getWalletClient(config?: { chainId?: number }): Promise<WalletClient>
   abstract isAuthorized(): Promise<boolean>
   switchChain?(chainId: number): Promise<Chain>
   watchAsset?(asset: {
@@ -78,5 +80,9 @@ export abstract class Connector<
 
   protected isChainUnsupported(chainId: number) {
     return !this.chains.some((x) => x.id === chainId)
+  }
+
+  setStorage(storage: Storage) {
+    this.storage = storage
   }
 }

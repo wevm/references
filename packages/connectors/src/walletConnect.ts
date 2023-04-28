@@ -1,16 +1,19 @@
+import type { Chain } from '@wagmi/chains'
+import type WalletConnectProvider from '@walletconnect/ethereum-provider'
+// eslint-disable-next-line import/no-unresolved
+import { EthereumProviderOptions } from '@walletconnect/ethereum-provider/dist/types/EthereumProvider'
 import {
-  Chain,
   ProviderRpcError,
   SwitchChainError,
   UserRejectedRequestError,
-  getClient,
-} from '@wagmi/core'
-import type WalletConnectProvider from '@walletconnect/ethereum-provider'
-import { EthereumProviderOptions } from '@walletconnect/ethereum-provider/dist/types/EthereumProvider'
-import { providers } from 'ethers'
-import { getAddress, hexValue } from 'ethers/lib/utils.js'
+  createWalletClient,
+  custom,
+  getAddress,
+  numberToHex,
+} from 'viem'
 
 import { Connector } from './base'
+import { StorageStoreData } from './types'
 
 type WalletConnectOptions = {
   /**
@@ -68,7 +71,6 @@ type WalletConnectOptions = {
    */
   qrModalOptions?: EthereumProviderOptions['qrModalOptions']
 }
-type WalletConnectSigner = providers.JsonRpcSigner
 
 type ConnectConfig = {
   /** Target chain to connect to. */
@@ -78,13 +80,13 @@ type ConnectConfig = {
 }
 
 const NAMESPACE = 'eip155'
-const REQUESTED_CHAINS_KEY = 'wagmi.requestedChains'
+const STORE_KEY = 'store'
+const REQUESTED_CHAINS_KEY = 'requestedChains'
 const ADD_ETH_CHAIN_METHOD = 'wallet_addEthereumChain'
 
 export class WalletConnectConnector extends Connector<
   WalletConnectProvider,
-  WalletConnectOptions,
-  WalletConnectSigner
+  WalletConnectOptions
 > {
   readonly id = 'walletConnect'
   readonly name = 'WalletConnect'
@@ -105,7 +107,8 @@ export class WalletConnectConnector extends Connector<
     try {
       let targetChainId = chainId
       if (!targetChainId) {
-        const lastUsedChainId = getClient().lastUsedChainId
+        const store = this.storage?.getItem<StorageStoreData>(STORE_KEY)
+        const lastUsedChainId = store?.state?.data?.chain?.id
         if (lastUsedChainId && !this.isChainUnsupported(lastUsedChainId))
           targetChainId = lastUsedChainId
         else targetChainId = this.chains[0]?.id
@@ -146,11 +149,10 @@ export class WalletConnectConnector extends Connector<
       return {
         account,
         chain: { id, unsupported },
-        provider: new providers.Web3Provider(provider),
       }
     } catch (error) {
       if (/user rejected/i.test((error as ProviderRpcError)?.message)) {
-        throw new UserRejectedRequestError(error)
+        throw new UserRejectedRequestError(error as Error)
       }
       throw error
     }
@@ -184,12 +186,18 @@ export class WalletConnectConnector extends Connector<
     return this.#provider!
   }
 
-  async getSigner({ chainId }: { chainId?: number } = {}) {
+  async getWalletClient({ chainId }: { chainId?: number } = {}) {
     const [provider, account] = await Promise.all([
       this.getProvider({ chainId }),
       this.getAccount(),
     ])
-    return new providers.Web3Provider(provider, chainId).getSigner(account)
+    const chain = this.chains.find((x) => x.id === chainId) || this.chains[0]
+    if (!provider) throw new Error('provider is required.')
+    return createWalletClient({
+      account,
+      chain,
+      transport: custom(provider),
+    })
   }
 
   async isAuthorized() {
@@ -233,7 +241,7 @@ export class WalletConnectConnector extends Connector<
           method: ADD_ETH_CHAIN_METHOD,
           params: [
             {
-              chainId: hexValue(chain.id),
+              chainId: numberToHex(chain.id),
               blockExplorerUrls: [chain.blockExplorers?.default],
               chainName: chain.name,
               nativeCurrency: chain.nativeCurrency,
@@ -247,7 +255,7 @@ export class WalletConnectConnector extends Connector<
       }
       await provider.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId: hexValue(chainId) }],
+        params: [{ chainId: numberToHex(chainId) }],
       })
 
       return chain
@@ -255,9 +263,9 @@ export class WalletConnectConnector extends Connector<
       const message =
         typeof error === 'string' ? error : (error as ProviderRpcError)?.message
       if (/user rejected request/i.test(message)) {
-        throw new UserRejectedRequestError(error)
+        throw new UserRejectedRequestError(error as Error)
       }
-      throw new SwitchChainError(error)
+      throw new SwitchChainError(error as Error)
     }
   }
 
@@ -357,12 +365,11 @@ export class WalletConnectConnector extends Connector<
   }
 
   #setRequestedChainsIds(chains: number[]) {
-    localStorage.setItem(REQUESTED_CHAINS_KEY, JSON.stringify(chains))
+    this.storage?.setItem(REQUESTED_CHAINS_KEY, chains)
   }
 
   #getRequestedChainsIds(): number[] {
-    const data = localStorage.getItem(REQUESTED_CHAINS_KEY)
-    return data ? JSON.parse(data) : []
+    return this.storage?.getItem(REQUESTED_CHAINS_KEY) ?? []
   }
 
   #getNamespaceChainsIds() {
@@ -400,6 +407,6 @@ export class WalletConnectConnector extends Connector<
   }
 
   protected onConnect = () => {
-    this.emit('connect', { provider: this.#provider })
+    this.emit('connect', {})
   }
 }

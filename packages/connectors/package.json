@@ -8,12 +8,12 @@
     "dev": "DEV=true tsup"
   },
   "peerDependencies": {
-    "@wagmi/core": ">=0.9.x",
-    "ethers": ">=5.5.1 <6",
-    "typescript": ">=4.9.4"
+    "@wagmi/chains": ">=0.2.0",
+    "typescript": ">=4.9.4",
+    "viem": "~0.3.12"
   },
   "peerDependenciesMeta": {
-    "@wagmi/core": {
+    "@wagmi/chains": {
       "optional": true
     },
     "typescript": {
@@ -23,19 +23,19 @@
   "dependencies": {
     "@coinbase/wallet-sdk": "^3.6.6",
     "@ledgerhq/connect-kit-loader": "^1.0.1",
-    "@safe-global/safe-apps-provider": "^0.15.2",
-    "@safe-global/safe-apps-sdk": "^7.9.0",
-    "@walletconnect/ethereum-provider": "2.7.1",
+    "@walletconnect/ethereum-provider": "2.6.2",
     "@walletconnect/legacy-provider": "^2.0.0",
-    "@web3modal/standalone": "^2.3.7",
-    "abitype": "^0.3.0",
+    "@web3modal/standalone": "^2.2.2",
+    "@safe-global/safe-apps-provider": "0.16.0",
+    "@safe-global/safe-apps-sdk": "7.10.0",
+    "abitype": "^0.7.1",
+    "eventemitter3": "^4.0.7",    
     "eth-provider": "^0.13.6",
-    "eventemitter3": "^4.0.7"
+    "ethereum-provider": "^0.7.7"
   },
   "devDependencies": {
-    "@wagmi/core": "^0.8.19",
-    "ethereum-provider": "^0.7.7",
-    "ethers": "^5.7.2"
+    "@wagmi/chains": "workspace:*",
+    "viem": "0.3.12"
   },
   "type": "module",
   "main": "dist/index.js",

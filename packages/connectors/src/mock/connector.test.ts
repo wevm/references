@@ -1,17 +1,17 @@
-import type { Signer } from '@wagmi/core'
-import { getSigners } from '@wagmi/core/internal/test'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
+import { getWalletClients } from '../../test'
+import { WalletClient } from '../types'
 import { MockConnector } from './connector'
 
 describe('MockConnector', () => {
   let connector: MockConnector
-  let signer: Signer
+  let walletClient: WalletClient
   beforeEach(() => {
-    const signers = getSigners()
-    signer = signers[0]!
+    const walletClients = getWalletClients()
+    walletClient = walletClients[0]!
     connector = new MockConnector({
-      options: { signer },
+      options: { walletClient },
     })
   })
 
@@ -43,12 +43,16 @@ describe('MockConnector', () => {
       const connector = new MockConnector({
         options: {
           flags: { failConnect: true },
-          signer,
+          walletClient,
         },
       })
-      await expect(
-        connector.connect(),
-      ).rejects.toThrowErrorMatchingInlineSnapshot(`"User rejected request"`)
+      await expect(connector.connect()).rejects
+        .toThrowErrorMatchingInlineSnapshot(`
+        "User rejected the request.
+
+        Details: Failed to connect.
+        Version: viem@0.3.0"
+      `)
     })
   })
 
@@ -86,15 +90,93 @@ describe('MockConnector', () => {
     )
   })
 
-  it('getSigner', async () => {
+  it('getWalletClient', async () => {
     await connector.connect()
-    expect(await connector.getSigner()).toMatchInlineSnapshot(`
-      WalletSigner {
-        "_isSigner": true,
-        "_mnemonic": [Function],
-        "_signingKey": [Function],
-        "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
-        "provider": "<Provider network={1} />",
+    const { uid, ...walletClient } = await connector.getWalletClient()
+    expect(walletClient).toMatchInlineSnapshot(`
+      {
+        "account": {
+          "address": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "type": "json-rpc",
+        },
+        "addChain": [Function],
+        "chain": {
+          "blockExplorers": {
+            "default": {
+              "name": "Etherscan",
+              "url": "https://etherscan.io",
+            },
+            "etherscan": {
+              "name": "Etherscan",
+              "url": "https://etherscan.io",
+            },
+          },
+          "contracts": {
+            "ensRegistry": {
+              "address": "0x00000000000C2E074eC69A0dFb2997BA6C7d2e1e",
+            },
+            "ensUniversalResolver": {
+              "address": "0xE4Acdd618deED4e6d2f03b9bf62dc6118FC9A4da",
+              "blockCreated": 16773775,
+            },
+            "multicall3": {
+              "address": "0xca11bde05977b3631167028862be2a173976ca11",
+              "blockCreated": 14353601,
+            },
+          },
+          "id": 1,
+          "name": "Ethereum",
+          "nativeCurrency": {
+            "decimals": 18,
+            "name": "Ether",
+            "symbol": "ETH",
+          },
+          "network": "homestead",
+          "rpcUrls": {
+            "default": {
+              "http": [
+                "http://127.0.0.1:8545",
+              ],
+              "webSocket": [
+                "ws://127.0.0.1:8545",
+              ],
+            },
+            "public": {
+              "http": [
+                "http://127.0.0.1:8545",
+              ],
+              "webSocket": [
+                "ws://127.0.0.1:8545",
+              ],
+            },
+          },
+        },
+        "deployContract": [Function],
+        "getAddresses": [Function],
+        "getChainId": [Function],
+        "getPermissions": [Function],
+        "key": "wallet",
+        "name": "Wallet Client",
+        "pollingInterval": 4000,
+        "request": [Function],
+        "requestAddresses": [Function],
+        "requestPermissions": [Function],
+        "sendTransaction": [Function],
+        "signMessage": [Function],
+        "signTypedData": [Function],
+        "switchChain": [Function],
+        "transport": {
+          "key": "custom",
+          "name": "Custom Provider",
+          "request": [Function],
+          "retryCount": 0,
+          "retryDelay": 150,
+          "timeout": undefined,
+          "type": "custom",
+        },
+        "type": "walletClient",
+        "watchAsset": [Function],
+        "writeContract": [Function],
       }
     `)
   })
@@ -126,13 +208,17 @@ describe('MockConnector', () => {
       const connector = new MockConnector({
         options: {
           flags: { failSwitchChain: true },
-          signer,
+          walletClient,
         },
       })
       await connector.connect()
-      await expect(
-        connector.switchChain?.(4),
-      ).rejects.toThrowErrorMatchingInlineSnapshot(`"User rejected request"`)
+      await expect(connector.switchChain?.(4)).rejects
+        .toThrowErrorMatchingInlineSnapshot(`
+        "User rejected the request.
+
+        Details: Failed to switch chain.
+        Version: viem@0.3.0"
+      `)
     })
   })
 

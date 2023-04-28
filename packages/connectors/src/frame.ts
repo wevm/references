@@ -1,21 +1,33 @@
+import { Chain } from '@wagmi/chains'
+import Provider from 'ethereum-provider'
 import {
-  Chain,
-  ConnectorNotFoundError,
+  Address,
   ProviderRpcError,
-  RpcError,
+  ResourceNotFoundRpcError,
   SwitchChainError,
   UserRejectedRequestError,
-  getClient,
-  normalizeChainId,
-} from '@wagmi/core'
-import Provider from 'ethereum-provider'
-import { providers } from 'ethers'
-import { getAddress, hexValue } from 'ethers/lib/utils.js'
+  createWalletClient,
+  custom,
+  getAddress,
+  numberToHex,
+} from 'viem'
 
-import type { ConnectorData } from './base'
 import { Connector } from './base'
+import {
+  ChainNotConfiguredForConnectorError,
+  ConnectorNotFoundError,
+} from './errors'
+import { normalizeChainId } from './utils/normalizeChainId'
+import { WindowProvider } from './types'
 
 export type FrameConnectorOptions = {
+  /**
+   * [EIP-1193](https://eips.ethereum.org/EIPS/eip-1193) Ethereum Provider to target
+   *
+   * @default
+   * () => typeof window !== 'undefined' ? window.ethereum : undefined
+   */
+  getProvider?: () => Promise<Provider | WindowProvider | undefined>
   /**
    * MetaMask and other injected providers do not support programmatic disconnect.
    * This flag simulates the disconnect behavior by keeping track of connection status in storage. See [GitHub issue](https://github.com/MetaMask/metamask-extension/issues/10353) for more info.
@@ -24,14 +36,22 @@ export type FrameConnectorOptions = {
   shimDisconnect?: boolean
 }
 
-export class FrameConnector extends Connector<Provider> {
+type FrameInjectedProvider = Provider & {
+  providers: WindowProvider[]
+  isFrame: true
+}
+
+export class FrameConnector extends Connector<
+  Provider | WindowProvider | undefined,
+  Required<FrameConnectorOptions>
+> {
   readonly id = 'frame'
   readonly name = 'Frame'
   readonly ready = true
   protected shimDisconnectKey = `${this.id}.shimDisconnect`
   private isInjected = () => true
 
-  #provider?: Provider
+  #provider?: Provider | WindowProvider
 
   constructor({
     chains,
@@ -40,8 +60,9 @@ export class FrameConnector extends Connector<Provider> {
     chains?: Chain[]
     options?: FrameConnectorOptions
   } = {}) {
+    const injectedProvider = window.ethereum as FrameInjectedProvider
     const isInjected = () =>
-      !!(typeof window !== 'undefined' && window.ethereum?.isFrame)
+      !!(typeof window !== 'undefined' && injectedProvider?.isFrame)
     const options = {
       shimDisconnect: true,
       getProvider: async () => {
@@ -50,7 +71,9 @@ export class FrameConnector extends Connector<Provider> {
           return ethProvider('frame')
         }
 
-        return Promise.resolve(window.ethereum as unknown as Provider)
+        return injectedProvider?.providers
+          ? injectedProvider.providers[0]
+          : injectedProvider
       },
       ...suppliedOptions,
     }
@@ -58,12 +81,10 @@ export class FrameConnector extends Connector<Provider> {
     this.isInjected = isInjected
   }
 
-  async connect(): Promise<Required<ConnectorData>> {
+  async connect({ chainId }: { chainId?: number } = {}) {
     try {
       const provider = await this.getProvider()
-      if (!provider) {
-        throw new ConnectorNotFoundError()
-      }
+      if (!provider) throw new ConnectorNotFoundError()
 
       if (provider.on) {
         provider.on('accountsChanged', this.onAccountsChanged)
@@ -73,39 +94,36 @@ export class FrameConnector extends Connector<Provider> {
 
       this.emit('message', { type: 'connecting' })
 
-      const accounts = (await provider.request({
+      const accounts = await (provider as WindowProvider).request({
         method: 'eth_requestAccounts',
-      })) as string[]
+      })
       const account = getAddress(accounts[0] as string)
-      const id = await this.getChainId()
-      const unsupported = this.isChainUnsupported(id)
-
-      // Enable support for programmatic chain switching
-      this.switchChain = this.#switchChain
+      // Switch to chain if provided
+      let id = await this.getChainId()
+      let unsupported = this.isChainUnsupported(id)
+      if (chainId && id !== chainId) {
+        const chain = await this.switchChain(chainId)
+        id = chain.id
+        unsupported = this.isChainUnsupported(id)
+      }
 
       // Add shim to storage signalling wallet is connected
-      getClient().storage?.setItem(this.shimDisconnectKey, true)
+      if (this.options.shimDisconnect)
+        this.storage?.setItem(this.shimDisconnectKey, true)
 
-      return {
-        account,
-        chain: { id, unsupported },
-        provider,
-      }
+      return { account, chain: { id, unsupported } }
     } catch (error) {
-      if ((error as ProviderRpcError).code === 4001) {
-        throw new UserRejectedRequestError(error)
-      }
-      if ((error as RpcError).code === -32002) {
-        throw error instanceof Error ? error : new Error(String(error))
-      }
-
+      if (this.isUserRejectedRequestError(error))
+        throw new UserRejectedRequestError(error as Error)
+      if ((error as ProviderRpcError).code === -32002)
+        throw new ResourceNotFoundRpcError(error as ProviderRpcError)
       throw error
     }
   }
 
   async disconnect() {
     const provider = await this.getProvider()
-    if (!provider.removeListener) {
+    if (!provider?.removeListener) {
       return
     }
 
@@ -114,30 +132,35 @@ export class FrameConnector extends Connector<Provider> {
     provider.removeListener('disconnect', this.onDisconnect)
 
     if (!this.isInjected()) {
-      provider.close()
+      ;(provider as Provider).close()
     }
 
     // Remove shim signalling wallet is disconnected
-    getClient().storage?.removeItem(this.shimDisconnectKey)
+    if (this.options.shimDisconnect) {
+      this.storage?.removeItem(this.shimDisconnectKey)
+    }
   }
 
   async getAccount() {
     const provider = await this.getProvider()
+    if (!provider) {
+      throw new ConnectorNotFoundError()
+    }
     const accounts = (await provider.request({
       method: 'eth_accounts',
     })) as string[]
-    const account = getAddress(accounts[0] as string)
-
-    return account
+    // return checksum address
+    return getAddress(accounts[0] as string)
   }
 
   async getChainId() {
     const provider = await this.getProvider()
-    const chainId = (await provider.request({
-      method: 'eth_chainId',
-    })) as number
-
-    return normalizeChainId(chainId)
+    if (!provider) {
+      throw new ConnectorNotFoundError()
+    }
+    return provider
+      .request<string | number | bigint>({ method: 'eth_chainId' })
+      .then(normalizeChainId)
   }
 
   async getProvider() {
@@ -145,26 +168,35 @@ export class FrameConnector extends Connector<Provider> {
     if (provider) {
       this.#provider = provider
     }
-    return this.#provider as Provider
+    return this.#provider
   }
 
-  async getSigner({ chainId }: { chainId?: number } = {}) {
+  async getWalletClient({ chainId }: { chainId?: number } = {}) {
     const [provider, account] = await Promise.all([
       this.getProvider(),
       this.getAccount(),
     ])
-    return new providers.Web3Provider(
-      provider as unknown as providers.ExternalProvider,
-      chainId,
-    ).getSigner(account)
+    const chain = this.chains.find((x) => x.id === chainId) || this.chains[0]
+    if (!provider) throw new Error('provider is required.')
+    return createWalletClient({
+      account,
+      chain,
+      transport: custom(provider),
+    })
   }
 
   async isAuthorized() {
-    if (!getClient().storage?.getItem(this.shimDisconnectKey)) {
-      return false
-    }
-
     try {
+      if (
+        this.options.shimDisconnect &&
+        // If shim does not exist in storage, wallet is disconnected
+        !this.storage?.getItem(this.shimDisconnectKey)
+      ) {
+        return false
+      }
+
+      const provider = await this.getProvider()
+      if (!provider) throw new ConnectorNotFoundError()
       const account = await this.getAccount()
       return !!account
     } catch {
@@ -172,48 +204,115 @@ export class FrameConnector extends Connector<Provider> {
     }
   }
 
-  async #switchChain(chainId: number) {
+  async switchChain(chainId: number) {
     const provider = await this.getProvider()
-    const id = hexValue(chainId)
+    if (!provider) throw new ConnectorNotFoundError()
+    const id = numberToHex(chainId)
 
     try {
-      // Set up a race between `wallet_switchEthereumChain` & the `chainChanged` event
-      // to ensure the chain has been switched. This is because there could be a case
-      // where a wallet may not resolve the `wallet_switchEthereumChain` method, or
-      // resolves slower than `chainChanged`.
-      await Promise.race([
+      await Promise.all([
         provider.request({
           method: 'wallet_switchEthereumChain',
           params: [{ chainId: id }],
         }),
-        new Promise((res) =>
+        new Promise<void>((res) =>
           this.on('change', ({ chain }) => {
-            if (chain?.id === chainId) res(chainId)
+            if (chain?.id === chainId) res()
           }),
         ),
       ])
       return (
-        this.chains.find((x) => x.id === chainId) ??
-        ({
+        this.chains.find((x) => x.id === chainId) ?? {
           id: chainId,
           name: `Chain ${id}`,
           network: `${id}`,
           nativeCurrency: { name: 'Ether', decimals: 18, symbol: 'ETH' },
           rpcUrls: { default: { http: [''] }, public: { http: [''] } },
-        } as Chain)
+        }
       )
     } catch (error) {
-      const message =
-        typeof error === 'string' ? error : (error as ProviderRpcError)?.message
-      if (/user rejected request/i.test(message))
-        throw new UserRejectedRequestError(error)
-      throw new SwitchChainError(error)
+      const chain = this.chains.find((x) => x.id === chainId)
+      if (!chain)
+        throw new ChainNotConfiguredForConnectorError({
+          chainId,
+          connectorId: this.id,
+        })
+
+      // Indicates chain is not added to provider
+      if (
+        (error as ProviderRpcError).code === 4902 ||
+        // Unwrapping for MetaMask Mobile
+        // https://github.com/MetaMask/metamask-mobile/issues/2944#issuecomment-976988719
+        (error as ProviderRpcError<{ originalError?: { code: number } }>)?.data
+          ?.originalError?.code === 4902
+      ) {
+        try {
+          await provider.request({
+            method: 'wallet_addEthereumChain',
+            params: [
+              {
+                chainId: id,
+                chainName: chain.name,
+                nativeCurrency: chain.nativeCurrency,
+                rpcUrls: [chain.rpcUrls.public?.http[0] ?? ''],
+                blockExplorerUrls: this.getBlockExplorerUrls(chain),
+              },
+            ],
+          })
+
+          const currentChainId = await this.getChainId()
+          if (currentChainId !== chainId)
+            throw new UserRejectedRequestError(
+              new Error('User rejected switch after adding network.'),
+            )
+
+          return chain
+        } catch (error) {
+          throw new UserRejectedRequestError(error as Error)
+        }
+      }
+
+      if (this.isUserRejectedRequestError(error))
+        throw new UserRejectedRequestError(error as Error)
+      throw new SwitchChainError(error as Error)
     }
   }
 
+  async watchAsset({
+    address,
+    decimals = 18,
+    image,
+    symbol,
+  }: {
+    address: Address
+    decimals?: number
+    image?: string
+    symbol: string
+  }) {
+    const provider = await this.getProvider()
+    if (!provider) throw new ConnectorNotFoundError()
+    return provider.request<boolean>({
+      method: 'wallet_watchAsset',
+      params: {
+        type: 'ERC20',
+        options: {
+          address,
+          decimals,
+          image,
+          symbol,
+        },
+      },
+    })
+  }
+
   protected onAccountsChanged = (accounts: string[]) => {
-    if (accounts.length === 0) this.emit('disconnect')
-    else this.emit('change', { account: getAddress(accounts[0] as string) })
+    if (accounts.length === 0) {
+      this.emit('disconnect')
+    } else {
+      this.emit('change', {
+        account: getAddress(accounts[0] as string),
+      })
+    }
   }
 
   protected onChainChanged = (chainId: number | string) => {
@@ -224,6 +323,12 @@ export class FrameConnector extends Connector<Provider> {
 
   protected onDisconnect = () => {
     this.emit('disconnect')
-    getClient().storage?.removeItem(this.shimDisconnectKey)
+    // Remove shim signalling wallet is disconnected
+    if (this.options.shimDisconnect)
+      this.storage?.removeItem(this.shimDisconnectKey)
+  }
+
+  protected isUserRejectedRequestError(error: unknown) {
+    return (error as ProviderRpcError).code === 4001
   }
 }

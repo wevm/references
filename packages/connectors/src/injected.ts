@@ -1,22 +1,24 @@
+import type { Chain } from '@wagmi/chains'
+import type { Address } from 'abitype'
 import {
-  AddChainError,
-  ChainNotConfiguredError,
-  ConnectorNotFoundError,
   ProviderRpcError,
-  ResourceUnavailableError,
+  ResourceNotFoundRpcError,
   SwitchChainError,
   UserRejectedRequestError,
-  getClient,
-  normalizeChainId,
-} from '@wagmi/core'
-import type { Address, RpcError } from '@wagmi/core'
-import type { Chain } from '@wagmi/core/chains'
-import { providers } from 'ethers'
-import { getAddress, hexValue } from 'ethers/lib/utils.js'
+  createWalletClient,
+  custom,
+  getAddress,
+  numberToHex,
+} from 'viem'
 
 import { Connector } from './base'
-import { Ethereum } from './types'
+import {
+  ChainNotConfiguredForConnectorError,
+  ConnectorNotFoundError,
+} from './errors'
+import { WindowProvider } from './types'
 import { getInjectedName } from './utils/getInjectedName'
+import { normalizeChainId } from './utils/normalizeChainId'
 
 export type InjectedConnectorOptions = {
   /** Name of connector */
@@ -27,7 +29,7 @@ export type InjectedConnectorOptions = {
    * @default
    * () => typeof window !== 'undefined' ? window.ethereum : undefined
    */
-  getProvider?: () => Ethereum | undefined
+  getProvider?: () => WindowProvider | undefined
   /**
    * MetaMask and other injected providers do not support programmatic disconnect.
    * This flag simulates the disconnect behavior by keeping track of connection status in storage. See [GitHub issue](https://github.com/MetaMask/metamask-extension/issues/10353) for more info.
@@ -40,15 +42,14 @@ type ConnectorOptions = InjectedConnectorOptions &
   Required<Pick<InjectedConnectorOptions, 'getProvider'>>
 
 export class InjectedConnector extends Connector<
-  Ethereum | undefined,
-  ConnectorOptions,
-  providers.JsonRpcSigner
+  WindowProvider | undefined,
+  ConnectorOptions
 > {
   readonly id: string = 'injected'
   readonly name: string
   readonly ready: boolean
 
-  #provider?: Ethereum
+  #provider?: WindowProvider
 
   protected shimDisconnectKey = `${this.id}.shimDisconnect`
 
@@ -61,10 +62,13 @@ export class InjectedConnector extends Connector<
   } = {}) {
     const options = {
       shimDisconnect: true,
-      getProvider: () =>
-        typeof window !== 'undefined'
-          ? (window.ethereum as Ethereum)
-          : undefined,
+      getProvider() {
+        if (typeof window === 'undefined') return
+        const ethereum = (window as unknown as { ethereum?: WindowProvider })
+          .ethereum
+        if (ethereum?.providers) return ethereum.providers[0]
+        return ethereum
+      },
       ...options_,
     }
     super({ chains, options })
@@ -111,14 +115,14 @@ export class InjectedConnector extends Connector<
 
       // Add shim to storage signalling wallet is connected
       if (this.options.shimDisconnect)
-        getClient().storage?.setItem(this.shimDisconnectKey, true)
+        this.storage?.setItem(this.shimDisconnectKey, true)
 
-      return { account, chain: { id, unsupported }, provider }
+      return { account, chain: { id, unsupported } }
     } catch (error) {
       if (this.isUserRejectedRequestError(error))
-        throw new UserRejectedRequestError(error)
-      if ((error as RpcError).code === -32002)
-        throw new ResourceUnavailableError(error)
+        throw new UserRejectedRequestError(error as Error)
+      if ((error as ProviderRpcError).code === -32002)
+        throw new ResourceNotFoundRpcError(error as ProviderRpcError)
       throw error
     }
   }
@@ -133,7 +137,7 @@ export class InjectedConnector extends Connector<
 
     // Remove shim signalling wallet is disconnected
     if (this.options.shimDisconnect)
-      getClient().storage?.removeItem(this.shimDisconnectKey)
+      this.storage?.removeItem(this.shimDisconnectKey)
   }
 
   async getAccount() {
@@ -158,15 +162,18 @@ export class InjectedConnector extends Connector<
     return this.#provider
   }
 
-  async getSigner({ chainId }: { chainId?: number } = {}) {
+  async getWalletClient({ chainId }: { chainId?: number } = {}) {
     const [provider, account] = await Promise.all([
       this.getProvider(),
       this.getAccount(),
     ])
-    return new providers.Web3Provider(
-      provider as providers.ExternalProvider,
-      chainId,
-    ).getSigner(account)
+    const chain = this.chains.find((x) => x.id === chainId) || this.chains[0]
+    if (!provider) throw new Error('provider is required.')
+    return createWalletClient({
+      account,
+      chain,
+      transport: custom(provider),
+    })
   }
 
   async isAuthorized() {
@@ -174,7 +181,7 @@ export class InjectedConnector extends Connector<
       if (
         this.options.shimDisconnect &&
         // If shim does not exist in storage, wallet is disconnected
-        !getClient().storage?.getItem(this.shimDisconnectKey)
+        !this.storage?.getItem(this.shimDisconnectKey)
       )
         return false
 
@@ -190,7 +197,7 @@ export class InjectedConnector extends Connector<
   async switchChain(chainId: number) {
     const provider = await this.getProvider()
     if (!provider) throw new ConnectorNotFoundError()
-    const id = hexValue(chainId)
+    const id = numberToHex(chainId)
 
     try {
       await Promise.all([
@@ -216,14 +223,17 @@ export class InjectedConnector extends Connector<
     } catch (error) {
       const chain = this.chains.find((x) => x.id === chainId)
       if (!chain)
-        throw new ChainNotConfiguredError({ chainId, connectorId: this.id })
+        throw new ChainNotConfiguredForConnectorError({
+          chainId,
+          connectorId: this.id,
+        })
 
       // Indicates chain is not added to provider
       if (
         (error as ProviderRpcError).code === 4902 ||
         // Unwrapping for MetaMask Mobile
         // https://github.com/MetaMask/metamask-mobile/issues/2944#issuecomment-976988719
-        (error as RpcError<{ originalError?: { code: number } }>)?.data
+        (error as ProviderRpcError<{ originalError?: { code: number } }>)?.data
           ?.originalError?.code === 4902
       ) {
         try {
@@ -242,22 +252,19 @@ export class InjectedConnector extends Connector<
 
           const currentChainId = await this.getChainId()
           if (currentChainId !== chainId)
-            throw new ProviderRpcError(
-              'User rejected switch after adding network.',
-              { code: 4001 },
+            throw new UserRejectedRequestError(
+              new Error('User rejected switch after adding network.'),
             )
 
           return chain
-        } catch (addError) {
-          if (this.isUserRejectedRequestError(addError))
-            throw new UserRejectedRequestError(addError)
-          throw new AddChainError()
+        } catch (error) {
+          throw new UserRejectedRequestError(error as Error)
         }
       }
 
       if (this.isUserRejectedRequestError(error))
-        throw new UserRejectedRequestError(error)
-      throw new SwitchChainError(error)
+        throw new UserRejectedRequestError(error as Error)
+      throw new SwitchChainError(error as Error)
     }
   }
 
@@ -305,7 +312,7 @@ export class InjectedConnector extends Connector<
   protected onDisconnect = async (error: Error) => {
     // If MetaMask emits a `code: 1013` error, wait for reconnection before disconnecting
     // https://github.com/MetaMask/providers/pull/120
-    if ((error as RpcError).code === 1013) {
+    if ((error as ProviderRpcError).code === 1013) {
       const provider = await this.getProvider()
       if (provider) {
         const isAuthorized = await this.getAccount()
@@ -316,7 +323,7 @@ export class InjectedConnector extends Connector<
     this.emit('disconnect')
     // Remove shim signalling wallet is disconnected
     if (this.options.shimDisconnect)
-      getClient().storage?.removeItem(this.shimDisconnectKey)
+      this.storage?.removeItem(this.shimDisconnectKey)
   }
 
   protected isUserRejectedRequestError(error: unknown) {

@@ -1,15 +1,11 @@
 import { SafeAppProvider } from '@safe-global/safe-apps-provider'
 import { Opts, default as SafeAppsSDK } from '@safe-global/safe-apps-sdk'
-import {
-  Chain,
-  ConnectorNotFoundError,
-  getClient,
-  normalizeChainId,
-} from '@wagmi/core'
-import { providers } from 'ethers'
-import { getAddress } from 'ethers/lib/utils.js'
+import type { Chain } from '@wagmi/chains'
+import { createWalletClient, custom, getAddress } from 'viem'
 
 import { Connector } from './base'
+import { ConnectorNotFoundError } from './errors'
+import { normalizeChainId } from './utils/normalizeChainId'
 
 export type SafeConnectorProvider = SafeAppProvider
 export type SafeConnectorOptions = Opts & {
@@ -81,11 +77,10 @@ export class SafeConnector extends Connector<
 
     // Add shim to storage signalling wallet is connected
     if (this.options.shimDisconnect)
-      getClient().storage?.setItem(this.shimDisconnectKey, true)
+      this.storage?.setItem(this.shimDisconnectKey, true)
 
     return {
       account,
-      provider,
       chain: { id, unsupported: this.isChainUnsupported(id) },
     }
   }
@@ -100,7 +95,7 @@ export class SafeConnector extends Connector<
 
     // Remove shim signalling wallet is disconnected
     if (this.options.shimDisconnect)
-      getClient().storage?.removeItem(this.shimDisconnectKey)
+      this.storage?.removeItem(this.shimDisconnectKey)
   }
 
   async getAccount() {
@@ -127,10 +122,16 @@ export class SafeConnector extends Connector<
     return this.#provider
   }
 
-  async getSigner() {
+  async getWalletClient({ chainId }: { chainId?: number } = {}) {
     const provider = await this.getProvider()
     const account = await this.getAccount()
-    return new providers.Web3Provider(provider).getSigner(account)
+    const chain = this.chains.find((x) => x.id === chainId) || this.chains[0]
+    if (!provider) throw new Error('provider is required.')
+    return createWalletClient({
+      account,
+      chain,
+      transport: custom(provider),
+    })
   }
 
   async isAuthorized() {
@@ -138,7 +139,7 @@ export class SafeConnector extends Connector<
       if (
         this.options.shimDisconnect &&
         // If shim does not exist in storage, wallet is disconnected
-        !getClient().storage?.getItem(this.shimDisconnectKey)
+        !this.storage?.getItem(this.shimDisconnectKey)
       )
         return false
 
