@@ -53,9 +53,9 @@ export class FrameConnector extends Connector<
     chains?: Chain[]
     options?: FrameConnectorOptions
   } = {}) {
-    const injectedProvider = window.ethereum as FrameInjectedProvider
+    const injectedProvider = () => window?.ethereum as FrameInjectedProvider
     const isInjected = () =>
-      !!(typeof window !== 'undefined' && injectedProvider?.isFrame)
+      !!(typeof window !== 'undefined' && injectedProvider()?.isFrame)
     const options = {
       shimDisconnect: true,
       ...suppliedOptions,
@@ -65,11 +65,7 @@ export class FrameConnector extends Connector<
           return ethProvider('frame')
         }
 
-        return Promise.resolve(
-          injectedProvider?.providers
-            ? injectedProvider.providers[0]
-            : injectedProvider,
-        )
+        return Promise.resolve(injectedProvider())
       },
     }
     super({ chains, options })
