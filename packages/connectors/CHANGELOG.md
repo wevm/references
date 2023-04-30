@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 1.0.0-next.2
+
+### Major Changes
+
+- updated viem
+
 ## 1.0.0-next.1
 
 ### Major Changes
