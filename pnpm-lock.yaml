@@ -144,8 +144,8 @@ importers:
         specifier: workspace:*
         version: link:../chains
       viem:
-        specifier: 0.3.12
-        version: 0.3.12(typescript@4.9.4)
+        specifier: 0.3.16
+        version: 0.3.16(typescript@4.9.4)
 
 packages:
 
@@ -6858,8 +6858,8 @@ packages:
       use-sync-external-store: 1.2.0(react@18.2.0)
     dev: false
 
-  /viem@0.3.12(typescript@4.9.4):
-    resolution: {integrity: sha512-8w1XaU9ZKECmZ7/71reA3chgBG6eyrBoT24JdVl2CB9SVuJ+5Rpop2r0LjYyeMTmmWT8ZwLYvinKhASNfsaNiw==}
+  /viem@0.3.16(typescript@4.9.4):
+    resolution: {integrity: sha512-Btfd6AfUbddM4hxl1LPtiaGcIJA8rG2WM1Q4VYf4AETvF8fTogDOJ08roRaOy+ep32+pKctyVOmeyE14Uhfylg==}
     dependencies:
       '@adraffy/ens-normalize': 1.9.0
       '@noble/curves': 0.9.0
