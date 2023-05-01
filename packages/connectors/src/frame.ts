@@ -42,7 +42,6 @@ export class FrameConnector extends Connector<
   readonly name = 'Frame'
   readonly ready = true
   protected shimDisconnectKey = `${this.id}.shimDisconnect`
-  private isInjected = () => true
 
   #provider?: Provider | WindowProvider
 
@@ -53,23 +52,11 @@ export class FrameConnector extends Connector<
     chains?: Chain[]
     options?: FrameConnectorOptions
   } = {}) {
-    const injectedProvider = () => window?.ethereum as FrameInjectedProvider
-    const isInjected = () =>
-      !!(typeof window !== 'undefined' && injectedProvider()?.isFrame)
     const options = {
       shimDisconnect: true,
       ...suppliedOptions,
-      getProvider: async () => {
-        if (!isInjected()) {
-          const ethProvider = (await import('eth-provider')).default
-          return ethProvider('frame')
-        }
-
-        return Promise.resolve(injectedProvider())
-      },
     }
     super({ chains, options })
-    this.isInjected = isInjected
   }
 
   async connect({ chainId }: { chainId?: number } = {}) {
@@ -85,7 +72,7 @@ export class FrameConnector extends Connector<
 
       this.emit('message', { type: 'connecting' })
 
-      const accounts = await (provider as WindowProvider).request({
+      const accounts: string[] = await provider.request({
         method: 'eth_requestAccounts',
       })
       const account = getAddress(accounts[0] as string)
@@ -155,10 +142,9 @@ export class FrameConnector extends Connector<
   }
 
   async getProvider() {
-    const provider = await this.options.getProvider()
-    if (provider) {
-      this.#provider = provider
-    }
+    this.#provider = this.isInjected()
+      ? this.injectedProvider()
+      : await this.createProvider()
     return this.#provider
   }
 
@@ -315,5 +301,18 @@ export class FrameConnector extends Connector<
 
   protected isUserRejectedRequestError(error: unknown) {
     return (error as ProviderRpcError).code === 4001
+  }
+
+  private injectedProvider() {
+    return window?.ethereum as FrameInjectedProvider
+  }
+
+  private isInjected() {
+    return !!this.injectedProvider()?.isFrame
+  }
+
+  private async createProvider() {
+    const ethProvider = (await import('eth-provider')).default
+    return ethProvider('frame')
   }
 }
