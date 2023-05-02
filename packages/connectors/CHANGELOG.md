@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 1.0.0-next.4
+
+### Major Changes
+
+- Updated references.
+
 ## 1.0.0-next.3
 
 ### Patch Changes
