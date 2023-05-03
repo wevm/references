@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowJs": true,
+    "baseUrl": ".",
     "downlevelIteration": true,
     "esModuleInterop": true,
     "isolatedModules": true,
@@ -12,6 +13,13 @@
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "paths": {
+      // TODO: Remove once issue is fixed
+      // https://github.com/microsoft/TypeScript/issues/48212
+      "@safe-global/safe-apps-sdk": [
+        "packages/connectors/node_modules/@safe-global/safe-apps-sdk/dist/src"
+      ]
+    },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
