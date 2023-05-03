@@ -42,9 +42,11 @@ const { chains, provider } = configureChains(
 - `canto`
 - `celo`
 - `celoAlfajores`
+- `celoCannoli`
 - `fantom`
 - `fantomTestnet`
 - `foundry`
+- `fuse`
 - `goerli`
 - `hardhat`
 - `iotex`
@@ -56,6 +58,7 @@ const { chains, provider } = configureChains(
 - `moonbaseAlpha`
 - `moonbeam`
 - `moonriver`
+- `oasys`
 - `okc`
 - `optimism`
 - `optimismGoerli`

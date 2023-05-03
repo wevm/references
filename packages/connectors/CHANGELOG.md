@@ -30,6 +30,39 @@
 ### Major Changes
 
 - 33488cf: Released v1.
+## 0.3.18
+
+### Patch Changes
+
+- f66e065: Added BlockWallet to injected connector flags.
+
+## 0.3.17
+
+### Patch Changes
+
+- 12ab5d1: Updated @coinbase/wallet-sdk to 3.6.6
+
+## 0.3.16
+
+### Patch Changes
+
+- c1e3ddf: Reverted ABIType version change.
+
+## 0.3.15
+
+### Patch Changes
+
+- d4825e6: Fixed ABIType version to match downstream packages.
+
+## 0.3.14
+
+### Patch Changes
+
+- c25ac82: Added more flags to `MetaMaskConnector` `getProvider` check.
+- b19a932: Updated @web3modal/standalone to 2.3.0, @walletconnect/ethereum-provider to 2.7.0
+- cdc387e: Added `ImToken` to `getInjectedName` list
+
+## 0.3.13
 
 ### Patch Changes
 
