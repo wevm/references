@@ -10,7 +10,7 @@
   "peerDependencies": {
     "@wagmi/chains": ">=0.2.0",
     "typescript": ">=4.9.4",
-    "viem": "~0.3.16"
+    "viem": "~0.3.17"
   },
   "peerDependenciesMeta": {
     "@wagmi/chains": {
@@ -28,12 +28,12 @@
     "@web3modal/standalone": "^2.3.7",
     "@safe-global/safe-apps-provider": "^0.15.2",
     "@safe-global/safe-apps-sdk": "^7.9.0",
-    "abitype": "^0.8.2",
+    "abitype": "^0.7.1",
     "eventemitter3": "^4.0.7"
   },
   "devDependencies": {
     "@wagmi/chains": "workspace:*",
-    "viem": "0.3.16"
+    "viem": "0.3.17"
   },
   "type": "module",
   "main": "dist/index.js",
