@@ -18,10 +18,6 @@ export const haqqMainnet = {
     },
   },
   blockExplorers: {
-    etherscan: {
-      name: 'HAQQ Explorer',
-      url: 'https://explorer.haqq.network',
-    },
     default: {
       name: 'HAQQ Explorer',
       url: 'https://explorer.haqq.network',

@@ -18,10 +18,6 @@ export const haqqTestedge2 = {
     },
   },
   blockExplorers: {
-    etherscan: {
-      name: 'HAQQ Explorer',
-      url: 'https://explorer.testedge2.haqq.network',
-    },
     default: {
       name: 'HAQQ Explorer',
       url: 'https://explorer.testedge2.haqq.network',
