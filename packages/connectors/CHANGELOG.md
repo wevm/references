@@ -1,5 +1,17 @@
 # @wagmi/connectors
 
+## 0.3.18
+
+### Patch Changes
+
+- f66e065: Added BlockWallet to injected connector flags.
+
+## 0.3.17
+
+### Patch Changes
+
+- 12ab5d1: Updated @coinbase/wallet-sdk to 3.6.6
+
 ## 0.3.16
 
 ### Patch Changes
