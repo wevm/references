@@ -122,8 +122,8 @@ importers:
         specifier: ^7.9.0
         version: 7.10.0
       '@walletconnect/ethereum-provider':
-        specifier: 2.7.1
-        version: 2.7.1(@web3modal/standalone@2.3.7)(lokijs@1.5.12)
+        specifier: 2.7.2
+        version: 2.7.2(@web3modal/standalone@2.3.7)(lokijs@1.5.12)
       '@walletconnect/legacy-provider':
         specifier: ^2.0.0
         version: 2.0.0
@@ -1525,8 +1525,8 @@ packages:
       typescript: 4.9.4
     dev: true
 
-  /@walletconnect/core@2.7.1(lokijs@1.5.12):
-    resolution: {integrity: sha512-ClESMat8v//dpvuFFBDiCPkbYGFhX/+dkwkl9tDWyj716CrR4iQ6/PdXZH8P7D05Wcl7n/lEqgVzTG3xfVporQ==}
+  /@walletconnect/core@2.7.2(lokijs@1.5.12):
+    resolution: {integrity: sha512-gInSwh3uLpTEkDGArfOFoOVgiXW+zkZJpGqfARVi5fhSxsnL1jYNpqO2k8KAXUPfB4MIzLyaGruiaywncLAczA==}
     dependencies:
       '@walletconnect/heartbeat': 1.2.1
       '@walletconnect/jsonrpc-provider': 1.0.12
@@ -1538,8 +1538,8 @@ packages:
       '@walletconnect/relay-auth': 1.0.4
       '@walletconnect/safe-json': 1.0.2
       '@walletconnect/time': 1.0.2
-      '@walletconnect/types': 2.7.1(lokijs@1.5.12)
-      '@walletconnect/utils': 2.7.1(lokijs@1.5.12)
+      '@walletconnect/types': 2.7.2(lokijs@1.5.12)
+      '@walletconnect/utils': 2.7.2(lokijs@1.5.12)
       events: 3.3.0
       lodash.isequal: 4.5.0
       uint8arrays: 3.1.0
@@ -1575,8 +1575,8 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@walletconnect/ethereum-provider@2.7.1(@web3modal/standalone@2.3.7)(lokijs@1.5.12):
-    resolution: {integrity: sha512-dg4Si6DTo/XpElMLrLWXwpVcPW3ypFqoDCYpvxSvwLzb7yIuzVC+Qd7CClv9DTKmwPHIwLjeX5IHw2Iytba1nw==}
+  /@walletconnect/ethereum-provider@2.7.2(@web3modal/standalone@2.3.7)(lokijs@1.5.12):
+    resolution: {integrity: sha512-bvmutLrKKLlQ1WxKCvvX5p5YVox1D1f3Enp6hzAiZf4taN+n/M5rmwfAcLgLhp4cTAUDhl3zgtZErzDyJnvGvQ==}
     peerDependencies:
       '@web3modal/standalone': '>=2'
     peerDependenciesMeta:
@@ -1587,10 +1587,10 @@ packages:
       '@walletconnect/jsonrpc-provider': 1.0.12
       '@walletconnect/jsonrpc-types': 1.0.2
       '@walletconnect/jsonrpc-utils': 1.0.7
-      '@walletconnect/sign-client': 2.7.1(lokijs@1.5.12)
-      '@walletconnect/types': 2.7.1(lokijs@1.5.12)
-      '@walletconnect/universal-provider': 2.7.1(lokijs@1.5.12)
-      '@walletconnect/utils': 2.7.1(lokijs@1.5.12)
+      '@walletconnect/sign-client': 2.7.2(lokijs@1.5.12)
+      '@walletconnect/types': 2.7.2(lokijs@1.5.12)
+      '@walletconnect/universal-provider': 2.7.2(lokijs@1.5.12)
+      '@walletconnect/utils': 2.7.2(lokijs@1.5.12)
       '@web3modal/standalone': 2.3.7(react@18.2.0)
       events: 3.3.0
     transitivePeerDependencies:
@@ -1799,17 +1799,17 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@walletconnect/sign-client@2.7.1(lokijs@1.5.12):
-    resolution: {integrity: sha512-DVmrrkdLJjD9CZBWBRYbCdFpYtZH0zpsNE/5DEvaxEoNshLut0/NUwn4z2zetnc+nKgr7ThnotNMItuqTG5Xkg==}
+  /@walletconnect/sign-client@2.7.2(lokijs@1.5.12):
+    resolution: {integrity: sha512-JOYPmrgR4YG4M2comNcXaa8cLIws0ZJj/SCpF0XJzRZP2+OXWouK19UaI32ROQrcwNodBNeYFRfT5hSM5xjfKg==}
     dependencies:
-      '@walletconnect/core': 2.7.1(lokijs@1.5.12)
+      '@walletconnect/core': 2.7.2(lokijs@1.5.12)
       '@walletconnect/events': 1.0.1
       '@walletconnect/heartbeat': 1.2.1
       '@walletconnect/jsonrpc-utils': 1.0.7
       '@walletconnect/logger': 2.0.1
       '@walletconnect/time': 1.0.2
-      '@walletconnect/types': 2.7.1(lokijs@1.5.12)
-      '@walletconnect/utils': 2.7.1(lokijs@1.5.12)
+      '@walletconnect/types': 2.7.2(lokijs@1.5.12)
+      '@walletconnect/utils': 2.7.2(lokijs@1.5.12)
       events: 3.3.0
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
@@ -1824,8 +1824,8 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@walletconnect/types@2.7.1(lokijs@1.5.12):
-    resolution: {integrity: sha512-5158RnzVHDMQ3N5K8cl3HzriQxyVeHNUwBdgAG1qnJe1J04UwxfWOnNioVO7BeKT0yrf9UB5IMH+OYqnWI0ClA==}
+  /@walletconnect/types@2.7.2(lokijs@1.5.12):
+    resolution: {integrity: sha512-1O2UefakZpT0ErRfEAXY7Ls3qdUrKDky/DsK088xR6klyfkQOx+aSVH0fJYLhmnqPTuvp3lrqNbsDc0s6/6nvg==}
     dependencies:
       '@walletconnect/events': 1.0.1
       '@walletconnect/heartbeat': 1.2.1
@@ -1838,17 +1838,17 @@ packages:
       - lokijs
     dev: false
 
-  /@walletconnect/universal-provider@2.7.1(lokijs@1.5.12):
-    resolution: {integrity: sha512-fxWlXqJP1qArMzZrMU1b7X38V9IUCQ2PJeN/DBVwOF7/iKURySkqRGOCcCkOJV/fgc+yWjognUJx0oZIsoafpA==}
+  /@walletconnect/universal-provider@2.7.2(lokijs@1.5.12):
+    resolution: {integrity: sha512-5glu7vCmq3SFUYgniICf7CUZMwrd6FNS/qnCjrnfgW8T55Opms9YkhRpWTJFHpBdNRWF7n6z/Kss2J8olKTxKw==}
     dependencies:
       '@walletconnect/jsonrpc-http-connection': 1.0.4
       '@walletconnect/jsonrpc-provider': 1.0.12
       '@walletconnect/jsonrpc-types': 1.0.2
       '@walletconnect/jsonrpc-utils': 1.0.7
       '@walletconnect/logger': 2.0.1
-      '@walletconnect/sign-client': 2.7.1(lokijs@1.5.12)
-      '@walletconnect/types': 2.7.1(lokijs@1.5.12)
-      '@walletconnect/utils': 2.7.1(lokijs@1.5.12)
+      '@walletconnect/sign-client': 2.7.2(lokijs@1.5.12)
+      '@walletconnect/types': 2.7.2(lokijs@1.5.12)
+      '@walletconnect/utils': 2.7.2(lokijs@1.5.12)
       eip1193-provider: 1.0.1
       events: 3.3.0
     transitivePeerDependencies:
@@ -1860,8 +1860,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@walletconnect/utils@2.7.1(lokijs@1.5.12):
-    resolution: {integrity: sha512-a/EHIpbymLHmboONTe0qNFizjS/x3r5qfiUe143YI4cL8glIlVuWnu2PpdAlEiSjACJocEcSxOJrsh2aonzw3A==}
+  /@walletconnect/utils@2.7.2(lokijs@1.5.12):
+    resolution: {integrity: sha512-b2lU/JoWqwCOLMudPSRTt3pliBnv6qQHCBWiMBYi1vL14AW3usO5QmK1wF90AVwpdPJ7wFZ6MgHymeWWfhYnGQ==}
     dependencies:
       '@stablelib/chacha20poly1305': 1.0.1
       '@stablelib/hkdf': 1.0.1
@@ -1872,7 +1872,7 @@ packages:
       '@walletconnect/relay-api': 1.0.9
       '@walletconnect/safe-json': 1.0.2
       '@walletconnect/time': 1.0.2
-      '@walletconnect/types': 2.7.1(lokijs@1.5.12)
+      '@walletconnect/types': 2.7.2(lokijs@1.5.12)
       '@walletconnect/window-getters': 1.0.1
       '@walletconnect/window-metadata': 1.0.1
       detect-browser: 5.3.0
@@ -4391,7 +4391,7 @@ packages:
       whatwg-encoding: 2.0.0
       whatwg-mimetype: 3.0.0
       whatwg-url: 11.0.0
-      ws: 8.11.0
+      ws: 8.12.0(bufferutil@4.0.7)(utf-8-validate@5.0.10)
       xml-name-validator: 4.0.0
     transitivePeerDependencies:
       - bufferutil
@@ -6601,19 +6601,6 @@ packages:
       utf-8-validate:
         optional: true
     dev: false
-
-  /ws@8.11.0:
-    resolution: {integrity: sha512-HPG3wQd9sNQoT9xHyNCXoDUa+Xw/VevmY9FoHyQ+g+rrMn4j6FB4np7Z0OhdTgjx6MgQLK7jwSy1YecU1+4Asg==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: ^5.0.2
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
-    dev: true
 
   /ws@8.12.0(bufferutil@4.0.7)(utf-8-validate@5.0.10):
     resolution: {integrity: sha512-kU62emKIdKVeEIOIKVegvqpXMSTAMLJozpHZaJNDYqBjzlSYXQGviYwN1osDLJ9av68qHd4a2oSjd7yD4pacig==}

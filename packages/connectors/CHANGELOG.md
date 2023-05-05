@@ -30,6 +30,15 @@
 ### Major Changes
 
 - 33488cf: Released v1.
+## 0.3.19
+
+### Patch Changes
+
+- 274eef3: - Updated @web3modal/standalone to 2.3.7
+  - Updated @walletconnect/ethereum-provider to 2.7.1
+- 41697df: Updated @walletconnect/ethereum-provider version to 2.7.2
+- 82dcb72: Added Enkrypt extension detection
+
 ## 0.3.18
 
 ### Patch Changes
