@@ -1,5 +1,12 @@
 # @wagmi/chains
 
+## 0.2.22
+
+### Patch Changes
+
+- b2a09a9: Added multicall3 address for metis and metisGoerli
+- ab99b61: Added multicall3 address to zkSync and zkSyncTestnet
+
 ## 0.2.21
 
 ### Patch Changes
