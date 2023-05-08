@@ -34,11 +34,11 @@ describe.each([
   { ethereum: { isGamestop: true }, expected: 'GameStop Wallet' },
   { ethereum: { isHyperPay: true }, expected: 'HyperPay Wallet' },
   { ethereum: { isImToken: true }, expected: 'ImToken' },
-  { ethereum: { isHaloWallet: true }, expected: 'Halo Wallet' },
   {
-    ethereum: { isHaloWallet: true, isKuCoinWallet: true, isMetaMask: true },
+    ethereum: { isHaloWallet: true },
     expected: 'Halo Wallet',
   },
+  { ethereum: { isKuCoinWallet: true }, expected: 'KuCoin Wallet' },
   {
     ethereum: { isMathWallet: true, isMetaMask: true },
     expected: 'MathWallet',
