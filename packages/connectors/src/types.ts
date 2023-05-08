@@ -82,6 +82,7 @@ type InjectedProviderFlags = {
   isTrustWallet?: true
   isXDEFI?: true
   isZerion?: true
+  isHaloWallet?: true
 }
 
 type InjectedProviders = InjectedProviderFlags & {
