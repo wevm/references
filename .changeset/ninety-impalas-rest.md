@@ -2,4 +2,4 @@
 '@wagmi/connectors': patch
 ---
 
-Update: Kucoin Wallet upgrade to Halo Wallet
+Changed Kucoin Wallet name mapping to Halo Wallet
