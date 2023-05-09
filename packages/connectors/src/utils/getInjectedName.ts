@@ -1,9 +1,9 @@
-import type { Ethereum } from '../types'
+import type { WindowProvider } from '../types'
 
-export function getInjectedName(ethereum?: Ethereum) {
+export function getInjectedName(ethereum?: WindowProvider) {
   if (!ethereum) return 'Injected'
 
-  const getName = (provider: Ethereum) => {
+  const getName = (provider: WindowProvider) => {
     if (provider.isApexWallet) return 'Apex Wallet'
     if (provider.isAvalanche) return 'Core Wallet'
     if (provider.isBackpack) return 'Backpack'
@@ -42,7 +42,7 @@ export function getInjectedName(ethereum?: Ethereum) {
     if (provider.isMetaMask) return 'MetaMask'
   }
 
-  // Some injected providers detect multiple other providers and create a list at `ethers.providers`
+  // Some injected providers detect multiple other providers and create a list at `window.ethereum.providers`
   if (ethereum.providers?.length) {
     // Deduplicate names using Set
     // Coinbase Wallet puts multiple providers in `ethereum.providers`

@@ -1,16 +1,16 @@
+import type { Chain } from '@wagmi/chains'
+import type { Address } from 'abitype'
 import {
-  ConnectorNotFoundError,
-  ResourceUnavailableError,
+  ProviderRpcError,
+  ResourceNotFoundRpcError,
   UserRejectedRequestError,
-  getClient,
-} from '@wagmi/core'
-import type { Address, RpcError } from '@wagmi/core'
-import type { Chain } from '@wagmi/core/chains'
-import { getAddress } from 'ethers/lib/utils.js'
+  getAddress,
+} from 'viem'
 
+import { ConnectorNotFoundError } from './errors'
 import type { InjectedConnectorOptions } from './injected'
 import { InjectedConnector } from './injected'
-import { Ethereum } from './types'
+import { WindowProvider } from './types'
 
 export type MetaMaskConnectorOptions = Pick<
   InjectedConnectorOptions,
@@ -40,7 +40,7 @@ export class MetaMaskConnector extends InjectedConnector {
       name: 'MetaMask',
       shimDisconnect: true,
       getProvider() {
-        function getReady(ethereum?: Ethereum) {
+        function getReady(ethereum?: WindowProvider) {
           const isMetaMask = !!ethereum?.isMetaMask
           if (!isMetaMask) return
           // Brave tries to make itself look like MetaMask
@@ -65,7 +65,8 @@ export class MetaMaskConnector extends InjectedConnector {
         }
 
         if (typeof window === 'undefined') return
-        const ethereum = window.ethereum as Ethereum | undefined
+        const ethereum = (window as unknown as { ethereum?: WindowProvider })
+          .ethereum
         if (ethereum?.providers) return ethereum.providers.find(getReady)
         return getReady(ethereum)
       },
@@ -96,7 +97,7 @@ export class MetaMaskConnector extends InjectedConnector {
       if (
         this.#UNSTABLE_shimOnConnectSelectAccount &&
         this.options?.shimDisconnect &&
-        !getClient().storage?.getItem(this.shimDisconnectKey)
+        !this.storage?.getItem(this.shimDisconnectKey)
       ) {
         account = await this.getAccount().catch(() => null)
         const isConnected = !!account
@@ -113,11 +114,11 @@ export class MetaMaskConnector extends InjectedConnector {
             // Not all MetaMask injected providers support `wallet_requestPermissions` (e.g. MetaMask iOS).
             // Only bubble up error if user rejects request
             if (this.isUserRejectedRequestError(error))
-              throw new UserRejectedRequestError(error)
+              throw new UserRejectedRequestError(error as Error)
             // Or MetaMask is already open
             if (
-              (error as ResourceUnavailableError).code ===
-              new ResourceUnavailableError(error).code
+              (error as ProviderRpcError).code ===
+              new ResourceNotFoundRpcError(error as ProviderRpcError).code
             )
               throw error
           }
@@ -140,14 +141,14 @@ export class MetaMaskConnector extends InjectedConnector {
       }
 
       if (this.options?.shimDisconnect)
-        getClient().storage?.setItem(this.shimDisconnectKey, true)
+        this.storage?.setItem(this.shimDisconnectKey, true)
 
       return { account, chain: { id, unsupported }, provider }
     } catch (error) {
       if (this.isUserRejectedRequestError(error))
-        throw new UserRejectedRequestError(error)
-      if ((error as RpcError).code === -32002)
-        throw new ResourceUnavailableError(error)
+        throw new UserRejectedRequestError(error as Error)
+      if ((error as ProviderRpcError).code === -32002)
+        throw new ResourceNotFoundRpcError(error as ProviderRpcError)
       throw error
     }
   }

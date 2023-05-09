@@ -1,0 +1,9 @@
+{
+  "mode": "exit",
+  "tag": "next",
+  "initialVersions": {
+    "@wagmi/chains": "0.2.18",
+    "@wagmi/connectors": "0.3.12"
+  },
+  "changesets": ["shaggy-chefs-hang", "sharp-brooms-lie"]
+}

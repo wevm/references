@@ -1,6 +1,6 @@
-import { testChains } from '@wagmi/core/internal/test'
 import { describe, expect, it } from 'vitest'
 
+import { testChains } from '../test'
 import { LedgerConnector } from './ledger'
 
 /*
