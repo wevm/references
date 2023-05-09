@@ -29,6 +29,8 @@
     "@safe-global/safe-apps-provider": "^0.15.2",
     "@safe-global/safe-apps-sdk": "^7.9.0",
     "abitype": "0.8.1",
+    "eth-provider": "^0.13.6",
+    "ethereum-provider": "^0.7.7",
     "eventemitter3": "^4.0.7"
   },
   "devDependencies": {
@@ -46,6 +48,10 @@
     "./coinbaseWallet": {
       "types": "./dist/coinbaseWallet.d.ts",
       "default": "./dist/coinbaseWallet.js"
+    },
+    "./frame": {
+      "types": "./dist/frame.d.ts",
+      "default": "./dist/frame.js"
     },
     "./injected": {
       "types": "./dist/injected.d.ts",
@@ -79,6 +85,7 @@
   },
   "files": [
     "/coinbaseWallet",
+    "/frame",
     "/injected",
     "/ledger",
     "/metaMask",

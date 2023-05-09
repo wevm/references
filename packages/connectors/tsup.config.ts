@@ -9,6 +9,7 @@ export default defineConfig(
     entry: [
       'src/index.ts',
       'src/coinbaseWallet.ts',
+      'src/frame.ts',
       'src/injected.ts',
       'src/ledger.ts',
       'src/metaMask.ts',
