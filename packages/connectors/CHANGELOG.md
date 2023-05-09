@@ -1,5 +1,67 @@
 # @wagmi/connectors
 
+## 1.0.1
+
+### Patch Changes
+
+- [`ea651cd7`](https://github.com/wagmi-dev/wagmi/commit/ea651cd7fc75b7866272605467db11fd6e1d81af) Thanks [@jxom](https://github.com/jxom)! - Downgraded abitype.
+
+## 1.0.0
+
+### Major Changes
+
+- 7e274f5: Released v1.
+
+### Patch Changes
+
+- 0966bf7: Changed Kucoin Wallet name mapping to Halo Wallet
+
+## 1.0.0-next.5
+
+### Major Changes
+
+- Updated references.
+
+## 1.0.0-next.4
+
+### Major Changes
+
+- Updated references.
+
+## 1.0.0-next.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @wagmi/chains@1.0.0-next.0
+
+## 1.0.0-next.2
+
+### Major Changes
+
+- updated viem
+
+## 1.0.0-next.1
+
+### Major Changes
+
+- [`a7dda00c`](https://github.com/wagmi-dev/wagmi/commit/a7dda00c5b546f8b2c42b527e4d9ac1b9e9ab1fb) Thanks [@jxom](https://github.com/jxom)! - Released v1.
+
+## 1.0.0-next.0
+
+### Major Changes
+
+- 33488cf: Released v1.
+
+## 0.3.19
+
+### Patch Changes
+
+- 274eef3: - Updated @web3modal/standalone to 2.3.7
+  - Updated @walletconnect/ethereum-provider to 2.7.1
+- 41697df: Updated @walletconnect/ethereum-provider version to 2.7.2
+- 82dcb72: Added Enkrypt extension detection
+
 ## 0.3.18
 
 ### Patch Changes

@@ -12,16 +12,16 @@ npm i @wagmi/connectors
 
 ## Usage
 
-Configure your wagmi client with connectors!
+Configure your wagmi config with connectors!
 
 ```tsx
-import { configureChains, createClient } from 'wagmi'
+import { configureChains, createConfig } from 'wagmi'
 
 import { InjectedConnector } from '@wagmi/connectors/injected'
 
 const { chains, provider } = configureChains(...)
 
-const client = createClient({
+const config = createConfig({
   connectors: [
     new InjectedConnector({ chains }),
   ],

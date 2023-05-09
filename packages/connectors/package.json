@@ -2,7 +2,7 @@
   "name": "@wagmi/connectors",
   "description": "A collection of connectors for wagmi",
   "license": "MIT",
-  "version": "0.3.18",
+  "version": "1.0.1",
   "scripts": {
     "build": "tsup",
     "dev": "DEV=true tsup"
@@ -10,7 +10,7 @@
   "peerDependencies": {
     "@wagmi/chains": ">=0.2.0",
     "typescript": ">=4.9.4",
-    "viem": "~0.3.12"
+    "viem": "~0.3.18"
   },
   "peerDependenciesMeta": {
     "@wagmi/chains": {
@@ -23,19 +23,19 @@
   "dependencies": {
     "@coinbase/wallet-sdk": "^3.6.6",
     "@ledgerhq/connect-kit-loader": "^1.0.1",
-    "@walletconnect/ethereum-provider": "2.6.2",
+    "@walletconnect/ethereum-provider": "2.7.2",
     "@walletconnect/legacy-provider": "^2.0.0",
-    "@web3modal/standalone": "^2.2.2",
-    "@safe-global/safe-apps-provider": "0.16.0",
-    "@safe-global/safe-apps-sdk": "7.10.0",
-    "abitype": "^0.7.1",
-    "eventemitter3": "^4.0.7",    
+    "@web3modal/standalone": "^2.3.7",
+    "@safe-global/safe-apps-provider": "^0.15.2",
+    "@safe-global/safe-apps-sdk": "^7.9.0",
+    "abitype": "0.8.1",
+    "eventemitter3": "^4.0.7",
     "eth-provider": "^0.13.6",
     "ethereum-provider": "^0.7.7"
   },
   "devDependencies": {
     "@wagmi/chains": "workspace:*",
-    "viem": "0.3.12"
+    "viem": "0.3.18"
   },
   "type": "module",
   "main": "dist/index.js",

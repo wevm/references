@@ -40,7 +40,11 @@ describe('MockProvider', () => {
         "User rejected the request.
 
         Details: Failed to connect.
+<<<<<<< HEAD
         Version: viem@0.3.0"
+=======
+        Version: viem@0.3.18"
+>>>>>>> upstream/main
       `)
     })
   })
@@ -184,7 +188,11 @@ describe('MockProvider', () => {
         "User rejected the request.
 
         Details: Failed to switch chain.
+<<<<<<< HEAD
         Version: viem@0.3.0"
+=======
+        Version: viem@0.3.18"
+>>>>>>> upstream/main
       `)
     })
   })
