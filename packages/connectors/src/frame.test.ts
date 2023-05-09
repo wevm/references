@@ -1,5 +1,5 @@
 import Provider from 'ethereum-provider'
-import { vi, describe, expect, it, vitest } from 'vitest'
+import { describe, expect, it, vi, vitest } from 'vitest'
 
 import { testChains } from '../test'
 import { FrameConnector, FrameInjectedProvider } from './frame'
