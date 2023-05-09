@@ -1,5 +1,15 @@
 # @wagmi/connectors
 
+## 1.0.0
+
+### Major Changes
+
+- 7e274f5: Released v1.
+
+### Patch Changes
+
+- 0966bf7: Changed Kucoin Wallet name mapping to Halo Wallet
+
 ## 1.0.0-next.5
 
 ### Major Changes
