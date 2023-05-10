@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 1.0.2
+
+### Patch Changes
+
+- bce5a0c: Removed chain fallback when instantiating a Wallet Client.
+
 ## 1.0.1
 
 ### Patch Changes
