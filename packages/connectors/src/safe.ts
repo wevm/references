@@ -125,7 +125,7 @@ export class SafeConnector extends Connector<
   async getWalletClient({ chainId }: { chainId?: number } = {}) {
     const provider = await this.getProvider()
     const account = await this.getAccount()
-    const chain = this.chains.find((x) => x.id === chainId) || this.chains[0]
+    const chain = this.chains.find((x) => x.id === chainId)
     if (!provider) throw new Error('provider is required.')
     return createWalletClient({
       account,
