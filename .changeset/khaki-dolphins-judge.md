@@ -1,5 +1,5 @@
 ---
-'@wagmi/chains': patch
+'@wagmi/chains': major
 ---
 
 Added BearNetworkChainMainnet and BearNetworkChainTestnet
