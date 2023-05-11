@@ -27,6 +27,7 @@ describe.each([
   },
   { ethereum: { isCoinbaseWallet: true }, expected: 'Coinbase Wallet' },
   { ethereum: { isDawn: true }, expected: 'Dawn Wallet' },
+  { ethereum: { isDefiant: true }, expected: 'Defiant' },
   { ethereum: { isEnkrypt: true }, expected: 'Enkrypt' },
   { ethereum: { isExodus: true }, expected: 'Exodus' },
   { ethereum: { isFrame: true }, expected: 'Frame' },
