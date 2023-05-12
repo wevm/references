@@ -1,5 +1,12 @@
 # @wagmi/chains
 
+## 0.2.23
+
+### Patch Changes
+
+- 29a4be5: Added ekta and ektaTestnet
+- dfd37f9: Removes mainnet subdomain from pulsechain chain id 369
+
 ## 0.2.22
 
 ### Patch Changes
