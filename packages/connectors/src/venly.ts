@@ -1,16 +1,17 @@
 import { VenlyProvider, VenlyProviderOptions } from '@venly/web3-provider'
+import type { Chain } from '@wagmi/chains'
 import {
-  ChainNotConfiguredError,
   SwitchChainError,
   UserRejectedRequestError,
-  normalizeChainId,
-} from '@wagmi/core'
-import type { ProviderRpcError } from '@wagmi/core'
-import type { Chain } from '@wagmi/core/chains'
-import { providers } from 'ethers'
-import { getAddress, hexValue } from 'ethers/lib/utils.js'
+  createWalletClient,
+  custom,
+  getAddress,
+  numberToHex,
+} from 'viem'
 
 import { Connector } from './base'
+import { ChainNotConfiguredForConnectorError } from './errors'
+import { normalizeChainId } from './utils/normalizeChainId'
 
 type Options = Omit<VenlyProviderOptions, 'reloadOnDisconnect'> & {
   /**
@@ -29,16 +30,13 @@ type Options = Omit<VenlyProviderOptions, 'reloadOnDisconnect'> & {
   reloadOnDisconnect?: boolean
 }
 
-export class VenlyConnector extends Connector<
-  VenlyProvider,
-  Options,
-  providers.JsonRpcSigner
-> {
+export class VenlyConnector extends Connector<VenlyProvider, Options> {
   readonly id = 'venly'
   readonly name = 'Venly'
   readonly ready = true
 
   client: VenlyProvider = new VenlyProvider()
+  // client?: VenlyProvider
   provider: any
 
   constructor({ chains, options }: { chains?: Chain[]; options: Options }) {
@@ -50,12 +48,10 @@ export class VenlyConnector extends Connector<
 
   async connect({ chainId }: { chainId?: number } = {}) {
     try {
-      if (!this.provider)
-        this.provider = await this.client.createProvider(this.options)
-
-      this.provider.on('accountsChanged', this.onAccountsChanged)
-      this.provider.on('chainChanged', this.onChainChanged)
-      this.provider.on('disconnect', this.onDisconnect)
+      const provider = await this.getProvider()
+      provider.on('accountsChanged', this.onAccountsChanged)
+      provider.on('chainChanged', this.onChainChanged)
+      provider.on('disconnect', this.onDisconnect)
 
       this.emit('message', { type: 'connecting' })
 
@@ -72,17 +68,14 @@ export class VenlyConnector extends Connector<
       return {
         account,
         chain: { id, unsupported },
-        provider: new providers.Web3Provider(
-          this.provider as unknown as providers.ExternalProvider,
-        ),
       }
     } catch (error) {
       if (
         /(user closed modal|accounts received is empty)/i.test(
-          (error as ProviderRpcError).message,
+          (error as Error).message,
         )
       )
-        throw new UserRejectedRequestError(error)
+        throw new UserRejectedRequestError(error as Error)
       throw error
     }
   }
@@ -98,7 +91,8 @@ export class VenlyConnector extends Connector<
   }
 
   async getAccount() {
-    const accounts = await this.provider.request({
+    const provider = await this.getProvider()
+    const accounts = await provider.request({
       method: 'eth_accounts',
     })
     // return checksum address
@@ -112,19 +106,24 @@ export class VenlyConnector extends Connector<
     return normalizeChainId(chainId)
   }
 
-  getProvider() {
+  async getProvider() {
+    if (!this.provider)
+      this.provider = await this.client.createProvider(this.options)
     return this.provider
   }
 
-  async getSigner({ chainId }: { chainId?: number } = {}) {
+  async getWalletClient({ chainId }: { chainId?: number } = {}) {
     const [provider, account] = await Promise.all([
       this.getProvider(),
       this.getAccount(),
     ])
-    return new providers.Web3Provider(
-      provider as providers.ExternalProvider,
-      chainId,
-    ).getSigner(account)
+    const chain = this.chains.find((x) => x.id === chainId)
+    if (!provider) throw new Error('provider is required.')
+    return createWalletClient({
+      account,
+      chain,
+      transport: custom(provider),
+    })
   }
 
   async isAuthorized() {
@@ -141,7 +140,7 @@ export class VenlyConnector extends Connector<
   }
 
   async switchChain(chainId: number) {
-    const id = hexValue(chainId)
+    const id = numberToHex(chainId)
 
     try {
       await this.provider.request({
@@ -165,11 +164,12 @@ export class VenlyConnector extends Connector<
     } catch (error) {
       const chain = this.chains.find((x) => x.id === chainId)
       if (!chain)
-        throw new ChainNotConfiguredError({ chainId, connectorId: this.id })
+        throw new ChainNotConfiguredForConnectorError({
+          chainId,
+          connectorId: this.id,
+        })
 
-      if (this.isUserRejectedRequestError(error))
-        throw new UserRejectedRequestError(error)
-      throw new SwitchChainError(error)
+      throw new SwitchChainError(error as Error)
     }
   }
 
@@ -186,9 +186,5 @@ export class VenlyConnector extends Connector<
 
   protected onDisconnect = () => {
     this.emit('disconnect')
-  }
-
-  isUserRejectedRequestError(error: unknown) {
-    return /(user rejected)/i.test((error as Error).message)
   }
 }
