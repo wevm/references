@@ -40,6 +40,7 @@ type InjectedProviderFlags = {
   isRabby?: true
   isRainbow?: true
   isStatus?: true
+  isTalisman?: true
   isTally?: true
   isTokenPocket?: true
   isTokenary?: true

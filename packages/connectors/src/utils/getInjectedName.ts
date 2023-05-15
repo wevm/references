@@ -34,6 +34,7 @@ export function getInjectedName(ethereum?: WindowProvider) {
     if (provider.isRabby) return 'Rabby'
     if (provider.isRainbow) return 'Rainbow'
     if (provider.isStatus) return 'Status'
+    if (provider.isTalisman) return 'Talisman'
     if (provider.isTally) return 'Taho'
     if (provider.isTokenPocket) return 'TokenPocket'
     if (provider.isTokenary) return 'Tokenary'
