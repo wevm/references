@@ -1,7 +1,7 @@
-import { foundry } from '@wagmi/core/chains'
-import { testChains } from '@wagmi/core/internal/test'
+import { foundry } from 'viem/chains'
 import { describe, expect, it } from 'vitest'
 
+import { testChains } from '../test'
 import { CoinbaseWalletConnector } from './coinbaseWallet'
 
 describe('CoinbaseWalletConnector', () => {

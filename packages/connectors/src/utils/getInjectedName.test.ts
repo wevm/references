@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import type { Ethereum } from '../types'
+import type { WindowProvider } from '../types'
 import { getInjectedName } from './getInjectedName'
 
 describe.each([
@@ -27,17 +27,19 @@ describe.each([
   },
   { ethereum: { isCoinbaseWallet: true }, expected: 'Coinbase Wallet' },
   { ethereum: { isDawn: true }, expected: 'Dawn Wallet' },
+  { ethereum: { isDefiant: true }, expected: 'Defiant' },
+  { ethereum: { isEnkrypt: true }, expected: 'Enkrypt' },
   { ethereum: { isExodus: true }, expected: 'Exodus' },
   { ethereum: { isFrame: true }, expected: 'Frame' },
   { ethereum: { isFrontier: true }, expected: 'Frontier Wallet' },
   { ethereum: { isGamestop: true }, expected: 'GameStop Wallet' },
   { ethereum: { isHyperPay: true }, expected: 'HyperPay Wallet' },
   { ethereum: { isImToken: true }, expected: 'ImToken' },
-  { ethereum: { isKuCoinWallet: true }, expected: 'KuCoin Wallet' },
   {
-    ethereum: { isKuCoinWallet: true, isMetaMask: true },
-    expected: 'KuCoin Wallet',
+    ethereum: { isHaloWallet: true },
+    expected: 'Halo Wallet',
   },
+  { ethereum: { isKuCoinWallet: true }, expected: 'KuCoin Wallet' },
   {
     ethereum: { isMathWallet: true, isMetaMask: true },
     expected: 'MathWallet',
@@ -82,6 +84,6 @@ describe.each([
   { ethereum: {}, expected: 'Injected' },
 ])('getInjectedName($ethereum)', ({ ethereum, expected }) => {
   it(`returns ${expected}`, () => {
-    expect(getInjectedName(ethereum as Ethereum)).toEqual(expected)
+    expect(getInjectedName(ethereum as WindowProvider)).toEqual(expected)
   })
 })

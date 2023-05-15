@@ -1,5 +1,29 @@
 # @wagmi/chains
 
+## 0.2.23
+
+### Patch Changes
+
+- 29a4be5: Added ekta and ektaTestnet
+- dfd37f9: Removes mainnet subdomain from pulsechain chain id 369
+
+## 0.2.22
+
+### Patch Changes
+
+- b2a09a9: Added multicall3 address for metis and metisGoerli
+- ab99b61: Added multicall3 address to zkSync and zkSyncTestnet
+
+## 0.2.21
+
+### Patch Changes
+
+- 6ce16ed: Added Celo Cannoli Testnet
+- ebc10ba: Added ekta and ektaTestnet
+- d43a8cd: Adds Pulsechain Networks
+- 8d2d1a6: Added HAQQ Mainnet and HAQQ Testedge2 networks
+- 23ec21a: Added 5ireChain Thunder Testnet Support
+
 ## 0.2.20
 
 ### Patch Changes

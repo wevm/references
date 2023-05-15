@@ -3,19 +3,21 @@ import type {
   CoinbaseWalletSDK,
 } from '@coinbase/wallet-sdk'
 import type { CoinbaseWalletSDKOptions } from '@coinbase/wallet-sdk/dist/CoinbaseWalletSDK'
+import type { Chain } from '@wagmi/chains'
+import type { Address } from 'abitype'
 import {
-  AddChainError,
-  ChainNotConfiguredError,
+  ProviderRpcError,
   SwitchChainError,
   UserRejectedRequestError,
-  normalizeChainId,
-} from '@wagmi/core'
-import type { Address, ProviderRpcError } from '@wagmi/core'
-import type { Chain } from '@wagmi/core/chains'
-import { providers } from 'ethers'
-import { getAddress, hexValue } from 'ethers/lib/utils.js'
+  createWalletClient,
+  custom,
+  getAddress,
+  numberToHex,
+} from 'viem'
 
 import { Connector } from './base'
+import { ChainNotConfiguredForConnectorError } from './errors'
+import { normalizeChainId } from './utils/normalizeChainId'
 
 type Options = Omit<CoinbaseWalletSDKOptions, 'reloadOnDisconnect'> & {
   /**
@@ -36,8 +38,7 @@ type Options = Omit<CoinbaseWalletSDKOptions, 'reloadOnDisconnect'> & {
 
 export class CoinbaseWalletConnector extends Connector<
   CoinbaseWalletProvider,
-  Options,
-  providers.JsonRpcSigner
+  Options
 > {
   readonly id = 'coinbaseWallet'
   readonly name = 'Coinbase Wallet'
@@ -79,17 +80,14 @@ export class CoinbaseWalletConnector extends Connector<
       return {
         account,
         chain: { id, unsupported },
-        provider: new providers.Web3Provider(
-          provider as unknown as providers.ExternalProvider,
-        ),
       }
     } catch (error) {
       if (
         /(user closed modal|accounts received is empty)/i.test(
-          (error as ProviderRpcError).message,
+          (error as Error).message,
         )
       )
-        throw new UserRejectedRequestError(error)
+        throw new UserRejectedRequestError(error as Error)
       throw error
     }
   }
@@ -166,15 +164,18 @@ export class CoinbaseWalletConnector extends Connector<
     return this.#provider
   }
 
-  async getSigner({ chainId }: { chainId?: number } = {}) {
+  async getWalletClient({ chainId }: { chainId?: number } = {}) {
     const [provider, account] = await Promise.all([
       this.getProvider(),
       this.getAccount(),
     ])
-    return new providers.Web3Provider(
-      provider as unknown as providers.ExternalProvider,
-      chainId,
-    ).getSigner(account)
+    const chain = this.chains.find((x) => x.id === chainId)
+    if (!provider) throw new Error('provider is required.')
+    return createWalletClient({
+      account,
+      chain,
+      transport: custom(provider),
+    })
   }
 
   async isAuthorized() {
@@ -188,7 +189,7 @@ export class CoinbaseWalletConnector extends Connector<
 
   async switchChain(chainId: number) {
     const provider = await this.getProvider()
-    const id = hexValue(chainId)
+    const id = numberToHex(chainId)
 
     try {
       await provider.request({
@@ -207,7 +208,10 @@ export class CoinbaseWalletConnector extends Connector<
     } catch (error) {
       const chain = this.chains.find((x) => x.id === chainId)
       if (!chain)
-        throw new ChainNotConfiguredError({ chainId, connectorId: this.id })
+        throw new ChainNotConfiguredForConnectorError({
+          chainId,
+          connectorId: this.id,
+        })
 
       // Indicates chain is not added to provider
       if ((error as ProviderRpcError).code === 4902) {
@@ -225,16 +229,12 @@ export class CoinbaseWalletConnector extends Connector<
             ],
           })
           return chain
-        } catch (addError) {
-          if (this.#isUserRejectedRequestError(addError))
-            throw new UserRejectedRequestError(addError)
-          throw new AddChainError()
+        } catch (error) {
+          throw new UserRejectedRequestError(error as Error)
         }
       }
 
-      if (this.#isUserRejectedRequestError(error))
-        throw new UserRejectedRequestError(error)
-      throw new SwitchChainError(error)
+      throw new SwitchChainError(error as Error)
     }
   }
 
@@ -277,9 +277,5 @@ export class CoinbaseWalletConnector extends Connector<
 
   protected onDisconnect = () => {
     this.emit('disconnect')
-  }
-
-  #isUserRejectedRequestError(error: unknown) {
-    return /(user rejected)/i.test((error as Error).message)
   }
 }

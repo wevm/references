@@ -15,8 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18]
-        pnpm-version: [7.19]
+        node-version: [19]
+        pnpm-version: [8]
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2.2.4
@@ -44,6 +44,9 @@ jobs:
       - name: Install Dependencies
         if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: pnpm i
+      - name: Link Dependencies
+        if: steps.cache-node-modules.outputs.cache-hit == 'true'
+        run: pnpm dev
 
   lint:
     name: Lint
@@ -51,8 +54,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18]
-        pnpm-version: [7.19]
+        node-version: [19]
+        pnpm-version: [8]
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2.2.4
@@ -70,6 +73,8 @@ jobs:
             node_modules
             packages/**/node_modules
           key: modules-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Link Dependencies
+        run: pnpm dev
       - name: Check types
         run: pnpm typecheck
       - name: Lint & format code
@@ -94,8 +99,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18]
-        pnpm-version: [7.19]
+        node-version: [19]
+        pnpm-version: [8]
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2.2.4
@@ -122,8 +127,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18]
-        pnpm-version: [7.19]
+        node-version: [19]
+        pnpm-version: [8]
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2.2.4

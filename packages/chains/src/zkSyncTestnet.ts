@@ -21,5 +21,10 @@ export const zkSyncTestnet = {
       url: 'https://goerli.explorer.zksync.io',
     },
   },
+  contracts: {
+    multicall3: {
+      address: '0x89e4EDbEC85362a285d7a1D5D255ccD2b8106be2',
+    },
+  },
   testnet: true,
 } as const satisfies Chain

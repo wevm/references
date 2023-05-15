@@ -1,9 +1,9 @@
-import type { Ethereum } from '../types'
+import type { WindowProvider } from '../types'
 
-export function getInjectedName(ethereum?: Ethereum) {
+export function getInjectedName(ethereum?: WindowProvider) {
   if (!ethereum) return 'Injected'
 
-  const getName = (provider: Ethereum) => {
+  const getName = (provider: WindowProvider) => {
     if (provider.isApexWallet) return 'Apex Wallet'
     if (provider.isAvalanche) return 'Core Wallet'
     if (provider.isBackpack) return 'Backpack'
@@ -14,12 +14,15 @@ export function getInjectedName(ethereum?: Ethereum) {
     if (provider.isBraveWallet) return 'Brave Wallet'
     if (provider.isCoinbaseWallet) return 'Coinbase Wallet'
     if (provider.isDawn) return 'Dawn Wallet'
+    if (provider.isDefiant) return 'Defiant'
+    if (provider.isEnkrypt) return 'Enkrypt'
     if (provider.isExodus) return 'Exodus'
     if (provider.isFrame) return 'Frame'
     if (provider.isFrontier) return 'Frontier Wallet'
     if (provider.isGamestop) return 'GameStop Wallet'
     if (provider.isHyperPay) return 'HyperPay Wallet'
     if (provider.isImToken) return 'ImToken'
+    if (provider.isHaloWallet) return 'Halo Wallet'
     if (provider.isKuCoinWallet) return 'KuCoin Wallet'
     if (provider.isMathWallet) return 'MathWallet'
     if (provider.isOkxWallet || provider.isOKExWallet) return 'OKX Wallet'
@@ -40,7 +43,7 @@ export function getInjectedName(ethereum?: Ethereum) {
     if (provider.isMetaMask) return 'MetaMask'
   }
 
-  // Some injected providers detect multiple other providers and create a list at `ethers.providers`
+  // Some injected providers detect multiple other providers and create a list at `window.ethereum.providers`
   if (ethereum.providers?.length) {
     // Deduplicate names using Set
     // Coinbase Wallet puts multiple providers in `ethereum.providers`

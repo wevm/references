@@ -42,6 +42,7 @@ const { chains, provider } = configureChains(
 - `canto`
 - `celo`
 - `celoAlfajores`
+- `celoCannoli`
 - `fantom`
 - `fantomTestnet`
 - `foundry`
@@ -63,6 +64,8 @@ const { chains, provider } = configureChains(
 - `optimismGoerli`
 - `polygon`
 - `polygonMumbai`
+- `pulsechain`
+- `pulsechainV4`
 - `skaleBlockBrawlers`
 - `skaleCalypso`
 - `skaleCalypsoTestnet`

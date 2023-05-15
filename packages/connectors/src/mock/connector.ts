@@ -1,9 +1,9 @@
-import { normalizeChainId } from '@wagmi/core'
-import type { Chain } from '@wagmi/core/chains'
-import { getAddress } from 'ethers/lib/utils.js'
+import type { Chain } from '@wagmi/chains'
+import { getAddress } from 'viem'
 
 import type { ConnectorData } from '../base'
 import { Connector } from '../base'
+import { normalizeChainId } from '../utils/normalizeChainId'
 import type { MockProviderOptions } from './provider'
 import { MockProvider } from './provider'
 
@@ -47,7 +47,7 @@ export class MockConnector extends Connector<
 
     const accounts = await provider.enable()
     const account = getAddress(accounts[0] as string)
-    const id = normalizeChainId(provider._network.chainId)
+    const id = normalizeChainId(provider.chainId)
     const unsupported = this.isChainUnsupported(id)
     const data = { account, chain: { id, unsupported }, provider }
 
@@ -78,7 +78,7 @@ export class MockConnector extends Connector<
 
   async getChainId() {
     const provider = await this.getProvider()
-    return normalizeChainId(provider.network.chainId)
+    return normalizeChainId(provider.chainId)
   }
 
   async getProvider({ chainId }: { chainId?: number } = {}) {
@@ -90,9 +90,9 @@ export class MockConnector extends Connector<
     return this.#provider
   }
 
-  async getSigner() {
+  async getWalletClient() {
     const provider = await this.getProvider()
-    return provider.getSigner()
+    return provider.getWalletClient()
   }
 
   async isAuthorized() {
