@@ -50,7 +50,8 @@ export class VenlyConnector extends Connector<
 
   async connect({ chainId }: { chainId?: number } = {}) {
     try {
-      this.provider = await this.client.createProvider(this.options)
+      if (!this.provider)
+        this.provider = await this.client.createProvider(this.options)
 
       this.provider.on('accountsChanged', this.onAccountsChanged)
       this.provider.on('chainChanged', this.onChainChanged)
@@ -128,8 +129,12 @@ export class VenlyConnector extends Connector<
 
   async isAuthorized() {
     try {
-      const account = await this.getAccount()
-      return !!account
+      this.provider = await this.client.createProvider({
+        ...this.options,
+        skipAuthentication: true,
+      })
+      const authResult = await this.client.checkAuthenticated()
+      return authResult.isAuthenticated
     } catch {
       return false
     }
@@ -143,6 +148,11 @@ export class VenlyConnector extends Connector<
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: id }],
       })
+      this.provider = this.client._provider
+      this.provider.on('accountsChanged', this.onAccountsChanged)
+      this.provider.on('chainChanged', this.onChainChanged)
+      this.provider.on('disconnect', this.onDisconnect)
+
       return (
         this.chains.find((x) => x.id === chainId) ?? {
           id: chainId,
