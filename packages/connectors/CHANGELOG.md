@@ -1,5 +1,13 @@
 # @wagmi/connectors
 
+## 1.0.3
+
+### Patch Changes
+
+- 64dfe61: Update @web3modal/standalone to v2.4.1, Update @walletconnect/ethereum-provider to 2.7.4
+- bab7ad8: Added Defiant to injected connector flags
+- 44cde07: Added Talisman wallet flag
+
 ## 1.0.2
 
 ### Patch Changes
