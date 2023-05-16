@@ -2,7 +2,7 @@
   "name": "@wagmi/connectors",
   "description": "A collection of connectors for wagmi",
   "license": "MIT",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "scripts": {
     "build": "tsup",
     "dev": "DEV=true tsup"
@@ -23,9 +23,9 @@
   "dependencies": {
     "@coinbase/wallet-sdk": "^3.6.6",
     "@ledgerhq/connect-kit-loader": "^1.0.1",
-    "@walletconnect/ethereum-provider": "2.7.2",
+    "@walletconnect/ethereum-provider": "2.7.4",
     "@walletconnect/legacy-provider": "^2.0.0",
-    "@web3modal/standalone": "^2.3.7",
+    "@web3modal/standalone": "^2.4.1",
     "@safe-global/safe-apps-provider": "^0.15.2",
     "@safe-global/safe-apps-sdk": "^7.9.0",
     "@venly/web3-provider": "^3.0.0",
