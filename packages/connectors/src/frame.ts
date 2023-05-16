@@ -5,6 +5,7 @@ import {
   ProviderRpcError,
   ResourceNotFoundRpcError,
   SwitchChainError,
+  UnknownRpcError,
   UserRejectedRequestError,
   createWalletClient,
   custom,
@@ -136,9 +137,10 @@ export class FrameConnector extends Connector<
     if (!provider) {
       throw new ConnectorNotFoundError()
     }
-    return provider
-      .request<string | number | bigint>({ method: 'eth_chainId' })
-      .then(normalizeChainId)
+    const chainId: string | number | bigint = await provider.request({
+      method: 'eth_chainId',
+    })
+    return normalizeChainId(chainId)
   }
 
   async getProvider() {
@@ -232,19 +234,30 @@ export class FrameConnector extends Connector<
           })
 
           const currentChainId = await this.getChainId()
-          if (currentChainId !== chainId)
+          if (currentChainId !== chainId) {
             throw new UserRejectedRequestError(
-              new Error('User rejected switch after adding network.'),
+              new Error('User rejected switch after adding chain.'),
             )
+          }
 
           return chain
         } catch (error) {
-          throw new UserRejectedRequestError(error as Error)
+          // if user rejects request to add chain
+          if (this.isUserRejectedRequestError(error)) {
+            throw new UserRejectedRequestError(error as Error)
+          }
+
+          // else some other error
+          throw new UnknownRpcError(error as Error)
         }
       }
 
-      if (this.isUserRejectedRequestError(error))
+      // if user rejects request to switch chain
+      if (this.isUserRejectedRequestError(error)) {
         throw new UserRejectedRequestError(error as Error)
+      }
+
+      // else some other error
       throw new SwitchChainError(error as Error)
     }
   }
@@ -261,7 +274,10 @@ export class FrameConnector extends Connector<
     symbol: string
   }) {
     const provider = await this.getProvider()
-    if (!provider) throw new ConnectorNotFoundError()
+    if (!provider) {
+      throw new ConnectorNotFoundError()
+    }
+
     return provider.request<boolean>({
       method: 'wallet_watchAsset',
       params: {
@@ -295,8 +311,9 @@ export class FrameConnector extends Connector<
   protected onDisconnect = () => {
     this.emit('disconnect')
     // Remove shim signalling wallet is disconnected
-    if (this.options.shimDisconnect)
+    if (this.options.shimDisconnect) {
       this.storage?.removeItem(this.shimDisconnectKey)
+    }
   }
 
   protected isUserRejectedRequestError(error: unknown) {
