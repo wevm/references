@@ -27,7 +27,7 @@ export const zkSync = {
   },
   contracts: {
     multicall3: {
-      address: '0x47898B2C52C957663aE9AB46922dCec150a2272c',
+      address: '0xF9cda624FBC7e059355ce98a31693d299FACd963',
     },
   },
 } as const satisfies Chain
