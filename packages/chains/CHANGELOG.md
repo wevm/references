@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 0.2.24
+
+### Patch Changes
+
+- 0639a1f: Updated multicall3 address for zkSync and zkSyncTestnet
+
 ## 0.2.23
 
 ### Patch Changes
