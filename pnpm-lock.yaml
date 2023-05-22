@@ -122,8 +122,8 @@ importers:
         specifier: ^7.9.0
         version: 7.10.0
       '@venly/web3-provider':
-        specifier: ^3.0.0
-        version: 3.0.0
+        specifier: ^3.1.0
+        version: 3.1.0
       '@walletconnect/ethereum-provider':
         specifier: 2.7.4
         version: 2.7.4(@web3modal/standalone@2.4.1)(lokijs@1.5.12)
@@ -1592,23 +1592,21 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
-  /@venly/connect@2.0.0:
-    resolution: {integrity: sha512-dX1PmITNnrb3qwr3mvUGdx0vdzoOfHlTNPqtnoi0fCm6HuH6A56ORxAB3mz+xM3jBP686cofgc/tXGSxrnXeOA==}
+  /@venly/connect@2.2.0:
+    resolution: {integrity: sha512-fSG+loJ7q6Oy8FCIPPIba3z6Ss6TEJ4ZRGDSoQw7Od0JCaSPPJ1MOA9/4MplVIbj3eCqR/FS11tq0K1jpQZavQ==}
     dependencies:
       '@types/node': 12.20.55
-      core-js: 3.30.2
       es6-promise: 4.2.8
       keycloak-js: 11.0.2
-      querystring: 0.2.1
     dev: false
 
-  /@venly/web3-provider@3.0.0:
-    resolution: {integrity: sha512-tTRF4TWOjxagof6V+4B0Ej5dWublZxjKPZD+CZUYv8O/Wtfzr7fwWAKGYcYE7CdMvKJczvMLp/5N7MwK8uuYTg==}
+  /@venly/web3-provider@3.1.0:
+    resolution: {integrity: sha512-yPZJPGDTiwEq1YnEU2gL1NxjteQPFRGWeCKuvYd7sy3EH9fUcohwhkJbVuKipL5eGpAW5j4AyABjpkb79XZcxQ==}
     dependencies:
       '@ethersproject/bignumber': 5.7.0
       '@metamask/eth-json-rpc-middleware': 11.0.0
       '@metamask/eth-json-rpc-provider': 1.0.0
-      '@venly/connect': 2.0.0
+      '@venly/connect': 2.2.0
       eth-block-tracker: 7.0.1
       eth-json-rpc-filters: 6.0.0
       json-rpc-engine: 6.1.0
@@ -2686,11 +2684,6 @@ packages:
     resolution: {integrity: sha512-2KV8NhB5JqC3ky0r9PMCAZKbUHSwtEo4CwCs0KXgruG43gX5PMqDEBbVU4OUzw2MuAWUfsuFmWvEKG5QRfSnJA==}
     dependencies:
       toggle-selection: 1.0.6
-    dev: false
-
-  /core-js@3.30.2:
-    resolution: {integrity: sha512-uBJiDmwqsbJCWHAwjrx3cvjbMXP7xD72Dmsn5LOJpiRmE3WbBbN5rCqQ2Qh6Ek6/eOrjlWngEynBWo4VxerQhg==}
-    requiresBuild: true
     dev: false
 
   /crc-32@1.2.2:
@@ -5564,12 +5557,6 @@ packages:
       filter-obj: 1.1.0
       split-on-first: 1.1.0
       strict-uri-encode: 2.0.0
-    dev: false
-
-  /querystring@0.2.1:
-    resolution: {integrity: sha512-wkvS7mL/JMugcup3/rMitHmd9ecIGd2lhFhK9N3UUQ450h66d1r3Y9nvXzQAW1Lq+wyx61k/1pfKS5KuKiyEbg==}
-    engines: {node: '>=0.4.x'}
-    deprecated: The querystring API is considered Legacy. new code should use the URLSearchParams API instead.
     dev: false
 
   /querystringify@2.2.0:
