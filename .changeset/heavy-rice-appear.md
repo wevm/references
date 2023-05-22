@@ -2,4 +2,4 @@
 '@wagmi/connectors': patch
 ---
 
-Correct Rabby Wallet getInjectedName
+Corrected Rabby Wallet name
