@@ -31,7 +31,7 @@ export function getInjectedName(ethereum?: WindowProvider) {
     if (provider.isOpera) return 'Opera'
     if (provider.isPhantom) return 'Phantom'
     if (provider.isPortal) return 'Ripio Portal'
-    if (provider.isRabby) return 'Rabby'
+    if (provider.isRabby) return 'Rabby Wallet'
     if (provider.isRainbow) return 'Rainbow'
     if (provider.isStatus) return 'Status'
     if (provider.isTalisman) return 'Talisman'
