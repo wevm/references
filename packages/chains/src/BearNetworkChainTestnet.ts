@@ -16,7 +16,7 @@ export const BearNetworkChainTestnet = {
   blockExplorers: {
     default: {
       name: 'BrnkTestScan',
-      url: 'https://brnktest-scan.bearnetwork.net/',
+      url: 'https://brnktest-scan.bearnetwork.net',
     },
   },
   testnet: true,
