@@ -2,4 +2,4 @@
 '@wagmi/chains': patch
 ---
 
-Add BearNetworkChainMainnet and BearNetworkChainTestnet
+Added Bear Network Mainnet  and Testnet
