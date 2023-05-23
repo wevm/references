@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const BearNetworkChainMainnet = {
+export const bearNetworkChainMainnet = {
   id: 641230,
   name: 'Bear Network Chain Mainnet',
   network: 'BearNetworkChainMainnet',
