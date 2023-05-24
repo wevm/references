@@ -1,5 +1,13 @@
 # @wagmi/connectors
 
+## 1.0.5
+
+### Patch Changes
+
+- fa61dfe: Updated viem.
+- Updated dependencies [577d2a0]
+  - @wagmi/chains@0.2.25
+
 ## 1.0.4
 
 ### Patch Changes
