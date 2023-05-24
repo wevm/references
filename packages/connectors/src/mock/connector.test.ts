@@ -51,7 +51,7 @@ describe('MockConnector', () => {
         "User rejected the request.
 
         Details: Failed to connect.
-        Version: viem@0.3.18"
+        Version: viem@0.3.35"
       `)
     })
   })
@@ -217,7 +217,7 @@ describe('MockConnector', () => {
         "User rejected the request.
 
         Details: Failed to switch chain.
-        Version: viem@0.3.18"
+        Version: viem@0.3.35"
       `)
     })
   })
