@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 0.2.25
+
+### Patch Changes
+
+- 577d2a0: Added Bear Network Mainnet and Testnet
+
 ## 0.2.24
 
 ### Patch Changes
