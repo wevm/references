@@ -11,6 +11,7 @@ export type MockProviderOptions = {
     failSwitchChain?: boolean
     noSwitchChain?: boolean
   }
+  shimDisconnect?: boolean
   walletClient: WalletClient
 }
 
@@ -48,13 +49,14 @@ export class MockProvider {
   }
 
   async getAccounts() {
-    const address = this.#walletClient?.account.address
+    const walletClient = this.getWalletClient()
+    const address = walletClient?.account.address
     if (!address) return []
     return [getAddress(address)]
   }
 
   getWalletClient() {
-    const walletClient = this.#walletClient
+    const walletClient = this.#walletClient ?? this.#options.walletClient
     if (!walletClient) throw new Error('walletClient not found')
     return walletClient
   }

@@ -18,6 +18,7 @@ export class MockConnector extends Connector<
   readonly id = 'mock'
   readonly name = 'Mock'
   readonly ready = true
+  protected shimDisconnectKey = `${this.id}.shimDisconnect`
 
   #provider?: MockProvider
 
@@ -31,6 +32,7 @@ export class MockConnector extends Connector<
     super({
       chains,
       options: {
+        shimDisconnect: true,
         ...options,
         chainId: options.chainId ?? chains?.[0]?.id,
       },
@@ -52,6 +54,9 @@ export class MockConnector extends Connector<
     const data = { account, chain: { id, unsupported }, provider }
 
     if (!this.options.flags?.noSwitchChain) this.switchChain = this.#switchChain
+
+    if (this.options?.shimDisconnect)
+      this.storage?.setItem(this.shimDisconnectKey, true)
 
     return new Promise<Required<ConnectorData>>((res) =>
       setTimeout(() => res(data), 100),
@@ -97,8 +102,15 @@ export class MockConnector extends Connector<
 
   async isAuthorized() {
     try {
+      if (
+        this.options.shimDisconnect &&
+        // If shim does not exist in storage, wallet is disconnected
+        !this.storage?.getItem(this.shimDisconnectKey)
+      )
+        return false
+
       const provider = await this.getProvider()
-      const account = await provider.getAccounts()
+      const account = (await provider.getAccounts())[0]
       return this.options.flags?.isAuthorized ?? !!account
     } catch {
       return false
@@ -142,6 +154,9 @@ export class MockConnector extends Connector<
 
   protected onDisconnect = () => {
     this.emit('disconnect')
+
+    if (this.options?.shimDisconnect)
+      this.storage?.removeItem(this.shimDisconnectKey)
   }
 
   toJSON() {

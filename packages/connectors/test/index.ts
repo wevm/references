@@ -1,6 +1,19 @@
-import { Hex, createPublicClient, createWalletClient, custom, http } from 'viem'
+import {
+  type Hex,
+  createPublicClient,
+  createWalletClient,
+  custom,
+  http,
+} from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
-import { Chain, foundry, goerli, mainnet, optimism, polygon } from 'viem/chains'
+import {
+  type Chain,
+  foundry,
+  goerli,
+  mainnet,
+  optimism,
+  polygon,
+} from 'viem/chains'
 import { rpc } from 'viem/utils'
 
 export const foundryMainnet: Chain = {
