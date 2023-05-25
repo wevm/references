@@ -49,8 +49,7 @@ export class MockProvider {
   }
 
   async getAccounts() {
-    const walletClient = this.#walletClient
-    const address = walletClient?.account.address
+    const address = this.#walletClient?.account.address
     if (!address) return []
     return [getAddress(address)]
   }
