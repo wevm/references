@@ -1,8 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { getWalletClients } from '../../test'
 import { WalletClient } from '../types'
 import { MockConnector } from './connector'
+
+import { getWalletClients, noopStorage } from '../../test'
 
 describe('MockConnector', () => {
   let connector: MockConnector
@@ -13,6 +14,10 @@ describe('MockConnector', () => {
     connector = new MockConnector({
       options: { walletClient },
     })
+    // by default connector doesn't have storage
+    connector.setStorage(
+        (typeof window !== "undefined" ? window.localStorage : noopStorage) as any
+    );
   })
 
   it('constructor', () => {
@@ -189,7 +194,7 @@ describe('MockConnector', () => {
     })
 
     it('false', async () => {
-      expect(await connector.isAuthorized()).toMatchInlineSnapshot('true')
+      expect(await connector.isAuthorized()).toMatchInlineSnapshot('false')
     })
   })
 
