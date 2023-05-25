@@ -53,6 +53,7 @@ export class InjectedConnector extends Connector<
 
   protected shimDisconnectKey = `${this.id}.shimDisconnect`
 
+  // rome-ignore lint/correctness/noUnreachableSuper: <explanation>
   constructor({
     chains,
     options: options_,
