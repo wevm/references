@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 0.3.0
+
+### Minor Changes
+
+- 36c14b2: Updated UniversalResolver addresses to latest version
+
 ## 0.2.25
 
 ### Patch Changes
