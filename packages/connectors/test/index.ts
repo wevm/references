@@ -171,7 +171,7 @@ export function getWalletClients() {
 }
 
 export const noopStorage = {
-  getItem: (_key: string) => "",
+  getItem: (_key: string) => '',
   setItem: (_key: string, _value: string) => null,
   removeItem: (_key: string) => null,
-};
+}

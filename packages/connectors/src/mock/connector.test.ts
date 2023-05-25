@@ -16,8 +16,10 @@ describe('MockConnector', () => {
     })
     // by default connector doesn't have storage
     connector.setStorage(
-        (typeof window !== "undefined" ? window.localStorage : noopStorage) as any
-    );
+      (typeof window !== 'undefined'
+        ? window.localStorage
+        : noopStorage) as any,
+    )
   })
 
   it('constructor', () => {
