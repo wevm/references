@@ -89,7 +89,7 @@ async function build() {
 function version({ changedPackages }: { changedPackages: Package[] }) {
   for (const { dir, packageJson } of changedPackages) {
     const newPackageJson = { ...packageJson }
-    newPackageJson.version = packageJson.version + '-cjs'
+    newPackageJson.version = `${packageJson.version}-cjs`
     writeJsonSync(path.join(dir, 'package.json'), newPackageJson, {
       spaces: 2,
     })

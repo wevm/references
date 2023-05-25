@@ -35,8 +35,9 @@ describe('MockProvider', () => {
         flags: { failConnect: true },
         walletClient,
       })
-      await expect(provider.enable()).rejects
-        .toThrowErrorMatchingInlineSnapshot(`
+      await expect(
+        provider.enable(),
+      ).rejects.toThrowErrorMatchingInlineSnapshot(`
         "User rejected the request.
 
         Details: Failed to connect.
@@ -71,13 +72,13 @@ describe('MockProvider', () => {
       try {
         provider.getWalletClient()
       } catch (error) {
-        expect(error).toMatchInlineSnapshot(`[Error: walletClient not found]`)
+        expect(error).toMatchInlineSnapshot('[Error: walletClient not found]')
       }
     })
 
     it('connected', async () => {
       await provider.enable()
-      const { uid, ...walletClient } = provider.getWalletClient()
+      const { uid: _, ...walletClient } = provider.getWalletClient()
       expect(walletClient).toMatchInlineSnapshot(`
         {
           "account": {
@@ -179,8 +180,9 @@ describe('MockProvider', () => {
         flags: { failSwitchChain: true },
         walletClient,
       })
-      await expect(provider.switchChain(4)).rejects
-        .toThrowErrorMatchingInlineSnapshot(`
+      await expect(
+        provider.switchChain(4),
+      ).rejects.toThrowErrorMatchingInlineSnapshot(`
         "User rejected the request.
 
         Details: Failed to switch chain.
