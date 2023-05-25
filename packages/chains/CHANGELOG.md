@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 0.3.1
+
+### Patch Changes
+
+- 45ab14d: Rolled back universal resolver changes.
+
 ## 0.3.0
 
 ### Minor Changes
