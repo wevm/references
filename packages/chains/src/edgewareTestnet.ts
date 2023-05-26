@@ -14,7 +14,13 @@ export const edgewareTestnet = {
     public: { http: ['https://beresheet-evm.jelliedowl.net'] },
   },
   blockExplorers: {
-    etherscan: { name: 'Edgscan by Bharathcoorg', url: 'https://testnet.edgscan.live' },
-    default: { name: 'Edgscan by Bharathcoorg', url: 'https://testnet.edgscan.live' },
+    etherscan: {
+      name: 'Edgscan by Bharathcoorg',
+      url: 'https://testnet.edgscan.live',
+    },
+    default: {
+      name: 'Edgscan by Bharathcoorg',
+      url: 'https://testnet.edgscan.live',
+    },
   },
 } as const satisfies Chain
