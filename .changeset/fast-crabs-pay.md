@@ -1,5 +1,5 @@
 ---
-"@wagmi/connectors": minor
+"@wagmi/connectors": patch
 ---
 
 Fixed autoConnect for MockConnector
