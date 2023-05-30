@@ -1,4 +1,4 @@
-import { Chain } from "viem"
+import { Chain } from "./types"
 
 export const zoraTestnet = {
   id: 999,
