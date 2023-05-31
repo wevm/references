@@ -46,12 +46,13 @@ describe('MockConnector', () => {
           walletClient,
         },
       })
-      await expect(connector.connect()).rejects
-        .toThrowErrorMatchingInlineSnapshot(`
+      await expect(
+        connector.connect(),
+      ).rejects.toThrowErrorMatchingInlineSnapshot(`
         "User rejected the request.
 
         Details: Failed to connect.
-        Version: viem@0.3.18"
+        Version: viem@0.3.35"
       `)
     })
   })
@@ -92,7 +93,7 @@ describe('MockConnector', () => {
 
   it('getWalletClient', async () => {
     await connector.connect()
-    const { uid, ...walletClient } = await connector.getWalletClient()
+    const { uid: _, ...walletClient } = await connector.getWalletClient()
     expect(walletClient).toMatchInlineSnapshot(`
       {
         "account": {
@@ -184,11 +185,11 @@ describe('MockConnector', () => {
   describe('isAuthorized', () => {
     it('true', async () => {
       await connector.connect()
-      expect(await connector.isAuthorized()).toMatchInlineSnapshot(`true`)
+      expect(await connector.isAuthorized()).toMatchInlineSnapshot('true')
     })
 
     it('false', async () => {
-      expect(await connector.isAuthorized()).toMatchInlineSnapshot(`true`)
+      expect(await connector.isAuthorized()).toMatchInlineSnapshot('true')
     })
   })
 
@@ -212,12 +213,13 @@ describe('MockConnector', () => {
         },
       })
       await connector.connect()
-      await expect(connector.switchChain?.(4)).rejects
-        .toThrowErrorMatchingInlineSnapshot(`
+      await expect(
+        connector.switchChain?.(4),
+      ).rejects.toThrowErrorMatchingInlineSnapshot(`
         "User rejected the request.
 
         Details: Failed to switch chain.
-        Version: viem@0.3.18"
+        Version: viem@0.3.35"
       `)
     })
   })

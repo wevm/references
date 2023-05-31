@@ -40,10 +40,6 @@ export class WalletConnectLegacyConnector extends Connector<
 
   #provider?: WalletConnectProvider
 
-  constructor(config: { chains?: Chain[]; options: WalletConnectOptions }) {
-    super(config)
-  }
-
   async connect({ chainId }: { chainId?: number } = {}) {
     try {
       let targetChainId = chainId

@@ -1,5 +1,28 @@
 # @wagmi/connectors
 
+## 2.0.0
+
+### Patch Changes
+
+- Updated dependencies [36c14b2]
+  - @wagmi/chains@0.3.0
+
+## 1.0.5
+
+### Patch Changes
+
+- fa61dfe: Updated viem.
+- Updated dependencies [577d2a0]
+  - @wagmi/chains@0.2.25
+
+## 1.0.4
+
+### Patch Changes
+
+- bbbd11b: Corrected Rabby Wallet name
+- Updated dependencies [0639a1f]
+  - @wagmi/chains@0.2.24
+
 ## 1.0.3
 
 ### Patch Changes

@@ -23,7 +23,7 @@ export const zkSyncTestnet = {
   },
   contracts: {
     multicall3: {
-      address: '0x89e4EDbEC85362a285d7a1D5D255ccD2b8106be2',
+      address: '0xF9cda624FBC7e059355ce98a31693d299FACd963',
     },
   },
   testnet: true,

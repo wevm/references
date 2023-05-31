@@ -1,5 +1,29 @@
 # @wagmi/chains
 
+## 0.3.1
+
+### Patch Changes
+
+- 45ab14d: Rolled back universal resolver changes.
+
+## 0.3.0
+
+### Minor Changes
+
+- 36c14b2: Updated UniversalResolver addresses to latest version
+
+## 0.2.25
+
+### Patch Changes
+
+- 577d2a0: Added Bear Network Mainnet and Testnet
+
+## 0.2.24
+
+### Patch Changes
+
+- 0639a1f: Updated multicall3 address for zkSync and zkSyncTestnet
+
 ## 0.2.23
 
 ### Patch Changes
