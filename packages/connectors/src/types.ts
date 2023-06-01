@@ -30,6 +30,7 @@ type InjectedProviderFlags = {
   isKuCoinWallet?: true
   isMathWallet?: true
   isMetaMask?: true
+  isNovaWallet?: true
   isOkxWallet?: true
   isOKExWallet?: true
   isOneInchAndroidWallet?: true
