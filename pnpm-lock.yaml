@@ -78,7 +78,7 @@ importers:
   packages/chains:
     dependencies:
       typescript:
-        specifier: ^5.0.4
+        specifier: '>=5.0.4'
         version: 5.0.4
 
   packages/connectors:
@@ -111,7 +111,7 @@ importers:
         specifier: ^4.0.7
         version: 4.0.7
       typescript:
-        specifier: ^5.0.4
+        specifier: '>=5.0.4'
         version: 5.0.4
     devDependencies:
       '@wagmi/chains':

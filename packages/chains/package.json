@@ -18,22 +18,17 @@
     },
     "./package.json": "./package.json"
   },
-  "files": [
-    "/dist"
-  ],
+  "files": ["/dist"],
   "sideEffects": false,
   "peerDependencies": {
-    "typescript": "^5.0.4"
+    "typescript": ">=5.0.4"
   },
   "peerDependenciesMeta": {
     "typescript": {
       "optional": true
     }
   },
-  "contributors": [
-    "jxom.eth <j@wagmi.sh>",
-    "awkweb.eth <t@wagmi.sh>"
-  ],
+  "contributors": ["jxom.eth <j@wagmi.sh>", "awkweb.eth <t@wagmi.sh>"],
   "homepage": "https://wagmi.sh",
   "ethereum": "wagmi-dev.eth",
   "funding": [
@@ -51,11 +46,5 @@
     "url": "https://github.com/wagmi-dev/references.git",
     "directory": "packages/connectors"
   },
-  "keywords": [
-    "eth",
-    "ethereum",
-    "dapps",
-    "chains",
-    "web3"
-  ]
+  "keywords": ["eth", "ethereum", "dapps", "chains", "web3"]
 }

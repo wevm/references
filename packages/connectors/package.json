@@ -9,7 +9,7 @@
   },
   "peerDependencies": {
     "@wagmi/chains": ">=0.3.1",
-    "typescript": "^5.0.4",
+    "typescript": ">=5.0.4",
     "viem": "~0.3.35"
   },
   "peerDependenciesMeta": {
@@ -89,10 +89,7 @@
     "/dist"
   ],
   "sideEffects": false,
-  "contributors": [
-    "awkweb.eth <t@wagmi.sh>",
-    "jxom.eth <j@wagmi.sh>"
-  ],
+  "contributors": ["awkweb.eth <t@wagmi.sh>", "jxom.eth <j@wagmi.sh>"],
   "homepage": "https://wagmi.sh",
   "ethereum": "wagmi-dev.eth",
   "funding": [
