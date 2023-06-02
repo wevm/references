@@ -1,5 +1,25 @@
 # @wagmi/connectors
 
+## 2.1.0
+
+### Minor Changes
+
+- b001569: Bumped minimum TypeScript version to v5.0.4.
+
+### Patch Changes
+
+- 0f05b2b: Updated `abitype` to `0.8.7`.
+- 6aea7ee: Fixed internal types.
+- b187cb0: Added `isNovaWallet` injected flag.
+- 5e44429: Added Edgeware mainnet and testnet
+- b18b314: Updated @walletconnect/ethereum-provider and @web3modal/standalone dependencies
+- Updated dependencies [b62a199]
+- Updated dependencies [b001569]
+- Updated dependencies [260ab59]
+- Updated dependencies [6aea7ee]
+- Updated dependencies [5e44429]
+  - @wagmi/chains@1.0.0
+
 ## 2.0.0
 
 ### Patch Changes

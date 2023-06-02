@@ -25,6 +25,7 @@ export function getInjectedName(ethereum?: WindowProvider) {
     if (provider.isHaloWallet) return 'Halo Wallet'
     if (provider.isKuCoinWallet) return 'KuCoin Wallet'
     if (provider.isMathWallet) return 'MathWallet'
+    if (provider.isNovaWallet) return 'Nova Wallet'
     if (provider.isOkxWallet || provider.isOKExWallet) return 'OKX Wallet'
     if (provider.isOneInchIOSWallet || provider.isOneInchAndroidWallet)
       return '1inch Wallet'

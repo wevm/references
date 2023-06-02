@@ -2,7 +2,7 @@
   "name": "@wagmi/chains",
   "description": "A collection of chains for wagmi",
   "license": "MIT",
-  "version": "0.3.1",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -23,7 +23,7 @@
   ],
   "sideEffects": false,
   "peerDependencies": {
-    "typescript": "^5.0.4"
+    "typescript": ">=5.0.4"
   },
   "peerDependenciesMeta": {
     "typescript": {
