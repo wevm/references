@@ -1,7 +1,7 @@
 lockfileVersion: '6.0'
 
 overrides:
-  abitype: 0.8.2
+  abitype: 0.8.7
   esbuild: ^0.15.13
 
 importers:
@@ -33,8 +33,8 @@ importers:
         specifier: ^0.25.8
         version: 0.25.8
       abitype:
-        specifier: 0.8.2
-        version: 0.8.2(typescript@5.0.4)
+        specifier: 0.8.7
+        version: 0.8.7(typescript@5.0.4)
       dedent:
         specifier: ^0.7.0
         version: 0.7.0
@@ -105,8 +105,8 @@ importers:
         specifier: ^2.4.2
         version: 2.4.2(react@18.2.0)
       abitype:
-        specifier: 0.8.2
-        version: 0.8.2(typescript@5.0.4)
+        specifier: 0.8.7
+        version: 0.8.7(typescript@5.0.4)
       eventemitter3:
         specifier: ^4.0.7
         version: 4.0.7
@@ -1790,8 +1790,8 @@ packages:
     resolution: {integrity: sha512-j2afSsaIENvHZN2B8GOpF566vZ5WVk5opAiMTvWgaQT8DkbOqsTfvNAvHoRGU2zzP8cPoqys+xHTRDWW8L+/BA==}
     dev: true
 
-  /abitype@0.8.2(typescript@5.0.4):
-    resolution: {integrity: sha512-B1ViNMGpfx/qjVQi0RTc2HEFHuR9uoCoTEkwELT5Y7pBPtBbctYijz9BK6+Kd0hQ3S70FhYTO2dWWk0QNUEXMA==}
+  /abitype@0.8.7(typescript@5.0.4):
+    resolution: {integrity: sha512-wQ7hV8Yg/yKmGyFpqrNZufCxbszDe5es4AZGYPBitocfSqXtjrTG9JMWFcc4N30ukl2ve48aBTwt7NJxVQdU3w==}
     peerDependencies:
       typescript: '>=5.0.4'
       zod: ^3 >=3.19.1
@@ -5405,7 +5405,7 @@ packages:
       '@scure/bip32': 1.3.0
       '@scure/bip39': 1.2.0
       '@wagmi/chains': 0.2.16(typescript@5.0.4)
-      abitype: 0.8.2(typescript@5.0.4)
+      abitype: 0.8.7(typescript@5.0.4)
       isomorphic-ws: 5.0.0(ws@8.12.0)
       ws: 8.12.0(bufferutil@4.0.7)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
