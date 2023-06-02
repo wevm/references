@@ -21,11 +21,12 @@ jobs:
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.WAGMI_BOT_GITHUB_TOKEN }}
         with:
           commit_message: "chore: format"
-          commit_user_name: "github-actions[bot]"
-          commit_user_email: "github-actions[bot]@users.noreply.github.com"
+          commit_user_name: "wagmi-sh"
+          commit_user_email: "dev@wagmi.sh"
+          push_options: '--force'
 
   build:
     name: Build
