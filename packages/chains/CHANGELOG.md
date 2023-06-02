@@ -1,5 +1,18 @@
 # @wagmi/chains
 
+## 1.0.0
+
+### Major Changes
+
+- b001569: Bumped minimum TypeScript version to v5.0.4.
+
+### Patch Changes
+
+- b62a199: Added multicall3 for canto
+- 260ab59: Added ZORA testnet
+- 6aea7ee: Fixed internal types.
+- 5e44429: Added Edgeware mainnet and testnet
+
 ## 0.3.1
 
 ### Patch Changes

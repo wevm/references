@@ -2,13 +2,13 @@
   "name": "@wagmi/connectors",
   "description": "A collection of connectors for wagmi",
   "license": "MIT",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "scripts": {
     "build": "tsup",
     "dev": "DEV=true tsup"
   },
   "peerDependencies": {
-    "@wagmi/chains": ">=0.3.1",
+    "@wagmi/chains": ">=1.0.0",
     "typescript": ">=5.0.4",
     "viem": "~0.3.35"
   },
@@ -89,10 +89,7 @@
     "/dist"
   ],
   "sideEffects": false,
-  "contributors": [
-    "awkweb.eth <t@wagmi.sh>",
-    "jxom.eth <j@wagmi.sh>"
-  ],
+  "contributors": ["awkweb.eth <t@wagmi.sh>", "jxom.eth <j@wagmi.sh>"],
   "homepage": "https://wagmi.sh",
   "ethereum": "wagmi-dev.eth",
   "funding": [
