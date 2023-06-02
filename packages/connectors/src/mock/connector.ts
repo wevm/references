@@ -18,6 +18,7 @@ export class MockConnector extends Connector<
   readonly id = 'mock'
   readonly name = 'Mock'
   readonly ready = true
+  
   protected shimDisconnectKey = `${this.id}.shimDisconnect`
 
   #provider?: MockProvider
@@ -102,6 +103,9 @@ export class MockConnector extends Connector<
 
   async isAuthorized() {
     try {
+      if (typeof this.options.flags?.isAuthorized !== 'undefined')
+        return this.options.flags?.isAuthorized;
+      
       if (
         this.options.shimDisconnect &&
         // If shim does not exist in storage, wallet is disconnected
@@ -111,7 +115,7 @@ export class MockConnector extends Connector<
 
       const provider = await this.getProvider()
       const account = (await provider.getAccounts())[0]
-      return this.options.flags?.isAuthorized ?? !!account
+      return !!account
     } catch {
       return false
     }
