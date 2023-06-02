@@ -2,4 +2,4 @@
 "@wagmi/connectors": patch
 ---
 
-Added Nova Wallet flag
+Added `isNovaWallet` injected flag.
