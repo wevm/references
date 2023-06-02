@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.WAGMI_BOT_GITHUB_TOKEN }}
 
       - name: Install dependencies
         uses: ./.github/actions/install-dependencies
@@ -26,7 +28,7 @@ jobs:
           commit_message: "chore: format"
           commit_user_name: "wagmi-sh"
           commit_user_email: "dev@wagmi.sh"
-          push_options: '--force'
+          push_options: --force
 
   build:
     name: Build
