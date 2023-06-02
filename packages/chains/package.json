@@ -23,7 +23,7 @@
   ],
   "sideEffects": false,
   "peerDependencies": {
-    "typescript": "^5.0.4"
+    "typescript": ">=5.0.4"
   },
   "peerDependenciesMeta": {
     "typescript": {

@@ -9,7 +9,7 @@
   },
   "peerDependencies": {
     "@wagmi/chains": ">=0.3.1",
-    "typescript": "^5.0.4",
+    "typescript": ">=5.0.4",
     "viem": "~0.3.35"
   },
   "peerDependenciesMeta": {
