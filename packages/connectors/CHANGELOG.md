@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 2.1.1
+
+### Patch Changes
+
+- 0f05b2b: Updated abitype to 0.8.7.
+
 ## 2.1.0
 
 ### Minor Changes
