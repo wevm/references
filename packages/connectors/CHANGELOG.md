@@ -8,6 +8,7 @@
 
 ### Patch Changes
 
+- 0f05b2b: Updated `abitype` to `0.8.7`.
 - 6aea7ee: Fixed internal types.
 - b187cb0: Added `isNovaWallet` injected flag.
 - 5e44429: Added Edgeware mainnet and testnet
