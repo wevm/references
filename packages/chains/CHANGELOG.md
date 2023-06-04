@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 1.1.0
+
+### Minor Changes
+
+- a235f80: Updated universal resolver addresses to the newest deployment.
+
 ## 1.0.0
 
 ### Major Changes
