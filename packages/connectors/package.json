@@ -29,8 +29,6 @@
     "@safe-global/safe-apps-provider": "^0.15.2",
     "@safe-global/safe-apps-sdk": "^7.9.0",
     "abitype": "0.8.7",
-    "eth-provider": "^0.13.6",
-    "ethereum-provider": "^0.7.7",
     "eventemitter3": "^4.0.7"
   },
   "devDependencies": {
