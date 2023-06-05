@@ -35,6 +35,7 @@ const { chains, provider } = configureChains(
 - `auroraTestnet`
 - `avalanche`
 - `avalancheFuji`
+- `baseGoerli`
 - `bronos`
 - `bronosTestnet`
 - `bsc`
@@ -43,6 +44,8 @@ const { chains, provider } = configureChains(
 - `celo`
 - `celoAlfajores`
 - `celoCannoli`
+- `edgeware`
+- `edgewareTestnet`
 - `fantom`
 - `fantomTestnet`
 - `foundry`
@@ -88,6 +91,7 @@ const { chains, provider } = configureChains(
 - `telosTestnet`
 - `zkSync`
 - `zkSyncTestnet`
+- `zoraTestnet`
 
 ## Contributing
 

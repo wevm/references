@@ -7,12 +7,12 @@ export const pulsechain = {
   nativeCurrency: { name: 'Pulse', symbol: 'PLS', decimals: 18 },
   rpcUrls: {
     default: {
-      http: ['https://rpc.mainnet.pulsechain.com'],
-      webSocket: ['wss://ws.mainnet.pulsechain.com'],
+      http: ['https://rpc.pulsechain.com'],
+      webSocket: ['wss://ws.pulsechain.com'],
     },
     public: {
-      http: ['https://rpc.mainnet.pulsechain.com'],
-      webSocket: ['wss://ws.mainnet.pulsechain.com'],
+      http: ['https://rpc.pulsechain.com'],
+      webSocket: ['wss://ws.pulsechain.com'],
     },
   },
   blockExplorers: {

@@ -19,6 +19,7 @@ type InjectedProviderFlags = {
   isBraveWallet?: true
   isCoinbaseWallet?: true
   isDawn?: true
+  isDefiant?: true
   isEnkrypt?: true
   isExodus?: true
   isFrame?: true
@@ -29,6 +30,7 @@ type InjectedProviderFlags = {
   isKuCoinWallet?: true
   isMathWallet?: true
   isMetaMask?: true
+  isNovaWallet?: true
   isOkxWallet?: true
   isOKExWallet?: true
   isOneInchAndroidWallet?: true
@@ -39,6 +41,7 @@ type InjectedProviderFlags = {
   isRabby?: true
   isRainbow?: true
   isStatus?: true
+  isTalisman?: true
   isTally?: true
   isTokenPocket?: true
   isTokenary?: true

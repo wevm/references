@@ -1,5 +1,55 @@
 # @wagmi/chains
 
+## 1.1.0
+
+### Minor Changes
+
+- a235f80: Updated universal resolver addresses to the newest deployment.
+
+## 1.0.0
+
+### Major Changes
+
+- b001569: Bumped minimum TypeScript version to v5.0.4.
+
+### Patch Changes
+
+- b62a199: Added multicall3 for canto
+- 260ab59: Added ZORA testnet
+- 6aea7ee: Fixed internal types.
+- 5e44429: Added Edgeware mainnet and testnet
+
+## 0.3.1
+
+### Patch Changes
+
+- 45ab14d: Rolled back universal resolver changes.
+
+## 0.3.0
+
+### Minor Changes
+
+- 36c14b2: Updated UniversalResolver addresses to latest version
+
+## 0.2.25
+
+### Patch Changes
+
+- 577d2a0: Added Bear Network Mainnet and Testnet
+
+## 0.2.24
+
+### Patch Changes
+
+- 0639a1f: Updated multicall3 address for zkSync and zkSyncTestnet
+
+## 0.2.23
+
+### Patch Changes
+
+- 29a4be5: Added ekta and ektaTestnet
+- dfd37f9: Removes mainnet subdomain from pulsechain chain id 369
+
 ## 0.2.22
 
 ### Patch Changes
