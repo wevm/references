@@ -1,5 +1,13 @@
 # @wagmi/connectors
 
+## 2.1.1
+
+### Patch Changes
+
+- c24de75: Updated `@walletconnect/ethereum-provider` and `@web3modal/standalone` dependencies.
+- 605c422: Bumped `viem` peer dependency.
+- dc1c546: Throw ResourceUnavailableError on -30002 errors.
+
 ## 2.1.0
 
 ### Minor Changes
