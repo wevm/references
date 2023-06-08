@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@wagmi/chains": "workspace:*",
-    "viem": "0.3.35"
+    "viem": "^1.0.0"
   },
   "type": "module",
   "main": "dist/index.js",
