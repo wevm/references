@@ -242,7 +242,7 @@ export class WalletConnectConnector extends Connector<
           params: [
             {
               chainId: numberToHex(chain.id),
-              blockExplorerUrls: [chain.blockExplorers?.default],
+              blockExplorerUrls: [chain.blockExplorers?.default?.url],
               chainName: chain.name,
               nativeCurrency: chain.nativeCurrency,
               rpcUrls: [...chain.rpcUrls.default.http],
