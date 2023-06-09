@@ -20,7 +20,7 @@ export const plinga = {
   contracts: {
     multicall3: {
       address: '0x1f22B66Dd127eAC499A40A774c934e123cF31F40',
-      blockCreated: 1455,
+      blockCreated: 817,
     },
   },
 } as const satisfies Chain
