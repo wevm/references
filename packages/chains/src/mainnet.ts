@@ -14,6 +14,10 @@ export const mainnet = {
       http: ['https://mainnet.infura.io/v3'],
       webSocket: ['wss://mainnet.infura.io/ws/v3'],
     },
+    chainstack: {
+      http: ['https://ethereum-mainnet.core.chainstack.com'],
+      webSocket: ['wss://ethereum-mainnet.core.chainstack.com/ws'],
+    },
     default: {
       http: ['https://cloudflare-eth.com'],
     },
