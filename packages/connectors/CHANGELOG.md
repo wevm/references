@@ -1,5 +1,15 @@
 # @wagmi/connectors
 
+## 2.2.0
+
+### Minor Changes
+
+- 6c841d4: Changed `Address` type import from ABIType to viem.
+
+### Patch Changes
+
+- 09c83f8: Update @walletconnect/ethereum-provider, Replace @web3modal/standalone with @walletconnect/modal, Fix issue with wallet_addEthereumChain method in WalletConnectConnector
+
 ## 2.1.1
 
 ### Patch Changes
