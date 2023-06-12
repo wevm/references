@@ -1,6 +1,6 @@
 import type { Chain } from '@wagmi/chains'
-import { Address } from 'abitype'
 import { default as EventEmitter } from 'eventemitter3'
+import type { Address } from 'viem'
 import { goerli, mainnet } from 'viem/chains'
 
 import { Storage, WalletClient } from './types'
