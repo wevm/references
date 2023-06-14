@@ -1,5 +1,5 @@
 ---
-"@wagmi/chains": minor
+"@wagmi/chains": patch
 ---
 
-Adding ZORA mainnet chain
+Added ZORA mainnet chain
