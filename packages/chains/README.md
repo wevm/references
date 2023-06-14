@@ -91,6 +91,7 @@ const { chains, provider } = configureChains(
 - `telosTestnet`
 - `zkSync`
 - `zkSyncTestnet`
+- `zora`
 - `zoraTestnet`
 
 ## Contributing
