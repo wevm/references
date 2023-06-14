@@ -3,7 +3,7 @@ import { Chain } from './types'
 export const zora = {
   id: 7777777,
   name: 'ZORA',
-  network: 'zora',
+  network: 'zeth',
   nativeCurrency: {
     decimals: 18,
     name: 'Ether',
@@ -26,7 +26,7 @@ export const zora = {
   contracts: {
     multicall3: {
       address: '0xcA11bde05977b3631167028862bE2a173976CA11',
-      blockCreated: 189123,
+      blockCreated: 5882,
     },
   },
 } as const satisfies Chain
