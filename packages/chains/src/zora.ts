@@ -3,7 +3,7 @@ import { Chain } from './types'
 export const zora = {
   id: 7777777,
   name: 'ZORA',
-  network: 'zeth',
+  network: 'zora',
   nativeCurrency: {
     decimals: 18,
     name: 'Ether',
