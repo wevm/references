@@ -8,7 +8,7 @@
     "dev": "DEV=true tsup"
   },
   "peerDependencies": {
-    "@wagmi/chains": ">=1.0.0",
+    "@wagmi/chains": ">=1.1.1",
     "typescript": ">=5.0.4",
     "viem": ">=0.3.35"
   },
