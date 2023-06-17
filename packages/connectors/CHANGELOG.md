@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.3.21
+
+### Patch Changes
+
+- 9c1dad3: Update @walletconnect/ethereum-provider, @walletconnect/modal
+
 ## 0.3.20
 
 ### Patch Changes
