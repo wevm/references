@@ -1,5 +1,19 @@
 # @wagmi/connectors
 
+## 3.0.0
+
+### Minor Changes
+
+- 28219ae: Added metadata property to WalletConnect init function
+- 6fef949: Updated @walletconnect/modal and @walletconnect/ethereum-provider deps
+
+### Patch Changes
+
+- 72f6465: Added `TTWallet` to `getInjectedName` list
+- Updated dependencies [a7cbd04]
+- Updated dependencies [f6ee133]
+  - @wagmi/chains@1.2.0
+
 ## 2.2.0
 
 ### Minor Changes

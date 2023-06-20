@@ -1,5 +1,15 @@
 # @wagmi/chains
 
+## 1.2.0
+
+### Minor Changes
+
+- a7cbd04: Added cronos testnet chain
+
+### Patch Changes
+
+- f6ee133: Added Fibo
+
 ## 1.1.1
 
 ### Patch Changes
