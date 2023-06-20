@@ -10,15 +10,10 @@ export const fibo = {
     symbol: 'FIBO',
   },
   rpcUrls: {
-    default: { http: ['https://network.hzroc.art']},
+    default: { http: ['https://network.hzroc.art'] },
     public: { http: ['https://network.hzroc.art'] },
   },
   blockExplorers: {
-    etherscan: { name: 'FiboScan', url: 'https://scan.fibochain.org/' },
-    default: { name: 'FiboScan', url: 'https://scan.fibochain.org/' },
+    default: { name: 'FiboScan', url: 'https://scan.fibochain.org' },
   },
 } as const satisfies Chain
-
-
-
-

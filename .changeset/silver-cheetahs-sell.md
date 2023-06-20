@@ -2,4 +2,4 @@
 "@wagmi/chains": patch
 ---
 
-add fibochain
+Added Fibo
