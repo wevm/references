@@ -47,6 +47,7 @@ type InjectedProviderFlags = {
   isTokenary?: true
   isTrust?: true
   isTrustWallet?: true
+  isTTWallet?: true
   isXDEFI?: true
   isZerion?: true
   isHaloWallet?: true

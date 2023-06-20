@@ -284,7 +284,12 @@ export class WalletConnectConnector extends Connector<
     } = await import('@walletconnect/ethereum-provider')
     const [defaultChain, ...optionalChains] = this.chains.map(({ id }) => id)
     if (defaultChain) {
-      const { projectId, showQrModal = true, qrModalOptions } = this.options
+      const {
+        projectId,
+        showQrModal = true,
+        qrModalOptions,
+        metadata,
+      } = this.options
       this.#provider = await EthereumProvider.init({
         showQrModal,
         qrModalOptions,
@@ -299,6 +304,7 @@ export class WalletConnectConnector extends Connector<
             chain.rpcUrls.default.http[0]!,
           ]),
         ),
+        metadata,
       })
     }
   }
