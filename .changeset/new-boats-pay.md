@@ -1,5 +1,5 @@
 ---
-"@wagmi/connectors": patch
+"@wagmi/connectors": minor
 ---
 
-Update @walletconnect/modal and @walletconnect/ethereum-provider
+Updated @walletconnect/modal and @walletconnect/ethereum-provider deps
