@@ -1,8 +1,8 @@
 import type { Chain } from '@wagmi/chains'
-import type { Address } from 'abitype'
 import {
+  type Address,
   ProviderRpcError,
-  ResourceNotFoundRpcError,
+  ResourceUnavailableRpcError,
   UserRejectedRequestError,
   getAddress,
 } from 'viem'
@@ -120,7 +120,7 @@ export class MetaMaskConnector extends InjectedConnector {
             // Or MetaMask is already open
             if (
               (error as ProviderRpcError).code ===
-              new ResourceNotFoundRpcError(error as ProviderRpcError).code
+              new ResourceUnavailableRpcError(error as ProviderRpcError).code
             )
               throw error
           }
@@ -150,7 +150,7 @@ export class MetaMaskConnector extends InjectedConnector {
       if (this.isUserRejectedRequestError(error))
         throw new UserRejectedRequestError(error as Error)
       if ((error as ProviderRpcError).code === -32002)
-        throw new ResourceNotFoundRpcError(error as ProviderRpcError)
+        throw new ResourceUnavailableRpcError(error as ProviderRpcError)
       throw error
     }
   }

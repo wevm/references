@@ -1,5 +1,11 @@
 # @wagmi/chains
 
+## 1.1.1
+
+### Patch Changes
+
+- 47be5bb: Added ZORA mainnet chain
+
 ## 1.1.0
 
 ### Minor Changes

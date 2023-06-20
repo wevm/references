@@ -40,6 +40,7 @@ export function getInjectedName(ethereum?: WindowProvider) {
     if (provider.isTokenPocket) return 'TokenPocket'
     if (provider.isTokenary) return 'Tokenary'
     if (provider.isTrust || provider.isTrustWallet) return 'Trust Wallet'
+    if (provider.isTTWallet) return 'TTWallet'
     if (provider.isXDEFI) return 'XDEFI Wallet'
     if (provider.isZerion) return 'Zerion'
     if (provider.isMetaMask) return 'MetaMask'

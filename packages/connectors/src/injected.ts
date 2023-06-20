@@ -1,8 +1,8 @@
 import type { Chain } from '@wagmi/chains'
-import type { Address } from 'abitype'
 import {
+  type Address,
   ProviderRpcError,
-  ResourceNotFoundRpcError,
+  ResourceUnavailableRpcError,
   SwitchChainError,
   UserRejectedRequestError,
   createWalletClient,
@@ -123,7 +123,7 @@ export class InjectedConnector extends Connector<
       if (this.isUserRejectedRequestError(error))
         throw new UserRejectedRequestError(error as Error)
       if ((error as ProviderRpcError).code === -32002)
-        throw new ResourceNotFoundRpcError(error as ProviderRpcError)
+        throw new ResourceUnavailableRpcError(error as ProviderRpcError)
       throw error
     }
   }
