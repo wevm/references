@@ -2,4 +2,4 @@
 "@wagmi/connectors": patch
 ---
 
-Add metadata property to WalletConnect init function
+Added metadata property to WalletConnect init function
