@@ -2,4 +2,4 @@
 "@wagmi/chains": minor
 ---
 
-Add cronos testnet chain
+Added cronos testnet chain

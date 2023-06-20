@@ -14,8 +14,10 @@ export const cronosTestnet = {
     public: { http: ['https://evm-t3.cronos.org'] },
   },
   blockExplorers: {
-    etherscan: { name: 'Cronos Explorer', url: 'https://cronos.org/explorer/testnet3' },
-    default: { name: 'Cronos Explorer', url: 'https://cronos.org/explorer/testnet3' },
+    default: {
+      name: 'Cronos Explorer',
+      url: 'https://cronos.org/explorer/testnet3',
+    },
   },
   testnet: true,
 } as const satisfies Chain
