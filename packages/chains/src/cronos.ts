@@ -14,7 +14,6 @@ export const cronos = {
     public: { http: ['https://node.croswap.com/rpc'] },
   },
   blockExplorers: {
-    etherscan: { name: 'CronosScan', url: 'https://cronoscan.com' },
     default: { name: 'CronosScan', url: 'https://cronoscan.com' },
   },
   contracts: {

@@ -44,6 +44,8 @@ const { chains, provider } = configureChains(
 - `celo`
 - `celoAlfajores`
 - `celoCannoli`
+- `cronos`
+- `cronosTestnet`
 - `edgeware`
 - `edgewareTestnet`
 - `fantom`
