@@ -87,8 +87,8 @@ importers:
         specifier: ^3.6.6
         version: 3.6.6
       '@ledgerhq/connect-kit-loader':
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^1.1.0-beta.2
+        version: 1.1.0-beta.2
       '@safe-global/safe-apps-provider':
         specifier: ^0.15.2
         version: 0.15.2
@@ -772,8 +772,8 @@ packages:
       '@pedrouid/environment': 1.0.1
     dev: false
 
-  /@ledgerhq/connect-kit-loader@1.0.1:
-    resolution: {integrity: sha512-OAJh9rMaypS1ttrSMwPznXqglJGcP3WPTTgz9YAKfkaMyUtZcHx7hCj4d6f7DdSVZOgWcyEYfZ8M2QrA2gtvgQ==}
+  /@ledgerhq/connect-kit-loader@1.1.0-beta.2:
+    resolution: {integrity: sha512-PTz7+Ge+Q+fmyU62BAuJe036DNE2zCwF+s8Yo8UCxmE9X/dWUHv9nmZrUKXgc6TUx9e4jtTbCr0s8amepJHA8Q==}
     dev: false
 
   /@lit-labs/ssr-dom-shim@1.1.1:

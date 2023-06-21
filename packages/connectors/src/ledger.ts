@@ -1,9 +1,10 @@
 import {
+  EthereumProvider,
   SupportedProviders,
   loadConnectKit,
 } from '@ledgerhq/connect-kit-loader'
-import type { EthereumProvider } from '@ledgerhq/connect-kit-loader'
 import type { Chain } from '@wagmi/chains'
+import { EthereumProviderOptions } from '@walletconnect/ethereum-provider/dist/types/EthereumProvider'
 import {
   ProviderRpcError,
   SwitchChainError,
@@ -14,15 +15,30 @@ import {
   numberToHex,
 } from 'viem'
 
-import type { ConnectorData } from './base'
 import { Connector } from './base'
 import { normalizeChainId } from './utils/normalizeChainId'
 
 type LedgerConnectorOptions = {
+  enableDebugLogs?: boolean
+  walletConnectVersion?: 1 | 2
+
+  // WalletConnect v2 init parameters
+  projectId?: EthereumProviderOptions['projectId']
+  requiredChains?: number[]
+  requiredMethods?: string[]
+  optionalMethods?: string[]
+  requiredEvents?: string[]
+  optionalEvents?: string[]
+
+  // WalletConnect v1 init parameters
   bridge?: string
   chainId?: number
-  enableDebugLogs?: boolean
   rpc?: { [chainId: number]: string }
+}
+
+type ConnectConfig = {
+  /** Target chain to connect to. */
+  chainId?: number
 }
 
 export class LedgerConnector extends Connector<
@@ -34,70 +50,75 @@ export class LedgerConnector extends Connector<
   readonly ready = true
 
   #provider?: EthereumProvider
+  #initProviderPromise?: Promise<void>
+  #isV1: boolean
 
-  constructor({
-    chains,
-    options = { enableDebugLogs: false },
-  }: {
-    chains?: Chain[]
-    options?: LedgerConnectorOptions
-  } = {}) {
-    super({ chains, options })
+  get walletConnectVersion(): 1 | 2 {
+    if (this.options.walletConnectVersion) return this.options.walletConnectVersion
+    else if (this.options.projectId) return 2
+    return 1
   }
 
-  async connect(): Promise<Required<ConnectorData>> {
+  constructor(config: { chains?: Chain[]; options: LedgerConnectorOptions }) {
+    super({
+      ...config,
+      options: { ...config.options },
+    })
+
+    this.#isV1 = this.walletConnectVersion === 1
+  }
+
+  async connect({ chainId }: ConnectConfig = {}) {
     try {
       const provider = await this.getProvider({ create: true })
+      this.#setupListeners()
 
-      if (provider.on) {
-        provider.on('accountsChanged', this.onAccountsChanged)
-        provider.on('chainChanged', this.onChainChanged)
-        provider.on('disconnect', this.onDisconnect)
+      // Don't request accounts if we have a session, like when reloading with
+      // an active WC v2 session
+      if (!provider.session) {
+        this.emit('message', { type: 'connecting' })
+
+        await provider.request({
+          method: 'eth_requestAccounts',
+        })
       }
 
-      this.emit('message', { type: 'connecting' })
+      const account = await this.getAccount()
+      let id = await this.getChainId()
+      let unsupported = this.isChainUnsupported(id)
 
-      const accounts = (await provider.request({
-        method: 'eth_requestAccounts',
-      })) as string[]
-      const account = getAddress(accounts[0] as string)
-      const id = await this.getChainId()
-      const unsupported = this.isChainUnsupported(id)
-
-      // Enable support for programmatic chain switching
-      this.switchChain = this.#switchChain
+      if (chainId && id !== chainId) {
+        const chain = await this.switchChain(chainId)
+        id = chain.id
+        unsupported = this.isChainUnsupported(id)
+      }
 
       return {
         account,
         chain: { id, unsupported },
+        provider,
       }
     } catch (error) {
-      if ((error as ProviderRpcError).code === 4001) {
+      if (/user rejected/i.test((error as ProviderRpcError)?.message)) {
         throw new UserRejectedRequestError(error as Error)
       }
-      if ((error as ProviderRpcError).code === -32002) {
-        throw error instanceof Error ? error : new Error(String(error))
-      }
-
       throw error
     }
   }
 
   async disconnect() {
     const provider = await this.getProvider()
+    try {
+      if (provider?.disconnect) await provider.disconnect()
+    } catch (error) {
+      if (!/No matching key/i.test((error as Error).message)) throw error
+    } finally {
+      this.#removeListeners()
 
-    if (provider?.disconnect) {
-      await provider.disconnect()
+      this.#isV1 &&
+        typeof localStorage !== 'undefined' &&
+        localStorage.removeItem('walletconnect')
     }
-
-    if (provider?.removeListener) {
-      provider.removeListener('accountsChanged', this.onAccountsChanged)
-      provider.removeListener('chainChanged', this.onChainChanged)
-      provider.removeListener('disconnect', this.onDisconnect)
-    }
-
-    typeof localStorage !== 'undefined' &&
-      localStorage.removeItem('walletconnect')
   }
 
   async getAccount() {
@@ -124,31 +145,11 @@ export class LedgerConnector extends Connector<
       create: false,
     },
   ) {
-    if (!this.#provider || chainId || create) {
-      const connectKit = await loadConnectKit()
-
-      if (this.options.enableDebugLogs) {
-        connectKit.enableDebugLogs()
-      }
-
-      const rpc = this.chains.reduce(
-        (rpc, chain) => ({
-          ...rpc,
-          [chain.id]: chain.rpcUrls.default.http[0],
-        }),
-        {},
-      )
-
-      connectKit.checkSupport({
-        bridge: this.options.bridge,
-        providerType: SupportedProviders.Ethereum,
-        chainId: chainId || this.options.chainId,
-        rpc: { ...rpc, ...this.options?.rpc },
-      })
-
-      this.#provider = (await connectKit.getProvider()) as EthereumProvider
+    if (!this.#provider || (this.#isV1 && create)) {
+      await this.#createProvider()
     }
-    return this.#provider
+    if (chainId) await this.switchChain(chainId)
+    return this.#provider!
   }
 
   async getWalletClient({ chainId }: { chainId?: number } = {}) {
@@ -157,65 +158,122 @@ export class LedgerConnector extends Connector<
       this.getAccount(),
     ])
     const chain = this.chains.find((x) => x.id === chainId)
+
     if (!provider) throw new Error('provider is required.')
-    return createWalletClient({
-      account,
-      chain,
-      transport: custom(provider),
-    })
+    return createWalletClient({ account, chain, transport: custom(provider) })
   }
 
   async isAuthorized() {
     try {
       const account = await this.getAccount()
+
       return !!account
     } catch {
       return false
     }
   }
 
-  async #switchChain(chainId: number) {
-    const provider = await this.getProvider()
-    const id = numberToHex(chainId)
+  async switchChain(chainId: number) {
+    const chain = this.chains.find((chain) => chain.id === chainId)
+    if (!chain)
+      throw new SwitchChainError(new Error('chain not found on connector.'))
 
     try {
-      // Set up a race between `wallet_switchEthereumChain` & the `chainChanged` event
-      // to ensure the chain has been switched. This is because there could be a case
-      // where a wallet may not resolve the `wallet_switchEthereumChain` method, or
-      // resolves slower than `chainChanged`.
-      await Promise.race([
-        provider.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: id }],
-        }),
-        new Promise((res) =>
-          this.on('change', ({ chain }) => {
-            if (chain?.id === chainId) res(chainId)
-          }),
-        ),
-      ])
-      return (
-        this.chains.find((x) => x.id === chainId) ??
-        ({
-          id: chainId,
-          name: `Chain ${id}`,
-          network: `${id}`,
-          nativeCurrency: { name: 'Ether', decimals: 18, symbol: 'ETH' },
-          rpcUrls: { default: { http: [''] }, public: { http: [''] } },
-        } as Chain)
-      )
+      const provider = await this.getProvider()
+
+      await provider.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: numberToHex(chainId) }],
+      })
+
+      return chain
     } catch (error) {
       const message =
         typeof error === 'string' ? error : (error as ProviderRpcError)?.message
-      if (/user rejected request/i.test(message))
+      if (/user rejected request/i.test(message)) {
         throw new UserRejectedRequestError(error as Error)
+      }
       throw new SwitchChainError(error as Error)
     }
   }
 
+  async #createProvider() {
+    if (!this.#initProviderPromise && typeof window !== 'undefined') {
+      this.#initProviderPromise = this.#initProvider()
+    }
+    return this.#initProviderPromise
+  }
+
+  async #initProvider() {
+    const optionalChains = this.chains.map(({ id }) => id)
+    const connectKit = await loadConnectKit()
+
+    if (this.options.enableDebugLogs) {
+      connectKit.enableDebugLogs()
+    }
+
+    let checkSupportOptions
+
+    if (this.#isV1) {
+      checkSupportOptions = {
+        providerType: SupportedProviders.Ethereum,
+        walletConnectVersion: 1,
+        chainId: this.options.chainId,
+        bridge: this.options.bridge,
+        rpc: Object.fromEntries(
+          this.chains.map((chain) => [
+            chain.id,
+            chain.rpcUrls.default.http[0]!,
+          ]),
+        ),
+      }
+    } else {
+      checkSupportOptions = {
+        providerType: SupportedProviders.Ethereum,
+        walletConnectVersion: 2,
+        projectId: this.options.projectId,
+        chains: this.options.requiredChains,
+        optionalChains: optionalChains,
+        methods: this.options.requiredMethods,
+        optionalMethods: this.options.optionalMethods,
+        events: this.options.requiredEvents,
+        optionalEvents: this.options.optionalEvents,
+        rpcMap: Object.fromEntries(
+          this.chains.map((chain) => [
+            chain.id,
+            chain.rpcUrls.default.http[0]!,
+          ]),
+        ),
+      }
+    }
+    connectKit.checkSupport(checkSupportOptions)
+
+    this.#provider =
+      (await connectKit.getProvider()) as unknown as EthereumProvider
+  }
+
+  #setupListeners() {
+    if (!this.#provider) return
+    this.#removeListeners()
+    this.#provider.on('accountsChanged', this.onAccountsChanged)
+    this.#provider.on('chainChanged', this.onChainChanged)
+    this.#provider.on('disconnect', this.onDisconnect)
+    this.#provider.on('session_delete', this.onDisconnect)
+    this.#provider.on('connect', this.onConnect)
+  }
+
+  #removeListeners() {
+    if (!this.#provider) return
+    this.#provider.removeListener('accountsChanged', this.onAccountsChanged)
+    this.#provider.removeListener('chainChanged', this.onChainChanged)
+    this.#provider.removeListener('disconnect', this.onDisconnect)
+    this.#provider.removeListener('session_delete', this.onDisconnect)
+    this.#provider.removeListener('connect', this.onConnect)
+  }
+
   protected onAccountsChanged = (accounts: string[]) => {
     if (accounts.length === 0) this.emit('disconnect')
-    else this.emit('change', { account: getAddress(accounts[0] as string) })
+    else this.emit('change', { account: getAddress(accounts[0]!) })
   }
 
   protected onChainChanged = (chainId: number | string) => {
@@ -226,5 +284,9 @@ export class LedgerConnector extends Connector<
 
   protected onDisconnect = () => {
     this.emit('disconnect')
+  }
+
+  protected onConnect = () => {
+    this.emit('connect', {})
   }
 }
