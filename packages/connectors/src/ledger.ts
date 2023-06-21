@@ -54,7 +54,8 @@ export class LedgerConnector extends Connector<
   #isV1: boolean
 
   get walletConnectVersion(): 1 | 2 {
-    if (this.options.walletConnectVersion) return this.options.walletConnectVersion
+    if (this.options.walletConnectVersion)
+      return this.options.walletConnectVersion
     else if (this.options.projectId) return 2
     return 1
   }
