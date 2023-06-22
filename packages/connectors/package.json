@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@coinbase/wallet-sdk": "^3.6.6",
-    "@ledgerhq/connect-kit-loader": "^1.1.0-beta.2",
+    "@ledgerhq/connect-kit-loader": "^1.1.0",
     "@safe-global/safe-apps-provider": "^0.15.2",
     "@safe-global/safe-apps-sdk": "^7.9.0",
     "@walletconnect/ethereum-provider": "2.8.1",
