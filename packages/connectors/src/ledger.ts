@@ -18,23 +18,26 @@ import {
 import { Connector } from './base'
 import { normalizeChainId } from './utils/normalizeChainId'
 
-type LedgerConnectorOptions = {
-  enableDebugLogs?: boolean
-  walletConnectVersion?: 1 | 2
+type LedgerConnectorWcV1Options = {
+  walletConnectVersion?: 1
+  bridge?: string
+  chainId?: number
+  rpc?: { [chainId: number]: string }
+}
 
-  // WalletConnect v2 init parameters
+type LedgerConnectorWcV2Options = {
+  walletConnectVersion?: 2
   projectId?: EthereumProviderOptions['projectId']
   requiredChains?: number[]
   requiredMethods?: string[]
   optionalMethods?: string[]
   requiredEvents?: string[]
   optionalEvents?: string[]
-
-  // WalletConnect v1 init parameters
-  bridge?: string
-  chainId?: number
-  rpc?: { [chainId: number]: string }
 }
+
+type LedgerConnectorOptions = {
+  enableDebugLogs?: boolean
+} & (LedgerConnectorWcV1Options | LedgerConnectorWcV2Options)
 
 type ConnectConfig = {
   /** Target chain to connect to. */
@@ -56,7 +59,7 @@ export class LedgerConnector extends Connector<
   get walletConnectVersion(): 1 | 2 {
     if (this.options.walletConnectVersion)
       return this.options.walletConnectVersion
-    else if (this.options.projectId) return 2
+    else if ((this.options as LedgerConnectorWcV2Options).projectId) return 2
     return 1
   }
 
@@ -206,7 +209,6 @@ export class LedgerConnector extends Connector<
   }
 
   async #initProvider() {
-    const optionalChains = this.chains.map(({ id }) => id)
     const connectKit = await loadConnectKit()
 
     if (this.options.enableDebugLogs) {
@@ -216,11 +218,12 @@ export class LedgerConnector extends Connector<
     let checkSupportOptions
 
     if (this.#isV1) {
+      const { chainId, bridge } = this.options as LedgerConnectorWcV1Options
       checkSupportOptions = {
         providerType: SupportedProviders.Ethereum,
         walletConnectVersion: 1,
-        chainId: this.options.chainId,
-        bridge: this.options.bridge,
+        chainId,
+        bridge,
         rpc: Object.fromEntries(
           this.chains.map((chain) => [
             chain.id,
@@ -229,16 +232,26 @@ export class LedgerConnector extends Connector<
         ),
       }
     } else {
+      const {
+        projectId,
+        requiredChains,
+        requiredMethods,
+        optionalMethods,
+        requiredEvents,
+        optionalEvents,
+      } = this.options as LedgerConnectorWcV2Options
+      const optionalChains = this.chains.map(({ id }) => id)
+
       checkSupportOptions = {
         providerType: SupportedProviders.Ethereum,
         walletConnectVersion: 2,
-        projectId: this.options.projectId,
-        chains: this.options.requiredChains,
-        optionalChains: optionalChains,
-        methods: this.options.requiredMethods,
-        optionalMethods: this.options.optionalMethods,
-        events: this.options.requiredEvents,
-        optionalEvents: this.options.optionalEvents,
+        projectId,
+        chains: requiredChains,
+        optionalChains,
+        methods: requiredMethods,
+        optionalMethods,
+        events: requiredEvents,
+        optionalEvents,
         rpcMap: Object.fromEntries(
           this.chains.map((chain) => [
             chain.id,
