@@ -69,6 +69,7 @@ const { chains, provider } = configureChains(
 - `optimismGoerli`
 - `polygon`
 - `polygonMumbai`
+- `plinga`
 - `pulsechain`
 - `pulsechainV4`
 - `skaleBlockBrawlers`
