@@ -1,7 +1,7 @@
 import { Chain } from './types'
 
 export const bitciTest = {
-    id: 1907,
+    id: 1908,
     name: 'Bitci Test Chain',
     network: 'bitcitest',
     nativeCurrency: {
