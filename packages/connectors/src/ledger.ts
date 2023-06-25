@@ -22,6 +22,7 @@ type LedgerConnectorWcV1Options = {
   walletConnectVersion?: 1
   bridge?: string
   chainId?: number
+  projectId?: never
   rpc?: { [chainId: number]: string }
 }
 
