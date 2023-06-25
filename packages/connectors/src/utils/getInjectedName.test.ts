@@ -33,6 +33,7 @@ describe.each([
   { ethereum: { isFrame: true }, expected: 'Frame' },
   { ethereum: { isFrontier: true }, expected: 'Frontier Wallet' },
   { ethereum: { isGamestop: true }, expected: 'GameStop Wallet' },
+  { ethereum: { isHaqqWallet: true }, expected: 'HAQQ Wallet' },
   { ethereum: { isHyperPay: true }, expected: 'HyperPay Wallet' },
   { ethereum: { isImToken: true }, expected: 'ImToken' },
   {
