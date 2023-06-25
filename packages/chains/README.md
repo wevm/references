@@ -95,6 +95,8 @@ const { chains, provider } = configureChains(
 - `zkSyncTestnet`
 - `zora`
 - `zoraTestnet`
+- `bitci`
+- `bitciTest`
 
 ## Contributing
 
