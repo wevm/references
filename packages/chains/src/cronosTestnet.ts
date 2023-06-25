@@ -19,5 +19,11 @@ export const cronosTestnet = {
       url: 'https://cronos.org/explorer/testnet3',
     },
   },
+  contracts: {
+    multicall3: {
+      address: '0xcA11bde05977b3631167028862bE2a173976CA11',
+      blockCreated: 10191251,
+    },
+  },
   testnet: true,
 } as const satisfies Chain
