@@ -1,22 +1,22 @@
-import { Chain } from "./types";
+import { Chain } from './types'
 
 export const bxn = {
   id: 4999,
-  name: "BlackFort Exchange Network",
-  network: "bxn",
-  nativeCurrency: { name: "BlackFort Token", symbol: "BXN", decimals: 18 },
+  name: 'BlackFort Exchange Network',
+  network: 'bxn',
+  nativeCurrency: { name: 'BlackFort Token', symbol: 'BXN', decimals: 18 },
   rpcUrls: {
     default: {
-      http: ["https://mainnet.blackfort.network/rpc"],
+      http: ['https://mainnet.blackfort.network/rpc'],
     },
     public: {
-      http: ["https://mainnet.blackfort.network/rpc"],
+      http: ['https://mainnet.blackfort.network/rpc'],
     },
   },
   blockExplorers: {
     default: {
-      name: "Blockscout",
-      url: "https://explorer.blackfort.network",
+      name: 'Blockscout',
+      url: 'https://explorer.blackfort.network',
     },
   },
-} as const satisfies Chain;
+} as const satisfies Chain
