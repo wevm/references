@@ -21,8 +21,8 @@ export const bitciTest = {
     },
     contracts: {
         multicall3: {
-            address: '0xe1E63664E4056d5aa5CA8a628b4FCd363bbd95a2',
-            blockCreated: 1172400,
+            address: '0x2c7a2166C8d89c03D8c04640fD93560FD19fcAF4',
+            blockCreated: 1179269,
         },
     },
 } as const satisfies Chain
