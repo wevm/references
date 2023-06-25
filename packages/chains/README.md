@@ -40,6 +40,8 @@ const { chains, provider } = configureChains(
 - `bronosTestnet`
 - `bsc`
 - `bscTestnet`
+- `bitci`
+- `bitciTest`
 - `canto`
 - `celo`
 - `celoAlfajores`
@@ -95,8 +97,6 @@ const { chains, provider } = configureChains(
 - `zkSyncTestnet`
 - `zora`
 - `zoraTestnet`
-- `bitci`
-- `bitciTest`
 
 ## Contributing
 
