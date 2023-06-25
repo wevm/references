@@ -1,5 +1,17 @@
 # @wagmi/connectors
 
+## 2.4.0
+
+### Patch Changes
+
+- f21c8e0: Added WalletConnect v2 support to Ledger connector.
+- 27482bb: Add HAQQ Wallet detection
+- 7d6aa43: Exported `normalizeChainId`.
+- Updated dependencies [62b8209]
+- Updated dependencies [106ac13]
+- Updated dependencies [8b3f5e5]
+  - @wagmi/chains@1.3.0
+
 ## 2.3.0
 
 ### Minor Changes
