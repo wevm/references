@@ -22,12 +22,12 @@
   },
   "dependencies": {
     "@coinbase/wallet-sdk": "^3.6.6",
-    "@ledgerhq/connect-kit-loader": "^1.0.1",
+    "@ledgerhq/connect-kit-loader": "^1.1.0",
+    "@safe-global/safe-apps-provider": "^0.15.2",
+    "@safe-global/safe-apps-sdk": "^7.9.0",
     "@walletconnect/ethereum-provider": "2.8.1",
     "@walletconnect/legacy-provider": "^2.0.0",
     "@walletconnect/modal": "^2.4.6",
-    "@safe-global/safe-apps-provider": "^0.15.2",
-    "@safe-global/safe-apps-sdk": "^7.9.0",
     "abitype": "0.8.7",
     "eventemitter3": "^4.0.7"
   },
