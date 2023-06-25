@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 2.5.0
+
+### Minor Changes
+
+- 57e674e: Updated `@safe-global/safe-apps-sdk` & `@safe-global/safe-apps-provider`
+
 ## 2.4.0
 
 ### Patch Changes
