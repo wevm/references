@@ -97,13 +97,13 @@ importers:
         version: 8.0.0(typescript@5.0.4)
       '@walletconnect/ethereum-provider':
         specifier: 2.8.3
-        version: 2.8.3(@walletconnect/modal@2.5.3)(lokijs@1.5.12)
+        version: 2.8.3(@walletconnect/modal@2.5.4)(lokijs@1.5.12)
       '@walletconnect/legacy-provider':
         specifier: ^2.0.0
         version: 2.0.0
       '@walletconnect/modal':
-        specifier: 2.5.3
-        version: 2.5.3(react@18.2.0)
+        specifier: 2.5.4
+        version: 2.5.4(react@18.2.0)
       abitype:
         specifier: 0.8.7
         version: 0.8.7(typescript@5.0.4)
@@ -1031,7 +1031,7 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@walletconnect/ethereum-provider@2.8.3(@walletconnect/modal@2.5.3)(lokijs@1.5.12):
+  /@walletconnect/ethereum-provider@2.8.3(@walletconnect/modal@2.5.4)(lokijs@1.5.12):
     resolution: {integrity: sha512-OdD1G7xWAqJy2G/C5uoLHNw6oPs3+epXjt1J0WF8984f34GBse7iCCC6vB3ImvtzO2Jc/B08LUUnATdyDMxYMw==}
     peerDependencies:
       '@walletconnect/modal': '>=2'
@@ -1043,7 +1043,7 @@ packages:
       '@walletconnect/jsonrpc-provider': 1.0.13
       '@walletconnect/jsonrpc-types': 1.0.3
       '@walletconnect/jsonrpc-utils': 1.0.8
-      '@walletconnect/modal': 2.5.3(react@18.2.0)
+      '@walletconnect/modal': 2.5.4(react@18.2.0)
       '@walletconnect/sign-client': 2.8.3(lokijs@1.5.12)
       '@walletconnect/types': 2.8.3(lokijs@1.5.12)
       '@walletconnect/universal-provider': 2.8.3(lokijs@1.5.12)
@@ -1241,8 +1241,8 @@ packages:
       tslib: 1.14.1
     dev: false
 
-  /@walletconnect/modal-core@2.5.3(react@18.2.0):
-    resolution: {integrity: sha512-SlOjcULdTUFRUr0Ebg/y5XGGJFPf6Afj46VfSzbOW7MQRauhCFcxdRdt3R1stS+J02fxiSU5/+SYw5ai2Vq/rw==}
+  /@walletconnect/modal-core@2.5.4(react@18.2.0):
+    resolution: {integrity: sha512-ISe4LqmEDFU7b6rLgonqaEtMXzG6ko13HA7S8Ty3d7GgfAEe29LM1dq3zo8ehEOghhofhj1PiiNfvaogZKzT1g==}
     dependencies:
       buffer: 6.0.3
       valtio: 1.10.6(react@18.2.0)
@@ -1250,10 +1250,10 @@ packages:
       - react
     dev: false
 
-  /@walletconnect/modal-ui@2.5.3(react@18.2.0):
-    resolution: {integrity: sha512-ALEc+qC/ZIbycUrL7eISqtDOTFTAZZld2Bd2rytKeY27cL+7gIvNNSPIpwyLYt274SzPSaKrX5Zu7KzukdKT3w==}
+  /@walletconnect/modal-ui@2.5.4(react@18.2.0):
+    resolution: {integrity: sha512-5qLLjwbE3YC4AsCVhf8J87otklkApcQ5DCMykOcS0APPv8lKQ46JxpQhfWwRYaUkuIiHonI9h1YxFARDkoaI9g==}
     dependencies:
-      '@walletconnect/modal-core': 2.5.3(react@18.2.0)
+      '@walletconnect/modal-core': 2.5.4(react@18.2.0)
       lit: 2.7.5
       motion: 10.16.2
       qrcode: 1.5.3
@@ -1261,11 +1261,11 @@ packages:
       - react
     dev: false
 
-  /@walletconnect/modal@2.5.3(react@18.2.0):
-    resolution: {integrity: sha512-bAPrDsraR8k5jE/iTU9b8fNFT3Meq+jCVsg0ViHdV/F1QAoOBe5kqBrX9sRnwrNLG3eE+DLIOIdWzFQjI1/Pbg==}
+  /@walletconnect/modal@2.5.4(react@18.2.0):
+    resolution: {integrity: sha512-JAKMcCd4JQvSEr7pNitg3OBke4DN1JyaQ7bdi3x4T7oLgOr9Y88qdkeOXko/0aJonDHJsM88hZ10POQWmKfEMA==}
     dependencies:
-      '@walletconnect/modal-core': 2.5.3(react@18.2.0)
-      '@walletconnect/modal-ui': 2.5.3(react@18.2.0)
+      '@walletconnect/modal-core': 2.5.4(react@18.2.0)
+      '@walletconnect/modal-ui': 2.5.4(react@18.2.0)
     transitivePeerDependencies:
       - react
     dev: false
