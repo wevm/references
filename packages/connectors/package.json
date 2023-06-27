@@ -25,7 +25,7 @@
     "@ledgerhq/connect-kit-loader": "^1.1.0",
     "@safe-global/safe-apps-provider": "^0.17.1",
     "@safe-global/safe-apps-sdk": "^8.0.0",
-    "@walletconnect/ethereum-provider": "2.8.1",
+    "@walletconnect/ethereum-provider": "2.8.3",
     "@walletconnect/legacy-provider": "^2.0.0",
     "@walletconnect/modal": "^2.4.6",
     "abitype": "0.8.7",
@@ -89,10 +89,7 @@
     "/dist"
   ],
   "sideEffects": false,
-  "contributors": [
-    "awkweb.eth <t@wagmi.sh>",
-    "jxom.eth <j@wagmi.sh>"
-  ],
+  "contributors": ["awkweb.eth <t@wagmi.sh>", "jxom.eth <j@wagmi.sh>"],
   "homepage": "https://wagmi.sh",
   "ethereum": "wagmi-dev.eth",
   "funding": [
