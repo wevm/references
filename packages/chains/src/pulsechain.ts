@@ -5,6 +5,7 @@ export const pulsechain = {
   network: 'pulsechain',
   name: 'PulseChain',
   nativeCurrency: { name: 'Pulse', symbol: 'PLS', decimals: 18 },
+  testnet: false,
   rpcUrls: {
     default: {
       http: ['https://rpc.pulsechain.com'],
