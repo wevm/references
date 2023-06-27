@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.3.22
+
+### Patch Changes
+
+- 7875b9f: Updated WalletConnect dependencies
+
 ## 0.3.21
 
 ### Patch Changes
