@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 2.6.0
+
+### Minor Changes
+
+- 32dc317: Updated @walletconnect/ethereum-provider and @walletconnect/modal dependencies
+
 ## 2.5.0
 
 ### Minor Changes
