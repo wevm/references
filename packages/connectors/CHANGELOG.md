@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 2.6.1
+
+### Patch Changes
+
+- a3507a9: Updated @walletconnect/ethereum-provider dependency
+
 ## 2.6.0
 
 ### Minor Changes
