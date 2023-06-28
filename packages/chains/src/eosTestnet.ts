@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const eos = {
+export const eosTestnet = {
   id: 15557,
   name: 'EOS EVM Testnet',
   network: 'eos',
