@@ -13,7 +13,7 @@ import {
 } from 'viem'
 
 import { Connector } from './base'
-import { StorageStoreData } from './types'
+import type { StorageStoreData, WalletClient } from './types'
 
 type WalletConnectOptions = {
   /**
@@ -186,7 +186,9 @@ export class WalletConnectConnector extends Connector<
     return this.#provider!
   }
 
-  async getWalletClient({ chainId }: { chainId?: number } = {}) {
+  async getWalletClient({
+    chainId,
+  }: { chainId?: number } = {}): Promise<WalletClient> {
     const [provider, account] = await Promise.all([
       this.getProvider({ chainId }),
       this.getAccount(),
