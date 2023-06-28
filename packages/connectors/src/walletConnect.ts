@@ -70,6 +70,11 @@ type WalletConnectOptions = {
    * @link https://docs.walletconnect.com/2.0/web3modal/options
    */
   qrModalOptions?: EthereumProviderOptions['qrModalOptions']
+  /**
+   * Required methods for the provider.
+   * @link https://docs.walletconnect.com/2.0/javascript/providers/ethereum#initialization
+   */
+  methods?: EthereumProviderOptions['methods']
 }
 
 type ConnectConfig = {
@@ -289,11 +294,13 @@ export class WalletConnectConnector extends Connector<
         showQrModal = true,
         qrModalOptions,
         metadata,
+        methods,
       } = this.options
       this.#provider = await EthereumProvider.init({
         showQrModal,
         qrModalOptions,
         projectId,
+        methods,
         optionalMethods: OPTIONAL_METHODS,
         optionalEvents: OPTIONAL_EVENTS,
         chains: [defaultChain],
