@@ -20,7 +20,10 @@ export const zoraTestnet = {
     },
   },
   blockExplorers: {
-    etherscan: { name: 'Explorer', url: 'https://testnet.explorer.zora.energy' },
+    etherscan: {
+      name: 'Explorer',
+      url: 'https://testnet.explorer.zora.energy',
+    },
     default: { name: 'Explorer', url: 'https://testnet.explorer.zora.energy' },
   },
   contracts: {
