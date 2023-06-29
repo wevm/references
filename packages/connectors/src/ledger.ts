@@ -16,6 +16,7 @@ import {
 } from 'viem'
 
 import { Connector } from './base'
+import type { WalletClient } from './types'
 import { normalizeChainId } from './utils/normalizeChainId'
 
 type LedgerConnectorWcV1Options = {
@@ -157,7 +158,9 @@ export class LedgerConnector extends Connector<
     return this.#provider!
   }
 
-  async getWalletClient({ chainId }: { chainId?: number } = {}) {
+  async getWalletClient({
+    chainId,
+  }: { chainId?: number } = {}): Promise<WalletClient> {
     const [provider, account] = await Promise.all([
       this.getProvider({ chainId }),
       this.getAccount(),

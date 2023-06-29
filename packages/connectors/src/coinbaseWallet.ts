@@ -17,6 +17,7 @@ import {
 
 import { Connector } from './base'
 import { ChainNotConfiguredForConnectorError } from './errors'
+import type { WalletClient } from './types'
 import { normalizeChainId } from './utils/normalizeChainId'
 
 type Options = Omit<CoinbaseWalletSDKOptions, 'reloadOnDisconnect'> & {
@@ -164,7 +165,9 @@ export class CoinbaseWalletConnector extends Connector<
     return this.#provider
   }
 
-  async getWalletClient({ chainId }: { chainId?: number } = {}) {
+  async getWalletClient({
+    chainId,
+  }: { chainId?: number } = {}): Promise<WalletClient> {
     const [provider, account] = await Promise.all([
       this.getProvider(),
       this.getAccount(),
