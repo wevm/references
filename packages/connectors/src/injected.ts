@@ -16,7 +16,7 @@ import {
   ChainNotConfiguredForConnectorError,
   ConnectorNotFoundError,
 } from './errors'
-import { WindowProvider } from './types'
+import type { WalletClient, WindowProvider } from './types'
 import { getInjectedName } from './utils/getInjectedName'
 import { normalizeChainId } from './utils/normalizeChainId'
 
@@ -163,7 +163,9 @@ export class InjectedConnector extends Connector<
     return this.#provider
   }
 
-  async getWalletClient({ chainId }: { chainId?: number } = {}) {
+  async getWalletClient({
+    chainId,
+  }: { chainId?: number } = {}): Promise<WalletClient> {
     const [provider, account] = await Promise.all([
       this.getProvider(),
       this.getAccount(),

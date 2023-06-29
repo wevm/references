@@ -3,6 +3,7 @@ import { getAddress } from 'viem'
 
 import type { ConnectorData } from '../base'
 import { Connector } from '../base'
+import type { WalletClient } from '../types'
 import { normalizeChainId } from '../utils/normalizeChainId'
 import type { MockProviderOptions } from './provider'
 import { MockProvider } from './provider'
@@ -90,7 +91,7 @@ export class MockConnector extends Connector<
     return this.#provider
   }
 
-  async getWalletClient() {
+  async getWalletClient(): Promise<WalletClient> {
     const provider = await this.getProvider()
     return provider.getWalletClient()
   }
