@@ -2,4 +2,4 @@
 "@wagmi/connectors": patch
 ---
 
-Update walletconnect dependencies, Expose relayUrl option for WalletConnectConnector
+Updated WalletConnect dependencies, exposed `relayUrl` option for `WalletConnectConnector`
