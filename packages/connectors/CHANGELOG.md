@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 2.6.2
+
+### Patch Changes
+
+- 27bb1b3: Added explicit type annotations for the `getWalletClient()` method.
+
 ## 2.6.1
 
 ### Patch Changes
