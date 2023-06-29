@@ -69,7 +69,7 @@ type WalletConnectOptions = {
    * Options of QR code modal.
    * @link https://docs.walletconnect.com/2.0/web/walletConnectModal/modal/options
    */
-  qrModalOptions?: EthereumProviderOptions['qrModalOptions'],
+  qrModalOptions?: EthereumProviderOptions['qrModalOptions']
   /**
    * Option to override default relay url.
    * @link https://docs.walletconnect.com/2.0/web/providers/ethereum
@@ -296,7 +296,7 @@ export class WalletConnectConnector extends Connector<
         showQrModal = true,
         qrModalOptions,
         metadata,
-        relayUrl
+        relayUrl,
       } = this.options
       this.#provider = await EthereumProvider.init({
         showQrModal,
@@ -313,7 +313,7 @@ export class WalletConnectConnector extends Connector<
           ]),
         ),
         metadata,
-        relayUrl
+        relayUrl,
       })
     }
   }
