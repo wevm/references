@@ -2,4 +2,4 @@
 "@wagmi/chains": patch
 ---
 
-Update Zora chain URLs and names
+Updated Zora chain URLs and names
