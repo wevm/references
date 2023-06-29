@@ -20,7 +20,6 @@ export const zora = {
     },
   },
   blockExplorers: {
-    etherscan: { name: 'Explorer', url: 'https://explorer.zora.energy' },
     default: { name: 'Explorer', url: 'https://explorer.zora.energy' },
   },
   contracts: {
