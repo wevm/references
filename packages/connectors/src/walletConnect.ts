@@ -1,7 +1,7 @@
 import type { Chain } from '@wagmi/chains'
 import type WalletConnectProvider from '@walletconnect/ethereum-provider'
-// eslint-disable-next-line import/no-unresolved
 import { EthereumProviderOptions } from '@walletconnect/ethereum-provider/dist/types/EthereumProvider'
+import { normalizeNamespaces } from '@walletconnect/utils'
 import {
   ProviderRpcError,
   SwitchChainError,
@@ -391,51 +391,24 @@ export class WalletConnectConnector extends Connector<
     if (!this.#provider) return []
     const namespaces = this.#provider.session?.namespaces
     if (!namespaces) return []
-    const chainIds: number[] = []
 
-    // Get chains from global eip155 namespace
-    const globalChainIds = namespaces[NAMESPACE]?.chains?.map((chain) =>
+    const normalizedNamespaces = normalizeNamespaces(namespaces)
+    const chainIds = normalizedNamespaces[NAMESPACE]?.chains?.map((chain) =>
       parseInt(chain.split(':')[1] || ''),
     )
-    if (globalChainIds) {
-      chainIds.push(...globalChainIds)
-    }
 
-    // Get chains from individual eip155:* namespaces
-    const namespacesKeys = Object.keys(namespaces).filter((key) =>
-      key.startsWith(`${NAMESPACE}:`),
-    )
-    namespacesKeys.forEach((key) =>
-      chainIds.push(parseInt(key.split(':')[1] || '')),
-    )
-
-    // Return de-duplicated array of chainIds
-    return Array.from(new Set(chainIds))
+    return chainIds ?? []
   }
 
   #getNamespaceMethods() {
     if (!this.#provider) return []
     const namespaces = this.#provider.session?.namespaces
     if (!namespaces) return []
-    const methods: string[] = []
 
-    // Get methods from global eip155 namespace
-    if (namespaces[NAMESPACE]?.methods) {
-      methods.push(...namespaces[NAMESPACE].methods)
-    }
+    const normalizedNamespaces = normalizeNamespaces(namespaces)
+    const methods = normalizedNamespaces[NAMESPACE]?.methods
 
-    // Get methods from individual eipp155:* namespaces
-    const namespacesKeys = Object.keys(namespaces).filter((key) =>
-      key.startsWith(`${NAMESPACE}:`),
-    )
-    namespacesKeys.forEach((key) => {
-      if (namespaces[key]?.methods) {
-        methods.push(...namespaces[key]!.methods)
-      }
-    })
-
-    // Return de-duplicated array of methods
-    return Array.from(new Set(methods))
+    return methods ?? []
   }
 
   protected onAccountsChanged = (accounts: string[]) => {
