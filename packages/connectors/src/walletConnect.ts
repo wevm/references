@@ -389,16 +389,53 @@ export class WalletConnectConnector extends Connector<
 
   #getNamespaceChainsIds() {
     if (!this.#provider) return []
-    const chainIds = this.#provider.session?.namespaces[NAMESPACE]?.chains?.map(
-      (chain) => parseInt(chain.split(':')[1] || ''),
+    const namespaces = this.#provider.session?.namespaces
+    if (!namespaces) return []
+    const chainIds: number[] = []
+
+    // Get chains from global eip155 namespace
+    const globalChainIds = namespaces[NAMESPACE]?.chains?.map((chain) =>
+      parseInt(chain.split(':')[1] || ''),
     )
-    return chainIds ?? []
+    if (globalChainIds) {
+      chainIds.push(...globalChainIds)
+    }
+
+    // Get chains from individual eip155:* namespaces
+    const namespacesKeys = Object.keys(namespaces).filter((key) =>
+      key.startsWith(`${NAMESPACE}:`),
+    )
+    namespacesKeys.forEach((key) =>
+      chainIds.push(parseInt(key.split(':')[1] || '')),
+    )
+
+    // Return de-duplicated array of chainIds
+    return Array.from(new Set(chainIds))
   }
 
   #getNamespaceMethods() {
     if (!this.#provider) return []
-    const methods = this.#provider.session?.namespaces[NAMESPACE]?.methods
-    return methods ?? []
+    const namespaces = this.#provider.session?.namespaces
+    if (!namespaces) return []
+    const methods: string[] = []
+
+    // Get methods from global eip155 namespace
+    if (namespaces[NAMESPACE]?.methods) {
+      methods.push(...namespaces[NAMESPACE].methods)
+    }
+
+    // Get methods from individual eipp155:* namespaces
+    const namespacesKeys = Object.keys(namespaces).filter((key) =>
+      key.startsWith(`${NAMESPACE}:`),
+    )
+    namespacesKeys.forEach((key) => {
+      if (namespaces[key]?.methods) {
+        methods.push(...namespaces[key]!.methods)
+      }
+    })
+
+    // Return de-duplicated array of methods
+    return Array.from(new Set(methods))
   }
 
   protected onAccountsChanged = (accounts: string[]) => {
