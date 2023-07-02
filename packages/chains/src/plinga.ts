@@ -19,8 +19,8 @@ export const plinga = {
   },
   contracts: {
     multicall3: {
-      address: '0x0A236b3887C5D520DF0278a76f24a642eCd6bA33',
-      blockCreated: 83861,
+      address: '0x45936F98C594D8ed17b1D895162797BD2E774b45',
+      blockCreated: 5044,
     },
   },
 } as const satisfies Chain
