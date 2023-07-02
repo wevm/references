@@ -6,4 +6,6 @@ export {
   ConnectorNotFoundError,
 } from './errors'
 
+export { normalizeChainId } from './utils/normalizeChainId'
+
 export type { WindowProvider } from './types'

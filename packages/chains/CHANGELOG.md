@@ -1,5 +1,13 @@
 # @wagmi/chains
 
+## 1.3.0
+
+### Minor Changes
+
+- 62b8209: Added multicall3 contract to Cronos Testnet
+- 106ac13: Added `bxn` and `bxnTestnet`.
+- 8b3f5e5: Added multicall3 for Base Goerli
+
 ## 1.2.0
 
 ### Minor Changes

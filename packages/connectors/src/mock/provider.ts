@@ -53,7 +53,7 @@ export class MockProvider {
     return [getAddress(address)]
   }
 
-  getWalletClient() {
+  getWalletClient(): WalletClient {
     const walletClient = this.#walletClient
     if (!walletClient) throw new Error('walletClient not found')
     return walletClient

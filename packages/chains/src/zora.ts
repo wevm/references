@@ -2,7 +2,7 @@ import { Chain } from './types'
 
 export const zora = {
   id: 7777777,
-  name: 'ZORA',
+  name: 'Zora',
   network: 'zora',
   nativeCurrency: {
     decimals: 18,
@@ -11,17 +11,16 @@ export const zora = {
   },
   rpcUrls: {
     default: {
-      http: ['https://rpc.zora.co'],
-      webSocket: ['wss://rpc.zora.co'],
+      http: ['https://rpc.zora.energy'],
+      webSocket: ['wss://rpc.zora.energy'],
     },
     public: {
-      http: ['https://rpc.zora.co'],
-      webSocket: ['wss://rpc.zora.co'],
+      http: ['https://rpc.zora.energy'],
+      webSocket: ['wss://rpc.zora.energy'],
     },
   },
   blockExplorers: {
-    etherscan: { name: 'ZORA', url: 'https://explorer.zora.co' },
-    default: { name: 'ZORA', url: 'https://explorer.zora.co' },
+    default: { name: 'Explorer', url: 'https://explorer.zora.energy' },
   },
   contracts: {
     multicall3: {
