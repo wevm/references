@@ -2,4 +2,4 @@
 "@wagmi/connectors": patch
 ---
 
-Fix EthereumProvider.init is not a function
+Fixed issue importing `EthereumProvider` in Vite environments.
