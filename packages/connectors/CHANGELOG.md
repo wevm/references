@@ -1,5 +1,16 @@
 # @wagmi/connectors
 
+## 2.6.3
+
+### Patch Changes
+
+- f2d532d: Updated WalletConnect dependencies, exposed `relayUrl` option for `WalletConnectConnector`
+- ff53857: Fixed issue importing `EthereumProvider` in Vite environments.
+- Updated dependencies [d642e1d]
+- Updated dependencies [3027d7b]
+- Updated dependencies [97dbd44]
+  - @wagmi/chains@1.4.0
+
 ## 2.6.2
 
 ### Patch Changes
