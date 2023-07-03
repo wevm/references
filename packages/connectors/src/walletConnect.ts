@@ -284,11 +284,8 @@ export class WalletConnectConnector extends Connector<
   }
 
   async #initProvider() {
-    const {
-      default: EthereumProvider,
-      OPTIONAL_EVENTS,
-      OPTIONAL_METHODS,
-    } = await import('@walletconnect/ethereum-provider')
+    const { EthereumProvider, OPTIONAL_EVENTS, OPTIONAL_METHODS } =
+      await import('@walletconnect/ethereum-provider')
     const [defaultChain, ...optionalChains] = this.chains.map(({ id }) => id)
     if (defaultChain) {
       const {
