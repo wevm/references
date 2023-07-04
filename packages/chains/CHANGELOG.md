@@ -1,5 +1,16 @@
 # @wagmi/chains
 
+## 1.4.0
+
+### Minor Changes
+
+- 97dbd44: Added EOS EVM and EOS EVM Testnet chains
+
+### Patch Changes
+
+- d642e1d: Updated PulseChain Metadata
+- 3027d7b: Updated Zora chain URLs and names
+
 ## 1.3.0
 
 ### Minor Changes

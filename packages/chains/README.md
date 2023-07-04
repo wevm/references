@@ -48,6 +48,8 @@ const { chains, provider } = configureChains(
 - `cronosTestnet`
 - `edgeware`
 - `edgewareTestnet`
+- `eos`
+- `eosTestnet`
 - `fantom`
 - `fantomTestnet`
 - `foundry`
