@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 2.6.4
+
+### Patch Changes
+
+- 0a57de2: Added conditional for WalletConnectConnector optionalChains
+
 ## 2.6.3
 
 ### Patch Changes
