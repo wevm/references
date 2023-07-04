@@ -25,6 +25,7 @@ type InjectedProviderFlags = {
   isFrame?: true
   isFrontier?: true
   isGamestop?: true
+  isHaqqWallet?: true
   isHyperPay?: true
   isImToken?: true
   isKuCoinWallet?: true

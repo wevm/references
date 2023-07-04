@@ -3,8 +3,9 @@ import { Chain } from './types'
 export const pulsechain = {
   id: 369,
   network: 'pulsechain',
-  name: 'Pulsechain',
+  name: 'PulseChain',
   nativeCurrency: { name: 'Pulse', symbol: 'PLS', decimals: 18 },
+  testnet: false,
   rpcUrls: {
     default: {
       http: ['https://rpc.pulsechain.com'],
@@ -17,7 +18,7 @@ export const pulsechain = {
   },
   blockExplorers: {
     default: {
-      name: 'Etherscan',
+      name: 'PulseScan',
       url: 'https://scan.pulsechain.com',
     },
   },

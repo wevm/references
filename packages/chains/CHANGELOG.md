@@ -1,5 +1,34 @@
 # @wagmi/chains
 
+## 1.4.0
+
+### Minor Changes
+
+- 97dbd44: Added EOS EVM and EOS EVM Testnet chains
+
+### Patch Changes
+
+- d642e1d: Updated PulseChain Metadata
+- 3027d7b: Updated Zora chain URLs and names
+
+## 1.3.0
+
+### Minor Changes
+
+- 62b8209: Added multicall3 contract to Cronos Testnet
+- 106ac13: Added `bxn` and `bxnTestnet`.
+- 8b3f5e5: Added multicall3 for Base Goerli
+
+## 1.2.0
+
+### Minor Changes
+
+- a7cbd04: Added cronos testnet chain
+
+### Patch Changes
+
+- f6ee133: Added Fibo
+
 ## 1.1.1
 
 ### Patch Changes

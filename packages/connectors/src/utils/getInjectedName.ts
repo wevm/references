@@ -20,6 +20,7 @@ export function getInjectedName(ethereum?: WindowProvider) {
     if (provider.isFrame) return 'Frame'
     if (provider.isFrontier) return 'Frontier Wallet'
     if (provider.isGamestop) return 'GameStop Wallet'
+    if (provider.isHaqqWallet) return 'HAQQ Wallet'
     if (provider.isHyperPay) return 'HyperPay Wallet'
     if (provider.isImToken) return 'ImToken'
     if (provider.isHaloWallet) return 'Halo Wallet'

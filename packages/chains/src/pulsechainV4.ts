@@ -3,9 +3,9 @@ import { Chain } from './types'
 export const pulsechainV4 = {
   id: 943,
   network: 'pulsechainV4',
-  name: 'Pulsechain V4',
+  name: 'PulseChain V4',
   testnet: true,
-  nativeCurrency: { name: 'Pulse', symbol: 'PLS', decimals: 18 },
+  nativeCurrency: { name: 'V4 Pulse', symbol: 'v4PLS', decimals: 18 },
   rpcUrls: {
     default: {
       http: ['https://rpc.v4.testnet.pulsechain.com'],
@@ -18,7 +18,7 @@ export const pulsechainV4 = {
   },
   blockExplorers: {
     default: {
-      name: 'Blockscout',
+      name: 'PulseScan',
       url: 'https://scan.v4.testnet.pulsechain.com',
     },
   },
