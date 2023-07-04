@@ -60,6 +60,8 @@ const { chains, provider } = configureChains(
 - `iotexTestnet`
 - `localhost`
 - `mainnet`
+- `mantle`
+- `mantleTestnet`
 - `metis`
 - `metisGoerli`
 - `moonbaseAlpha`
