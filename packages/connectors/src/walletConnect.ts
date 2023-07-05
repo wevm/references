@@ -139,7 +139,7 @@ export class WalletConnectConnector extends Connector<
         await provider.connect({
           pairingTopic,
           chains: [targetChainId],
-          optionalChains,
+          optionalChains: optionalChains.length ? optionalChains : undefined,
         })
 
         this.#setRequestedChainsIds(this.chains.map(({ id }) => id))
@@ -302,7 +302,7 @@ export class WalletConnectConnector extends Connector<
         optionalMethods: OPTIONAL_METHODS,
         optionalEvents: OPTIONAL_EVENTS,
         chains: [defaultChain],
-        optionalChains: optionalChains.length > 0 ? optionalChains : undefined,
+        optionalChains: optionalChains.length ? optionalChains : undefined,
         rpcMap: Object.fromEntries(
           this.chains.map((chain) => [
             chain.id,
