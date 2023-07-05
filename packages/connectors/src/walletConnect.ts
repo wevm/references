@@ -139,7 +139,8 @@ export class WalletConnectConnector extends Connector<
         await provider.connect({
           pairingTopic,
           chains: [targetChainId],
-          optionalChains,
+          optionalChains:
+            optionalChains.length > 0 ? optionalChains : undefined,
         })
 
         this.#setRequestedChainsIds(this.chains.map(({ id }) => id))
