@@ -302,7 +302,7 @@ export class WalletConnectConnector extends Connector<
         optionalMethods: OPTIONAL_METHODS,
         optionalEvents: OPTIONAL_EVENTS,
         chains: [defaultChain],
-        optionalChains: optionalChains.length > 1 ? optionalChains : undefined,
+        optionalChains: optionalChains.length ? optionalChains : undefined,
         rpcMap: Object.fromEntries(
           this.chains.map((chain) => [
             chain.id,
