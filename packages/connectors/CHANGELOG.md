@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 2.6.5
+
+### Patch Changes
+
+- 51e346e: Updated WalletConnectConnector logic to handle individual namespaces like eip155:\*
+
 ## 2.6.4
 
 ### Patch Changes
