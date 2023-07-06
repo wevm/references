@@ -2,4 +2,4 @@
 "@wagmi/chains": minor
 ---
 
-Add chain: Taiko Testnet Sepolia
+Added Taiko (Alpha-3 Testnet)
