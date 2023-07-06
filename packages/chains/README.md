@@ -89,6 +89,7 @@ const { chains, provider } = configureChains(
 - `skaleTitan`
 - `skaleTitanTestnet`
 - `sepolia`
+- `taikoTestnetSepolia`
 - `taraxa`
 - `taraxaTestnet`
 - `telos`
