@@ -10,13 +10,13 @@ export const canto = {
     symbol: 'CANTO',
   },
   rpcUrls: {
-    default: { http: ['https://canto.slingshot.finance'] },
-    public: { http: ['https://canto.slingshot.finance'] },
+    default: { http: ['https://canto.gravitychain.io'] },
+    public: { http: ['https://canto.gravitychain.io'] },
   },
   blockExplorers: {
     default: {
-      name: 'Canto EVM Explorer (Blockscout)',
-      url: 'https://evm.explorer.canto.io',
+      name: 'Tuber.Build (Blockscout)',
+      url: 'https://tuber.build',
     },
   },
   contracts: {
