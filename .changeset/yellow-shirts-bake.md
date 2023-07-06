@@ -2,4 +2,4 @@
 "@wagmi/chains": minor
 ---
 
-Add multicall3 to Polygon zkEVM
+Added multicall3 address to Polygon zkEVM

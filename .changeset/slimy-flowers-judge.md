@@ -1,5 +1,5 @@
 ---
-"@wagmi/chains": patch
+"@wagmi/chains": minor
 ---
 
-added nexilix chain
+Added nexilix chain

@@ -1,5 +1,5 @@
 ---
-"@wagmi/chains": major
+"@wagmi/chains": patch
 ---
 
-Fixed canto rpc and blockexplorer
+Fixed Canto RPC and block explorer urls.
