@@ -25,8 +25,8 @@ export const mev = {
   },
   contracts: {
     multicall3: {
-      address: '0x72E21D74347899EACDeDa7aCdc01d9514eeC80c9',
-      blockCreated: 86585075,
+      address: '0xca11bde05977b3631167028862be2a173976ca11',
+      blockCreated: 86881340,
     },
   },
 } as const satisfies Chain

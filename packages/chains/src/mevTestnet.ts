@@ -25,8 +25,8 @@ export const mevTestnet = {
   },
   contracts: {
     multicall3: {
-      address: '0xa54A2db58990c21155e665f1Fdd51691A1d5f7f3',
-      blockCreated: 64074965,
+      address: '0xca11bde05977b3631167028862be2a173976ca11',
+      blockCreated: 64371115,
     },
   },
   testnet: true,
