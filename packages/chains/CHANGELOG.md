@@ -1,5 +1,18 @@
 # @wagmi/chains
 
+## 1.5.0
+
+### Minor Changes
+
+- 4b411d2: Added Mantle and Mantle Testnet chains
+- df697ac: Added Taiko (Alpha-3 Testnet)
+- a96b514: Added nexilix chain
+- 0a6e6da: Added multicall3 address to Polygon zkEVM
+
+### Patch Changes
+
+- 186f5a7: Fixed Canto RPC and block explorer urls.
+
 ## 1.4.0
 
 ### Minor Changes
