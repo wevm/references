@@ -45,6 +45,7 @@ export function getInjectedName(ethereum?: WindowProvider) {
     if (provider.isXDEFI) return 'XDEFI Wallet'
     if (provider.isZerion) return 'Zerion'
     if (provider.isMetaMask) return 'MetaMask'
+    if (provider.isFordefi) return 'Fordefi'
   }
 
   // Some injected providers detect multiple other providers and create a list at `window.ethereum.providers`

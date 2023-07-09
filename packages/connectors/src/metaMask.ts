@@ -62,6 +62,7 @@ export class MetaMaskConnector extends InjectedConnector {
           if (ethereum.isTokenPocket) return
           if (ethereum.isTokenary) return
           if (ethereum.isZerion) return
+          if (ethereum.isFordefi) return
           return ethereum
         }
 
