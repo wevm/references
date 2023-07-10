@@ -16,7 +16,7 @@ export const gnosis = {
   blockExplorers: {
     etherscan: {
       name: 'Gnosisscan',
-      url: 'https://gnosisscan.io/',
+      url: 'https://gnosisscan.io',
     },
     default: {
       name: 'Gnosis Chain Explorer',
