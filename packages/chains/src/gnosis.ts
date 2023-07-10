@@ -20,7 +20,7 @@ export const gnosis = {
     },
     default: {
       name: 'Gnosis Chain Explorer',
-      url: 'https://blockscout.com/xdai/mainnet/',
+      url: 'https://blockscout.com/xdai/mainnet',
     },
   },
 } as const satisfies Chain
