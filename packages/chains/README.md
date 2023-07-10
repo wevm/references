@@ -60,6 +60,8 @@ const { chains, provider } = configureChains(
 - `iotexTestnet`
 - `localhost`
 - `mainnet`
+- `mantle`
+- `mantleTestnet`
 - `metis`
 - `metisGoerli`
 - `moonbaseAlpha`
@@ -89,6 +91,7 @@ const { chains, provider } = configureChains(
 - `skaleTitan`
 - `skaleTitanTestnet`
 - `sepolia`
+- `taikoTestnetSepolia`
 - `taraxa`
 - `taraxaTestnet`
 - `telos`
