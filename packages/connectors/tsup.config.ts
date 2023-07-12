@@ -11,6 +11,7 @@ export default defineConfig(
       'src/coinbaseWallet.ts',
       'src/injected.ts',
       'src/ledger.ts',
+      'src/metaMaskSDK.ts',
       'src/metaMask.ts',
       'src/mock/index.ts',
       'src/safe.ts',

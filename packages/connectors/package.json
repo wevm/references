@@ -57,6 +57,10 @@
       "types": "./dist/ledger.d.ts",
       "default": "./dist/ledger.js"
     },
+    "./metaMaskSDK": {
+      "types": "./dist/metaMaskSDK.d.ts",
+      "default": "./dist/metaMaskSDK.js"
+    },
     "./metaMask": {
       "types": "./dist/metaMask.d.ts",
       "default": "./dist/metaMask.js"
@@ -83,6 +87,7 @@
     "/coinbaseWallet",
     "/injected",
     "/ledger",
+    "/metaMaskSDK",
     "/metaMask",
     "/mock",
     "/safe",
