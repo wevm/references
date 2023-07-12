@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.3.24
+
+### Patch Changes
+
+- b718c00: Fixed broken version
+
 ## 0.3.23
 
 ### Patch Changes
