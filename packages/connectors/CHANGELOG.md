@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 0.3.23
+
+### Patch Changes
+
+- a2e5227: Updated WalletConnect deps
+
 ## 0.3.22
 
 ### Patch Changes
