@@ -2,6 +2,7 @@
 coinbaseWallet/**
 injected/**
 ledger/**
+metaMaskSDK/**
 metaMask/**
 mock/**
 safe/**
