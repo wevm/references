@@ -2,4 +2,4 @@
 "@wagmi/chains": patch
 ---
 
-Update gnosis explorer url(s)
+Updated gnosis explorer url(s)
