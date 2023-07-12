@@ -122,6 +122,8 @@ export class SafeConnector extends Connector<
     if (!this.#provider) {
       const safe = await this.#sdk.safe.getInfo()
       if (!safe) throw new Error('Could not load Safe information')
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       this.#provider = new SafeAppProvider(safe, this.#sdk)
     }
     return this.#provider
