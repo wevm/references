@@ -2,7 +2,7 @@ import { Chain } from './types'
 
 export const optimism = {
   id: 10,
-  name: 'Optimism',
+  name: 'OP Mainnet',
   network: 'optimism',
   nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
   rpcUrls: {
