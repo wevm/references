@@ -4,6 +4,7 @@ export function getInjectedName(ethereum?: WindowProvider) {
   if (!ethereum) return 'Injected'
 
   const getName = (provider: WindowProvider) => {
+    if (provider.isDesig) return 'Desig Wallet'
     if (provider.isApexWallet) return 'Apex Wallet'
     if (provider.isAvalanche) return 'Core Wallet'
     if (provider.isBackpack) return 'Backpack'
@@ -45,7 +46,6 @@ export function getInjectedName(ethereum?: WindowProvider) {
     if (provider.isXDEFI) return 'XDEFI Wallet'
     if (provider.isZerion) return 'Zerion'
     if (provider.isMetaMask) return 'MetaMask'
-    if(provider.isDesig) return 'Desig Wallet'
   }
 
   // Some injected providers detect multiple other providers and create a list at `window.ethereum.providers`
