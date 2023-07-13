@@ -23,5 +23,11 @@ export const eosTestnet = {
       url: 'https://explorer.testnet.evm.eosnetwork.com',
     },
   },
+  contracts: {
+    multicall3: {
+      address: '0xca11bde05977b3631167028862be2a173976ca11',
+      blockCreated: 9067940,
+    },
+  },
   testnet: true,
 } as const satisfies Chain
