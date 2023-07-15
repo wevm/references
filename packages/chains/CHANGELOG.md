@@ -1,5 +1,18 @@
 # @wagmi/chains
 
+## 1.6.0
+
+### Minor Changes
+
+- 3c3143d: Added MEV and MEVTestnet Chain
+- d4460ab: Added Base
+- 6bf0ab9: Added Multicall to EOS EVM & EOS EVM Testnet
+
+### Patch Changes
+
+- 8504c8b: Updated gnosis explorer url(s)
+- dee1782: Renamed Optimism chain
+
 ## 1.5.0
 
 ### Minor Changes
