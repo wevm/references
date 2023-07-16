@@ -2,4 +2,4 @@
 "@wagmi/connectors": patch
 ---
 
-Added Fordefi Wallet injected flags.
+Added Fordefi Wallet name mapping.

@@ -27,7 +27,6 @@ export function getInjectedName(ethereum?: WindowProvider) {
     if (provider.isHaloWallet) return 'Halo Wallet'
     if (provider.isKuCoinWallet) return 'KuCoin Wallet'
     if (provider.isMathWallet) return 'MathWallet'
-    if (provider.isMetaMask) return 'MetaMask'
     if (provider.isNovaWallet) return 'Nova Wallet'
     if (provider.isOkxWallet || provider.isOKExWallet) return 'OKX Wallet'
     if (provider.isOneInchIOSWallet || provider.isOneInchAndroidWallet)
@@ -46,6 +45,7 @@ export function getInjectedName(ethereum?: WindowProvider) {
     if (provider.isTTWallet) return 'TTWallet'
     if (provider.isXDEFI) return 'XDEFI Wallet'
     if (provider.isZerion) return 'Zerion'
+    if (provider.isMetaMask) return 'MetaMask'
   }
 
   // Some injected providers detect multiple other providers and create a list at `window.ethereum.providers`

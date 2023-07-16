@@ -46,7 +46,6 @@ describe.each([
     ethereum: { isMathWallet: true, isMetaMask: true },
     expected: 'MathWallet',
   },
-  { ethereum: { isMetaMask: true }, expected: 'MetaMask' },
   { ethereum: { isNovaWallet: true }, expected: 'Nova Wallet' },
   { ethereum: { isOneInchIOSWallet: true }, expected: '1inch Wallet' },
   { ethereum: { isOneInchAndroidWallet: true }, expected: '1inch Wallet' },
@@ -68,6 +67,7 @@ describe.each([
   { ethereum: { isTTWallet: true }, expected: 'TTWallet' },
   { ethereum: { isXDEFI: true }, expected: 'XDEFI Wallet' },
   { ethereum: { isZerion: true }, expected: 'Zerion' },
+  { ethereum: { isMetaMask: true }, expected: 'MetaMask' },
   {
     ethereum: { providers: [{ isMetaMask: true }, { isCoinbaseWallet: true }] },
     expected: ['MetaMask', 'Coinbase Wallet'],
