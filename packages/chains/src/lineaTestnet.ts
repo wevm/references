@@ -8,7 +8,7 @@ export const lineaTestnet = {
   rpcUrls: {
     infura: {
       http: ['https://linea-goerli.infura.io/v3'],
-      webSocket: ['wss://linea-goerli.infura.io/v3'],
+      webSocket: ['wss://linea-goerli.infura.io/ws/v3'],
     },
     default: {
       http: ['https://rpc.goerli.linea.build'],

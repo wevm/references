@@ -21,8 +21,8 @@ export const linea = {
   },
   blockExplorers: {
     default: {
-      name: 'Blockscout',
-      url: 'https://explorer.linea.build',
+      name: 'Etherscan',
+      url: 'https://lineascan.io',
     },
     etherscan: {
       name: 'Etherscan',
@@ -35,8 +35,8 @@ export const linea = {
   },
   contracts: {
     multicall3: {
-      address: '0x0',
-      blockCreated: 0,
+      address: '0xcA11bde05977b3631167028862bE2a173976CA11',
+      blockCreated: 42,
     },
   },
   testnet: false,
