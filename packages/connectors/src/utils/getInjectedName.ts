@@ -4,7 +4,6 @@ export function getInjectedName(ethereum?: WindowProvider) {
   if (!ethereum) return 'Injected'
 
   const getName = (provider: WindowProvider) => {
-    if (provider.isDesig) return 'Desig Wallet'
     if (provider.isApexWallet) return 'Apex Wallet'
     if (provider.isAvalanche) return 'Core Wallet'
     if (provider.isBackpack) return 'Backpack'
@@ -16,6 +15,7 @@ export function getInjectedName(ethereum?: WindowProvider) {
     if (provider.isCoinbaseWallet) return 'Coinbase Wallet'
     if (provider.isDawn) return 'Dawn Wallet'
     if (provider.isDefiant) return 'Defiant'
+    if (provider.isDesig) return 'Desig Wallet'
     if (provider.isEnkrypt) return 'Enkrypt'
     if (provider.isExodus) return 'Exodus'
     if (provider.isFrame) return 'Frame'
