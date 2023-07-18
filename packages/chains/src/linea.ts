@@ -22,11 +22,11 @@ export const linea = {
   blockExplorers: {
     default: {
       name: 'Etherscan',
-      url: 'https://lineascan.io',
+      url: 'https://lineascan.build',
     },
     etherscan: {
       name: 'Etherscan',
-      url: 'https://lineascan.io',
+      url: 'https://lineascan.build',
     },
     blockscout: {
       name: 'Blockscout',

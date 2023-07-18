@@ -22,11 +22,11 @@ export const lineaTestnet = {
   blockExplorers: {
     default: {
       name: 'Etherscan',
-      url: 'https://goerli.lineascan.io',
+      url: 'https://goerli.lineascan.build',
     },
     etherscan: {
       name: 'Etherscan',
-      url: 'https://goerli.lineascan.io',
+      url: 'https://goerli.lineascan.build',
     },
     blockscout: {
       name: 'Blockscout',
