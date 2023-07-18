@@ -2,4 +2,4 @@
 "@wagmi/connectors": patch
 ---
 
-Desig Wallet support
+Added Desig Wallet name mapping.
