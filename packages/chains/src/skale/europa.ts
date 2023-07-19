@@ -8,9 +8,11 @@ export const skaleEuropa = {
   rpcUrls: {
     default: {
       http: ['https://mainnet.skalenodes.com/v1/elated-tan-skat'],
+      webSocket: ["wss://mainnet.skalenodes.com/v1/ws/elated-tan-skat"]
     },
     public: {
       http: ['https://mainnet.skalenodes.com/v1/elated-tan-skat'],
+      webSocket: ["wss://mainnet.skalenodes.com/v1/ws/elated-tan-skat"]
     },
   },
   blockExplorers: {

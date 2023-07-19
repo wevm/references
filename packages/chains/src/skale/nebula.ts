@@ -8,9 +8,11 @@ export const skaleNebula = {
   rpcUrls: {
     default: {
       http: ['https://mainnet.skalenodes.com/v1/green-giddy-denebola'],
+      webSocket: ["wss://mainnet.skalenodes.com/v1/ws/green-giddy-denebola"]
     },
     public: {
       http: ['https://mainnet.skalenodes.com/v1/green-giddy-denebola'],
+      webSocket: ["wss://mainnet.skalenodes.com/v1/ws/green-giddy-denebola"]
     },
   },
   blockExplorers: {

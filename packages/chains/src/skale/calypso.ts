@@ -8,9 +8,11 @@ export const skaleCalypso = {
   rpcUrls: {
     default: {
       http: ['https://mainnet.skalenodes.com/v1/honorable-steel-rasalhague'],
+      webSocket: ["wss://mainnet.skalenodes.com/v1/ws/honorable-steel-rasalhague"]
     },
     public: {
       http: ['https://mainnet.skalenodes.com/v1/honorable-steel-rasalhague'],
+      webSocket: ["wss://mainnet.skalenodes.com/v1/ws/honorable-steel-rasalhague"]
     },
   },
   blockExplorers: {

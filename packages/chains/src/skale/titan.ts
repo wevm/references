@@ -8,9 +8,11 @@ export const skaleTitan = {
   rpcUrls: {
     default: {
       http: ['https://mainnet.skalenodes.com/v1/parallel-stormy-spica'],
+      webSocket: ["wss://mainnet.skalenodes.com/v1/ws/parallel-stormy-spica"]
     },
     public: {
       http: ['https://mainnet.skalenodes.com/v1/parallel-stormy-spica'],
+      webSocket: ["wss://mainnet.skalenodes.com/v1/ws/parallel-stormy-spica"]
     },
   },
   blockExplorers: {

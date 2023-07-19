@@ -7,14 +7,10 @@ export const skaleCalypsoTestnet = {
   nativeCurrency: { name: 'sFUEL', symbol: 'sFUEL', decimals: 18 },
   rpcUrls: {
     default: {
-      http: [
-        'https://staging-v3.skalenodes.com/v1/staging-utter-unripe-menkar',
-      ],
+      http: ['https://staging-v3.skalenodes.com/v1/staging-utter-unripe-menkar'],
     },
     public: {
-      http: [
-        'https://staging-v3.skalenodes.com/v1/staging-utter-unripe-menkar',
-      ],
+      http: ['https://staging-v3.skalenodes.com/v1/staging-utter-unripe-menkar'],
     },
   },
   blockExplorers: {
