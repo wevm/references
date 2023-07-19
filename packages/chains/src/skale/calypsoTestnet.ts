@@ -7,12 +7,20 @@ export const skaleCalypsoTestnet = {
   nativeCurrency: { name: 'sFUEL', symbol: 'sFUEL', decimals: 18 },
   rpcUrls: {
     default: {
-      http: ['https://staging-v3.skalenodes.com/v1/staging-utter-unripe-menkar'],
-      webSocket: ["wss://staging-v3.skalenodes.com/v1/ws/staging-utter-unripe-menkar"]
+      http: [
+        'https://staging-v3.skalenodes.com/v1/staging-utter-unripe-menkar',
+      ],
+      webSocket: [
+        'wss://staging-v3.skalenodes.com/v1/ws/staging-utter-unripe-menkar',
+      ],
     },
     public: {
-      http: ['https://staging-v3.skalenodes.com/v1/staging-utter-unripe-menkar'],
-      webSocket: ["wss://staging-v3.skalenodes.com/v1/ws/staging-utter-unripe-menkar"]
+      http: [
+        'https://staging-v3.skalenodes.com/v1/staging-utter-unripe-menkar',
+      ],
+      webSocket: [
+        'wss://staging-v3.skalenodes.com/v1/ws/staging-utter-unripe-menkar',
+      ],
     },
   },
   blockExplorers: {
@@ -27,9 +35,9 @@ export const skaleCalypsoTestnet = {
   },
   contracts: {
     multicall3: {
-      address: "0xcA11bde05977b3631167028862bE2a173976CA11",
-      blockCreated: 2131424
-    }
+      address: '0xcA11bde05977b3631167028862bE2a173976CA11',
+      blockCreated: 2131424,
+    },
   },
   testnet: true,
 } as const satisfies Chain

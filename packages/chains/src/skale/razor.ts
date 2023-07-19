@@ -8,11 +8,11 @@ export const skaleRazor = {
   rpcUrls: {
     default: {
       http: ['https://mainnet.skalenodes.com/v1/turbulent-unique-scheat'],
-      webSocket: ["wss://mainnet.skalenodes.com/v1/ws/turbulent-unique-scheat"]
+      webSocket: ['wss://mainnet.skalenodes.com/v1/ws/turbulent-unique-scheat'],
     },
     public: {
       http: ['https://mainnet.skalenodes.com/v1/turbulent-unique-scheat'],
-      webSocket: ["wss://mainnet.skalenodes.com/v1/ws/turbulent-unique-scheat"]
+      webSocket: ['wss://mainnet.skalenodes.com/v1/ws/turbulent-unique-scheat'],
     },
   },
   blockExplorers: {

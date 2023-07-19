@@ -8,11 +8,15 @@ export const skaleEuropaTestnet = {
   rpcUrls: {
     default: {
       http: ['https://staging-v3.skalenodes.com/v1/staging-legal-crazy-castor'],
-      webSocket: ["wss://staging-v3.skalenodes.com/v1/ws/staging-legal-crazy-castor"]
+      webSocket: [
+        'wss://staging-v3.skalenodes.com/v1/ws/staging-legal-crazy-castor',
+      ],
     },
     public: {
       http: ['https://staging-v3.skalenodes.com/v1/staging-legal-crazy-castor'],
-      webSocket: ["wss://staging-v3.skalenodes.com/v1/ws/staging-legal-crazy-castor"]
+      webSocket: [
+        'wss://staging-v3.skalenodes.com/v1/ws/staging-legal-crazy-castor',
+      ],
     },
   },
   blockExplorers: {
@@ -27,9 +31,9 @@ export const skaleEuropaTestnet = {
   },
   contracts: {
     multicall3: {
-      address: "0xcA11bde05977b3631167028862bE2a173976CA11",
-      blockCreated: 2071911
-    }
+      address: '0xcA11bde05977b3631167028862bE2a173976CA11',
+      blockCreated: 2071911,
+    },
   },
   testnet: true,
 } as const satisfies Chain

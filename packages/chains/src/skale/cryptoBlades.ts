@@ -8,11 +8,15 @@ export const skaleCryptoBlades = {
   rpcUrls: {
     default: {
       http: ['https://mainnet.skalenodes.com/v1/affectionate-immediate-pollux'],
-      webSocket: ["wss://mainnet.skalenodes.com/v1/ws/affectionate-immediate-pollux"]
+      webSocket: [
+        'wss://mainnet.skalenodes.com/v1/ws/affectionate-immediate-pollux',
+      ],
     },
     public: {
       http: ['https://mainnet.skalenodes.com/v1/affectionate-immediate-pollux'],
-      webSocket: ["wss://mainnet.skalenodes.com/v1/ws/affectionate-immediate-pollux"]
+      webSocket: [
+        'wss://mainnet.skalenodes.com/v1/ws/affectionate-immediate-pollux',
+      ],
     },
   },
   blockExplorers: {

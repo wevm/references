@@ -8,11 +8,11 @@ export const skaleExorde = {
   rpcUrls: {
     default: {
       http: ['https://mainnet.skalenodes.com/v1/light-vast-diphda'],
-      webSocket: ["wss://mainnet.skalenodes.com/v1/ws/light-vast-diphda"]
+      webSocket: ['wss://mainnet.skalenodes.com/v1/ws/light-vast-diphda'],
     },
     public: {
       http: ['https://mainnet.skalenodes.com/v1/light-vast-diphda'],
-      webSocket: ["wss://mainnet.skalenodes.com/v1/ws/light-vast-diphda"]
+      webSocket: ['wss://mainnet.skalenodes.com/v1/ws/light-vast-diphda'],
     },
   },
   blockExplorers: {

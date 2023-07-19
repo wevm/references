@@ -8,11 +8,11 @@ export const skaleCryptoColosseum = {
   rpcUrls: {
     default: {
       http: ['https://mainnet.skalenodes.com/v1/haunting-devoted-deneb'],
-      webSocket: ["wss://mainnet.skalenodes.com/v1/ws/haunting-devoted-deneb"]
+      webSocket: ['wss://mainnet.skalenodes.com/v1/ws/haunting-devoted-deneb'],
     },
     public: {
       http: ['https://mainnet.skalenodes.com/v1/haunting-devoted-deneb'],
-      webSocket: ["wss://mainnet.skalenodes.com/v1/ws/haunting-devoted-deneb"]
+      webSocket: ['wss://mainnet.skalenodes.com/v1/ws/haunting-devoted-deneb'],
     },
   },
   blockExplorers: {
