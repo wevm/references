@@ -16,7 +16,7 @@ export const skaleTitanTestnet = {
     },
   },
   blockExplorers: {
-    etherscan: {
+    blockscout: {
       name: 'SKALE Explorer',
       url: 'https://staging-aware-chief-gianfar.explorer.staging-v3.skalenodes.com',
     },

@@ -16,7 +16,7 @@ export const skaleEuropa = {
     },
   },
   blockExplorers: {
-    etherscan: {
+    blockscout: {
       name: 'SKALE Explorer',
       url: 'https://elated-tan-skat.explorer.mainnet.skalenodes.com',
     },

@@ -16,7 +16,7 @@ export const skaleCalypsoTestnet = {
     },
   },
   blockExplorers: {
-    etherscan: {
+    blockscout: {
       name: 'SKALE Explorer',
       url: 'https://staging-utter-unripe-menkar.explorer.staging-v3.skalenodes.com',
     },

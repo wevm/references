@@ -16,7 +16,7 @@ export const skaleExorde = {
     },
   },
   blockExplorers: {
-    etherscan: {
+    blockscout: {
       name: 'SKALE Explorer',
       url: 'https://light-vast-diphda.explorer.mainnet.skalenodes.com',
     },

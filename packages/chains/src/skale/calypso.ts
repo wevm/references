@@ -16,7 +16,7 @@ export const skaleCalypso = {
     },
   },
   blockExplorers: {
-    etherscan: {
+    blockscout: {
       name: 'SKALE Explorer',
       url: 'https://honorable-steel-rasalhague.explorer.mainnet.skalenodes.com',
     },

@@ -16,7 +16,7 @@ export const skaleRazor = {
     },
   },
   blockExplorers: {
-    etherscan: {
+    blockscout: {
       name: 'SKALE Explorer',
       url: 'https://turbulent-unique-scheat.explorer.mainnet.skalenodes.com',
     },

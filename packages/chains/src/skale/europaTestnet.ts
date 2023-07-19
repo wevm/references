@@ -16,7 +16,7 @@ export const skaleEuropaTestnet = {
     },
   },
   blockExplorers: {
-    etherscan: {
+    blockscout: {
       name: 'SKALE Explorer',
       url: 'https://staging-legal-crazy-castor.explorer.staging-v3.skalenodes.com',
     },

@@ -16,7 +16,7 @@ export const skaleCryptoBlades = {
     },
   },
   blockExplorers: {
-    etherscan: {
+    blockscout: {
       name: 'SKALE Explorer',
       url: 'https://affectionate-immediate-pollux.explorer.mainnet.skalenodes.com',
     },

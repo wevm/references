@@ -16,7 +16,7 @@ export const skaleNebulaTestnet = {
     },
   },
   blockExplorers: {
-    etherscan: {
+    blockscout: {
       name: 'SKALE Explorer',
       url: 'https://staging-faint-slimy-achird.explorer.staging-v3.skalenodes.com',
     },

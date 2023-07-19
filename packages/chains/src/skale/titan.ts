@@ -16,7 +16,7 @@ export const skaleTitan = {
     },
   },
   blockExplorers: {
-    etherscan: {
+    blockscout: {
       name: 'SKALE Explorer',
       url: 'https://parallel-stormy-spica.explorer.mainnet.skalenodes.com',
     },

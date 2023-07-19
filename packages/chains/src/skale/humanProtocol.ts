@@ -16,7 +16,7 @@ export const skaleHumanProtocol = {
     },
   },
   blockExplorers: {
-    etherscan: {
+    blockscout: {
       name: 'SKALE Explorer',
       url: 'https://wan-red-ain.explorer.mainnet.skalenodes.com',
     },

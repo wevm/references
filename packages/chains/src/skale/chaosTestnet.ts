@@ -16,7 +16,7 @@ export const skaleChaosTestnet = {
     },
   },
   blockExplorers: {
-    etherscan: {
+    blockscout: {
       name: 'SKALE Explorer',
       url: 'https://staging-fast-active-bellatrix.explorer.staging-v3.skalenodes.com',
     },

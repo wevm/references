@@ -16,7 +16,7 @@ export const skaleBlockBrawlers = {
     },
   },
   blockExplorers: {
-    etherscan: {
+    blockscout: {
       name: 'SKALE Explorer',
       url: 'https://frayed-decent-antares.explorer.mainnet.skalenodes.com',
     },

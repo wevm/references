@@ -16,7 +16,7 @@ export const skaleNebula = {
     },
   },
   blockExplorers: {
-    etherscan: {
+    blockscout: {
       name: 'SKALE Explorer',
       url: 'https://green-giddy-denebola.explorer.mainnet.skalenodes.com',
     },
