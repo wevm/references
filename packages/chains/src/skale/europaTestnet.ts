@@ -8,9 +8,11 @@ export const skaleEuropaTestnet = {
   rpcUrls: {
     default: {
       http: ['https://staging-v3.skalenodes.com/v1/staging-legal-crazy-castor'],
+      webSocket: ["wss://staging-v3.skalenodes.com/v1/ws/staging-legal-crazy-castor"]
     },
     public: {
       http: ['https://staging-v3.skalenodes.com/v1/staging-legal-crazy-castor'],
+      webSocket: ["wss://staging-v3.skalenodes.com/v1/ws/staging-legal-crazy-castor"]
     },
   },
   blockExplorers: {

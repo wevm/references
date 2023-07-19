@@ -8,9 +8,11 @@ export const skaleCalypsoTestnet = {
   rpcUrls: {
     default: {
       http: ['https://staging-v3.skalenodes.com/v1/staging-utter-unripe-menkar'],
+      webSocket: ["wss://staging-v3.skalenodes.com/v1/ws/staging-utter-unripe-menkar"]
     },
     public: {
       http: ['https://staging-v3.skalenodes.com/v1/staging-utter-unripe-menkar'],
+      webSocket: ["wss://staging-v3.skalenodes.com/v1/ws/staging-utter-unripe-menkar"]
     },
   },
   blockExplorers: {

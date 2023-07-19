@@ -7,14 +7,12 @@ export const skaleTitanTestnet = {
   nativeCurrency: { name: 'sFUEL', symbol: 'sFUEL', decimals: 18 },
   rpcUrls: {
     default: {
-      http: [
-        'https://staging-v3.skalenodes.com/v1/staging-aware-chief-gianfar',
-      ],
+      http: ['https://staging-v3.skalenodes.com/v1/staging-aware-chief-gianfar'],
+      webSocket: ["wss://staging-v3.skalenodes.com/v1/ws/staging-aware-chief-gianfar"]
     },
     public: {
-      http: [
-        'https://staging-v3.skalenodes.com/v1/staging-aware-chief-gianfar',
-      ],
+      http: ['https://staging-v3.skalenodes.com/v1/staging-aware-chief-gianfar'],
+      webSocket: ["wss://staging-v3.skalenodes.com/v1/ws/staging-aware-chief-gianfar"]
     },
   },
   blockExplorers: {

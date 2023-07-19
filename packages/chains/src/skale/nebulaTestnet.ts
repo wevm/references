@@ -8,9 +8,11 @@ export const skaleNebulaTestnet = {
   rpcUrls: {
     default: {
       http: ['https://staging-v3.skalenodes.com/v1/staging-faint-slimy-achird'],
+      webSocket: ["wss://staging-v3.skalenodes.com/v1/ws/staging-faint-slimy-achird"]
     },
     public: {
       http: ['https://staging-v3.skalenodes.com/v1/staging-faint-slimy-achird'],
+      webSocket: ["wss://staging-v3.skalenodes.com/v1/ws/staging-faint-slimy-achird"]
     },
   },
   blockExplorers: {

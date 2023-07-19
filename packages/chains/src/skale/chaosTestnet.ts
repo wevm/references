@@ -7,14 +7,12 @@ export const skaleChaosTestnet = {
   nativeCurrency: { name: 'sFUEL', symbol: 'sFUEL', decimals: 18 },
   rpcUrls: {
     default: {
-      http: [
-        'https://staging-v3.skalenodes.com/v1/staging-fast-active-bellatrix',
-      ],
+      http: ['https://staging-v3.skalenodes.com/v1/staging-fast-active-bellatrix'],
+      webSocket: ["wss://staging-v3.skalenodes.com/v1/ws/staging-fast-active-bellatrix"]
     },
     public: {
-      http: [
-        'https://staging-v3.skalenodes.com/v1/staging-fast-active-bellatrix',
-      ],
+      http: ['https://staging-v3.skalenodes.com/v1/staging-fast-active-bellatrix'],
+      webSocket: ["wss://staging-v3.skalenodes.com/v1/ws/staging-fast-active-bellatrix"]
     },
   },
   blockExplorers: {
