@@ -27,6 +27,11 @@ export const skaleCalypsoTestnet = {
       url: 'https://staging-utter-unripe-menkar.explorer.staging-v3.skalenodes.com',
     },
   },
-  contracts: {},
+  contracts: {
+    multicall3: {
+      address: "0xcA11bde05977b3631167028862bE2a173976CA11",
+      blockCreated: 2131424
+    }
+  },
   testnet: true,
 } as const satisfies Chain

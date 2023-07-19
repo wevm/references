@@ -23,5 +23,10 @@ export const skaleTitan = {
       url: 'https://parallel-stormy-spica.explorer.mainnet.skalenodes.com',
     },
   },
-  contracts: {},
+  contracts: {
+    multicall3: {
+      address: "0xcA11bde05977b3631167028862bE2a173976CA11",
+      blockCreated: 2076458
+    }
+  }
 } as const satisfies Chain

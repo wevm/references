@@ -27,6 +27,11 @@ export const skaleChaosTestnet = {
       url: 'https://staging-fast-active-bellatrix.explorer.staging-v3.skalenodes.com',
     },
   },
-  contracts: {},
+  contracts: {
+    multicall3: {
+      address: "0xcA11bde05977b3631167028862bE2a173976CA11",
+      blockCreated: 1192202
+    }
+  },
   testnet: true,
 } as const satisfies Chain
