@@ -1,11 +1,6 @@
 import { InjectedConnector } from './injected'
 import { WindowProvider } from './types'
-import {
-  EventType,
-  MetaMaskSDK,
-  MetaMaskSDKOptions,
-  SDKProvider,
-} from '@metamask/sdk'
+import { MetaMaskSDK, MetaMaskSDKOptions, SDKProvider } from '@metamask/sdk'
 import {
   Address,
   Chain,
@@ -15,7 +10,6 @@ import {
 } from 'viem'
 
 export type MetaMaskSDKConnectorOptions = {
-  debug?: boolean
   // Keep both sdk and sdkOptions as some users might want to use their own pre-defined sdk instance
   sdk?: MetaMaskSDK
   sdkOptions?: MetaMaskSDKOptions
@@ -26,7 +20,6 @@ export class MetaMaskSDKConnector extends InjectedConnector {
 
   #sdk: MetaMaskSDK
   #provider?: SDKProvider
-  #debug = false
 
   constructor({
     chains,
@@ -88,43 +81,6 @@ export class MetaMaskSDKConnector extends InjectedConnector {
     this.#provider?.on('disconnect', this.onDisconnect as any)
   }
 
-  // Two scenarios depending on wether browser extension is installed:
-  // - if installed and user chooses browser extension, then wait for SWITCH_PROVIDER event
-  // - if not installed, or user chooses mobile wallet, then wait for AUTHORIZED event
-  async #waitForSDK() {
-    if (this.#debug) {
-      console.log('MetaMaskSDKConnector waiting for SDK validation')
-    }
-
-    return new Promise((resolve) => {
-      this.#sdk.once(
-        EventType.PROVIDER_UPDATE,
-        (_accounts: string[] | undefined) => {
-          resolve(true)
-        },
-      )
-
-      // backward compatibility with older wallet version that return accounts before authorization
-      if (this.#sdk._getConnection()?.isAuthorized()) {
-        resolve(true)
-      } else {
-        const waitForAuthorized = () => {
-          return new Promise((resolve) => {
-            this.#sdk
-              ._getConnection()
-              ?.getConnector()
-              .once(EventType.AUTHORIZED, () => {
-                resolve(true)
-              })
-          })
-        }
-        waitForAuthorized().then(() => {
-          resolve(true)
-        })
-      }
-    })
-  }
-
   async getProvider() {
     if (!this.#sdk.isInitialized()) {
       await this.#sdk.init()
@@ -153,19 +109,10 @@ export class MetaMaskSDKConnector extends InjectedConnector {
         await this.#sdk.init()
       }
 
-      this.#sdk.connect().catch((_error: unknown) => {
-        // Catch to prevent unhandled promise but can be ignored.
-      })
-
-      await this.#waitForSDK()
+      const accounts = (await this.#sdk.connect()) as Address[]
 
       // Get latest provider instance (it may have changed based on user selection)
       this.#updateProviderListeners()
-
-      const accounts: Address[] = (await this.#provider?.request({
-        method: 'eth_requestAccounts',
-        params: [],
-      })) as Address[]
 
       const selectedAccount: Address = accounts?.[0] ?? '0x'
 
