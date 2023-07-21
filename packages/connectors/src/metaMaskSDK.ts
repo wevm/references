@@ -1,6 +1,11 @@
 import { InjectedConnector } from './injected'
 import { WindowProvider } from './types'
-import { MetaMaskSDK, MetaMaskSDKOptions, SDKProvider } from '@metamask/sdk'
+import {
+  EventType,
+  MetaMaskSDK,
+  MetaMaskSDKOptions,
+  SDKProvider,
+} from '@metamask/sdk'
 import {
   Address,
   Chain,
@@ -112,6 +117,24 @@ export class MetaMaskSDKConnector extends InjectedConnector {
 
       // Get latest provider instance (it may have changed based on user selection)
       this.#updateProviderListeners()
+
+      // backward compatibility with older wallet (<7.3) version that return accounts before authorization
+      if (
+        !this.#sdk.isExtensionActive() &&
+        !this.#sdk._getConnection()?.isAuthorized()
+      ) {
+        const waitForAuthorized = () => {
+          return new Promise((resolve) => {
+            this.#sdk
+              ._getConnection()
+              ?.getConnector()
+              .once(EventType.AUTHORIZED, () => {
+                resolve(true)
+              })
+          })
+        }
+        await waitForAuthorized()
+      }
 
       const selectedAccount: Address = accounts?.[0] ?? '0x'
 
