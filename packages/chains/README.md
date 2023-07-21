@@ -35,6 +35,7 @@ const { chains, provider } = configureChains(
 - `auroraTestnet`
 - `avalanche`
 - `avalancheFuji`
+- `base`
 - `baseGoerli`
 - `bronos`
 - `bronosTestnet`

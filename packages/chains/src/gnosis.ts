@@ -16,11 +16,11 @@ export const gnosis = {
   blockExplorers: {
     etherscan: {
       name: 'Gnosisscan',
-      url: 'https://gnosisscan.io/',
+      url: 'https://gnosisscan.io',
     },
     default: {
       name: 'Gnosis Chain Explorer',
-      url: 'https://blockscout.com/xdai/mainnet/',
+      url: 'https://blockscout.com/xdai/mainnet',
     },
   },
 } as const satisfies Chain
