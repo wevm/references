@@ -33,7 +33,6 @@ export class MetaMaskSDKConnector extends InjectedConnector {
     }
 
     let sdk
-    const { debug } = options_
 
     if (!options_?.sdk) {
       sdk = new MetaMaskSDK(options_.sdkOptions)
@@ -54,7 +53,6 @@ export class MetaMaskSDKConnector extends InjectedConnector {
 
     super({ chains, options })
 
-    this.#debug = debug ?? false
     this.#sdk = sdk
     this.#provider = sdkProvider
   }
@@ -92,6 +90,7 @@ export class MetaMaskSDKConnector extends InjectedConnector {
   }
 
   async disconnect() {
+    console.warn('WAGMI DISCONNECT??')
     this.#sdk.terminate()
     super.disconnect()
   }
