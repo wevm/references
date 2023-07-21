@@ -14,6 +14,7 @@ export default defineConfig(
       'src/metaMask.ts',
       'src/mock/index.ts',
       'src/safe.ts',
+      'src/venly.ts',
       'src/walletConnect.ts',
       'src/walletConnectLegacy.ts',
     ],
