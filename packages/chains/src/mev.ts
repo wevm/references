@@ -23,10 +23,5 @@ export const mev = {
       url: 'https://www.meversescan.io',
     },
   },
-  contracts: {
-    multicall3: {
-      address: '0xca11bde05977b3631167028862be2a173976ca11',
-      blockCreated: 86881340,
-    },
-  },
+  contracts: {},
 } as const satisfies Chain
