@@ -5,7 +5,7 @@ export const syscoin = {
   name: 'Syscoin Mainnet',
   network: 'syscoin',
   nativeCurrency: {
-    decimals: 8,
+    decimals: 18,
     name: 'Syscoin',
     symbol: 'SYS',
   },
@@ -18,8 +18,8 @@ export const syscoin = {
   },
   contracts: {
     multicall3: {
-      address: '0x000562033783B1136159E10d976B519C929cdE8e',
-      blockCreated: 80637,
+      address: '0xcA11bde05977b3631167028862bE2a173976CA11',
+      blockCreated: 287139,
     },
   },
 } as const satisfies Chain
