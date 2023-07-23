@@ -2,7 +2,7 @@ import { Chain } from './types'
 
 export const ronin = {
   id: 2020,
-  name: 'Ronin Mainnet',
+  name: 'Ronin',
   network: 'ronin',
   nativeCurrency: { name: 'RON', symbol: 'RON', decimals: 18 },
   rpcUrls: {
