@@ -2,7 +2,7 @@ import { Chain } from './types'
 
 export const syscoinTestnet = {
   id: 5700,
-  name: 'Tanenbaum Testnet',
+  name: 'Syscoin Tanenbaum Testnet',
   network: 'syscoin-testnet',
   nativeCurrency: {
     decimals: 18,
@@ -10,7 +10,10 @@ export const syscoinTestnet = {
     symbol: 'SYS',
   },
   rpcUrls: {
-    default: { http: ['https://rpc.tanenbaum.io'] },
+    default: {
+      http: ['https://rpc.tanenbaum.io'],
+      websocket: ['wss://rpc.tanenbaum.io/wss']
+    },
     public: { http: ['https://rpc.tanenbaum.io'] },
   },
   blockExplorers: {

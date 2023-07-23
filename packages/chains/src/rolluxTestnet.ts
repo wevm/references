@@ -10,7 +10,10 @@ export const rolluxTestnet = {
     symbol: 'SYS',
   },
   rpcUrls: {
-    default: { http: ['https://rpc-tanenbaum.rollux.com/'] },
+    default: {
+      http: ['https://rpc-tanenbaum.rollux.com/'],
+      websocket: ['wss://rpc-tanenbaum.rollux.com/wss']
+    },
     public: { http: ['https://rpc-tanenbaum.rollux.com/'] },
   },
   blockExplorers: {

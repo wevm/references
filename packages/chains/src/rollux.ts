@@ -10,8 +10,12 @@ export const rollux = {
     symbol: 'SYS',
   },
   rpcUrls: {
-    default: { http: ['https://rpc.rollux.com'] },
-    public: { http: ['https://rpc.rollux.com'] },
+    default: {
+      http: ['https://rpc.rollux.com'],
+      websocket: ['wss://rpc.rollux.com/wss']
+    },
+    public: { http: ['https://rollux.public-rpc.com/'] },
+    ankr: { http: ['https://rpc.ankr.com/rollux/'] },
   },
   blockExplorers: {
     default: { name: 'RolluxExplorer', url: 'https://explorer.rollux.com/' },
