@@ -18,6 +18,7 @@ export function getInjectedName(ethereum?: WindowProvider) {
     if (provider.isDesig) return 'Desig Wallet'
     if (provider.isEnkrypt) return 'Enkrypt'
     if (provider.isExodus) return 'Exodus'
+    if (provider.isFordefi) return 'Fordefi'
     if (provider.isFrame) return 'Frame'
     if (provider.isFrontier) return 'Frontier Wallet'
     if (provider.isGamestop) return 'GameStop Wallet'

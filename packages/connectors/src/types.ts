@@ -23,9 +23,11 @@ type InjectedProviderFlags = {
   isDesig?: true
   isEnkrypt?: true
   isExodus?: true
+  isFordefi?: true
   isFrame?: true
   isFrontier?: true
   isGamestop?: true
+  isHaloWallet?: true
   isHaqqWallet?: true
   isHyperPay?: true
   isImToken?: true
@@ -52,7 +54,6 @@ type InjectedProviderFlags = {
   isTTWallet?: true
   isXDEFI?: true
   isZerion?: true
-  isHaloWallet?: true
 }
 
 type InjectedProviders = InjectedProviderFlags & {

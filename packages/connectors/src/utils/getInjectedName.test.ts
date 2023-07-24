@@ -31,6 +31,7 @@ describe.each([
   { ethereum: { isDesig: true }, expected: 'Desig Wallet' },
   { ethereum: { isEnkrypt: true }, expected: 'Enkrypt' },
   { ethereum: { isExodus: true }, expected: 'Exodus' },
+  { ethereum: { isFordefi: true }, expected: 'Fordefi' },
   { ethereum: { isFrame: true }, expected: 'Frame' },
   { ethereum: { isFrontier: true }, expected: 'Frontier Wallet' },
   { ethereum: { isGamestop: true }, expected: 'GameStop Wallet' },
