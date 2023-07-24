@@ -51,6 +51,7 @@ export class MetaMaskConnector extends InjectedConnector {
           if (ethereum.isAvalanche) return
           if (ethereum.isBitKeep) return
           if (ethereum.isBlockWallet) return
+          if (ethereum.isFordefi) return
           if (ethereum.isMathWallet) return
           if (ethereum.isOkxWallet || ethereum.isOKExWallet) return
           if (ethereum.isOneInchIOSWallet || ethereum.isOneInchAndroidWallet)
@@ -62,7 +63,6 @@ export class MetaMaskConnector extends InjectedConnector {
           if (ethereum.isTokenPocket) return
           if (ethereum.isTokenary) return
           if (ethereum.isZerion) return
-          if (ethereum.isFordefi) return
           return ethereum
         }
 
