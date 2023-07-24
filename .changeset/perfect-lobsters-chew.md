@@ -2,4 +2,4 @@
 "@wagmi/chains": patch
 ---
 
-Added Linea support
+Added Linea chain.
