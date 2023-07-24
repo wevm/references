@@ -39,10 +39,12 @@ export class MetaMaskSDKConnector extends InjectedConnector {
 
     let sdk
 
-    if (!options_?.sdk) {
-      sdk = new MetaMaskSDK(options_.sdkOptions)
-    } else {
+    if (options_?.sdk) {
       sdk = options_.sdk
+    } else {
+      // Force source param to be wagmi
+      options_.sdkOptions!._source = 'wagmi'
+      sdk = new MetaMaskSDK(options_.sdkOptions)
     }
 
     const sdkProvider = sdk.getProvider()
