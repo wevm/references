@@ -8,13 +8,15 @@ export const skaleTitan = {
   rpcUrls: {
     default: {
       http: ['https://mainnet.skalenodes.com/v1/parallel-stormy-spica'],
+      webSocket: ['wss://mainnet.skalenodes.com/v1/ws/parallel-stormy-spica'],
     },
     public: {
       http: ['https://mainnet.skalenodes.com/v1/parallel-stormy-spica'],
+      webSocket: ['wss://mainnet.skalenodes.com/v1/ws/parallel-stormy-spica'],
     },
   },
   blockExplorers: {
-    etherscan: {
+    blockscout: {
       name: 'SKALE Explorer',
       url: 'https://parallel-stormy-spica.explorer.mainnet.skalenodes.com',
     },
@@ -23,5 +25,10 @@ export const skaleTitan = {
       url: 'https://parallel-stormy-spica.explorer.mainnet.skalenodes.com',
     },
   },
-  contracts: {},
+  contracts: {
+    multicall3: {
+      address: '0xcA11bde05977b3631167028862bE2a173976CA11',
+      blockCreated: 2076458,
+    },
+  },
 } as const satisfies Chain

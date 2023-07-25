@@ -15,11 +15,11 @@ export const mantle = {
   },
   blockExplorers: {
     etherscan: {
-      name: 'Mantle Testnet Explorer',
+      name: 'Mantle Explorer',
       url: 'https://explorer.mantle.xyz',
     },
     default: {
-      name: 'Mantle Testnet Explorer',
+      name: 'Mantle Explorer',
       url: 'https://explorer.mantle.xyz',
     },
   },
