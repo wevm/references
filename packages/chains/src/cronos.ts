@@ -10,11 +10,11 @@ export const cronos = {
     symbol: 'CRO',
   },
   rpcUrls: {
-    default: { http: ['https://node.croswap.com/rpc'] },
-    public: { http: ['https://node.croswap.com/rpc'] },
+    default: { http: ['https://evm.cronos.org'] },
+    public: { http: ['https://evm.cronos.org'] },
   },
   blockExplorers: {
-    default: { name: 'CronosScan', url: 'https://cronoscan.com' },
+    default: { name: 'Cronoscan', url: 'https://cronoscan.com' },
   },
   contracts: {
     multicall3: {
