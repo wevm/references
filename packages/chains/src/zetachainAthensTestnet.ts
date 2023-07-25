@@ -1,9 +1,9 @@
 import { Chain } from './types'
 
-export const zetachainAthens3 = {
+export const zetachainAthensTestnet = {
   id: 7001,
-  name: 'ZetaChain Athens 3',
-  network: 'zetachain-athens-evm',
+  name: 'ZetaChain Athens Testnet',
+  network: 'zetachain-athens-testnet',
   nativeCurrency: {
     decimals: 18,
     name: 'Zeta',
