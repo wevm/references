@@ -72,6 +72,7 @@ const { chains, provider } = configureChains(
 - `okc`
 - `optimism`
 - `optimismGoerli`
+- `opBNBTestnet`
 - `polygon`
 - `polygonMumbai`
 - `pulsechain`
