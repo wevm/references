@@ -6,8 +6,8 @@ export const qMainnet = {
     network: 'q mainnet',
     nativeCurrency: {
         decimals: 18,
-        name: 'Q',
-        symbol: 'Q',
+        name: 'Q ',
+        symbol: 'Q ',
     },
     rpcUrls: {
         default: { http: ['https://rpc.q.org'] },

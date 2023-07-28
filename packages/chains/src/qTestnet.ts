@@ -6,8 +6,8 @@ export const qTestnet = {
     network: 'q testnet',
     nativeCurrency: {
         decimals: 18,
-        name: 'Q',
-        symbol: 'Q',
+        name: 'Q ',
+        symbol: 'Q ',
     },
     rpcUrls: {
         default: { http: ['https://rpc.qtestnet.org/'] },
