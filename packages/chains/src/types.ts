@@ -20,6 +20,8 @@ export type Chain = {
     default: RpcUrls
     public: RpcUrls
   }
+  /** Website or blog related to the chain */
+  websiteUrl?: string;
   /** Collection of block explorers */
   blockExplorers?: {
     [key: string]: BlockExplorer

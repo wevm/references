@@ -19,6 +19,7 @@ If you wish to contribute to add an additional Chain to `@wagmi/chains`, there a
   - a native currency reference (`nativeCurrency`),
   - a public, credible RPC URL
 - **Nice to haves**
+  - a website (`websiteUrl`)
   - a block explorer (`blockExplorers`)
   - a multicall contract (`contracts.multicall`)
 - **Optional**
