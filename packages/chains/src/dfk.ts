@@ -17,7 +17,8 @@ export const dfk = {
       http: ['https://subnets.avax.network/defi-kingdoms/dfk-chain/rpc'],
     },
   },
-  websiteUrl: 'https://docs.defikingdoms.com/how-defi-kingdoms-works/defi-kingdoms-blockchain',
+  websiteUrl:
+    'https://docs.defikingdoms.com/how-defi-kingdoms-works/defi-kingdoms-blockchain',
   blockExplorers: {
     etherscan: {
       name: 'DFKSubnetScan',

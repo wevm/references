@@ -21,7 +21,7 @@ export type Chain = {
     public: RpcUrls
   }
   /** Website or blog related to the chain */
-  websiteUrl?: string;
+  websiteUrl?: string
   /** Collection of block explorers */
   blockExplorers?: {
     [key: string]: BlockExplorer
