@@ -13,6 +13,7 @@ export const syscoin = {
     default: { http: ['https://rpc.syscoin.org'] },
     public: { http: ['https://rpc.syscoin.org'] },
   },
+  websiteUrl: 'https://syscoin.org/',
   blockExplorers: {
     default: { name: 'SyscoinExplorer', url: 'https://explorer.syscoin.org' },
   },

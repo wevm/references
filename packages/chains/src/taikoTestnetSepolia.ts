@@ -13,6 +13,7 @@ export const taikoTestnetSepolia = {
       http: ['https://rpc.test.taiko.xyz'],
     },
   },
+  websiteUrl: 'https://taiko.xyz/',
   blockExplorers: {
     default: {
       name: 'blockscout',

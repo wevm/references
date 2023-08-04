@@ -21,6 +21,7 @@ export const polygonMumbai = {
       http: ['https://matic-mumbai.chainstacklabs.com'],
     },
   },
+  websiteUrl: 'https://polygon.technology/',
   blockExplorers: {
     etherscan: {
       name: 'PolygonScan',

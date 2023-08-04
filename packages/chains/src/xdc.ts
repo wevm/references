@@ -13,6 +13,7 @@ export const xdc = {
     default: { http: ['https://rpc.xinfin.network'] },
     public: { http: ['https://rpc.xinfin.network'] },
   },
+  websiteUrl: 'https://xdc.org/',
   blockExplorers: {
     xinfin: { name: 'XinFin', url: 'https://explorer.xinfin.network' },
     default: { name: 'Blocksscan', url: 'https://xdc.blocksscan.io' },

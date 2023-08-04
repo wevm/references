@@ -19,6 +19,7 @@ export const linea = {
       webSocket: ['wss://rpc.linea.build'],
     },
   },
+  websiteUrl: 'https://linea.build/',
   blockExplorers: {
     default: {
       name: 'Etherscan',

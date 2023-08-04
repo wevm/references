@@ -19,6 +19,7 @@ export const skaleCalypso = {
       ],
     },
   },
+  websiteUrl: 'https://www.calypsohub.network/',
   blockExplorers: {
     blockscout: {
       name: 'SKALE Explorer',

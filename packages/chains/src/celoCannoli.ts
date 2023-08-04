@@ -17,6 +17,7 @@ export const celoCannoli = {
       http: ['https://forno.cannoli.celo-testnet.org'],
     },
   },
+  websiteUrl: 'https://celo.org/',
   blockExplorers: {
     default: {
       name: 'Celo Explorer',

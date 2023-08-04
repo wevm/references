@@ -13,6 +13,7 @@ export const evmosTestnet = {
     default: { http: ['https://eth.bd.evmos.dev:8545'] },
     public: { http: ['https://eth.bd.evmos.dev:8545'] },
   },
+  websiteUrl: 'https://evmos.org/',
   blockExplorers: {
     default: {
       name: 'Evmos Testnet Block Explorer',

@@ -15,6 +15,7 @@ export const skaleNebula = {
       webSocket: ['wss://mainnet.skalenodes.com/v1/ws/green-giddy-denebola'],
     },
   },
+  websiteUrl: 'https://nebulachain.io/',
   blockExplorers: {
     blockscout: {
       name: 'SKALE Explorer',

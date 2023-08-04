@@ -19,6 +19,7 @@ export const lineaTestnet = {
       webSocket: ['wss://rpc.goerli.linea.build'],
     },
   },
+  websiteUrl: 'https://linea.build/',
   blockExplorers: {
     default: {
       name: 'Etherscan',

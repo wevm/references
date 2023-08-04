@@ -13,6 +13,7 @@ export const avalancheFuji = {
     default: { http: ['https://api.avax-test.network/ext/bc/C/rpc'] },
     public: { http: ['https://api.avax-test.network/ext/bc/C/rpc'] },
   },
+  websiteUrl: 'https://www.avax.network/',
   blockExplorers: {
     etherscan: { name: 'SnowTrace', url: 'https://testnet.snowtrace.io' },
     default: { name: 'SnowTrace', url: 'https://testnet.snowtrace.io' },

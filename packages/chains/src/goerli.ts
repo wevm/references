@@ -21,6 +21,7 @@ export const goerli = {
       http: ['https://rpc.ankr.com/eth_goerli'],
     },
   },
+  websiteUrl: 'https://ethereum.org/',
   blockExplorers: {
     etherscan: {
       name: 'Etherscan',

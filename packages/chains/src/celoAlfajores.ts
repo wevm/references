@@ -20,6 +20,7 @@ export const celoAlfajores = {
       http: ['https://alfajores-forno.celo-testnet.org'],
     },
   },
+  websiteUrl: 'https://celo.org/',
   blockExplorers: {
     default: {
       name: 'Celo Explorer',

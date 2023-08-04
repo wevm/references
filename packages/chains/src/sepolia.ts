@@ -21,6 +21,7 @@ export const sepolia = {
       http: ['https://rpc.sepolia.org'],
     },
   },
+  websiteUrl: 'https://ethereum.org/',
   blockExplorers: {
     etherscan: {
       name: 'Etherscan',

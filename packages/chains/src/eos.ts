@@ -13,6 +13,7 @@ export const eos = {
     default: { http: ['https://api.evm.eosnetwork.com'] },
     public: { http: ['https://api.evm.eosnetwork.com'] },
   },
+  websiteUrl: 'https://eos.io/',
   blockExplorers: {
     etherscan: {
       name: 'EOS EVM Explorer',

@@ -13,6 +13,7 @@ export const mantleTestnet = {
     default: { http: ['https://rpc.testnet.mantle.xyz'] },
     public: { http: ['https://rpc.testnet.mantle.xyz'] },
   },
+  websiteUrl: 'https://www.mantle.xyz/',
   blockExplorers: {
     etherscan: {
       name: 'Mantle Testnet Explorer',

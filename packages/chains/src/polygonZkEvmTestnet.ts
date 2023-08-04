@@ -13,6 +13,7 @@ export const polygonZkEvmTestnet = {
       http: ['https://rpc.public.zkevm-test.net'],
     },
   },
+  websiteUrl: 'https://polygon.technology/',
   blockExplorers: {
     blockscout: {
       name: 'Blockscout',

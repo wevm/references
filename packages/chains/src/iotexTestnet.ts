@@ -19,6 +19,7 @@ export const iotexTestnet = {
       webSocket: ['wss://babel-api.testnet.iotex.io'],
     },
   },
+  websiteUrl: 'https://iotex.io/',
   blockExplorers: {
     default: { name: 'IoTeXScan', url: 'https://testnet.iotexscan.io' },
   },

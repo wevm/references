@@ -13,6 +13,7 @@ export const boba = {
     default: { http: ['https://mainnet.boba.network'] },
     public: { http: ['https://mainnet.boba.network'] },
   },
+  websiteUrl: 'https://boba.network/',
   blockExplorers: {
     etherscan: { name: 'BOBAScan', url: 'https://bobascan.com' },
     default: { name: 'BOBAScan', url: 'https://bobascan.com' },

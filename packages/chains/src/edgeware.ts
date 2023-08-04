@@ -13,6 +13,7 @@ export const edgeware = {
     default: { http: ['https://edgeware-evm.jelliedowl.net'] },
     public: { http: ['https://edgeware-evm.jelliedowl.net'] },
   },
+  websiteUrl: 'https://www.edgeware.io/',
   blockExplorers: {
     etherscan: { name: 'Edgscan by Bharathcoorg', url: 'https://edgscan.live' },
     default: { name: 'Edgscan by Bharathcoorg', url: 'https://edgscan.live' },

@@ -19,6 +19,7 @@ export const skaleNebulaTestnet = {
       ],
     },
   },
+  websiteUrl: 'https://nebulachain.io/',
   blockExplorers: {
     blockscout: {
       name: 'SKALE Explorer',

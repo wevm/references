@@ -13,6 +13,7 @@ export const mantle = {
     default: { http: ['https://rpc.mantle.xyz'] },
     public: { http: ['https://rpc.mantle.xyz'] },
   },
+  websiteUrl: 'https://www.mantle.xyz/',
   blockExplorers: {
     etherscan: {
       name: 'Mantle Explorer',

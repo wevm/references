@@ -19,6 +19,7 @@ export const zoraTestnet = {
       webSocket: ['wss://testnet.rpc.zora.energy'],
     },
   },
+  websiteUrl: 'https://zora.energy/',
   blockExplorers: {
     default: { name: 'Explorer', url: 'https://testnet.explorer.zora.energy' },
   },

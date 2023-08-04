@@ -17,6 +17,7 @@ export const haqqMainnet = {
       http: ['https://rpc.eth.haqq.network'],
     },
   },
+  websiteUrl: 'https://haqq.network/',
   blockExplorers: {
     default: {
       name: 'HAQQ Explorer',

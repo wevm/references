@@ -13,6 +13,7 @@ export const ektaTestnet = {
     public: { http: ['https://test.ekta.io:8545'] },
     default: { http: ['https://test.ekta.io:8545'] },
   },
+  websiteUrl: 'https://www.ekta.io/',
   blockExplorers: {
     default: { name: 'Test Ektascan', url: 'https://test.ektascan.io' },
   },

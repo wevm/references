@@ -19,6 +19,7 @@ export const skaleCryptoBlades = {
       ],
     },
   },
+  websiteUrl: 'https://www.cryptoblades.io/',
   blockExplorers: {
     blockscout: {
       name: 'SKALE Explorer',

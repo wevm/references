@@ -23,6 +23,7 @@ export const skaleCalypsoTestnet = {
       ],
     },
   },
+  websiteUrl: 'https://www.calypsohub.network/',
   blockExplorers: {
     blockscout: {
       name: 'SKALE Explorer',

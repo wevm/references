@@ -9,6 +9,7 @@ export const fuse = {
     default: { http: ['https://rpc.fuse.io'] },
     public: { http: ['https://fuse-mainnet.chainstacklabs.com'] },
   },
+  websiteUrl: 'https://www.fuse.io/',
   blockExplorers: {
     default: { name: 'Fuse Explorer', url: 'https://explorer.fuse.io' },
   },

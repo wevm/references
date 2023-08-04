@@ -17,6 +17,7 @@ export const crossbell = {
       http: ['https://rpc.crossbell.io'],
     },
   },
+  websiteUrl: 'https://crossbell.io/',
   blockExplorers: {
     default: { name: 'CrossScan', url: 'https://scan.crossbell.io' },
   },

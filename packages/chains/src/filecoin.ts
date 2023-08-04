@@ -13,6 +13,7 @@ export const filecoin = {
     default: { http: ['https://api.node.glif.io/rpc/v1'] },
     public: { http: ['https://api.node.glif.io/rpc/v1'] },
   },
+  websiteUrl: 'https://filecoin.io/',
   blockExplorers: {
     default: { name: 'Filfox', url: 'https://filfox.info/en' },
     filscan: { name: 'Filscan', url: 'https://filscan.io' },

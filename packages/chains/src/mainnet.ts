@@ -21,6 +21,7 @@ export const mainnet = {
       http: ['https://cloudflare-eth.com'],
     },
   },
+  websiteUrl: 'https://ethereum.org/',
   blockExplorers: {
     etherscan: {
       name: 'Etherscan',

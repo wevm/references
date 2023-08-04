@@ -13,6 +13,7 @@ export const neonDevnet = {
       http: ['https://devnet.neonevm.org'],
     },
   },
+  websiteUrl: 'https://neonevm.org/',
   blockExplorers: {
     default: {
       name: 'Neonscan',

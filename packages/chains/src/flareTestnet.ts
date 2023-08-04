@@ -13,6 +13,7 @@ export const flareTestnet: Chain = {
     default: { http: ['https://coston2-api.flare.network/ext/C/rpc'] },
     public: { http: ['https://coston2-api.flare.network/ext/C/rpc'] },
   },
+  websiteUrl: 'https://flare.network/',
   blockExplorers: {
     default: {
       name: 'Coston2 Explorer',

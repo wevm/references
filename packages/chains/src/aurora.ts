@@ -14,6 +14,7 @@ export const aurora = {
     default: { http: ['https://mainnet.aurora.dev'] },
     public: { http: ['https://mainnet.aurora.dev'] },
   },
+  websiteUrl: 'https://aurora.dev/',
   blockExplorers: {
     etherscan: { name: 'Aurorascan', url: 'https://aurorascan.dev' },
     default: { name: 'Aurorascan', url: 'https://aurorascan.dev' },

@@ -19,6 +19,7 @@ export const wanchain = {
       ],
     },
   },
+  websiteUrl: 'https://www.wanchain.org/',
   blockExplorers: {
     etherscan: {
       name: 'WanScan',

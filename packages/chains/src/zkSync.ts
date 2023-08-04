@@ -19,6 +19,7 @@ export const zkSync = {
       webSocket: ['wss://mainnet.era.zksync.io/ws'],
     },
   },
+  websiteUrl: 'https://zksync.io/',
   blockExplorers: {
     default: {
       name: 'zkExplorer',

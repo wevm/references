@@ -13,6 +13,7 @@ export const taraxa = {
       http: ['https://rpc.mainnet.taraxa.io'],
     },
   },
+  websiteUrl: 'https://www.taraxa.io/',
   blockExplorers: {
     default: {
       name: 'Taraxa Explorer',

@@ -15,6 +15,7 @@ export const skaleBlockBrawlers = {
       webSocket: ['wss://mainnet.skalenodes.com/v1/ws/frayed-decent-antares'],
     },
   },
+  websiteUrl: 'https://blockbrawlers.com/',
   blockExplorers: {
     blockscout: {
       name: 'SKALE Explorer',

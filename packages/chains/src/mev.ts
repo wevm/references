@@ -17,6 +17,7 @@ export const mev = {
       http: ['https://rpc.meversemainnet.io'],
     },
   },
+  websiteUrl: 'https://www.meverse.sg/',
   blockExplorers: {
     default: {
       name: 'Explorer',

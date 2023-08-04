@@ -15,6 +15,7 @@ export const skaleHumanProtocol = {
       webSocket: ['wss://mainnet.skalenodes.com/v1/ws/wan-red-ain'],
     },
   },
+  websiteUrl: 'https://www.humanprotocol.org/',
   blockExplorers: {
     blockscout: {
       name: 'SKALE Explorer',

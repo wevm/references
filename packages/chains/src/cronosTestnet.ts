@@ -13,6 +13,7 @@ export const cronosTestnet = {
     default: { http: ['https://evm-t3.cronos.org'] },
     public: { http: ['https://evm-t3.cronos.org'] },
   },
+  websiteUrl: 'https://cronos.org/',
   blockExplorers: {
     default: {
       name: 'Cronos Explorer',

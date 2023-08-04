@@ -17,6 +17,7 @@ export const arbitrumNova = {
       http: ['https://nova.arbitrum.io/rpc'],
     },
   },
+  websiteUrl: 'https://arbitrum.io/',
   blockExplorers: {
     etherscan: { name: 'Arbiscan', url: 'https://nova.arbiscan.io' },
     blockScout: {

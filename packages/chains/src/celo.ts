@@ -18,6 +18,7 @@ export const celo = {
       http: ['https://forno.celo.org'],
     },
   },
+  websiteUrl: 'https://celo.org/',
   blockExplorers: {
     default: {
       name: 'Celo Explorer',

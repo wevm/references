@@ -21,6 +21,7 @@ export const polygon = {
       http: ['https://polygon-rpc.com'],
     },
   },
+  websiteUrl: 'https://polygon.technology/',
   blockExplorers: {
     etherscan: {
       name: 'PolygonScan',

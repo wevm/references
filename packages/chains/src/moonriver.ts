@@ -19,6 +19,7 @@ export const moonriver = {
       webSocket: ['wss://moonriver.public.blastapi.io'],
     },
   },
+  websiteUrl: 'https://moonbeam.network/networks/moonriver/',
   blockExplorers: {
     default: {
       name: 'Moonscan',

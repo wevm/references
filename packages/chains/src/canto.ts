@@ -13,6 +13,7 @@ export const canto = {
     default: { http: ['https://canto.gravitychain.io'] },
     public: { http: ['https://canto.gravitychain.io'] },
   },
+  websiteUrl: 'https://canto.io/',
   blockExplorers: {
     default: {
       name: 'Tuber.Build (Blockscout)',

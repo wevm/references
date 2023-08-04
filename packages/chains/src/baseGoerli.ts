@@ -13,6 +13,7 @@ export const baseGoerli = {
       http: ['https://goerli.base.org'],
     },
   },
+  websiteUrl: 'https://base.org/',
   blockExplorers: {
     etherscan: {
       name: 'Basescan',

@@ -16,6 +16,7 @@ export const pulsechainV4 = {
       webSocket: ['wss://ws.v4.testnet.pulsechain.com'],
     },
   },
+  websiteUrl: 'https://pulsechain.com/',
   blockExplorers: {
     default: {
       name: 'PulseScan',

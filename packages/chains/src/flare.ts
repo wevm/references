@@ -13,6 +13,7 @@ export const flare: Chain = {
     default: { http: ['https://flare-api.flare.network/ext/C/rpc'] },
     public: { http: ['https://flare-api.flare.network/ext/C/rpc'] },
   },
+  websiteUrl: 'https://flare.network/',
   blockExplorers: {
     default: {
       name: 'Flare Explorer',

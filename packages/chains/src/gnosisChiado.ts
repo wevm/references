@@ -13,6 +13,7 @@ export const gnosisChiado = {
     default: { http: ['https://rpc.chiadochain.net'] },
     public: { http: ['https://rpc.chiadochain.net'] },
   },
+  websiteUrl: 'https://www.gnosis.io/',
   blockExplorers: {
     default: {
       name: 'Blockscout',

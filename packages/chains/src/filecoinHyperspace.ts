@@ -13,6 +13,7 @@ export const filecoinHyperspace = {
     default: { http: ['https://api.hyperspace.node.glif.io/rpc/v1'] },
     public: { http: ['https://api.hyperspace.node.glif.io/rpc/v1'] },
   },
+  websiteUrl: 'https://filecoin.io/',
   blockExplorers: {
     default: { name: 'Filfox', url: 'https://hyperspace.filfox.info/en' },
     filscan: { name: 'Filscan', url: 'https://hyperspace.filscan.io' },

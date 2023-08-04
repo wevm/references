@@ -13,6 +13,7 @@ export const thunderTestnet = {
       http: ['https://rpc-testnet.5ire.network'],
     },
   },
+  websiteUrl: 'https://blog.5ire.org/',
   blockExplorers: {
     default: {
       name: '5ireChain Explorer',

@@ -17,6 +17,7 @@ export const haqqTestedge2 = {
       http: ['https://rpc.eth.testedge2.haqq.network'],
     },
   },
+  websiteUrl: 'https://haqq.network/',
   blockExplorers: {
     default: {
       name: 'HAQQ Explorer',

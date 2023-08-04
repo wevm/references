@@ -13,6 +13,7 @@ export const oasys = {
       http: ['https://rpc.mainnet.oasys.games'],
     },
   },
+  websiteUrl: 'https://www.oasys.games/',
   blockExplorers: {
     default: {
       name: 'OasysScan',

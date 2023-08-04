@@ -13,6 +13,7 @@ export const cronos = {
     default: { http: ['https://node.croswap.com/rpc'] },
     public: { http: ['https://node.croswap.com/rpc'] },
   },
+  websiteUrl: 'https://cronos.org/',
   blockExplorers: {
     default: { name: 'CronosScan', url: 'https://cronoscan.com' },
   },

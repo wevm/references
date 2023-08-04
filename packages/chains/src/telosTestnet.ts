@@ -13,6 +13,7 @@ export const telosTestnet = {
     default: { http: ['https://testnet.telos.net/evm'] },
     public: { http: ['https://testnet.telos.net/evm'] },
   },
+  websiteUrl: 'https://www.telos.net/',
   blockExplorers: {
     default: {
       name: 'Teloscan (testnet)',

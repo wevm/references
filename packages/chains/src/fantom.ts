@@ -13,6 +13,7 @@ export const fantom = {
     default: { http: ['https://rpc.ankr.com/fantom'] },
     public: { http: ['https://rpc.ankr.com/fantom'] },
   },
+  websiteUrl: 'https://fantom.foundation/',
   blockExplorers: {
     etherscan: { name: 'FTMScan', url: 'https://ftmscan.com' },
     default: { name: 'FTMScan', url: 'https://ftmscan.com' },

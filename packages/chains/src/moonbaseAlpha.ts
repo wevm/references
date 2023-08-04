@@ -19,6 +19,7 @@ export const moonbaseAlpha = {
       webSocket: ['wss://wss.api.moonbase.moonbeam.network'],
     },
   },
+  websiteUrl: 'https://docs.moonbeam.network/learn/platform/networks/moonbase/',
   blockExplorers: {
     default: {
       name: 'Moonscan',

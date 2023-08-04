@@ -21,6 +21,7 @@ export const optimismGoerli = {
       http: ['https://goerli.optimism.io'],
     },
   },
+  websiteUrl: 'https://www.optimism.io/',
   blockExplorers: {
     etherscan: {
       name: 'Etherscan',

@@ -15,6 +15,7 @@ export const skaleExorde = {
       webSocket: ['wss://mainnet.skalenodes.com/v1/ws/light-vast-diphda'],
     },
   },
+  websiteUrl: 'https://exorde.network/',
   blockExplorers: {
     blockscout: {
       name: 'SKALE Explorer',

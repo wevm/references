@@ -19,4 +19,5 @@ export const foundry = {
       webSocket: ['ws://127.0.0.1:8545'],
     },
   },
+  websiteUrl: 'https://book.getfoundry.sh/',
 } as const satisfies Chain

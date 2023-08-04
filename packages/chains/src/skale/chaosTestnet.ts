@@ -23,6 +23,7 @@ export const skaleChaosTestnet = {
       ],
     },
   },
+  websiteUrl: 'https://docs.skale.network/develop/hubs/open-testnet',
   blockExplorers: {
     blockscout: {
       name: 'SKALE Explorer',

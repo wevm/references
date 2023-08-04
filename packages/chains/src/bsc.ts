@@ -13,6 +13,7 @@ export const bsc = {
     default: { http: ['https://rpc.ankr.com/bsc'] },
     public: { http: ['https://rpc.ankr.com/bsc'] },
   },
+  websiteUrl: 'https://www.binance.com/',
   blockExplorers: {
     etherscan: { name: 'BscScan', url: 'https://bscscan.com' },
     default: { name: 'BscScan', url: 'https://bscscan.com' },

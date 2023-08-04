@@ -15,6 +15,7 @@ export const scrollTestnet = {
       webSocket: ['wss://alpha-rpc.scroll.io/l2/ws'],
     },
   },
+  websiteUrl: 'https://scroll.io/',
   blockExplorers: {
     default: {
       name: 'Blockscout',

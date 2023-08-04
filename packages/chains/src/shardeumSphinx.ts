@@ -13,6 +13,7 @@ export const shardeumSphinx = {
       http: ['https://sphinx.shardeum.org'],
     },
   },
+  websiteUrl: 'https://shardeum.org/',
   blockExplorers: {
     default: {
       name: 'Shardeum Explorer',

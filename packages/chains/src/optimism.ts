@@ -21,6 +21,7 @@ export const optimism = {
       http: ['https://mainnet.optimism.io'],
     },
   },
+  websiteUrl: 'https://www.optimism.io/',
   blockExplorers: {
     etherscan: {
       name: 'Etherscan',

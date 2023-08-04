@@ -21,6 +21,7 @@ export const arbitrum = {
       http: ['https://arb1.arbitrum.io/rpc'],
     },
   },
+  websiteUrl: 'https://arbitrum.io/',
   blockExplorers: {
     etherscan: { name: 'Arbiscan', url: 'https://arbiscan.io' },
     default: { name: 'Arbiscan', url: 'https://arbiscan.io' },

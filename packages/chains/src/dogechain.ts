@@ -13,6 +13,7 @@ export const dogechain = {
     default: { http: ['https://rpc.dogechain.dog'] },
     public: { http: ['https://rpc.dogechain.dog'] },
   },
+  websiteUrl: 'https://dogechain.dog/',
   blockExplorers: {
     etherscan: {
       name: 'DogeChainExplorer',

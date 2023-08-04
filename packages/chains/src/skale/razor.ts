@@ -15,6 +15,7 @@ export const skaleRazor = {
       webSocket: ['wss://mainnet.skalenodes.com/v1/ws/turbulent-unique-scheat'],
     },
   },
+  websiteUrl: 'https://razor.network/',
   blockExplorers: {
     blockscout: {
       name: 'SKALE Explorer',

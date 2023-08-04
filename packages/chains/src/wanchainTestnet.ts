@@ -13,6 +13,7 @@ export const wanchainTestnet = {
       http: ['https://gwan-ssl.wandevs.org:46891'],
     },
   },
+  websiteUrl: 'https://www.wanchain.org/',
   blockExplorers: {
     etherscan: {
       name: 'WanScanTest',

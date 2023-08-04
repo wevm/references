@@ -19,6 +19,7 @@ export const moonbeam = {
       webSocket: ['wss://moonbeam.public.blastapi.io'],
     },
   },
+  websiteUrl: 'https://docs.moonbeam.network/learn/platform/networks/moonbase/',
   blockExplorers: {
     default: {
       name: 'Moonscan',

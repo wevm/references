@@ -13,6 +13,7 @@ export const fantomTestnet = {
     default: { http: ['https://rpc.testnet.fantom.network'] },
     public: { http: ['https://rpc.testnet.fantom.network'] },
   },
+  websiteUrl: 'https://fantom.foundation/',
   blockExplorers: {
     etherscan: { name: 'FTMScan', url: 'https://testnet.ftmscan.com' },
     default: { name: 'FTMScan', url: 'https://testnet.ftmscan.com' },

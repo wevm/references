@@ -13,6 +13,7 @@ export const base = {
       http: ['https://developer-access-mainnet.base.org'],
     },
   },
+  websiteUrl: 'https://base.org/',
   blockExplorers: {
     blockscout: {
       name: 'Basescout',

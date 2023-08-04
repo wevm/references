@@ -13,4 +13,5 @@ export const hardhat = {
     default: { http: ['http://127.0.0.1:8545'] },
     public: { http: ['http://127.0.0.1:8545'] },
   },
+  websiteUrl: 'https://hardhat.org/',
 } as const satisfies Chain

@@ -13,6 +13,7 @@ export const harmonyOne = {
     public: { http: ['https://rpc.ankr.com/harmony'] },
     default: { http: ['https://rpc.ankr.com/harmony'] },
   },
+  websiteUrl: 'https://www.harmony.one/',
   blockExplorers: {
     default: { name: 'Harmony Explorer', url: 'https://explorer.harmony.one' },
   },

@@ -13,6 +13,7 @@ export const bronosTestnet = {
     default: { http: ['https://evm-testnet.bronos.org'] },
     public: { http: ['https://evm-testnet.bronos.org'] },
   },
+  websiteUrl: 'https://bronos.org/',
   blockExplorers: {
     default: { name: 'BronoScan', url: 'https://tbroscan.bronos.org' },
   },

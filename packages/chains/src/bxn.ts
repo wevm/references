@@ -13,6 +13,7 @@ export const bxn = {
       http: ['https://mainnet.blackfort.network/rpc'],
     },
   },
+  websiteUrl: 'https://blackfort.exchange/',
   blockExplorers: {
     default: {
       name: 'Blockscout',

@@ -13,6 +13,7 @@ export const filecoinCalibration: Chain = {
     default: { http: ['https://api.calibration.node.glif.io/rpc/v1'] },
     public: { http: ['https://api.calibration.node.glif.io/rpc/v1'] },
   },
+  websiteUrl: 'https://filecoin.io/',
   blockExplorers: {
     default: { name: 'Filscan', url: 'https://calibration.filscan.io' },
   },

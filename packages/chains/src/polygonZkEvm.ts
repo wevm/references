@@ -13,6 +13,7 @@ export const polygonZkEvm = {
       http: ['https://zkevm-rpc.com'],
     },
   },
+  websiteUrl: 'https://polygon.technology/',
   blockExplorers: {
     default: {
       name: 'PolygonScan',

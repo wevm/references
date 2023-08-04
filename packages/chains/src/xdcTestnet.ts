@@ -13,6 +13,7 @@ export const xdcTestnet = {
     default: { http: ['https://erpc.apothem.network'] },
     public: { http: ['https://erpc.apothem.network'] },
   },
+  websiteUrl: 'https://xdc.org/',
   blockExplorers: {
     xinfin: { name: 'XinFin', url: 'https://explorer.apothem.network' },
     default: { name: 'Blocksscan', url: 'https://apothem.blocksscan.io' },

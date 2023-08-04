@@ -13,6 +13,7 @@ export const bronos = {
     default: { http: ['https://evm.bronos.org'] },
     public: { http: ['https://evm.bronos.org'] },
   },
+  websiteUrl: 'https://bronos.org/',
   blockExplorers: {
     default: { name: 'BronoScan', url: 'https://broscan.bronos.org' },
   },

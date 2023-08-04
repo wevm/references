@@ -13,6 +13,7 @@ export const edgewareTestnet = {
     default: { http: ['https://beresheet-evm.jelliedowl.net'] },
     public: { http: ['https://beresheet-evm.jelliedowl.net'] },
   },
+  websiteUrl: 'https://www.edgeware.io/',
   blockExplorers: {
     etherscan: {
       name: 'Edgscan by Bharathcoorg',

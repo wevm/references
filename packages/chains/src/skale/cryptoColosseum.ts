@@ -15,6 +15,7 @@ export const skaleCryptoColosseum = {
       webSocket: ['wss://mainnet.skalenodes.com/v1/ws/haunting-devoted-deneb'],
     },
   },
+  websiteUrl: 'https://cryptocolosseum.com/',
   blockExplorers: {
     blockscout: {
       name: 'SKALE Explorer',

@@ -17,6 +17,7 @@ export const bxnTestnet = {
       http: ['https://testnet.blackfort.network/rpc'],
     },
   },
+  websiteUrl: 'https://blackfort.exchange/',
   blockExplorers: {
     default: {
       name: 'Blockscout',
