@@ -65,6 +65,7 @@ const { chains, provider } = configureChains(
 - `mantleTestnet`
 - `metis`
 - `metisGoerli`
+- `modeTestnet`
 - `moonbaseAlpha`
 - `moonbeam`
 - `moonriver`
