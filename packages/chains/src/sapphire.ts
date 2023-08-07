@@ -10,8 +10,8 @@ export const sapphire = {
     symbol: 'ROSE',
   },
   rpcUrls: {
-    default: { http: ['https://sapphire.oasis.io'] },
-    public: { http: ['https://sapphire.oasis.io'] },
+    default: { http: ['https://sapphire.oasis.io'], webSocket: ['wss://sapphire.oasis.io/ws'] },
+    public: { http: ['https://sapphire.oasis.io'], webSocket: ['wss://sapphire.oasis.io/ws'] },
   },
   blockExplorers: {
     default: { name: 'Oasis Explorer', url: 'https://explorer.oasis.io/mainnet/sapphire' },
