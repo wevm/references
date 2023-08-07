@@ -10,8 +10,8 @@ export const emerald = {
     symbol: 'ROSE',
   },
   rpcUrls: {
-    default: { http: ['https://emerald.oasis.dev'], 'webSocket': 'wss://emerald.oasis.dev/ws' },
-    public: { http: ['https://emerald.oasis.dev'], 'webSocket': 'wss://emerald.oasis.dev/ws' },
+    default: { http: ['https://emerald.oasis.dev'], 'webSocket': ['wss://emerald.oasis.dev/ws'] },
+    public:  { http: ['https://emerald.oasis.dev'], 'webSocket': ['wss://emerald.oasis.dev/ws'] },
   },
   blockExplorers: {
     default: { name: 'Oasis Explorer', url: 'https://explorer.emerald.oasis.dev' },
