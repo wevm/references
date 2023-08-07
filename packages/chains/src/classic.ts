@@ -15,7 +15,7 @@ export const classic = {
   },
   blockExplorers: {
     default: {
-      name: 'BlockScout',
+      name: 'Blockscout',
       url: 'https://blockscout.com/etc/mainnet/',
     },
   },
