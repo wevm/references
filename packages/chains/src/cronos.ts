@@ -2,7 +2,7 @@ import { Chain } from './types'
 
 export const cronos = {
   id: 25,
-  name: 'Cronos',
+  name: 'Cronos Mainnet',
   network: 'cronos',
   nativeCurrency: {
     decimals: 18,
