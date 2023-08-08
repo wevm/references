@@ -286,8 +286,8 @@ export class WalletConnectConnector extends Connector<
   async #initProvider() {
     const { EthereumProvider, OPTIONAL_EVENTS, OPTIONAL_METHODS } =
       await import('@walletconnect/ethereum-provider')
-    const [defaultChain, ...optionalChains] = this.chains.map(({ id }) => id)
-    if (defaultChain) {
+    const allChainIds = this.chains.map(({ id }) => id)
+    if (allChainIds.length > 0) {
       const {
         projectId,
         showQrModal = true,
@@ -301,8 +301,8 @@ export class WalletConnectConnector extends Connector<
         projectId,
         optionalMethods: OPTIONAL_METHODS,
         optionalEvents: OPTIONAL_EVENTS,
-        chains: [defaultChain],
-        optionalChains: optionalChains.length ? optionalChains : undefined,
+        chains: allChainIds.length === 1 ? allChainIds : undefined,
+        optionalChains: allChainIds,
         rpcMap: Object.fromEntries(
           this.chains.map((chain) => [
             chain.id,
