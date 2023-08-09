@@ -14,7 +14,7 @@ export const ronin = {
     },
   },
   blockExplorers: {
-    default: { name: 'Ronin Explorer', url: 'https://app.roninchain.com/' },
+    default: { name: 'Ronin Explorer', url: 'https://app.roninchain.com' },
   },
   contracts: {
     multicall3: {
