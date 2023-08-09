@@ -12,7 +12,7 @@ export const sparknet = {
   blockExplorers: {
     default: {
       name: 'Sparkent Explorer',
-      url: 'https://explorer.fusespark.io/',
+      url: 'https://explorer.fusespark.io',
     },
   },
   testnet: true,
