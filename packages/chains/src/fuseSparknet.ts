@@ -14,6 +14,5 @@ export const sparknet = {
       name: 'Sparkent Explorer',
       url: 'https://explorer.fusespark.io',
     },
-  },
-  testnet: true,
+  }
 } as const satisfies Chain
