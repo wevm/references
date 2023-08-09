@@ -7,16 +7,16 @@ export const modeTestnet = {
   nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
   rpcUrls: {
     default: {
-      http: ['https://sepolia.mode.network/'],
+      http: ['https://sepolia.mode.network'],
     },
     public: {
-      http: ['https://sepolia.mode.network/'],
+      http: ['https://sepolia.mode.network'],
     },
   },
   blockExplorers: {
     default: {
       name: 'Blockscout',
-      url: 'https://sepolia.explorer.mode.network/',
+      url: 'https://sepolia.explorer.mode.network',
     },
   },
   testnet: true,
