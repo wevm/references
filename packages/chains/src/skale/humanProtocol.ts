@@ -8,13 +8,15 @@ export const skaleHumanProtocol = {
   rpcUrls: {
     default: {
       http: ['https://mainnet.skalenodes.com/v1/wan-red-ain'],
+      webSocket: ['wss://mainnet.skalenodes.com/v1/ws/wan-red-ain'],
     },
     public: {
       http: ['https://mainnet.skalenodes.com/v1/wan-red-ain'],
+      webSocket: ['wss://mainnet.skalenodes.com/v1/ws/wan-red-ain'],
     },
   },
   blockExplorers: {
-    etherscan: {
+    blockscout: {
       name: 'SKALE Explorer',
       url: 'https://wan-red-ain.explorer.mainnet.skalenodes.com',
     },

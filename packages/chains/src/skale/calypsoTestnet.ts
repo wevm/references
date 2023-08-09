@@ -10,15 +10,21 @@ export const skaleCalypsoTestnet = {
       http: [
         'https://staging-v3.skalenodes.com/v1/staging-utter-unripe-menkar',
       ],
+      webSocket: [
+        'wss://staging-v3.skalenodes.com/v1/ws/staging-utter-unripe-menkar',
+      ],
     },
     public: {
       http: [
         'https://staging-v3.skalenodes.com/v1/staging-utter-unripe-menkar',
       ],
+      webSocket: [
+        'wss://staging-v3.skalenodes.com/v1/ws/staging-utter-unripe-menkar',
+      ],
     },
   },
   blockExplorers: {
-    etherscan: {
+    blockscout: {
       name: 'SKALE Explorer',
       url: 'https://staging-utter-unripe-menkar.explorer.staging-v3.skalenodes.com',
     },
@@ -27,6 +33,11 @@ export const skaleCalypsoTestnet = {
       url: 'https://staging-utter-unripe-menkar.explorer.staging-v3.skalenodes.com',
     },
   },
-  contracts: {},
+  contracts: {
+    multicall3: {
+      address: '0xcA11bde05977b3631167028862bE2a173976CA11',
+      blockCreated: 2131424,
+    },
+  },
   testnet: true,
 } as const satisfies Chain
