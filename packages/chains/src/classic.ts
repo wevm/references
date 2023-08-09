@@ -16,7 +16,7 @@ export const classic = {
   blockExplorers: {
     default: {
       name: 'Blockscout',
-      url: 'https://blockscout.com/etc/mainnet/',
+      url: 'https://blockscout.com/etc/mainnet',
     },
   },
 } as const satisfies Chain
