@@ -6,17 +6,17 @@ export const qTestnet = {
     network: 'q testnet',
     nativeCurrency: {
         decimals: 18,
-        name: 'Q ',
-        symbol: 'Q ',
+        name: 'Q',
+        symbol: 'Q',
     },
     rpcUrls: {
-        default: { http: ['https://rpc.qtestnet.org/'] },
-        public: { http: ['https://rpc.qtestnet.org/'] },
+        default: { http: ['https://rpc.qtestnet.org'] },
+        public: { http: ['https://rpc.qtestnet.org'] },
     },
     blockExplorers: {
         default: {
             name: 'Q Testnet Explorer',
-            url: 'https://explorer.qtestnet.org/',
+            url: 'https://explorer.qtestnet.org',
         },
     },
     testnet: true,
