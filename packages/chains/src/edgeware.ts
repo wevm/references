@@ -19,8 +19,8 @@ export const edgeware = {
   },
   contracts: {
     multicall3: {
-      address: '0xDDF47eEB4e5FF4AA60e063E0Ec4f7C35B47Ed445',
-      blockCreated: 17126780,
+      address: '0xca11bde05977b3631167028862be2a173976ca11',
+      blockCreated: 18117872,
     },
   },
 } as const satisfies Chain
