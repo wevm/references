@@ -1,5 +1,6 @@
 ---
-"@wagmi/chains": minor
+"@wagmi/chains": patch
 ---
 
-Updated: SYSCOIN chain. Added: Rollux, RolluxTestnet, SyscoinTestnet
+Updated syscoin.
+Added rollux, rolluxTestnet & syscoinTestnet.
