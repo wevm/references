@@ -1,5 +1,5 @@
 import { Chain } from 'wagmi'
- 
+
 export const eon = {
   id: 7_332,
   name: 'Horizen EON',
@@ -14,8 +14,10 @@ export const eon = {
     default: { http: ['https://eon-rpc.horizenlabs.io/ethv1'] },
   },
   blockExplorers: {
-    default: { name: 'EON Explorer', url: 'https://eon-explorer.horizenlabs.io' },
+    default: {
+      name: 'EON Explorer',
+      url: 'https://eon-explorer.horizenlabs.io',
+    },
   },
-  contracts: {
-  },
+  contracts: {},
 } as const satisfies Chain

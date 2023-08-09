@@ -1,5 +1,5 @@
 import { Chain } from 'wagmi'
- 
+
 export const gobi = {
   id: 1_663,
   name: 'Horizen Gobi Testnet',
@@ -16,7 +16,6 @@ export const gobi = {
   blockExplorers: {
     default: { name: 'Gobi Explorer', url: 'https://gobi-explorer.horizen.io' },
   },
-  contracts: {
-  },
+  contracts: {},
   testnet: true,
 } as const satisfies Chain
