@@ -14,7 +14,10 @@ export const syscoin = {
       http: ['https://rpc.syscoin.org'],
       websocket: ['wss://rpc.syscoin.org/wss']
     },
-    public: { http: ['https://syscoin.public-rpc.com'] },
+    public: {
+      http: ['https://rpc.syscoin.org'],
+      websocket: ['wss://rpc.syscoin.org/wss']
+    },
   },
   blockExplorers: {
     default: { name: 'SyscoinExplorer', url: 'https://explorer.syscoin.org' },
