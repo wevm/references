@@ -14,8 +14,7 @@ export const gobi = {
     default: { http: ['https://gobi-testnet.horizenlabs.io/ethv1'] },
   },
   blockExplorers: {
-    etherscan: { name: 'Gobi Explorer', url: 'https://gobi-explorer.horizen.io/' },
-    default: { name: 'Gobi Explorer', url: 'https://gobi-explorer.horizen.io/' },
+    default: { name: 'Gobi Explorer', url: 'https://gobi-explorer.horizen.io' },
   },
   contracts: {
   },
