@@ -14,11 +14,10 @@ export const rollux = {
       http: ['https://rpc.rollux.com'],
       websocket: ['wss://rpc.rollux.com/wss']
     },
-    public: { http: ['https://rollux.public-rpc.com/'] },
-    ankr: { http: ['https://rpc.ankr.com/rollux/'] },
+    public: { http: ['https://rollux.public-rpc.com'] },
   },
   blockExplorers: {
-    default: { name: 'RolluxExplorer', url: 'https://explorer.rollux.com/' },
+    default: { name: 'RolluxExplorer', url: 'https://explorer.rollux.com' },
   },
   contracts: {
     multicall3: {
