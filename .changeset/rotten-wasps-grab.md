@@ -1,5 +1,5 @@
 ---
-"@wagmi/connectors": major
+"@wagmi/chains": patch
 ---
 
-Added shardeum dapps sphinx chain.
+Added shardeum sphinx chain.
