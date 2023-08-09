@@ -2,4 +2,4 @@
 "@wagmi/connectors": patch
 ---
 
-Add SubWallet wallet
+Add SubWallet injected flags

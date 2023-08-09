@@ -1,5 +1,5 @@
 ---
-"@wagmi/chains": patch
+"@wagmi/chains": minor
 ---
 
 Add zetachainAthens3 testnet
