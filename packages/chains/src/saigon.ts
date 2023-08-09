@@ -16,7 +16,7 @@ export const saigon = {
   blockExplorers: {
     default: {
       name: 'Saigon Explorer',
-      url: 'https://saigon-explorer.roninchain.com/',
+      url: 'https://saigon-explorer.roninchain.com',
     },
   },
   contracts: {
