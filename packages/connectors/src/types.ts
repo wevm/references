@@ -17,6 +17,7 @@ type InjectedProviderFlags = {
   isBitski?: true
   isBlockWallet?: true
   isBraveWallet?: true
+  isCoin98?: true
   isCoinbaseWallet?: true
   isDawn?: true
   isDefiant?: true

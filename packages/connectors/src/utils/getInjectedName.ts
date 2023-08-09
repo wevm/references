@@ -12,6 +12,7 @@ export function getInjectedName(ethereum?: WindowProvider) {
     if (provider.isBitski) return 'Bitski'
     if (provider.isBlockWallet) return 'BlockWallet'
     if (provider.isBraveWallet) return 'Brave Wallet'
+    if (provider.isCoin98) return 'Coin98 Wallet'
     if (provider.isCoinbaseWallet) return 'Coinbase Wallet'
     if (provider.isDawn) return 'Dawn Wallet'
     if (provider.isDefiant) return 'Defiant'
