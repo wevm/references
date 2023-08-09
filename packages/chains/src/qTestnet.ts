@@ -3,7 +3,7 @@ import { Chain } from './types'
 export const qTestnet = {
     id: 35443,
     name: 'Q Testnet',
-    network: 'q testnet',
+    network: 'q-testnet',
     nativeCurrency: {
         decimals: 18,
         name: 'Q',
