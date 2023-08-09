@@ -12,12 +12,15 @@ export const rolluxTestnet = {
   rpcUrls: {
     default: {
       http: ['https://rpc-tanenbaum.rollux.com/'],
-      websocket: ['wss://rpc-tanenbaum.rollux.com/wss']
+      websocket: ['wss://rpc-tanenbaum.rollux.com/wss'],
     },
     public: { http: ['https://rpc-tanenbaum.rollux.com/'] },
   },
   blockExplorers: {
-    default: { name: 'RolluxTestnetExplorer', url: 'https://rollux.tanenbaum.io' },
+    default: {
+      name: 'RolluxTestnetExplorer',
+      url: 'https://rollux.tanenbaum.io',
+    },
   },
   contracts: {
     multicall3: {

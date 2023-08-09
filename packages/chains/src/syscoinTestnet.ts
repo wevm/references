@@ -12,7 +12,7 @@ export const syscoinTestnet = {
   rpcUrls: {
     default: {
       http: ['https://rpc.tanenbaum.io'],
-      websocket: ['wss://rpc.tanenbaum.io/wss']
+      websocket: ['wss://rpc.tanenbaum.io/wss'],
     },
     public: { http: ['https://rpc.tanenbaum.io'] },
   },

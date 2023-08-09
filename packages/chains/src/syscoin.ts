@@ -12,11 +12,11 @@ export const syscoin = {
   rpcUrls: {
     default: {
       http: ['https://rpc.syscoin.org'],
-      websocket: ['wss://rpc.syscoin.org/wss']
+      websocket: ['wss://rpc.syscoin.org/wss'],
     },
     public: {
       http: ['https://rpc.syscoin.org'],
-      websocket: ['wss://rpc.syscoin.org/wss']
+      websocket: ['wss://rpc.syscoin.org/wss'],
     },
   },
   blockExplorers: {
