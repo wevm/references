@@ -1,4 +1,4 @@
-import { Chain } from 'wagmi'
+import { Chain } from './types'
 
 export const eon = {
   id: 7_332,

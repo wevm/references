@@ -12,7 +12,7 @@ export const rolluxTestnet = {
   rpcUrls: {
     default: {
       http: ['https://rpc-tanenbaum.rollux.com/'],
-      websocket: ['wss://rpc-tanenbaum.rollux.com/wss'],
+      webSocket: ['wss://rpc-tanenbaum.rollux.com/wss'],
     },
     public: { http: ['https://rpc-tanenbaum.rollux.com/'] },
   },

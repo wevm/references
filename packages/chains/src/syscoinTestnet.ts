@@ -12,9 +12,12 @@ export const syscoinTestnet = {
   rpcUrls: {
     default: {
       http: ['https://rpc.tanenbaum.io'],
-      websocket: ['wss://rpc.tanenbaum.io/wss'],
+      webSocket: ['wss://rpc.tanenbaum.io/wss'],
     },
-    public: { http: ['https://rpc.tanenbaum.io'] },
+    public: {
+      http: ['https://rpc.tanenbaum.io'],
+      webSocket: ['wss://rpc.tanenbaum.io/wss'],
+    },
   },
   blockExplorers: {
     default: { name: 'SyscoinTestnetExplorer', url: 'https://tanenbaum.io' },

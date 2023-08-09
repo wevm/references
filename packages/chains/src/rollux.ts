@@ -12,7 +12,7 @@ export const rollux = {
   rpcUrls: {
     default: {
       http: ['https://rpc.rollux.com'],
-      websocket: ['wss://rpc.rollux.com/wss'],
+      webSocket: ['wss://rpc.rollux.com/wss'],
     },
     public: { http: ['https://rollux.public-rpc.com'] },
   },

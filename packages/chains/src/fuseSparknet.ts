@@ -1,8 +1,8 @@
 import { Chain } from './types'
 
-export const sparknet = {
+export const fuseSparknet = {
   id: 123,
-  name: 'Sparknet',
+  name: 'Fuse Sparknet',
   network: 'fuse',
   nativeCurrency: { name: 'Spark', symbol: 'SPARK', decimals: 18 },
   rpcUrls: {
