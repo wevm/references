@@ -3,7 +3,7 @@ import { Chain } from './types'
 export const qMainnet = {
     id: 35441,
     name: 'Q Mainnet',
-    network: 'q mainnet',
+    network: 'q-mainnet',
     nativeCurrency: {
         decimals: 18,
         name: 'Q',
