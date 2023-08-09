@@ -6,8 +6,8 @@ export const qMainnet = {
     network: 'q mainnet',
     nativeCurrency: {
         decimals: 18,
-        name: 'Q ',
-        symbol: 'Q ',
+        name: 'Q',
+        symbol: 'Q',
     },
     rpcUrls: {
         default: { http: ['https://rpc.q.org'] },
@@ -16,7 +16,7 @@ export const qMainnet = {
     blockExplorers: {
         default: {
             name: 'Q Mainnet Explorer',
-            url: 'https://explorer.q.org/',
+            url: 'https://explorer.q.org',
         },
     },
 } as const satisfies Chain
