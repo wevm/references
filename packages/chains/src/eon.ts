@@ -14,8 +14,7 @@ export const eon = {
     default: { http: ['https://eon-rpc.horizenlabs.io/ethv1'] },
   },
   blockExplorers: {
-    etherscan: { name: 'EON Explorer', url: 'https://eon-explorer.horizenlabs.io/' },
-    default: { name: 'EON Explorer', url: 'https://eon-explorer.horizenlabs.io/' },
+    default: { name: 'EON Explorer', url: 'https://eon-explorer.horizenlabs.io' },
   },
   contracts: {
   },
