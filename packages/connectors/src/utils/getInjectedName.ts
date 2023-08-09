@@ -39,6 +39,7 @@ export function getInjectedName(ethereum?: WindowProvider) {
     if (provider.isRabby) return 'Rabby Wallet'
     if (provider.isRainbow) return 'Rainbow'
     if (provider.isStatus) return 'Status'
+    if (provider.isSubWallet) return 'SubWallet'
     if (provider.isTalisman) return 'Talisman'
     if (provider.isTally) return 'Taho'
     if (provider.isTokenPocket) return 'TokenPocket'
