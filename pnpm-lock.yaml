@@ -96,8 +96,8 @@ importers:
         specifier: ^8.0.0
         version: 8.0.0(typescript@5.0.4)
       '@venly/web3-provider':
-        specifier: ^3.1.0
-        version: 3.1.0
+        specifier: ^3.2.3
+        version: 3.2.3
       '@walletconnect/ethereum-provider':
         specifier: 2.9.2
         version: 2.9.2(@walletconnect/modal@2.6.1)(lokijs@1.5.12)
@@ -1082,21 +1082,21 @@ packages:
       '@types/node': 18.11.18
     dev: false
 
-  /@venly/connect@2.2.0:
-    resolution: {integrity: sha512-fSG+loJ7q6Oy8FCIPPIba3z6Ss6TEJ4ZRGDSoQw7Od0JCaSPPJ1MOA9/4MplVIbj3eCqR/FS11tq0K1jpQZavQ==}
+  /@venly/connect@2.2.1:
+    resolution: {integrity: sha512-4U5TFtTuwsA2stK2Q6D0p0WyfLy6CFp1z+XsiilBTRZ4JKgHuLkhumeDm2UW0r46Fl92h0TAWepGWlFLfb0TqQ==}
     dependencies:
       '@types/node': 12.20.55
       es6-promise: 4.2.8
       keycloak-js: 11.0.2
     dev: false
 
-  /@venly/web3-provider@3.1.0:
-    resolution: {integrity: sha512-yPZJPGDTiwEq1YnEU2gL1NxjteQPFRGWeCKuvYd7sy3EH9fUcohwhkJbVuKipL5eGpAW5j4AyABjpkb79XZcxQ==}
+  /@venly/web3-provider@3.2.3:
+    resolution: {integrity: sha512-/poFuMlznWXAn9LlrSqtBCDAnmKHtt/NhibKSO8LAh5M3pUpAaIvjRHQtekoFLvxnjUExM/cccmw00yCB8JUFw==}
     dependencies:
       '@ethersproject/bignumber': 5.7.0
       '@metamask/eth-json-rpc-middleware': 11.0.1
       '@metamask/eth-json-rpc-provider': 1.0.0
-      '@venly/connect': 2.2.0
+      '@venly/connect': 2.2.1
       eth-block-tracker: 7.1.0
       eth-json-rpc-filters: 6.0.0
       json-rpc-engine: 6.1.0

@@ -11,6 +11,7 @@ import {
 
 import { Connector } from './base'
 import { ChainNotConfiguredForConnectorError } from './errors'
+import type { WalletClient } from './types'
 import { normalizeChainId } from './utils/normalizeChainId'
 
 type Options = Omit<VenlyProviderOptions, 'reloadOnDisconnect'> & {
@@ -48,10 +49,12 @@ export class VenlyConnector extends Connector<VenlyProvider, Options> {
 
   async connect({ chainId }: { chainId?: number } = {}) {
     try {
-      const provider = await this.getProvider()
-      provider.on('accountsChanged', this.onAccountsChanged)
-      provider.on('chainChanged', this.onChainChanged)
-      provider.on('disconnect', this.onDisconnect)
+      if (!this.provider)
+        this.provider = await this.client.createProvider(this.options)
+
+      this.provider.on('accountsChanged', this.onAccountsChanged)
+      this.provider.on('chainChanged', this.onChainChanged)
+      this.provider.on('disconnect', this.onDisconnect)
 
       this.emit('message', { type: 'connecting' })
 
@@ -59,6 +62,7 @@ export class VenlyConnector extends Connector<VenlyProvider, Options> {
       // Switch to chain if provided
       let id = await this.getChainId()
       let unsupported = this.isChainUnsupported(id)
+      chainId = chainId ?? this.chains[0]?.id
       if (chainId && id !== chainId) {
         const chain = await this.switchChain(chainId)
         id = chain.id
@@ -83,6 +87,7 @@ export class VenlyConnector extends Connector<VenlyProvider, Options> {
   async disconnect() {
     if (!this.provider) return
 
+    await this.client.logout()
     this.provider.removeListener('accountsChanged', this.onAccountsChanged)
     this.provider.removeListener('chainChanged', this.onChainChanged)
     this.provider.removeListener('disconnect', this.onDisconnect)
@@ -91,8 +96,7 @@ export class VenlyConnector extends Connector<VenlyProvider, Options> {
   }
 
   async getAccount() {
-    const provider = await this.getProvider()
-    const accounts = await provider.request({
+    const accounts = await this.provider.request({
       method: 'eth_accounts',
     })
     // return checksum address
@@ -106,17 +110,13 @@ export class VenlyConnector extends Connector<VenlyProvider, Options> {
     return normalizeChainId(chainId)
   }
 
-  async getProvider() {
-    if (!this.provider)
-      this.provider = await this.client.createProvider(this.options)
+  getProvider() {
     return this.provider
   }
 
-  async getWalletClient({ chainId }: { chainId?: number } = {}) {
-    const [provider, account] = await Promise.all([
-      this.getProvider(),
-      this.getAccount(),
-    ])
+  async getWalletClient({ chainId }: { chainId?: number } = {}): Promise<WalletClient> {
+    const provider = this.getProvider()
+    const account = await this.getAccount()
     const chain = this.chains.find((x) => x.id === chainId)
     if (!provider) throw new Error('provider is required.')
     return createWalletClient({
@@ -147,11 +147,6 @@ export class VenlyConnector extends Connector<VenlyProvider, Options> {
         method: 'wallet_switchEthereumChain',
         params: [{ chainId: id }],
       })
-      this.provider = this.client._provider
-      this.provider.on('accountsChanged', this.onAccountsChanged)
-      this.provider.on('chainChanged', this.onChainChanged)
-      this.provider.on('disconnect', this.onDisconnect)
-
       return (
         this.chains.find((x) => x.id === chainId) ?? {
           id: chainId,
