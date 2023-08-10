@@ -7,10 +7,10 @@ export const base = {
   nativeCurrency: { name: 'Base', symbol: 'ETH', decimals: 18 },
   rpcUrls: {
     default: {
-      http: ['https://developer-access-mainnet.base.org'],
+      http: ['https://mainnet.base.org'],
     },
     public: {
-      http: ['https://developer-access-mainnet.base.org'],
+      http: ['https://mainnet.base.org'],
     },
   },
   blockExplorers: {

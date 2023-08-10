@@ -15,12 +15,18 @@ export const mantle = {
   },
   blockExplorers: {
     etherscan: {
-      name: 'Mantle Testnet Explorer',
+      name: 'Mantle Explorer',
       url: 'https://explorer.mantle.xyz',
     },
     default: {
-      name: 'Mantle Testnet Explorer',
+      name: 'Mantle Explorer',
       url: 'https://explorer.mantle.xyz',
+    },
+  },
+  contracts: {
+    multicall3: {
+      address: '0xcA11bde05977b3631167028862bE2a173976CA11',
+      blockCreated: 304717,
     },
   },
 } as const satisfies Chain

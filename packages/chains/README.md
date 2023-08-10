@@ -45,6 +45,7 @@ const { chains, provider } = configureChains(
 - `celo`
 - `celoAlfajores`
 - `celoCannoli`
+- `classic`
 - `cronos`
 - `cronosTestnet`
 - `edgeware`
@@ -65,6 +66,7 @@ const { chains, provider } = configureChains(
 - `mantleTestnet`
 - `metis`
 - `metisGoerli`
+- `modeTestnet`
 - `moonbaseAlpha`
 - `moonbeam`
 - `moonriver`
