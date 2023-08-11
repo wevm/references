@@ -58,7 +58,6 @@ export class VenlyConnector extends Connector<VenlyProvider, Options> {
 
       this.emit('message', { type: 'connecting' })
 
-      const account = await this.getAccount()
       // Switch to chain if provided
       let id = await this.getChainId()
       let unsupported = this.isChainUnsupported(id)
@@ -68,6 +67,7 @@ export class VenlyConnector extends Connector<VenlyProvider, Options> {
         id = chain.id
         unsupported = this.isChainUnsupported(id)
       }
+      const account = await this.getAccount()
 
       return {
         account,
