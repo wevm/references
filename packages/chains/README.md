@@ -52,6 +52,7 @@ const { chains, provider } = configureChains(
 - `edgewareTestnet`
 - `eos`
 - `eosTestnet`
+- `ewc`
 - `fantom`
 - `fantomTestnet`
 - `foundry`
@@ -99,6 +100,7 @@ const { chains, provider } = configureChains(
 - `taraxaTestnet`
 - `telos`
 - `telosTestnet`
+- `volta`
 - `zkSync`
 - `zkSyncTestnet`
 - `zora`
