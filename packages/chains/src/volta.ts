@@ -7,10 +7,10 @@ export const volta = {
   nativeCurrency: { name: 'VT', symbol: 'VT', decimals: 18 },
   rpcUrls: {
     default: {
-      http: ['https://volta-rpc.energyweb.org/'],
+      http: ['https://volta-rpc.energyweb.org'],
     },
     public: {
-      http: ['https://volta-rpc.energyweb.org/'],
+      http: ['https://volta-rpc.energyweb.org'],
     },
   },
   blockExplorers: {
