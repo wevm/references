@@ -2,4 +2,4 @@
 "@wagmi/chains": major
 ---
 
-add energy web chains
+Added `ewc` & `volta` chains.
