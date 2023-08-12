@@ -7,10 +7,10 @@ export const ewc = {
   nativeCurrency: { name: 'EWT', symbol: 'EWT', decimals: 18 },
   rpcUrls: {
     default: {
-      http: ['https://rpc.energyweb.org/'],
+      http: ['https://rpc.energyweb.org'],
     },
     public: {
-      http: ['https://rpc.energyweb.org/'],
+      http: ['https://rpc.energyweb.org'],
     },
   },
   blockExplorers: {
