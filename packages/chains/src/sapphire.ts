@@ -10,11 +10,20 @@ export const sapphire = {
     symbol: 'ROSE',
   },
   rpcUrls: {
-    default: { http: ['https://sapphire.oasis.io'], webSocket: ['wss://sapphire.oasis.io/ws'] },
-    public: { http: ['https://sapphire.oasis.io'], webSocket: ['wss://sapphire.oasis.io/ws'] },
+    default: {
+      http: ['https://sapphire.oasis.io'],
+      webSocket: ['wss://sapphire.oasis.io/ws'],
+    },
+    public: {
+      http: ['https://sapphire.oasis.io'],
+      webSocket: ['wss://sapphire.oasis.io/ws'],
+    },
   },
   blockExplorers: {
-    default: { name: 'Oasis Explorer', url: 'https://explorer.oasis.io/mainnet/sapphire' },
+    default: {
+      name: 'Oasis Explorer',
+      url: 'https://explorer.oasis.io/mainnet/sapphire',
+    },
   },
   contracts: {
     multicall3: {

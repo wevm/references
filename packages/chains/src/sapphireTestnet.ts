@@ -10,10 +10,19 @@ export const sapphireTestnet = {
     symbol: 'TEST',
   },
   rpcUrls: {
-    default: { http: ['https://testnet.sapphire.oasis.dev'], webSocket: ['wss://testnet.sapphire.oasis.dev/ws'] },
-    public: { http: ['https://testnet.sapphire.oasis.dev'], webSocket: ['wss://testnet.sapphire.oasis.dev/ws'] },
+    default: {
+      http: ['https://testnet.sapphire.oasis.dev'],
+      webSocket: ['wss://testnet.sapphire.oasis.dev/ws'],
+    },
+    public: {
+      http: ['https://testnet.sapphire.oasis.dev'],
+      webSocket: ['wss://testnet.sapphire.oasis.dev/ws'],
+    },
   },
   blockExplorers: {
-    default: { name: 'Oasis Explorer', url: 'https://explorer.oasis.io/testnet/sapphire' },
+    default: {
+      name: 'Oasis Explorer',
+      url: 'https://explorer.oasis.io/testnet/sapphire',
+    },
   },
 } as const satisfies Chain
