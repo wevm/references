@@ -1,5 +1,5 @@
 ---
-"@wagmi/chains": major
+"@wagmi/chains": minor
 ---
 
 Added `ewc` & `volta` chains.
