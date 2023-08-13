@@ -1,7 +1,7 @@
 import { Chain } from './types'
 
 export const sapphire = {
-  id: 0x5afe,
+  id: 23294,
   name: 'Oasis Sapphire',
   network: 'sapphire',
   nativeCurrency: {
