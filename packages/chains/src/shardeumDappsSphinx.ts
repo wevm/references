@@ -1,8 +1,8 @@
 import { Chain } from './types'
 
 export const shardeumSphinx = {
-  id: 8082,
-  name: 'Shardeum Sphinx 1.X',
+  id: 8081,
+  name: 'Shardeum Dapp Sphinx 1.X',
   network: 'shmDappsSphinx',
   nativeCurrency: { name: 'SHARDEUM', symbol: 'SHM', decimals: 18 },
   rpcUrls: {
