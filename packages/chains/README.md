@@ -45,12 +45,14 @@ const { chains, provider } = configureChains(
 - `celo`
 - `celoAlfajores`
 - `celoCannoli`
+- `classic`
 - `cronos`
 - `cronosTestnet`
 - `edgeware`
 - `edgewareTestnet`
 - `eos`
 - `eosTestnet`
+- `ewc`
 - `fantom`
 - `fantomTestnet`
 - `foundry`
@@ -65,6 +67,7 @@ const { chains, provider } = configureChains(
 - `mantleTestnet`
 - `metis`
 - `metisGoerli`
+- `modeTestnet`
 - `moonbaseAlpha`
 - `moonbeam`
 - `moonriver`
@@ -98,6 +101,7 @@ const { chains, provider } = configureChains(
 - `taraxaTestnet`
 - `telos`
 - `telosTestnet`
+- `volta`
 - `zkSync`
 - `zkSyncTestnet`
 - `zora`
