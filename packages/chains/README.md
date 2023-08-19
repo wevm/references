@@ -61,6 +61,8 @@ const { chains, provider } = configureChains(
 - `hardhat`
 - `iotex`
 - `iotexTestnet`
+- `lachain`
+- `latestnet`
 - `localhost`
 - `mainnet`
 - `mantle`
