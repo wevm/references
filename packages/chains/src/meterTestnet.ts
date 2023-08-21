@@ -19,5 +19,5 @@ export const meterTestnet = {
   },
   contracts: {
   },
-  testnet:true
+  testnet:true,
 } as const satisfies Chain
