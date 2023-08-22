@@ -1,4 +1,4 @@
-import { Chain } from 'wagmi'
+import { Chain } from './types'
 
 export const lachain = {
   id: 274,
