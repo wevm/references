@@ -27,4 +27,10 @@ export const rskTestnet = {
       url: 'https://explorer.testnet.rsk.co',
     },
   },
+  contracts: {
+    multicall3: {
+      address: '0xcA11bDe05977B3631167028862BE2A173976cA11',
+      blockCreated: 2771150,
+    },
+  },
 } as const satisfies Chain
