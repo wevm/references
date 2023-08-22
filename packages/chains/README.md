@@ -79,6 +79,8 @@ const { chains, provider } = configureChains(
 - `polygonMumbai`
 - `pulsechain`
 - `pulsechainV4`
+- `rskMainnet`
+- `rskTestnet`
 - `skaleBlockBrawlers`
 - `skaleCalypso`
 - `skaleCalypsoTestnet`
