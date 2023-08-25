@@ -5,6 +5,7 @@ import { createWalletClient, custom, getAddress } from 'viem'
 
 import { Connector } from './base'
 import { ConnectorNotFoundError } from './errors'
+import type { WalletClient } from './types'
 import { normalizeChainId } from './utils/normalizeChainId'
 
 export type SafeConnectorProvider = SafeAppProvider
@@ -122,7 +123,9 @@ export class SafeConnector extends Connector<
     return this.#provider
   }
 
-  async getWalletClient({ chainId }: { chainId?: number } = {}) {
+  async getWalletClient({
+    chainId,
+  }: { chainId?: number } = {}): Promise<WalletClient> {
     const provider = await this.getProvider()
     const account = await this.getAccount()
     const chain = this.chains.find((x) => x.id === chainId)

@@ -1,5 +1,86 @@
 # @wagmi/chains
 
+## 1.7.0
+
+### Minor Changes
+
+- 8fdacd8: Added Sparknet Chain
+- 2e9283a: Added multicall3 for mantle
+- 6794a61: Added Horizen EON.
+- ebc85ec: Added Ronin and Saigon chains
+- 5683df2: Added Mode Testnet chain.
+- 414ff36: Added Linea chain.
+- 4f514c6: Added Ethereum Classic Chain
+- 1cf72bc: Updated syscoin.
+  Added rollux, rolluxTestnet & syscoinTestnet.
+- cd68471: Add zetachainAthens3 testnet
+- 7797238: Added Scroll Sepolia testnet
+- 3846811: Added Q mainnet and testnet
+
+### Patch Changes
+
+- a432a2b: Updated Cronos Chain RPCs.
+- 408740a: Updated Multicall3 for Edgeware EdgeEVM
+- 0c5a32b: Added multicall3 for Gnosis
+- baf3143: Updated SKALE Network Chains with WebSocket RPC URLs and Multicall addresses.
+- 9737f24: Updated Base RPC URL.
+- 0ea344c: Removed "Testnet" on mantle mainnet explorer name.
+
+## 1.6.0
+
+### Minor Changes
+
+- 3c3143d: Added MEV and MEVTestnet Chain
+- d4460ab: Added Base
+- 6bf0ab9: Added Multicall to EOS EVM & EOS EVM Testnet
+
+### Patch Changes
+
+- 8504c8b: Updated gnosis explorer url(s)
+- dee1782: Renamed Optimism chain
+
+## 1.5.0
+
+### Minor Changes
+
+- 4b411d2: Added Mantle and Mantle Testnet chains
+- df697ac: Added Taiko (Alpha-3 Testnet)
+- a96b514: Added nexilix chain
+- 0a6e6da: Added multicall3 address to Polygon zkEVM
+
+### Patch Changes
+
+- 186f5a7: Fixed Canto RPC and block explorer urls.
+
+## 1.4.0
+
+### Minor Changes
+
+- 97dbd44: Added EOS EVM and EOS EVM Testnet chains
+
+### Patch Changes
+
+- d642e1d: Updated PulseChain Metadata
+- 3027d7b: Updated Zora chain URLs and names
+
+## 1.3.0
+
+### Minor Changes
+
+- 62b8209: Added multicall3 contract to Cronos Testnet
+- 106ac13: Added `bxn` and `bxnTestnet`.
+- 8b3f5e5: Added multicall3 for Base Goerli
+
+## 1.2.0
+
+### Minor Changes
+
+- a7cbd04: Added cronos testnet chain
+
+### Patch Changes
+
+- f6ee133: Added Fibo
+
 ## 1.1.1
 
 ### Patch Changes

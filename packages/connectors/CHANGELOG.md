@@ -1,5 +1,121 @@
 # @wagmi/connectors
 
+## 2.7.0
+
+### Minor Changes
+
+- a270cb9: Updated WalletConnect dependencies.
+
+### Patch Changes
+
+- 06cc1b4: Add SubWallet injected flags
+- 131a337: Added Desig Wallet name mapping.
+- e089d7d: Added Fordefi Wallet name mapping.
+- ce84d0a: Added Coin98 Wallet injected flags.
+- Updated dependencies [8fdacd8]
+- Updated dependencies [2e9283a]
+- Updated dependencies [a432a2b]
+- Updated dependencies [408740a]
+- Updated dependencies [6794a61]
+- Updated dependencies [0c5a32b]
+- Updated dependencies [ebc85ec]
+- Updated dependencies [5683df2]
+- Updated dependencies [414ff36]
+- Updated dependencies [4f514c6]
+- Updated dependencies [1cf72bc]
+- Updated dependencies [cd68471]
+- Updated dependencies [baf3143]
+- Updated dependencies [9737f24]
+- Updated dependencies [7797238]
+- Updated dependencies [3846811]
+- Updated dependencies [0ea344c]
+  - @wagmi/chains@1.7.0
+
+## 2.6.6
+
+### Patch Changes
+
+- 56c127d: Updated WalletConnect dependencies.
+- Updated dependencies [4b411d2]
+- Updated dependencies [df697ac]
+- Updated dependencies [186f5a7]
+- Updated dependencies [a96b514]
+- Updated dependencies [0a6e6da]
+  - @wagmi/chains@1.5.0
+
+## 2.6.5
+
+### Patch Changes
+
+- 51e346e: Updated WalletConnectConnector logic to handle individual namespaces like eip155:\*
+
+## 2.6.4
+
+### Patch Changes
+
+- 0a57de2: Added conditional for WalletConnectConnector optionalChains
+
+## 2.6.3
+
+### Patch Changes
+
+- f2d532d: Updated WalletConnect dependencies, exposed `relayUrl` option for `WalletConnectConnector`
+- ff53857: Fixed issue importing `EthereumProvider` in Vite environments.
+- Updated dependencies [d642e1d]
+- Updated dependencies [3027d7b]
+- Updated dependencies [97dbd44]
+  - @wagmi/chains@1.4.0
+
+## 2.6.2
+
+### Patch Changes
+
+- 27bb1b3: Added explicit type annotations for the `getWalletClient()` method.
+
+## 2.6.1
+
+### Patch Changes
+
+- a3507a9: Updated @walletconnect/ethereum-provider dependency
+
+## 2.6.0
+
+### Minor Changes
+
+- 32dc317: Updated @walletconnect/ethereum-provider and @walletconnect/modal dependencies
+
+## 2.5.0
+
+### Minor Changes
+
+- 57e674e: Updated `@safe-global/safe-apps-sdk` & `@safe-global/safe-apps-provider`
+
+## 2.4.0
+
+### Patch Changes
+
+- f21c8e0: Added WalletConnect v2 support to Ledger connector.
+- 27482bb: Add HAQQ Wallet detection
+- 7d6aa43: Exported `normalizeChainId`.
+- Updated dependencies [62b8209]
+- Updated dependencies [106ac13]
+- Updated dependencies [8b3f5e5]
+  - @wagmi/chains@1.3.0
+
+## 2.3.0
+
+### Minor Changes
+
+- 28219ae: Added metadata property to WalletConnect init function
+- 6fef949: Updated @walletconnect/modal and @walletconnect/ethereum-provider deps
+
+### Patch Changes
+
+- 72f6465: Added `TTWallet` to `getInjectedName` list
+- Updated dependencies [a7cbd04]
+- Updated dependencies [f6ee133]
+  - @wagmi/chains@1.2.0
+
 ## 2.2.0
 
 ### Minor Changes

@@ -18,14 +18,19 @@ type InjectedProviderFlags = {
   isBitski?: true
   isBlockWallet?: true
   isBraveWallet?: true
+  isCoin98?: true
   isCoinbaseWallet?: true
   isDawn?: true
   isDefiant?: true
+  isDesig?: true
   isEnkrypt?: true
   isExodus?: true
+  isFordefi?: true
   isFrame?: true
   isFrontier?: true
   isGamestop?: true
+  isHaloWallet?: true
+  isHaqqWallet?: true
   isHyperPay?: true
   isImToken?: true
   isKuCoinWallet?: true
@@ -42,15 +47,16 @@ type InjectedProviderFlags = {
   isRabby?: true
   isRainbow?: true
   isStatus?: true
+  isSubWallet?: true
   isTalisman?: true
   isTally?: true
   isTokenPocket?: true
   isTokenary?: true
   isTrust?: true
   isTrustWallet?: true
+  isTTWallet?: true
   isXDEFI?: true
   isZerion?: true
-  isHaloWallet?: true
 }
 
 type InjectedProviders = InjectedProviderFlags & {

@@ -2,26 +2,25 @@ import { Chain } from './types'
 
 export const zoraTestnet = {
   id: 999,
-  name: 'ZORA Goerli Testnet',
+  name: 'Zora Goerli Testnet',
   network: 'zora-testnet',
   nativeCurrency: {
     decimals: 18,
-    name: 'ZORA Goerli',
+    name: 'Zora Goerli',
     symbol: 'ETH',
   },
   rpcUrls: {
     default: {
-      http: ['https://testnet.rpc.zora.co'],
-      webSocket: ['wss://testnet.rpc.zora.co'],
+      http: ['https://testnet.rpc.zora.energy'],
+      webSocket: ['wss://testnet.rpc.zora.energy'],
     },
     public: {
-      http: ['https://testnet.rpc.zora.co'],
-      webSocket: ['wss://testnet.rpc.zora.co'],
+      http: ['https://testnet.rpc.zora.energy'],
+      webSocket: ['wss://testnet.rpc.zora.energy'],
     },
   },
   blockExplorers: {
-    etherscan: { name: 'ZORA', url: 'https://testnet.explorer.zora.co' },
-    default: { name: 'ZORA', url: 'https://testnet.explorer.zora.co' },
+    default: { name: 'Explorer', url: 'https://testnet.explorer.zora.energy' },
   },
   contracts: {
     multicall3: {

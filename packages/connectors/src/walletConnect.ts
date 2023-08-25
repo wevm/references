@@ -1,7 +1,7 @@
 import type { Chain } from '@wagmi/chains'
 import type WalletConnectProvider from '@walletconnect/ethereum-provider'
-// eslint-disable-next-line import/no-unresolved
 import { EthereumProviderOptions } from '@walletconnect/ethereum-provider/dist/types/EthereumProvider'
+import { normalizeNamespaces } from '@walletconnect/utils'
 import {
   ProviderRpcError,
   SwitchChainError,
@@ -13,7 +13,7 @@ import {
 } from 'viem'
 
 import { Connector } from './base'
-import { StorageStoreData } from './types'
+import type { StorageStoreData, WalletClient } from './types'
 
 type WalletConnectOptions = {
   /**
@@ -67,9 +67,14 @@ type WalletConnectOptions = {
   showQrModal?: EthereumProviderOptions['showQrModal']
   /**
    * Options of QR code modal.
-   * @link https://docs.walletconnect.com/2.0/web3modal/options
+   * @link https://docs.walletconnect.com/2.0/web/walletConnectModal/modal/options
    */
   qrModalOptions?: EthereumProviderOptions['qrModalOptions']
+  /**
+   * Option to override default relay url.
+   * @link https://docs.walletconnect.com/2.0/web/providers/ethereum
+   */
+  relayUrl?: string
 }
 
 type ConnectConfig = {
@@ -134,7 +139,7 @@ export class WalletConnectConnector extends Connector<
         await provider.connect({
           pairingTopic,
           chains: [targetChainId],
-          optionalChains,
+          optionalChains: optionalChains.length ? optionalChains : undefined,
         })
 
         this.#setRequestedChainsIds(this.chains.map(({ id }) => id))
@@ -186,7 +191,9 @@ export class WalletConnectConnector extends Connector<
     return this.#provider!
   }
 
-  async getWalletClient({ chainId }: { chainId?: number } = {}) {
+  async getWalletClient({
+    chainId,
+  }: { chainId?: number } = {}): Promise<WalletClient> {
     const [provider, account] = await Promise.all([
       this.getProvider({ chainId }),
       this.getAccount(),
@@ -277,14 +284,17 @@ export class WalletConnectConnector extends Connector<
   }
 
   async #initProvider() {
-    const {
-      default: EthereumProvider,
-      OPTIONAL_EVENTS,
-      OPTIONAL_METHODS,
-    } = await import('@walletconnect/ethereum-provider')
+    const { EthereumProvider, OPTIONAL_EVENTS, OPTIONAL_METHODS } =
+      await import('@walletconnect/ethereum-provider')
     const [defaultChain, ...optionalChains] = this.chains.map(({ id }) => id)
     if (defaultChain) {
-      const { projectId, showQrModal = true, qrModalOptions } = this.options
+      const {
+        projectId,
+        showQrModal = true,
+        qrModalOptions,
+        metadata,
+        relayUrl,
+      } = this.options
       this.#provider = await EthereumProvider.init({
         showQrModal,
         qrModalOptions,
@@ -292,13 +302,15 @@ export class WalletConnectConnector extends Connector<
         optionalMethods: OPTIONAL_METHODS,
         optionalEvents: OPTIONAL_EVENTS,
         chains: [defaultChain],
-        optionalChains: optionalChains,
+        optionalChains: optionalChains.length ? optionalChains : undefined,
         rpcMap: Object.fromEntries(
           this.chains.map((chain) => [
             chain.id,
             chain.rpcUrls.default.http[0]!,
           ]),
         ),
+        metadata,
+        relayUrl,
       })
     }
   }
@@ -374,15 +386,25 @@ export class WalletConnectConnector extends Connector<
 
   #getNamespaceChainsIds() {
     if (!this.#provider) return []
-    const chainIds = this.#provider.session?.namespaces[NAMESPACE]?.chains?.map(
-      (chain) => parseInt(chain.split(':')[1] || ''),
+    const namespaces = this.#provider.session?.namespaces
+    if (!namespaces) return []
+
+    const normalizedNamespaces = normalizeNamespaces(namespaces)
+    const chainIds = normalizedNamespaces[NAMESPACE]?.chains?.map((chain) =>
+      parseInt(chain.split(':')[1] || ''),
     )
+
     return chainIds ?? []
   }
 
   #getNamespaceMethods() {
     if (!this.#provider) return []
-    const methods = this.#provider.session?.namespaces[NAMESPACE]?.methods
+    const namespaces = this.#provider.session?.namespaces
+    if (!namespaces) return []
+
+    const normalizedNamespaces = normalizeNamespaces(namespaces)
+    const methods = normalizedNamespaces[NAMESPACE]?.methods
+
     return methods ?? []
   }
 

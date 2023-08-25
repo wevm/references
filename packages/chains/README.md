@@ -35,6 +35,7 @@ const { chains, provider } = configureChains(
 - `auroraTestnet`
 - `avalanche`
 - `avalancheFuji`
+- `base`
 - `baseGoerli`
 - `bronos`
 - `bronosTestnet`
@@ -44,8 +45,14 @@ const { chains, provider } = configureChains(
 - `celo`
 - `celoAlfajores`
 - `celoCannoli`
+- `classic`
+- `cronos`
+- `cronosTestnet`
 - `edgeware`
 - `edgewareTestnet`
+- `eos`
+- `eosTestnet`
+- `ewc`
 - `fantom`
 - `fantomTestnet`
 - `foundry`
@@ -56,8 +63,11 @@ const { chains, provider } = configureChains(
 - `iotexTestnet`
 - `localhost`
 - `mainnet`
+- `mantle`
+- `mantleTestnet`
 - `metis`
 - `metisGoerli`
+- `modeTestnet`
 - `moonbaseAlpha`
 - `moonbeam`
 - `moonriver`
@@ -85,10 +95,12 @@ const { chains, provider } = configureChains(
 - `skaleTitan`
 - `skaleTitanTestnet`
 - `sepolia`
+- `taikoTestnetSepolia`
 - `taraxa`
 - `taraxaTestnet`
 - `telos`
 - `telosTestnet`
+- `volta`
 - `zkSync`
 - `zkSyncTestnet`
 - `zora`

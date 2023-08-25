@@ -7,8 +7,8 @@ export const lineaTestnet = {
   nativeCurrency: { name: 'Linea Ether', symbol: 'ETH', decimals: 18 },
   rpcUrls: {
     infura: {
-      http: ['https://consensys-zkevm-goerli-prealpha.infura.io/v3'],
-      webSocket: ['wss://consensys-zkevm-goerli-prealpha.infura.io/ws/v3'],
+      http: ['https://linea-goerli.infura.io/v3'],
+      webSocket: ['wss://linea-goerli.infura.io/ws/v3'],
     },
     default: {
       http: ['https://rpc.goerli.linea.build'],
@@ -21,7 +21,15 @@ export const lineaTestnet = {
   },
   blockExplorers: {
     default: {
-      name: 'BlockScout',
+      name: 'Etherscan',
+      url: 'https://goerli.lineascan.build',
+    },
+    etherscan: {
+      name: 'Etherscan',
+      url: 'https://goerli.lineascan.build',
+    },
+    blockscout: {
+      name: 'Blockscout',
       url: 'https://explorer.goerli.linea.build',
     },
   },
