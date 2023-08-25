@@ -11,8 +11,8 @@ export const opBNB = {
         symbol: 'BNB',
     },
     rpcUrls: {
-        public: { http: [' https://opbnb-mainnet-rpc.bnbchain.org'] },
-        default: { http: [' https://opbnb-mainnet-rpc.bnbchain.org'] },
+        public: { http: ['https://opbnb-mainnet-rpc.bnbchain.org'] },
+        default: { http: ['https://opbnb-mainnet-rpc.bnbchain.org'] },
     },
     blockExplorers: {
         etherscan: { name: 'opbnbscan', url: 'https://mainnet.opbnbscan.com' },
