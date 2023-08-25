@@ -21,5 +21,11 @@ export const scrollSepolia = {
       url: 'https://sepolia-blockscout.scroll.io',
     },
   },
+  contracts: {
+    multicall3: {
+      address: '0xcA11bde05977b3631167028862bE2a173976CA11',
+      blockCreated: 9473,
+    },
+  },
   testnet: true,
 } as const satisfies Chain
