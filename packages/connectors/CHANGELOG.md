@@ -1,5 +1,14 @@
 # @wagmi/connectors
 
+## 3.0.0
+
+### Patch Changes
+
+- 0306383: Updated WalletConnect dependencies
+- Updated dependencies [d1ef9b4]
+- Updated dependencies [484c846]
+  - @wagmi/chains@1.8.0
+
 ## 2.7.0
 
 ### Minor Changes
