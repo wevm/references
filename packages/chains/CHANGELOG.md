@@ -1,5 +1,12 @@
 # @wagmi/chains
 
+## 1.8.0
+
+### Minor Changes
+
+- d1ef9b4: Added Emerald, Sapphire & Sapphire Testnet chains.
+- 484c846: Added `ewc` & `volta` chains.
+
 ## 1.7.0
 
 ### Minor Changes
