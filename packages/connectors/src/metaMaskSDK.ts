@@ -1,11 +1,7 @@
 import { InjectedConnector } from './injected'
 import { WindowProvider } from './types'
-import {
-  EventType,
-  MetaMaskSDK,
-  MetaMaskSDKOptions,
-  SDKProvider,
-} from '@metamask/sdk'
+
+import { MetaMaskSDK, MetaMaskSDKOptions, SDKProvider } from '@metamask/sdk'
 import {
   Address,
   Chain,
@@ -43,7 +39,11 @@ export class MetaMaskSDKConnector extends InjectedConnector {
       sdk = options_.sdk
     } else {
       // force source to 'wagmi' for analytics
-      options_.sdkOptions!._source = 'wagmi'
+      if (!options_.sdkOptions)
+        options_.sdkOptions = {
+          dappMetadata: { name: 'wagmi' },
+        }
+      options_.sdkOptions._source = 'wagmi'
       sdk = new MetaMaskSDK(options_.sdkOptions)
     }
 
@@ -70,20 +70,26 @@ export class MetaMaskSDKConnector extends InjectedConnector {
   #updateProviderListeners() {
     if (this.#provider) {
       // Cleanup previous handlers first
-      this.#provider?.removeListener(
-        'accountsChanged',
-        this.onAccountsChanged as any,
-      )
-      this.#provider?.removeListener('chainChanged', this.onChainChanged as any)
-      this.#provider?.removeListener('disconnect', this.onDisconnect as any)
+      this.#provider?.removeListener('accountsChanged', this.onAccountsChanged)
+      this.#provider?.removeListener('chainChanged', this.onChainChanged)
+      this.#provider?.removeListener('disconnect', this.onDisconnect)
     }
 
     // might need to re-initialize provider if it changed
     this.#provider = this.#sdk.getProvider()
 
-    this.#provider?.on('accountsChanged', this.onAccountsChanged as any)
-    this.#provider?.on('chainChanged', this.onChainChanged as any)
-    this.#provider?.on('disconnect', this.onDisconnect as any)
+    this.#provider?.on(
+      'accountsChanged',
+      this.onAccountsChanged as (...args: unknown[]) => void,
+    )
+    this.#provider?.on(
+      'chainChanged',
+      this.onChainChanged as (...args: unknown[]) => void,
+    )
+    this.#provider?.on(
+      'disconnect',
+      this.onDisconnect as (...args: unknown[]) => void,
+    )
   }
 
   async getProvider() {
@@ -97,7 +103,6 @@ export class MetaMaskSDKConnector extends InjectedConnector {
   }
 
   async disconnect() {
-    console.warn('WAGMI DISCONNECT??')
     this.#sdk.terminate()
     super.disconnect()
   }
@@ -108,7 +113,7 @@ export class MetaMaskSDKConnector extends InjectedConnector {
       id: number
       unsupported: boolean
     }
-    provider: any
+    provider?: SDKProvider
   }> {
     try {
       if (!this.#sdk.isInitialized()) {
@@ -130,7 +135,7 @@ export class MetaMaskSDKConnector extends InjectedConnector {
             this.#sdk
               ._getConnection()
               ?.getConnector()
-              .once(EventType.AUTHORIZED, () => {
+              .once('authorized', () => {
                 resolve(true)
               })
           })
