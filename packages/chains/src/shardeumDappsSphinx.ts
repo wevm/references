@@ -1,6 +1,6 @@
 import { Chain } from './types'
 
-export const shardeumSphinx = {
+export const shardeumDappsSphinx = {
   id: 8081,
   name: 'Shardeum Dapp Sphinx 1.X',
   network: 'shmDappsSphinx',
