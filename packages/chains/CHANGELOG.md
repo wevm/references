@@ -1,5 +1,38 @@
 # @wagmi/chains
 
+## 1.8.0
+
+### Minor Changes
+
+- d1ef9b4: Added Emerald, Sapphire & Sapphire Testnet chains.
+- 484c846: Added `ewc` & `volta` chains.
+
+## 1.7.0
+
+### Minor Changes
+
+- 8fdacd8: Added Sparknet Chain
+- 2e9283a: Added multicall3 for mantle
+- 6794a61: Added Horizen EON.
+- ebc85ec: Added Ronin and Saigon chains
+- 5683df2: Added Mode Testnet chain.
+- 414ff36: Added Linea chain.
+- 4f514c6: Added Ethereum Classic Chain
+- 1cf72bc: Updated syscoin.
+  Added rollux, rolluxTestnet & syscoinTestnet.
+- cd68471: Add zetachainAthens3 testnet
+- 7797238: Added Scroll Sepolia testnet
+- 3846811: Added Q mainnet and testnet
+
+### Patch Changes
+
+- a432a2b: Updated Cronos Chain RPCs.
+- 408740a: Updated Multicall3 for Edgeware EdgeEVM
+- 0c5a32b: Added multicall3 for Gnosis
+- baf3143: Updated SKALE Network Chains with WebSocket RPC URLs and Multicall addresses.
+- 9737f24: Updated Base RPC URL.
+- 0ea344c: Removed "Testnet" on mantle mainnet explorer name.
+
 ## 1.6.0
 
 ### Minor Changes

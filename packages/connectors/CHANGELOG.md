@@ -1,5 +1,45 @@
 # @wagmi/connectors
 
+## 3.0.0
+
+### Patch Changes
+
+- 0306383: Updated WalletConnect dependencies
+- Updated dependencies [d1ef9b4]
+- Updated dependencies [484c846]
+  - @wagmi/chains@1.8.0
+
+## 2.7.0
+
+### Minor Changes
+
+- a270cb9: Updated WalletConnect dependencies.
+
+### Patch Changes
+
+- 06cc1b4: Add SubWallet injected flags
+- 131a337: Added Desig Wallet name mapping.
+- e089d7d: Added Fordefi Wallet name mapping.
+- ce84d0a: Added Coin98 Wallet injected flags.
+- Updated dependencies [8fdacd8]
+- Updated dependencies [2e9283a]
+- Updated dependencies [a432a2b]
+- Updated dependencies [408740a]
+- Updated dependencies [6794a61]
+- Updated dependencies [0c5a32b]
+- Updated dependencies [ebc85ec]
+- Updated dependencies [5683df2]
+- Updated dependencies [414ff36]
+- Updated dependencies [4f514c6]
+- Updated dependencies [1cf72bc]
+- Updated dependencies [cd68471]
+- Updated dependencies [baf3143]
+- Updated dependencies [9737f24]
+- Updated dependencies [7797238]
+- Updated dependencies [3846811]
+- Updated dependencies [0ea344c]
+  - @wagmi/chains@1.7.0
+
 ## 2.6.6
 
 ### Patch Changes

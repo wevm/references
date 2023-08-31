@@ -25,6 +25,7 @@ describe.each([
     ethereum: { isBraveWallet: true, isMetaMask: true },
     expected: 'Brave Wallet',
   },
+  { ethereum: { isCoin98: true }, expected: 'Coin98 Wallet' },
   { ethereum: { isCoinbaseWallet: true }, expected: 'Coinbase Wallet' },
   { ethereum: { isDawn: true }, expected: 'Dawn Wallet' },
   { ethereum: { isDefiant: true }, expected: 'Defiant' },
@@ -57,6 +58,7 @@ describe.each([
   { ethereum: { isRainbow: true }, expected: 'Rainbow' },
   { ethereum: { isStatus: true }, expected: 'Status' },
   { ethereum: { isTalisman: true }, expected: 'Talisman' },
+  { ethereum: { isSubWallet: true }, expected: 'SubWallet' },
   { ethereum: { isTally: true }, expected: 'Taho' },
   {
     ethereum: { isTokenPocket: true, isMetaMask: true },
