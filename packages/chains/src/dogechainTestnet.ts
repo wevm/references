@@ -1,4 +1,4 @@
-import { Chain } from './types'
+import {Chain} from './types'
 
 export const dogechainTestnet = {
   id: 568,
@@ -23,4 +23,5 @@ export const dogechainTestnet = {
       url: 'https://explorer-testnet.dogechain.dog',
     },
   },
+  testnet: true,
 } as const satisfies Chain
