@@ -1,5 +1,11 @@
 # @wagmi/connectors
 
+## 3.0.1
+
+### Patch Changes
+
+- 46ce815: Added OneKey Wallet to injected connector flags.
+
 ## 3.0.0
 
 ### Patch Changes
