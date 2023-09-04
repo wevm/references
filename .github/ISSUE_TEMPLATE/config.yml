@@ -1,8 +1,0 @@
-blank_issues_enabled: false
-contact_links:
-  - name: Ask Question
-    url: https://github.com/wagmi-dev/references/discussions/new?category=q-a
-    about: Ask questions and discuss with other community members
-  - name: Connector Request
-    url: https://github.com/wagmi-dev/references/discussions/new?category=connector-request
-    about: Kick off a request for a new Connector
